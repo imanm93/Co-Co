@@ -4,19 +4,21 @@ This repository holds all the code related to the client application for Co & Co
 
 ## Frameworks/Libraries
 
-> React
-> Redux
-> Redux-Observable
-> Semantic-UI
+* React
+* Redux
+* Redux-Observable
+* Semantic-UI
 
 ## Build Tools
 
-> Yarn
+* Yarn
 
 ## Usage
 
-> git clone <repository url>
+> git clone ```<repository url>```
+
 > npm install
+
 > npm start
 
 ## Contribution
