@@ -4,9 +4,9 @@
  * @author Iman Kalyan Majumdar
  */
 
-const loggerRedux = (state) => (next) => (action) => {
-    console.log("Action Fired: ", action);
-    next(action);
-};
+// const loggerRedux = (state) => (next) => (action) => {
+//     console.log("Action Fired: ", action);
+//     next(action);
+// };
 
-export default loggerRedux;
+// export default loggerRedux;
