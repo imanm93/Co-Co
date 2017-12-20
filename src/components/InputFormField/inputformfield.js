@@ -11,20 +11,27 @@ export default function inputFormField({
     error,
     warning
   },
+  InputType=Input,
   ...custom
 }) {
   const hasError = touched && error !== undefined;
   return(
     <div>
-      <Input
-        error={hasError}
+      <div>{label}</div>
+      <br/>
+      <InputType
         type={type}
         placholder={placholder}
+        value={input.value}
         {...input}
+        onChange={(param, data) => {
+          input.onChange(data.value)
+        }}
         {...custom}
       />
       { hasError && <span style={{color:'#E74C3C'}}><i>{error}</i></span> }
       { warning && <span><i>{warning}</i></span> }
     </div>
   );
+
 }

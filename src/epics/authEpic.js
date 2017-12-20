@@ -1,11 +1,11 @@
-import Rx from 'rxjs/Rx';
-import jwt_decode from 'jwt-decode';
-import { push } from 'react-router-redux';
+// TODO: Remove use of axios post
 
+// import Rx from 'rxjs/Rx';
+// import jwt_decode from 'jwt-decode';
 //import { FETCH_AUTH_USER } from '../constants/account/accountFetchTypes';
-import { GET_AUTH_USER } from '../constants/account/accountEndpoints';
-import { SET_AUTH_USER } from '../constants/account/accountReducerTypes';
-import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
+// import { GET_AUTH_USER } from '../constants/account/accountEndpoints';
+// import { SET_AUTH_USER } from '../constants/account/accountReducerTypes';
+// import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 
 // export const signInEpic = (action$, store) =>
 //   action$.ofType(FETCH_AUTH_USER)

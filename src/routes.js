@@ -11,6 +11,7 @@ import withGATracker from './withGATracker';
 import Landing from './containers/Landing';
 import SignIn from './containers/SignIn';
 import Dashboard from './containers/Dashboard';
+import PostNewItem from './containers/PostNewItem';
 
 /**
  * Components
@@ -22,6 +23,7 @@ const Routes = () => (
       <Route exact path="/" component={withGATracker(Landing)} />
       <Route path="/signin" component={SignIn} />
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/post/:type" component={PostNewItem} />
       <Route component={NotFoundPage} />
   </Switch>
 )

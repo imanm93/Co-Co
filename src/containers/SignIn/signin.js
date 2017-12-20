@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from '../../actions';
+import * as actions from '../../actions/accountActions';
 import SignInForm from './components/signinform';
 
 class SignIn extends Component {
