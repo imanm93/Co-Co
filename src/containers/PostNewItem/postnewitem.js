@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../../actions/';
 
 import StatusItemForm from './components/statusitemform';
 import OppItemForm from './components/oppitemform';
@@ -26,4 +27,11 @@ class PostNewItem extends Component {
 
 }
 
-export default connect()(PostNewItem);
+function mapStateToProps(state) {
+  return {
+    filters: state.filters,
+    skills: state.skills
+  }
+}
+
+export default connect(mapStateToProps, actions)(PostNewItem);

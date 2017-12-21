@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import Search from '../../../components/Search';
 
 class DashboardSearchBar extends Component {
 
   render() {
     return(
       <div>
-        What are you looking for?
+          <Search items={this.props.skills} />
       </div>
     )
   }

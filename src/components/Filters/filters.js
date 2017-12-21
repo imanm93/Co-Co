@@ -9,7 +9,10 @@ class Filters extends Component {
 
   updateSubQuery(set) {
     let query = "";
-    set.forEach(selectedFilter => query = query + '&' + selectedFilter);
+    set.forEach(selectedFilter => {
+      query = query + selectedFilter + ',';
+    });
+    query = query.slice(0, query.length-1);
     this.props.updateQuery(this.props.title, query);
   }
 

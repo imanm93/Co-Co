@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import OppItem from './components/oppitem';
 import EventItem from './components/eventitem';
 import StatusItem from './components/statusitem';
+import PeopleItem from './components/peopleitem';
 import ItemControls from './itemcontrols';
 
 class Item extends Component {
@@ -51,6 +52,9 @@ class Item extends Component {
         }
         { this.props.item.type === 'post' &&
             <StatusItem item={this.props.item} />
+        }
+        { this.props.item.people === 'people' &&
+            <PeopleItem />
         }
         <ItemControls
           id={this.props.item.itemId}

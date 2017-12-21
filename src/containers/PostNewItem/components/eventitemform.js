@@ -6,8 +6,6 @@ import inputFormField from '../../../components/InputFormField';
 
 class EventItemForm extends Component {
 
-  //TODO: Dropdown form items
-
   render() {
     const { handleSubmit } = this.props;
     return(

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/itemActions';
+import * as types from '../../constants/filters/filterTypes';
+import * as actions from '../../actions';
 
 import NavBar from '../NavBar';
 import DashboardSearchBar from './components/dashboardsearchbar';
@@ -10,7 +11,20 @@ import DashboardResults from './components/dashboardresults';
 class Dashboard extends Component {
 
   componentWillMount() {
-    //this.props.fetchFilteredItems('20712c6a-3518-4b05-af5b-589a911863cf', '&OpportunityTypeIds=&EventCategoryIds=&TopicIds=', 1);
+      this.props.fetchOppTypes();
+      this.props.fetchTopics();
+      this.props.fetchEventTypes();
+      // TODO: Uncomment when endpoints work
+      // this.props.fetchSkills();
+      // this.props.fetchPeopleTypes();
+  }
+
+  setFilterQuery(query) {
+    this.props.setFilterQuery(query);
+  }
+
+  setSearchQuery(query) {
+    this.props.setSearchQuery(query);
   }
 
   render() {
@@ -44,15 +58,34 @@ class Dashboard extends Component {
           "displayTime": "Posted 94 days ago"
         }
     };
+    const skills = {
+      0: 'poster',
+      1: 'branding',
+      2: 'react'
+    };
+    const filterControls = [
+      {
+        type: types.TOPICS,
+        filters: this.props.filters.topicTypes
+      },
+      {
+        type: types.OPP_TYPES,
+        filters: this.props.filters.oppTypes
+      },
+      {
+        type: types.EVENT_TYPES,
+        filters: this.props.filters.eventTypes
+      }
+    ];
     return(
       <div>
         <NavBar />
         <hr/>
-        <DashboardSearchBar />
+        <DashboardSearchBar skills={this.props.skills} setSearchQuery={this.setSearchQuery.bind(this)} />
         <hr/>
         <DashboardItemsSelectorBar />
         <hr/>
-        <DashboardResults items={items} />
+        <DashboardResults items={items} filters={filterControls} setFilterQuery={this.setFilterQuery.bind(this)} />
       </div>
     );
   }
@@ -61,9 +94,10 @@ class Dashboard extends Component {
 
 function mapStateToProps(state) {
   return {
+    skills: state.skills,
+    filters: state.filters,
     items: state.filteredItems,
-    searchQuery: state.query,
-    filterQuery: state.filters
+    search: state.search
   };
 }
 

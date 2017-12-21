@@ -7,7 +7,7 @@ class DashboardResults extends Component {
   render() {
     return(
       <div>
-        <DashboardFilters />
+        <DashboardFilters filters={this.props.filters} setFilterQuery={this.props.setFilterQuery} />
         <hr/>
         <DashboardItems items={this.props.items} />
       </div>
