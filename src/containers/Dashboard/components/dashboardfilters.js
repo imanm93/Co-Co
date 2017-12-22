@@ -41,6 +41,7 @@ class DashboardFilters extends Component {
     let query = '';
     Object.keys(this.state).map(key => {
         if (this.state[key].length > 0) query = query + this.state[key] + '&';
+        return query;
     });
     this.props.setFilterQuery(query);
   }

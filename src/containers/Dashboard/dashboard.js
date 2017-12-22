@@ -14,8 +14,8 @@ class Dashboard extends Component {
       this.props.fetchOppTypes();
       this.props.fetchTopics();
       this.props.fetchEventTypes();
+      this.props.fetchSkills();
       // TODO: Uncomment when endpoints work
-      // this.props.fetchSkills();
       // this.props.fetchPeopleTypes();
   }
 
@@ -25,6 +25,10 @@ class Dashboard extends Component {
 
   setSearchQuery(query) {
     this.props.setSearchQuery(query);
+  }
+
+  getDashboardItems() {
+    console.log('?' + this.props.search.dashquery + '&' + this.props.filters.dashquery)
   }
 
   render() {
@@ -56,13 +60,68 @@ class Dashboard extends Component {
           "numberOfLikes": 1,
           "numberOfComments": 0,
           "displayTime": "Posted 94 days ago"
+        },
+      108: {
+          "type": "opportunity",
+          "opportunityType": "Collaboration, Commission or Request",
+          "category": "Copywriting",
+          "companyDetails": {
+            "logo": null,
+            "name": null,
+            "contactEmail": null,
+            "emailVerified": false,
+            "companyWebsite": null,
+            "contactName": null
+          },
+          "title": "123123123123123123aaaaaaa",
+          "timestamp": 1506260020685,
+          "itemId": 108,
+          "user": {
+            "id": "00847320-6653-4306-9799-47099dfc37c8",
+            "profilePhotoUrl": "https://coandco.blob.core.windows.net/imagescoandco/k05zoujz.png",
+            "name": "Edson Alcala"
+          },
+          "numberOfLikes": 0,
+          "numberOfComments": 0,
+          "displayTime": "Posted 87 days ago",
+          "topic": "Other"
+        },
+      171: {
+          "type": "event",
+          "endDateTime": "2018-05-28T11:33:20+01:00",
+          "photoUrl": null,
+          "cost": "string",
+          "location": "string",
+          "eventType": "Volunteering",
+          "numberGoing": 1,
+          "companyDetails": {
+            "logo": null,
+            "name": null,
+            "contactEmail": null,
+            "emailVerified": false,
+            "companyWebsite": null,
+            "contactName": null
+          },
+          "title": "string",
+          "timestamp": 1506478322323,
+          "itemId": 171,
+          "user": {
+            "id": "33021b87-e396-4101-8d62-f54435d331f3",
+            "profilePhotoUrl": "https://coandco.blob.core.windows.net/systemimagescoandco/profile/profile-icon.png",
+            "name": "Diana Despa"
+          },
+          "numberOfLikes": 1,
+          "numberOfComments": 0,
+          "displayTime": "Posted just now",
+          "topic": "Travel & Outdoors"
         }
     };
-    const skills = {
-      0: 'poster',
-      1: 'branding',
-      2: 'react'
-    };
+    const skills = Object.keys(this.props.skills).map(key => {
+      return {
+        id: key,
+        name: this.props.skills[key]
+      }
+    });
     const filterControls = [
       {
         type: types.TOPICS,
@@ -77,15 +136,16 @@ class Dashboard extends Component {
         filters: this.props.filters.eventTypes
       }
     ];
+    this.getDashboardItems();
     return(
       <div>
         <NavBar />
         <hr/>
-        <DashboardSearchBar skills={this.props.skills} setSearchQuery={this.setSearchQuery.bind(this)} />
+        <DashboardSearchBar items={skills} setSearchQuery={this.setSearchQuery.bind(this)} />
         <hr/>
         <DashboardItemsSelectorBar />
         <hr/>
-        <DashboardResults items={items} filters={filterControls} setFilterQuery={this.setFilterQuery.bind(this)} />
+        <DashboardResults items={items} filters={filterControls} setFilterQuery={this.setFilterQuery.bind(this)} userId={this.props.userId} />
       </div>
     );
   }
@@ -94,10 +154,11 @@ class Dashboard extends Component {
 
 function mapStateToProps(state) {
   return {
-    skills: state.skills,
+    skills: state.skills.skills,
     filters: state.filters,
+    search: state.search,
     items: state.filteredItems,
-    search: state.search
+    userId: state.account.userId
   };
 }
 

@@ -59,3 +59,29 @@ export const getExpandedItem = (action$, store) =>
           isExpanding: false
         }))
     )
+
+// export const getCommentsItem = (action$, store) =>
+//   action$.ofType(FETCH_ITEM_COMMENTS)
+//     .switchMap(action =>
+//       Rx.Observable.ajax(GET_COMMENTS_ITEM)
+//       .map(res => {
+//         //TODO: Update item comments state
+//       })
+//       .catch(err => {
+//         //TODO: Update with any error
+//       })
+//     )
+
+// export const postLike = (action$, store) =>
+//     action$.ofType(FETCH_ITEM_LIKE_URL)
+//       .switchMap(action =>
+//         Rx.Obserbable.ajax(POST_ITEM_LIKE, action.itemId)
+//         .map(res => Rx.Observable.of({
+//           type: SET_API_RES,
+//           data: res
+//         }))
+//         .catch(err => Rx.Observable.of({
+//           type: SET_API_ERROR,
+//           err: err
+//         }))
+//       )

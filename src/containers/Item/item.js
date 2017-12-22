@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import * as ItemTypes from '../../constants/items/itemTypes';
+import * as actions from '../../actions/itemActions';
+
 import OppItem from './components/oppitem';
 import EventItem from './components/eventitem';
 import StatusItem from './components/statusitem';
@@ -17,8 +20,17 @@ class Item extends Component {
     console.log("Email", itemId);
   }
 
-  onExpand(itemId) {
-    console.log("Expand", itemId);
+  onExpand(type, itemId) {
+    switch(type) {
+        case 'opportunity':
+          this.props.fetchExpandedItem(ItemTypes.OPP_ITEM, itemId, this.props.userId);
+          break;
+        case 'event':
+          this.props.fetchExpandedItem(ItemTypes.EVENT_ITEM, itemId, this.props.userId);
+          break;
+        default:
+          break;
+    }
   }
 
   onDelete(itemId) {
@@ -45,10 +57,10 @@ class Item extends Component {
     return (
       <div>
         { this.props.item.type === 'opportunity' &&
-            <OppItem />
+            <OppItem item={this.props.item} onExpand={this.onExpand.bind(this)} />
         }
         { this.props.item.type === 'event' &&
-            <EventItem />
+            <EventItem item={this.props.item} onExpand={this.onExpand.bind(this)} />
         }
         { this.props.item.type === 'post' &&
             <StatusItem item={this.props.item} />
@@ -61,6 +73,7 @@ class Item extends Component {
           type={this.props.item.type}
           numberOfLikes={this.props.item.numberOfLikes}
           numberOfComments={this.props.item.numberOfComments}
+          numberGoing={this.props.item.numberGoing}
           onLike={this.onLike}
           onComments={this.onComments}
           onInterested={this.onInterested}
@@ -72,4 +85,8 @@ class Item extends Component {
 
 }
 
-export default connect()(Item);
+function mapStateToProps(state) {
+  return {};
+}
+
+export default connect(mapStateToProps, actions)(Item);

@@ -7,8 +7,7 @@ const initialState = {
 export default function(state=initialState, action) {
   switch(action.type) {
     case SET_SKILLS:
-      console.log(action.data);
-      break;
+      return { ...state, ...{ skills: action.data } };
     default:
       return state;
   }

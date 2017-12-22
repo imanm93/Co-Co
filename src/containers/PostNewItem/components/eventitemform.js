@@ -6,6 +6,10 @@ import inputFormField from '../../../components/InputFormField';
 
 class EventItemForm extends Component {
 
+  submit(values) {
+    console.log(values);
+  }
+
   render() {
     const { handleSubmit } = this.props;
     return(

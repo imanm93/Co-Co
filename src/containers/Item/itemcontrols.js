@@ -9,7 +9,7 @@ class ItemControls extends Component {
         <Button onClick={() => this.props.onLike(this.props.id)}><span>{this.props.numberOfLikes}</span> Likes</Button>
         <Button onClick={() => this.props.onComments(this.props.id)}><span>{this.props.numberOfComments}</span> Comments</Button>
         { this.props.type === "event" &&
-            <Button onClick={() => this.props.onInterested(this.props.id)}>Interested</Button>
+            <Button onClick={() => this.props.onInterested(this.props.id)}><span>{this.props.numberGoing}</span> Interested</Button>
         }
         { this.props.type === "opportunity" &&
             <Button onClick={() => this.props.onEnquire(this.props.id)}>Enquire</Button>

@@ -8,7 +8,7 @@ const renderSuggestion = suggestion => (
   </div>
 );
 
-class Search extends Component {
+class SearchBox extends Component {
 
   componentWillMount() {
     this.setState({
@@ -16,6 +16,10 @@ class Search extends Component {
       suggestions: []
     });
   }
+
+  onKeyPress = (event) => {
+    if (this.props.setSearchQuery && event.key === 'Enter') this.props.setSearchQuery(this.state.value);
+  };
 
   onChange = (event, { newValue }) => {
     this.setState({
@@ -32,8 +36,15 @@ class Search extends Component {
   onSuggestionsClearRequested = () => {
     this.setState({
       suggestions: []
+    }, function() {
+      if (this.props.setSearchQuery && this.state.value.length > 0) this.props.setSearchQuery(this.state.value);
+      if (this.props.onSelectedItem) this.props.onSelectedItem(this.getSelectedObject(this.state.value));
     });
   };
+
+  getSelectedObject = value => {
+      return this.props.items.filter(item => item.name.toLowerCase() === value)[0];
+  }
 
   getSuggestions = value => {
     const inputValue = value.trim().toLowerCase();
@@ -41,20 +52,22 @@ class Search extends Component {
     return inputLength === 0 ? [] : this.props.items.filter(item =>
       item.name.toLowerCase().slice(0, inputLength) === inputValue
     );
-  };
+  }
 
   render() {
     const { value, suggestions } = this.state;
     const inputProps = {
-      placeholder: this.props.placeholder,
       value,
-      onChange: this.onChange
+      placeholder: this.props.placeholder,
+      onChange: this.onChange,
+      onKeyPress: this.onKeyPress
     };
     return (
       <Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        onSuggestionSelected={this.onSuggestionSelected}
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={inputProps}
@@ -63,4 +76,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default SearchBox;

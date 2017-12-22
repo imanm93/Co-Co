@@ -4,9 +4,14 @@ import { Button, Form } from 'semantic-ui-react';
 import { required, timeBeforePresent } from '../../../validators';
 import inputFormField from '../../../components/InputFormField';
 import dateFormField from '../../../components/DateFormField';
-import Search from '../../../components/Search';
+import searchFormField from '../../../components/SearchFormField';
+import { dictToArray, dictToOptionsForSelect } from '../../../utils/dictTransforms';
 
 class OppItemForm extends Component {
+
+  onSelectedTopic(topic) {
+    console.log(topic);
+  }
 
   submit(values) {
     console.log(values);
@@ -14,21 +19,9 @@ class OppItemForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-    const options = [{
-      key: "0",
-      value: "test",
-      text: "test"
-    },
-    {
-      key: "1",
-      value: "testing",
-      text: "testing"
-    },
-    {
-      key: "2",
-      value: "tested",
-      text: "tested"
-    }];
+    const options = dictToOptionsForSelect(this.props.oppTypes);
+    const skillItems = dictToArray(this.props.skills);
+    const topicItems = dictToArray(this.props.topicTypes);
     const radioOptions = [{
       text: "Unpaid",
       value: "false"
@@ -36,14 +29,6 @@ class OppItemForm extends Component {
     {
       text: "Paid",
       value: "true"
-    }];
-    const skillItems = [{
-      id: 0,
-      name: 'poster'
-    }];
-    const topicItems = [{
-      id: 0,
-      name: 'poster'
     }];
     return(
       <form onSubmit={handleSubmit(this.submit)}>
@@ -99,9 +84,21 @@ class OppItemForm extends Component {
           <hr/>
           <h4>3. Target</h4>
           <p>Target people with the following skills</p>
-          <Search items={skillItems} placeholder="Start typing skills" />
+          <Field
+            name='skills'
+            label='Target people with the following skills'
+            component={searchFormField}
+            items={skillItems}
+            selectedItems={this.props.selectedSkills}
+          />
           <p>Target people with the following interests</p>
-          <Search items={topicItems} placeholder="Start typing interests" />
+          <Field
+            name='topics'
+            label='Target people with the following interests'
+            component={searchFormField}
+            items={topicItems}
+            selectedItems={this.props.selectedTopics}
+          />
           <hr/>
           <Button>Add Media</Button>
           <Button type="submit">Post</Button>
@@ -111,6 +108,11 @@ class OppItemForm extends Component {
 
 }
 
+// <Search placeholder="Start typing skills" items={skillItems} onSelectedItem={this.onSelectedSkill.bind(this)} />
+// <Search placeholder="Start typing interests" items={topicItems} onSelectedItem={this.onSelectedTopic.bind(this)} />
+
 export default reduxForm({
-  form: 'OppItemForm'
+  form: 'OppItemForm',
+  selectedTopics: new Set(),
+  selectedSkills: new Set()
 })(OppItemForm);

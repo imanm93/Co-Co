@@ -19,7 +19,11 @@ const history = createHistory();
  * Setup Redux store
  */
 store.subscribe(throttle(() => {
-   saveState();
+  saveState({
+      account: store.getState().account,
+      filters: store.getState().filters,
+      skills: store.getState().skills
+  });
 }, 1000));
 
 /**

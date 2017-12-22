@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import Search from '../../../components/Search';
+import { Button } from 'semantic-ui-react';
+import SearchBox from '../../../components/SearchBox';
 
 class DashboardSearchBar extends Component {
 
   render() {
     return(
       <div>
-          <Search items={this.props.skills} />
+          <SearchBox items={this.props.items} setSearchQuery={this.props.setSearchQuery} />
+          <Button onClick={() => this.props.followTopic}>Follow Topic</Button>
       </div>
     )
   }

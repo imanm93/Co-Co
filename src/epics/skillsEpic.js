@@ -9,10 +9,12 @@ export const getSkills = (action$, store) =>
   action$.ofType(FETCH_SKILLS)
       .switchMap(action =>
         Rx.Observable.ajax(GET_SKILLS_URL)
-        .map(data => ({
-          type: SET_SKILLS,
-          data: data.response
-        }))
+        .map(data => {
+          return ({
+            type: SET_SKILLS,
+            data: data.response
+          })
+        })
         .catch(err => Rx.Observable.of({
           type: SET_API_ERROR,
           data: err

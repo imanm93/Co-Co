@@ -16,7 +16,7 @@ class PostNewItem extends Component {
             <StatusItemForm />
         }
         { type === 'opportunity' &&
-            <OppItemForm />
+            <OppItemForm oppTypes={this.props.filters.oppTypes} topicTypes={this.props.filters.topicTypes} skills={this.props.skills} />
         }
         { type === 'event' &&
             <EventItemForm />
@@ -30,7 +30,7 @@ class PostNewItem extends Component {
 function mapStateToProps(state) {
   return {
     filters: state.filters,
-    skills: state.skills
+    skills: state.skills.skills
   }
 }
 

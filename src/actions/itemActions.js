@@ -11,6 +11,7 @@ export const fetchFilteredItems = (user, filter, page) => ({
 })
 
 export const fetchExpandedItem = (type, itemId, userId) => {
+  console.log(type, itemId, userId);
   let action = {};
   action['type'] = FETCH_EXPANDED_ITEM;
   action['user'] = '?UserId=' + userId;
