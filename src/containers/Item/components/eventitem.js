@@ -16,7 +16,7 @@ class EventItem extends Component {
           <div>End Date: {moment(this.props.item.endDateTime).format("LLL")}</div>
           <div>{this.props.item.user.name}</div>
           <div>{this.props.item.displayTime}</div>
-          <Button onClick={() => this.props.onExpand(this.props.item.type, this.props.item.itemId)}>See More</Button>
+          <Button onClick={() => this.props.onExpand(this.props.item.itemType, this.props.item.itemId)}>See More</Button>
       </div>
     )
   }

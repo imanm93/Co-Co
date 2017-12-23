@@ -10,19 +10,19 @@ export const getFilteredItems = (action$, store) =>
   action$.ofType(FETCH_FILTERED_ITEMS)
     .switchMap(action =>
         Rx.Observable.ajax(
-          GET_FILTERED_ITEMS + '?' + action.user + action.filter
-          + "&page=" + action.page + "&pageSize=" + action.pageSize
+          GET_FILTERED_ITEMS + '?' + action.user + action.query
+          + "page=" + action.page + "&pageSize=" + action.pageSize
         )
         .map(payload => {
             console.log("payload", payload);
             return {
                 page: action.page,
-                items: Object.assign({}, payload.response.opportunities, payload.response.events, payload.response.posts)
+                items: Object.assign({}, payload.response.results)
             };
         })
         .map(res => {
-            const sortedKeys = Utils.sortDateTimeV2(res.items, 'timestamp');
             let sortedItems = {};
+            const sortedKeys = Utils.sortDateTimeV2(res.items, 'timestamp');
             sortedKeys.map(key => {
               return sortedItems[key] = Object.assign(res.items[key], { expanded: false });
             });
@@ -34,8 +34,7 @@ export const getFilteredItems = (action$, store) =>
         .map(res => ({
             type: SET_FILTERED_ITEMS,
             page: res.page,
-            items: res.items,
-            filter: action.filter
+            items: res.items
         }))
         .catch(err => ({
           type: SET_API_ERROR,

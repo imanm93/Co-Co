@@ -7,7 +7,7 @@ class StatusItem extends Component {
       <div>
         <h3>{this.props.item.user.name}</h3>
         <p>{this.props.item.text}</p>
-        <small>{this.props.item.displayTime}</small>        
+        <small>{this.props.item.displayTime}</small>
       </div>
     )
   }

@@ -22,6 +22,6 @@ export function setFilterQuery(query) {
     dispatch({
       type: SET_DASH_FILTER_QUERY,
       query: query
-    })
+    });
   }
 }

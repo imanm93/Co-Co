@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ButtonNewPost from '../../components/ButtonNewPost';
+import NewPostButton from '../../components/NewPostButton';
 import NotificationsBar from '../NotificationsBar';
 
 class NavBar extends Component {
@@ -10,7 +10,7 @@ class NavBar extends Component {
       <div>
         This is the NavBar
         <NotificationsBar />
-        <ButtonNewPost />
+        <NewPostButton />
       </div>
     )
   }

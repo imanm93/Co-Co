@@ -12,6 +12,7 @@ import Landing from './containers/Landing';
 import SignIn from './containers/SignIn';
 import Dashboard from './containers/Dashboard';
 import PostNewItem from './containers/PostNewItem';
+import UserProfile from './containers/UserProfile';
 
 /**
  * Components
@@ -24,6 +25,7 @@ const Routes = () => (
       <Route path="/signin" component={SignIn} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/post/:type" component={PostNewItem} />
+      <Route path="/profile/:type" component={UserProfile} />
       <Route component={NotFoundPage} />
   </Switch>
 )

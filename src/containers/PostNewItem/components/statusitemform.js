@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, FieldArray } from 'redux-form';
 import { Button } from 'semantic-ui-react';
 import { required } from '../../../validators';
+import { dictToArray } from '../../../utils/dictTransforms';
+
 import inputFormField from '../../../components/InputFormField';
+import searchFormField from '../../../components/SearchFormField';
+import fileUploadFormField from '../../../component/FileUploadFormField';
 
 class StatusItemForm extends Component {
 
@@ -12,6 +16,7 @@ class StatusItemForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+    const topicItems = dictToArray(this.props.topicTypes);
     return(
       <form onSubmit={handleSubmit(this.submit)}>
           <h3>Share your status</h3>
@@ -24,8 +29,16 @@ class StatusItemForm extends Component {
             validate={required}
           />
           <hr/>
+          <FieldArray
+            name='topics'
+            component={searchFormField}
+            items={topicItems}
+          />
           <hr/>
-          <Button><i class="fa fa-paperclip"></i> Add Media</Button>
+          <FieldArray
+            name='attachments'
+            component={fileUploadFormField}
+          />
           <Button type="submit">Post</Button>
       </form>
     )

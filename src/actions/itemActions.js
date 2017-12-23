@@ -2,10 +2,10 @@ import * as ItemTypes from '../constants/items/itemTypes';
 import { FETCH_FILTERED_ITEMS, FETCH_EXPANDED_ITEM } from '../constants/items/itemFetchTypes';
 import { GET_EXPANDED_OPP_ITEM, GET_EXPANDED_EVENT_ITEM } from '../constants/items/itemEndpoints';
 
-export const fetchFilteredItems = (user, filter, page) => ({
+export const fetchFilteredItems = (user, query, page) => ({
   type: FETCH_FILTERED_ITEMS,
   user: 'UserId=' + user,
-  filter: filter,
+  query: query,
   pageSize: 15,
   page: page
 })

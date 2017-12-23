@@ -56,16 +56,16 @@ class Item extends Component {
   render() {
     return (
       <div>
-        { this.props.item.type === 'opportunity' &&
+        { this.props.item.itemType === 'opportunity' &&
             <OppItem item={this.props.item} onExpand={this.onExpand.bind(this)} />
         }
-        { this.props.item.type === 'event' &&
+        { this.props.item.itemType === 'event' &&
             <EventItem item={this.props.item} onExpand={this.onExpand.bind(this)} />
         }
-        { this.props.item.type === 'post' &&
+        { this.props.item.itemType === 'post' &&
             <StatusItem item={this.props.item} />
         }
-        { this.props.item.people === 'people' &&
+        { this.props.item.itemType === 'people' &&
             <PeopleItem />
         }
         <ItemControls

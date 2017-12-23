@@ -10,6 +10,6 @@ export function setSearchQuery(query) {
     dispatch({
       type: SET_DASH_SEARCH_QUERY,
       query: query
-    })
+    });
   }
 }

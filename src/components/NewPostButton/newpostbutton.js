@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
 import * as types from '../../constants/items/itemTypes';
 
-class ButtonNewPost extends Component {
+class NewPostButton extends Component {
 
   componentWillMount() {
     this.setState({
@@ -38,4 +38,4 @@ class ButtonNewPost extends Component {
 
 }
 
-export default ButtonNewPost;
+export default NewPostButton;

@@ -23,14 +23,16 @@ class DashboardFilters extends Component {
   updateQuery(type, q) {
       switch(type) {
         case types.OPP_TYPES:
-            const query = 'OpportunityTypeIds=' + q;
-            this.setQuery(type, query);
+            if (q.length > 0) this.setQuery(type, 'OpportunityTypeIds=' + q);
+            if (q.length === 0) this.setQuery(type, '');
             break;
         case types.EVENT_TYPES:
-            this.setQuery(type, 'EventCategoryIds=' + q);
+            if (q.length > 0) this.setQuery(type, 'EventCategoryIds=' + q);
+            if (q.length === 0) this.setQuery(type, '');
             break;
         case types.TOPICS:
-            this.setQuery(type, 'TopicIds=' + q);
+            if (q.length > 0) this.setQuery(type, 'TopicIds=' + q);
+            if (q.length === 0) this.setQuery(type, '');
             break;
         default:
             break;

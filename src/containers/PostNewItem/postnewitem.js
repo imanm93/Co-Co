@@ -13,13 +13,13 @@ class PostNewItem extends Component {
     return(
       <div>
         { type === 'status' &&
-            <StatusItemForm />
+            <StatusItemForm topicTypes={this.props.filters.topicTypes} />
         }
         { type === 'opportunity' &&
             <OppItemForm oppTypes={this.props.filters.oppTypes} topicTypes={this.props.filters.topicTypes} skills={this.props.skills} />
         }
         { type === 'event' &&
-            <EventItemForm />
+            <EventItemForm eventTypes={this.props.filters.eventTypes} topicTypes={this.props.filters.topicTypes} />
         }
       </div>
     )

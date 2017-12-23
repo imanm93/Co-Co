@@ -2,7 +2,7 @@
 
 // import Rx from 'rxjs/Rx';
 // import jwt_decode from 'jwt-decode';
-//import { FETCH_AUTH_USER } from '../constants/account/accountFetchTypes';
+// import { FETCH_AUTH_USER } from '../constants/account/accountFetchTypes';
 // import { GET_AUTH_USER } from '../constants/account/accountEndpoints';
 // import { SET_AUTH_USER } from '../constants/account/accountReducerTypes';
 // import { SET_API_ERROR } from '../constants/api/apiErrorTypes';

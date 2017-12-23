@@ -38,12 +38,13 @@ class SearchBox extends Component {
       suggestions: []
     }, function() {
       if (this.props.setSearchQuery && this.state.value.length > 0) this.props.setSearchQuery(this.state.value);
-      if (this.props.onSelectedItem) this.props.onSelectedItem(this.getSelectedObject(this.state.value));
+      if (this.props.onSelectedItem && this.state.value.length > 0) this.props.onSelectedItem(this.getSelectedObject(this.state.value));
     });
   };
 
   getSelectedObject = value => {
-      return this.props.items.filter(item => item.name.toLowerCase() === value)[0];
+    const selectedValue = value.trim().toLowerCase();
+    return this.props.items.filter(item => item.name.toLowerCase() === selectedValue)[0];
   }
 
   getSuggestions = value => {
