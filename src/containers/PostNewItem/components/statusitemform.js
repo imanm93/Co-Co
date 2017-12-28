@@ -6,19 +6,23 @@ import { dictToArray } from '../../../utils/dictTransforms';
 
 import inputFormField from '../../../components/InputFormField';
 import searchFormField from '../../../components/SearchFormField';
-import fileUploadFormField from '../../../component/FileUploadFormField';
+import fileUploadFormField from '../../../components/FileUploadFormField';
 
 class StatusItemForm extends Component {
 
   submit(values) {
-    console.log(values);
+    let newValues = {};
+    newValues['text'] = values.text;
+    newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
+    newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
+    this.props.post(this.props.type, newValues);
   }
 
   render() {
     const { handleSubmit } = this.props;
     const topicItems = dictToArray(this.props.topicTypes);
     return(
-      <form onSubmit={handleSubmit(this.submit)}>
+      <form onSubmit={handleSubmit(this.submit.bind(this))}>
           <h3>Share your status</h3>
           <hr/>
           <Field

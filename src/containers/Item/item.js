@@ -12,33 +12,16 @@ import ItemControls from './itemcontrols';
 
 class Item extends Component {
 
+  onExpand(type, itemId) {
+      this.props.fetchExpandedItem(type, itemId, this.props.userId);
+  }
+
   onLike(itemId) {
     console.log("Like", itemId);
   }
 
   onEmail(itemId) {
     console.log("Email", itemId);
-  }
-
-  onExpand(type, itemId) {
-    switch(type) {
-        case 'opportunity':
-          this.props.fetchExpandedItem(ItemTypes.OPP_ITEM, itemId, this.props.userId);
-          break;
-        case 'event':
-          this.props.fetchExpandedItem(ItemTypes.EVENT_ITEM, itemId, this.props.userId);
-          break;
-        default:
-          break;
-    }
-  }
-
-  onDelete(itemId) {
-    console.log("Delete", itemId);
-  }
-
-  onReport(itemId) {
-    console.log("Report", itemId);
   }
 
   onEnquire(itemId) {
@@ -53,14 +36,22 @@ class Item extends Component {
     console.log("Interested", itemId);
   }
 
+  onDelete(itemId) {
+    console.log("Delete", itemId);
+  }
+
+  onReport(itemId) {
+    console.log("Report", itemId);
+  }
+
   render() {
     return (
       <div>
         { this.props.item.itemType === 'opportunity' &&
-            <OppItem item={this.props.item} onExpand={this.onExpand.bind(this)} />
+            <OppItem item={this.props.item} type={ItemTypes.OPP_ITEM} onExpand={this.onExpand.bind(this)} />
         }
         { this.props.item.itemType === 'event' &&
-            <EventItem item={this.props.item} onExpand={this.onExpand.bind(this)} />
+            <EventItem item={this.props.item} type={ItemTypes.EVENT_ITEM} onExpand={this.onExpand.bind(this)} />
         }
         { this.props.item.itemType === 'post' &&
             <StatusItem item={this.props.item} />

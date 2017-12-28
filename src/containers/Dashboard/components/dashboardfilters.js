@@ -12,40 +12,28 @@ class DashboardFilters extends Component {
     });
   }
 
-  setQuery(key, newVal) {
+  setQuery(key, keyText, newVal) {
     this.setState({
       [key]: newVal
     }, function() {
-      this.genFilterQuery();
+      this.props.setFilterQuery(keyText, newVal);
     });
   }
 
   updateQuery(type, q) {
       switch(type) {
         case types.OPP_TYPES:
-            if (q.length > 0) this.setQuery(type, 'OpportunityTypeIds=' + q);
-            if (q.length === 0) this.setQuery(type, '');
+            this.setQuery(type, 'OpportunityTypeIds', q);
             break;
         case types.EVENT_TYPES:
-            if (q.length > 0) this.setQuery(type, 'EventCategoryIds=' + q);
-            if (q.length === 0) this.setQuery(type, '');
+            this.setQuery(type, 'EventCategoryIds', q);
             break;
         case types.TOPICS:
-            if (q.length > 0) this.setQuery(type, 'TopicIds=' + q);
-            if (q.length === 0) this.setQuery(type, '');
+            this.setQuery(type, 'TopicIds', q);
             break;
         default:
             break;
       }
-  }
-
-  genFilterQuery() {
-    let query = '';
-    Object.keys(this.state).map(key => {
-        if (this.state[key].length > 0) query = query + this.state[key] + '&';
-        return query;
-    });
-    this.props.setFilterQuery(query);
   }
 
   render() {

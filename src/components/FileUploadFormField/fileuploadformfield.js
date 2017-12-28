@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react';
-import { FILE_UPLOAD_URL } from '../../constants/file/fileEndpoints';
 import * as actions from '../../actions/fileActions';
 
 class FileUploadFormField extends Component {
@@ -24,11 +23,23 @@ class FileUploadFormField extends Component {
     }
   }
 
+  onRemove(index) {
+    const { fields } = this.props;
+    fields.remove(index);
+  }
+
   render() {
+    const { fields } = this.props;
+    const files = fields.getAll();
     return(
       <div>
         <Button>Add Files</Button>
         <input type='file' onChange={this.uploadFile.bind(this)} />
+        { files && files.length > 0 &&
+            files.map((file, index) => {
+              return <div key={index}>{file.image} <button type="button" onClick={() => this.onRemove(index)}>X</button></div>
+            })
+        }
       </div>
     )
   }

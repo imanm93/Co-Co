@@ -12,21 +12,32 @@ import fileUploadFormField from '../../../components/FileUploadFormField';
 class EventItemForm extends Component {
 
   submit(values) {
-    console.log(values);
+    let newValues = {};
+    newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
+    newValues['eventTypeId'] = values.eventTypeId;
+    newValues['categoryId'] = 0;
+    newValues['title'] = values.title;
+    newValues['description'] = values.description;
+    newValues['location'] = values.location;
+    newValues['cost'] = values.cost;
+    newValues['photoUrl'] = Object.keys(values.attachments).map(key => values.attachments[key].image)[0];
+    newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
+    this.props.post(this.props.type, newValues);
   }
 
   render() {
     const { handleSubmit } = this.props;
-    const selectOptions = dictToOptionsForSelect(this.props.eventTypes);
     const topicItems = dictToArray(this.props.topicTypes);
+    const selectOptions = dictToOptionsForSelect(this.props.eventTypes);
     const radioOptions = [{ text: 'Free', value: 'false' }, { text: 'Paid', value: 'true' }];
     return(
-      <form onSubmit={handleSubmit(this.submit)}>
+      <form onSubmit={handleSubmit(this.submit.bind(this))}>
           <h3>Post an Event</h3>
           <hr/>
           <h4>1. The Basics</h4>
           <FieldArray
-            name="topics"
+            name='topics'
+            label='Who do you want to see this?'
             component={searchFormField}
             items={topicItems}
           />
@@ -50,7 +61,7 @@ class EventItemForm extends Component {
           <hr/>
           <h4>2. More Info</h4>
           <Field
-            name='type'
+            name='eventTypeId'
             label='What type of event is this?'
             placeholder='Please choose'
             component={inputFormField}
@@ -67,19 +78,19 @@ class EventItemForm extends Component {
             component={inputFormField}
           /><br/>
           <Field
-            name='startDateTime'
+            name='startTime'
             label='Starts'
             component={dateFormField}
-            validate={required, timeBeforePresent}
+            validate={[required, timeBeforePresent]}
           /><br/>
           <Field
-            name='endDateTime'
+            name='endTime'
             label='Ends'
             component={dateFormField}
-            validate={required, timeBeforePresent}
+            validate={[required, timeBeforePresent]}
           /><br/>
           <Field
-            name='paid'
+            name='fee'
             label='Fee'
             component={inputFormField}
             InputType={Form.Select}
@@ -87,11 +98,10 @@ class EventItemForm extends Component {
             options={radioOptions}
           />
           <Field
-            name='reward'
+            name='cost'
             label=''
             placeholder='Please specify'
             component={inputFormField}
-            validate={required}
           />
           <hr/>
           <FieldArray
@@ -99,7 +109,7 @@ class EventItemForm extends Component {
             component={fileUploadFormField}
           />
           <FieldArray
-            name='images'
+            name='photoUrl'
             component={fileUploadFormField}
           />
           <Button type="submit">Post</Button>

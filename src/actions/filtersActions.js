@@ -1,27 +1,21 @@
 import { FETCH_TOPICS, FETCH_OPP_TYPES, FETCH_PEOPLE_TYPES, FETCH_EVENT_TYPES } from '../constants/filters/filtersFetchTypes';
-import { SET_DASH_FILTER_QUERY } from '../constants/filters/filtersReducerTypes';
 
-export const fetchTopics = () => ({
-  type: FETCH_TOPICS
+export const fetchTopics = (token) => ({
+  type: FETCH_TOPICS,
+  token: token
 });
 
-export const fetchOppTypes = () => ({
-  type: FETCH_OPP_TYPES
+export const fetchOppTypes = (token) => ({
+  type: FETCH_OPP_TYPES,
+  token: token
 });
 
-export const fetchPeopleTypes = () => ({
-  type: FETCH_PEOPLE_TYPES
+export const fetchPeopleTypes = (token) => ({
+  type: FETCH_PEOPLE_TYPES,
+  token: token
 });
 
-export const fetchEventTypes = () => ({
-  type: FETCH_EVENT_TYPES
+export const fetchEventTypes = (token) => ({
+  type: FETCH_EVENT_TYPES,
+  token: token
 });
-
-export function setFilterQuery(query) {
-  return function(dispatch) {
-    dispatch({
-      type: SET_DASH_FILTER_QUERY,
-      query: query
-    });
-  }
-}

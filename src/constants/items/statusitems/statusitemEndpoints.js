@@ -4,4 +4,4 @@ if (process.env.NODE_ENV === "production") {
     ROOT_URL = 'http://coandcoapi.azurewebsites.net'
 }
 
-export const GET_STATUS_ITEM = `${ROOT_URL}/status`;
+export const GET_FILTERED_STATUS_ITEMS_URL = `${ROOT_URL}/status`;

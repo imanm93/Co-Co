@@ -1,5 +1,5 @@
-export const STATUS_ITEM = "Status_Item";
+export const STATUS_ITEM = "status";
 
-export const EVENT_ITEM = "Event_Item";
+export const EVENT_ITEM = "event";
 
-export const OPP_ITEM = "Opp_Item";
+export const OPP_ITEM = "opportunity";

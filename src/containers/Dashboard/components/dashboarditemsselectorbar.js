@@ -6,11 +6,10 @@ class DashboardItemsSelectorBar extends Component {
   render() {
     return(
       <div>
-        <Button>All Results</Button>
-        <Button>Opporunitites</Button>
-        <Button>People</Button>
-        <Button>Events</Button>
-        <Button>Posts</Button>
+        { this.props.tabs && Object.keys(this.props.tabs).map(key => {
+            return <Button key={key} onClick={() => this.props.onSelected(this.props.tabs[key])}>{this.props.tabs[key]}</Button>
+          })
+        }
       </div>
     )
   }

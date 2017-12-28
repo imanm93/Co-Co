@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { reduxForm, Field, FieldArray } from 'redux-form';
 import { Button, Form } from 'semantic-ui-react';
+import { reduxForm, Field, FieldArray } from 'redux-form';
 import { required, timeBeforePresent } from '../../../validators';
 import { dictToArray, dictToOptionsForSelect } from '../../../utils/dictTransforms';
 
@@ -11,18 +11,15 @@ import fileUploadFormField from '../../../components/FileUploadFormField';
 
 class OppItemForm extends Component {
 
-  // updateSelectedSkills(skills) {
-  //   this.props.selectedSkills['data'] = skills;
-  // }
-
-  // updateSelectedTopics(topics) {
-  //   this.props.selectedTopics['data'] = topics;
-  // }
-
   submit(values) {
-    console.log(values);
-    // console.log(this.props.selectedSkills);
-    // console.log(this.props.selectedTopics);
+    let newValues = {};
+    newValues['title'] = values.title;
+    newValues['description'] = values.description;
+    newValues['categoryId'] = 0;
+    newValues['skillIds'] = Object.keys(values.skills).map(key => values.skills[key].id);
+    newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
+    newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
+    this.props.post(this.props.type, newValues);
   }
 
   render() {
@@ -53,7 +50,7 @@ class OppItemForm extends Component {
           <hr/>
           <h4>2. More Info</h4>
           <Field
-            name='type'
+            name='opportunityTypeId'
             label='What type of opportunity is this?'
             placeholder='e.g. Project'
             component={inputFormField}
@@ -62,7 +59,7 @@ class OppItemForm extends Component {
             options={selectOptions}
           />
           <Field
-            name='paid'
+            name='isPaid'
             label='Is it paid?'
             component={inputFormField}
             InputType={Form.Select}
@@ -77,10 +74,10 @@ class OppItemForm extends Component {
             validate={required}
           />
           <Field
-            name='endDateTime'
+            name='endDate'
             label='When is the deadline?'
             component={dateFormField}
-            validate={required, timeBeforePresent}
+            validate={[required, timeBeforePresent]}
           />
           <hr/>
           <h4>3. Target</h4>
@@ -111,7 +108,5 @@ class OppItemForm extends Component {
 }
 
 export default reduxForm({
-  form: 'OppItemForm',
-  selectedTopics: {},
-  selectedSkills: {}
+  form: 'OppItemForm'
 })(OppItemForm);

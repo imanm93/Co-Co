@@ -8,7 +8,7 @@ class DashboardSearchBar extends Component {
     return(
       <div>
           <SearchBox items={this.props.items} setSearchQuery={this.props.setSearchQuery} />
-          <Button onClick={() => this.props.followTopic}>Follow Topic</Button>
+          <Button onClick={() => this.props.onFollowTopic}>Follow Topic</Button>
       </div>
     )
   }

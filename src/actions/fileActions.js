@@ -8,19 +8,19 @@ import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 
 export function uploadFile(data, callback) {
   return function (dispatch) {
-    // TODO: post file to storagecoandco
-    callback('https://images.url');
-    // axios.post(FILE_UPLOAD_URL, date, {
-    //   headers: { 'Content-Type': 'multipart/form-data' }
-    // })
-    // .then(imageUrl => {
-    //   TODO: send image url back
-    // })
-    // .catch(err => {
-    //   dispatch({
-    //     type: SET_API_ERROR,
-    //     data: err
-    //   });
-    // });
+    axios.post(FILE_UPLOAD_URL, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      }
+    })
+    .then(res => {
+      callback(res.data.result);
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_API_ERROR,
+        data: err
+      });
+    });
   }
 }

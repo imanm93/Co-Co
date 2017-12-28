@@ -8,7 +8,13 @@ import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 export const getTopicsEpic = (action$, store) =>
   action$.ofType(FETCH_TOPICS)
     .switchMap(action =>
-      Rx.Observable.ajax(GET_TOPICS_URL)
+      Rx.Observable.ajax({
+        url: GET_TOPICS_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + action.token
+        }
+      })
       .map(data => {
         return ({
           type: SET_TOPICS,
@@ -24,7 +30,13 @@ export const getTopicsEpic = (action$, store) =>
 export const getOppTypesEpic = (action$, store) =>
   action$.ofType(FETCH_OPP_TYPES)
     .switchMap(action =>
-      Rx.Observable.ajax(GET_OPP_TYPES_URL)
+      Rx.Observable.ajax({
+        url: GET_OPP_TYPES_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + action.token
+        }
+      })
       .map(data => {
         return ({
           type: SET_OPP_TYPES,
@@ -40,7 +52,13 @@ export const getOppTypesEpic = (action$, store) =>
 export const getEventTypesEpic = (action$, store) =>
   action$.ofType(FETCH_EVENT_TYPES)
     .switchMap(action =>
-      Rx.Observable.ajax(GET_EVENT_TYPES_URL)
+      Rx.Observable.ajax({
+        url: GET_EVENT_TYPES_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + action.token
+        }
+      })
       .map(data => {
         return ({
           type: SET_EVENT_TYPES,

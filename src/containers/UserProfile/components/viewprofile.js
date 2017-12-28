@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-class Profile extends Component {
+class ViewProfile extends Component {
 
   render() {
+    console.log(this.props.profile);
     return (
       <div>
         <div>Backgraound Image</div>
@@ -16,4 +17,4 @@ class Profile extends Component {
 
 }
 
-export default Profile;
+export default ViewProfile;

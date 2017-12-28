@@ -3,21 +3,22 @@ import Utils from '../utils';
 
 import { FETCH_FILTERED_ITEMS, FETCH_EXPANDED_ITEM } from '../constants/items/itemFetchTypes';
 import { SET_FILTERED_ITEMS, SET_EXPANDED_ITEM } from '../constants/items/itemReducerTypes';
-import { GET_FILTERED_ITEMS } from '../constants/items/itemEndpoints';
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 
 export const getFilteredItems = (action$, store) =>
   action$.ofType(FETCH_FILTERED_ITEMS)
     .switchMap(action =>
-        Rx.Observable.ajax(
-          GET_FILTERED_ITEMS + '?' + action.user + action.query
-          + "page=" + action.page + "&pageSize=" + action.pageSize
-        )
+        Rx.Observable.ajax({
+          url: action.endpoint + '?' + action.query,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + action.token
+          }
+        })
         .map(payload => {
-            console.log("payload", payload);
             return {
                 page: action.page,
-                items: Object.assign({}, payload.response.results)
+                items: Object.assign({}, payload.response.dictionaryResults)
             };
         })
         .map(res => {
@@ -33,8 +34,8 @@ export const getFilteredItems = (action$, store) =>
         })
         .map(res => ({
             type: SET_FILTERED_ITEMS,
-            page: res.page,
-            items: res.items
+            items: res.items,
+            page: res.page
         }))
         .catch(err => ({
           type: SET_API_ERROR,
@@ -46,7 +47,10 @@ export const getExpandedItem = (action$, store) =>
   action$.ofType(FETCH_EXPANDED_ITEM)
     .switchMap(action =>
       Rx.Observable.ajax(
-        action.endpoint + '/' + action.itemId + action.user
+        action.endpoint
+        + '/'
+        + action.itemId
+        + action.user
       )
         .map(payload => ({
           type: SET_EXPANDED_ITEM,
