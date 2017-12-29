@@ -38,7 +38,7 @@ class SearchFormField extends Component {
     }
 
     render() {
-      const { meta, fields } = this.props;
+      const { meta } = this.props;
       const hasError = meta.touched && meta.error !== undefined;
       return(
         <div>

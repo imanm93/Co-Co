@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import throttle from 'lodash/throttle';
 import { Provider } from 'react-redux';
+import throttle from 'lodash/throttle';
 import { saveState } from './localStorage';
 import createHistory from 'history/createBrowserHistory';
 
@@ -9,6 +9,7 @@ import App from './app';
 import store from './store';
 
 //import registerServiceWorker from './registerServiceWorker';
+//registerServiceWorker();
 
 /**
  * Setup Piwik Connector
@@ -44,5 +45,3 @@ if (process.env.NODE_ENV === "production") {
         document.getElementById('root')
     );
 }
-
-//registerServiceWorker();

@@ -13,7 +13,7 @@ import ItemControls from './itemcontrols';
 class Item extends Component {
 
   onExpand(type, itemId) {
-      this.props.fetchExpandedItem(type, itemId, this.props.userId);
+      this.props.fetchExpandedItem(this.props.token, type, itemId, this.props.userId);
   }
 
   onLike(itemId) {
@@ -45,8 +45,9 @@ class Item extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
-      <div>
+      <div style={{ textAlign: 'left' }}>
         { this.props.item.itemType === 'opportunity' &&
             <OppItem item={this.props.item} type={ItemTypes.OPP_ITEM} onExpand={this.onExpand.bind(this)} />
         }

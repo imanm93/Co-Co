@@ -37,6 +37,9 @@ export const fetchFilteredItems = (token, userId, tab, search, filter, page) => 
       case DashboardTabs.STATUS:
         action['endpoint'] = GET_FILTERED_STATUS_ITEMS_URL;
         break;
+      default:
+        action['endpoint'] = GET_FILTERED_ITEMS_URL;
+        break;
     }
     return (action);
 }
@@ -52,6 +55,9 @@ export const fetchExpandedItem = (token, type, itemId, userId) => {
             break;
         case ItemTypes.EVENT_ITEM:
             action['endpoint'] = GET_EXPANDED_EVENT_ITEM_URL;
+            break;
+        default:
+            action['endpoint'] = GET_EXPANDED_OPP_ITEM_URL;
             break;
     }
     return (action);
@@ -70,8 +76,19 @@ export function postItem(token, type, values) {
       case ItemTypes.STATUS_ITEM:
           endpoint = GET_FILTERED_STATUS_ITEMS_URL;
           break;
+      default:
+          endpoint = GET_FILTERED_OPP_ITEMS_URL;
+          break;
     }
-    axios.post(endpoint, values)
+    axios({
+      method: 'post',
+      url: endpoint,
+      data: values,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }
+    })
     .then(res => {
       console.log(res);
     })

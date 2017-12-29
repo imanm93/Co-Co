@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment-timezone';
 import { Button, Form } from 'semantic-ui-react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { required, timeBeforePresent } from '../../../validators';
@@ -8,20 +9,24 @@ import dateFormField from '../../../components/DateFormField';
 import inputFormField from '../../../components/InputFormField';
 import searchFormField from '../../../components/SearchFormField';
 import fileUploadFormField from '../../../components/FileUploadFormField';
+import singleFileUploadFormField from '../../../components/SingleFileUploadFormField';
 
 class EventItemForm extends Component {
 
   submit(values) {
     let newValues = {};
-    newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
-    newValues['eventTypeId'] = values.eventTypeId;
     newValues['categoryId'] = 0;
-    newValues['title'] = values.title;
-    newValues['description'] = values.description;
-    newValues['location'] = values.location;
+    newValues['skillIds'] = [];
     newValues['cost'] = values.cost;
-    newValues['photoUrl'] = Object.keys(values.attachments).map(key => values.attachments[key].image)[0];
+    newValues['title'] = values.title;
+    newValues['photoUrl'] = values.photoUrl;
+    newValues['location'] = values.location;
+    newValues['description'] = values.description;
+    newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
+    newValues['endTime'] = moment(values.endTime).tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
+    newValues['startTime'] = moment(values.startTime).tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
     newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
+    newValues['eventTypeId'] = Object.keys(this.props.eventTypes).filter(key => this.props.eventTypes[key] === values.eventTypeId)[0];
     this.props.post(this.props.type, newValues);
   }
 
@@ -78,14 +83,16 @@ class EventItemForm extends Component {
             component={inputFormField}
           /><br/>
           <Field
-            name='startTime'
             label='Starts'
+            name='startTime'
+            dateFormat="DD/MM/YYYY HH:MM:SS"
             component={dateFormField}
             validate={[required, timeBeforePresent]}
           /><br/>
           <Field
-            name='endTime'
             label='Ends'
+            name='endTime'
+            dateFormat="DD/MM/YYYY HH:MM:SS"
             component={dateFormField}
             validate={[required, timeBeforePresent]}
           /><br/>
@@ -108,9 +115,9 @@ class EventItemForm extends Component {
             name='attachments'
             component={fileUploadFormField}
           />
-          <FieldArray
+          <Field
             name='photoUrl'
-            component={fileUploadFormField}
+            component={singleFileUploadFormField}
           />
           <Button type="submit">Post</Button>
       </form>

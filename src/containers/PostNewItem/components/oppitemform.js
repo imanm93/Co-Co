@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import moment from 'moment-timezone';
 import { Button, Form } from 'semantic-ui-react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { required, timeBeforePresent } from '../../../validators';
 import { dictToArray, dictToOptionsForSelect } from '../../../utils/dictTransforms';
 
-import inputFormField from '../../../components/InputFormField';
 import dateFormField from '../../../components/DateFormField';
+import inputFormField from '../../../components/InputFormField';
 import searchFormField from '../../../components/SearchFormField';
 import fileUploadFormField from '../../../components/FileUploadFormField';
 
@@ -15,7 +16,12 @@ class OppItemForm extends Component {
     let newValues = {};
     newValues['title'] = values.title;
     newValues['description'] = values.description;
+    newValues['opportunityTypeId'] = Object.keys(this.props.oppTypes).filter(key => this.props.oppTypes[key] === values.opportunityTypeId)[0];
+    newValues['isPaid'] = values.isPaid;
+    newValues['reward'] = values.reward;
     newValues['categoryId'] = 0;
+    newValues['startDate'] = moment("01/01/1990").tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
+    newValues['endDate'] = moment(values.endDate).tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
     newValues['skillIds'] = Object.keys(values.skills).map(key => values.skills[key].id);
     newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
     newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
@@ -24,10 +30,10 @@ class OppItemForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-    const radioOptions = [{ text: "Unpaid", value: "false" }, { text: "Paid", value: "true" }];
-    const selectOptions = dictToOptionsForSelect(this.props.oppTypes);
     const skillItems = dictToArray(this.props.skills);
     const topicItems = dictToArray(this.props.topicTypes);
+    const selectOptions = dictToOptionsForSelect(this.props.oppTypes);
+    const radioOptions = [{ text: "Unpaid", value: "false" }, { text: "Paid", value: "true" }];
     return(
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
           <h3>Post an Opportunity</h3>
@@ -76,6 +82,7 @@ class OppItemForm extends Component {
           <Field
             name='endDate'
             label='When is the deadline?'
+            dateFormat="DD/MM/YYYY"
             component={dateFormField}
             validate={[required, timeBeforePresent]}
           />

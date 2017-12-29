@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 export default function dateFormField({
   input,
   type,
+  dateFormat,
   label,
   placholder,
   meta: {
@@ -18,7 +19,7 @@ export default function dateFormField({
   return(
     <div>
         <div>{label}</div>
-        <DatePicker {...input} dateForm="DD/MM/YYYY" selected={input.value ? moment(input.value) : null} />
+        <DatePicker {...input} dateForm={dateFormat} selected={input.value ? moment(input.value) : null} />
         { hasError && <span style={{color:'#E74C3C'}}><i>{error}</i></span> }
     </div>
   );

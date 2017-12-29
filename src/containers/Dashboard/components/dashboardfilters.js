@@ -38,7 +38,7 @@ class DashboardFilters extends Component {
 
   render() {
     return(
-      <div>
+      <div style={{ textAlign: 'left' }}>
         <b>Filter By</b><br/>
         {
           Object.keys(this.props.filters).map(key => {

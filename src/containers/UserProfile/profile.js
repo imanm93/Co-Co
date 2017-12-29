@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/profileActions';
 
 import ViewProfile from './components/viewprofile';
-import EditProfile from './components/editprofile';
+import EditProfileForm from './components/editprofileform';
 
 class Profile extends Component {
 
@@ -12,7 +12,7 @@ class Profile extends Component {
   }
 
   onEdit() {
-    //TODO: switch to editable profile
+    this.props.history.push('/profile/edit');
   }
 
   render() {
@@ -20,10 +20,10 @@ class Profile extends Component {
     return (
       <div>
         { type === 'view' &&
-            <ViewProfile profile={this.props.profile} />
+            <ViewProfile userId={this.props.userId} profileViewData={this.props.profile.profileViewData} onEdit={this.onEdit.bind(this)} />
         }
         { type === 'edit' && this.props.userId === this.props.profile.profileViewId &&
-            <EditProfile profile={this.props.profile} />
+            <EditProfileForm profile={this.props.profile} />
         }
       </div>
     )

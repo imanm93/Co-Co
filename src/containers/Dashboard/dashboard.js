@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { dictToArray } from '../../utils/dictTransforms';
 import * as FilterTypes from '../../constants/filters/filterTypes';
@@ -13,6 +14,7 @@ import DashboardResults from './components/dashboardresults';
 class Dashboard extends Component {
 
   // TODO: Uncomment when endpoints work
+  // Remove hard coded user and put in this.props.userId
   // this.props.fetchPeopleTypes();
 
   componentWillMount() {
@@ -50,35 +52,58 @@ class Dashboard extends Component {
     console.log("Following Topic", topic);
   }
 
+  getFilterControls(tab) {
+    let filterControls = [];
+    filterControls.push({ type: FilterTypes.TOPICS, filters: this.props.filters.topicTypes });
+    switch(tab) {
+      case DashboardTabs.OPPORTUNITIES:
+        filterControls.push({ type: FilterTypes.OPP_TYPES, filters: this.props.filters.oppTypes });
+        break;
+      case DashboardTabs.EVENTS:
+        filterControls.push({ type: FilterTypes.EVENT_TYPES, filters: this.props.filters.eventTypes });
+        break;
+      case DashboardTabs.STATUS:
+        break;
+      default:
+        filterControls.push({ type: FilterTypes.OPP_TYPES, filters: this.props.filters.oppTypes });
+        filterControls.push({ type: FilterTypes.EVENT_TYPES, filters: this.props.filters.eventTypes });
+        break;
+    }
+    return filterControls;
+  }
+
   render() {
     const skills = dictToArray(this.props.skills);
-    const filterControls = [
-      { type: FilterTypes.TOPICS, filters: this.props.filters.topicTypes },
-      { type: FilterTypes.OPP_TYPES, filters: this.props.filters.oppTypes },
-      { type: FilterTypes.EVENT_TYPES, filters: this.props.filters.eventTypes }
-    ];
+    const filterControls = this.getFilterControls(this.props.dash.tab);
     return(
-      <div>
-        <NavBar history={this.props.history} />
-        <hr/>
-        <DashboardSearchBar
-          items={skills}
-          setSearchQuery={this.updateItemsAndSearchQuery.bind(this)}
-          onFollowTopic={this.onFollowTopic.bind(this)}
-        />
-        <hr/>
-        <DashboardItemsSelectorBar
+      <Grid>
+        <Grid.Row centered>
+          <NavBar history={this.props.history} />
+        </Grid.Row>
+        <Grid.Row centered>
+          <DashboardSearchBar
+            items={skills}
+            setSearchQuery={this.updateItemsAndSearchQuery.bind(this)}
+            onFollowTopic={this.onFollowTopic.bind(this)}
+          />
+        </Grid.Row>
+        <Grid.Row centered>
+          <DashboardItemsSelectorBar
           tabs={DashboardTabs}
           onSelected={this.onSelectedView.bind(this)}
-        />
-        <hr/>
-        <DashboardResults
-          filters={filterControls}
-          userId={this.props.userId}
-          items={this.props.items.items}
-          setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
-        />
-      </div>
+          />
+        </Grid.Row>
+        <Grid.Row centered>
+          <DashboardResults
+            isLoading={this.props.isLoadingDashItems}
+            filters={filterControls}
+            token={this.props.token}
+            userId={this.props.userId}
+            items={this.props.items.items}
+            setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
+          />
+        </Grid.Row>
+      </Grid>
     );
   }
 
@@ -86,6 +111,7 @@ class Dashboard extends Component {
 
 function mapStateToProps(state) {
   return {
+    isLoadingDashItems: state.loader.isLoadingDashItems,
     userId: state.account.userId,
     skills: state.skills.skills,
     token: state.account.token,

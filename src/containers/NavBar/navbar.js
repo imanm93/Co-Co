@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
 import * as actions from '../../actions/profileActions';
 
 import NewPostButton from '../../components/NewPostButton';
@@ -14,12 +14,22 @@ class NavBar extends Component {
 
   render() {
     return(
-      <div>
-        This is the NavBar
-        <Button onClick={this.redirectToProfile.bind(this)}>My Profile</Button>
-        <NotificationsBar />
-        <NewPostButton history={this.props.history} />
-      </div>
+      <Grid>
+        <Grid.Row>
+          <Grid.Column width={4}>
+            Co & Co Logo
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <NotificationsBar />
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <Button onClick={this.redirectToProfile.bind(this)}>My Profile</Button>
+          </Grid.Column>
+          <Grid.Column width={2}>
+            <NewPostButton history={this.props.history} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     )
   }
 
