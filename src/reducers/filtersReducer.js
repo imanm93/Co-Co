@@ -1,10 +1,11 @@
-import { SET_OPP_TYPES, SET_TOPICS, SET_EVENT_TYPES, SET_PEOPLE_TYPES } from '../constants/filters/filtersReducerTypes';
+import { SET_OPP_TYPES, SET_TOPICS, SET_EVENT_TYPES, SET_DISCIPLINES } from '../constants/filters/filtersReducerTypes';
 
 const initialState = {
   oppTypes: {},
+  topicTypes: {},
   eventTypes: {},
   peopleTypes: {},
-  topicTypes: {}
+  disciplineTypes: {}
 }
 
 export default function(state=initialState, action) {
@@ -15,8 +16,8 @@ export default function(state=initialState, action) {
           return { ...state, ...{ oppTypes: action.data } };
       case SET_EVENT_TYPES:
           return { ...state, ...{ eventTypes: action.data } };
-      case SET_PEOPLE_TYPES:
-          return { ...state, ...{ peopleTypes: action.data } };
+      case SET_DISCIPLINES:
+          return { ...state, ...{ disciplineTypes: action.data } };
       default:
           return state;
   }

@@ -1,0 +1,6 @@
+{
+  "main": "./commentform",
+  "private": true,
+  "version": "0.0.1",
+  "name": "CommentForm"
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment-timezone';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form, Dimmer, Loader } from 'semantic-ui-react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { required, timeBeforePresent } from '../../../validators';
 import { dictToArray, dictToOptionsForSelect } from '../../../utils/dictTransforms';
@@ -27,7 +27,13 @@ class EventItemForm extends Component {
     newValues['startTime'] = moment(values.startTime).tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
     newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
     newValues['eventTypeId'] = Object.keys(this.props.eventTypes).filter(key => this.props.eventTypes[key] === values.eventTypeId)[0];
-    this.props.post(this.props.type, newValues);
+    if (this.props.externalEmail) {
+      newValues['companyEmail'] = this.props.externalEmail;
+      this.props.post(this.props.type, newValues);
+    }
+    else if (!this.props.externalEmail) {
+      this.props.post(this.props.type, newValues);
+    }
   }
 
   render() {
@@ -37,6 +43,11 @@ class EventItemForm extends Component {
     const radioOptions = [{ text: 'Free', value: 'false' }, { text: 'Paid', value: 'true' }];
     return(
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
+          { this.props.isPostingItem &&
+            <Dimmer active inverted>
+              <Loader/>
+            </Dimmer>
+          }
           <h3>Post an Event</h3>
           <hr/>
           <h4>1. The Basics</h4>

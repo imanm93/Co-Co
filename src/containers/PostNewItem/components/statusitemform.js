@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
-import { Button } from 'semantic-ui-react';
+import { Button, Dimmer, Loader } from 'semantic-ui-react';
 import { required } from '../../../validators';
 import { dictToArray } from '../../../utils/dictTransforms';
 
@@ -23,6 +23,11 @@ class StatusItemForm extends Component {
     const topicItems = dictToArray(this.props.topicTypes);
     return(
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
+          { this.props.isPostingItem &&
+            <Dimmer active inverted>
+              <Loader/>
+            </Dimmer>
+          }
           <h3>Share your status</h3>
           <hr/>
           <Field

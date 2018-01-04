@@ -11,4 +11,4 @@ export const GET_OPP_TYPES_URL = `${ROOT_URL}/Opportunities/Types`;
 
 export const GET_EVENT_TYPES_URL = `${ROOT_URL}/Events/Types`;
 
-export const GET_PEOPLE_TYPES_URL = `${ROOT_URL}`;
+export const GET_DISCIPLINES_URL = `${ROOT_URL}/Disciplines`;

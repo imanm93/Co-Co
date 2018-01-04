@@ -13,7 +13,7 @@ class Filters extends Component {
       query = query + selectedFilter + ',';
     });
     query = query.slice(0, query.length-1);
-    this.props.updateQuery(this.props.title, query);
+    this.props.updateQuery(this.props.type, query);
   }
 
   updateFilter(key) {
@@ -24,8 +24,7 @@ class Filters extends Component {
 
   render() {
     return(
-      <div>
-        <b>{this.props.title}</b><br/>
+      <div style={{ textAlign: 'left' }}>
         { this.props.filters &&
           Object.keys(this.props.filters).map(key => {
             return (<Checkbox key={String(key)} style={{ display: 'block' }} label={this.props.filters[key]} onClick={() => this.updateFilter(key)} />)

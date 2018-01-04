@@ -1,10 +1,32 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
+import { Container, Grid, Button } from 'semantic-ui-react';
 
 import WorkExample from './workexample';
 import SocialMediaLink from './socialmedialink';
 
 class ViewProfile extends Component {
+
+  // Background Image compnent
+  //   Show current image
+  //   Update shows new image
+
+  // Image & Bio component
+  //   show current image and Bio
+  //   any update changes values passed into compnent
+
+  // Upload Work Examples component
+  //   show current work examples
+  //   delete current examples
+
+  // Tags
+  //   show existing tags
+  //   open new add skills component
+  //   open new add topics component
+  //   on return show updated selections
+
+  // Links
+  // Confirm & Save
+  //   call patch /Users
 
   render() {
     return (

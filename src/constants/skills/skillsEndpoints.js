@@ -5,3 +5,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 export const GET_SKILLS_URL = `${ROOT_URL}/Skills`;
+
+export const GET_STREAMS_URL = `${ROOT_URL}/Streams`;

@@ -6,42 +6,48 @@ import * as actions from '../../actions/itemActions';
 import OppItemForm from './components/oppitemform';
 import EventItemForm from './components/eventitemform';
 import StatusItemForm from './components/statusitemform';
+import FormContainer from '../../components/FormContainer';
 
 class PostNewItem extends Component {
 
   post(type, values) {
-    this.props.postItem(this.props.token, type, values);
+    if (this.props.locationExternal) { this.props.postExternalItem(type, values); }
+    else if (!this.props.locationExternal) { this.props.postItem(this.props.token, type, values); }
   }
 
   render() {
-    const type = this.props.match.params.type;
     return(
-      <div>
-        { type === 'opportunity' &&
+      <FormContainer>
+        { this.props.posts.tab === ItemTypes.OPP_ITEM &&
             <OppItemForm
                 type={ItemTypes.OPP_ITEM}
-                oppTypes={this.props.filters.oppTypes}
-                topicTypes={this.props.filters.topicTypes}
                 skills={this.props.skills}
                 post={this.post.bind(this)}
+                oppTypes={this.props.filters.oppTypes}
+                topicTypes={this.props.filters.topicTypes}
+                externalEmail={this.props.externalEmail}
+                isPostingItem={this.props.isPostingItem}
             />
         }
-        { type === 'event' &&
+        { this.props.posts.tab === ItemTypes.EVENT_ITEM &&
             <EventItemForm
                 type={ItemTypes.EVENT_ITEM}
                 eventTypes={this.props.filters.eventTypes}
                 topicTypes={this.props.filters.topicTypes}
                 post={this.post.bind(this)}
+                externalEmail={this.props.externalEmail}
+                isPostingItem={this.props.isPostingItem}
             />
         }
-        { type === 'status' &&
+        { this.props.posts.tab === ItemTypes.STATUS_ITEM &&
             <StatusItemForm
                 type={ItemTypes.STATUS_ITEM}
                 topicTypes={this.props.filters.topicTypes}
                 post={this.post.bind(this)}
+                isPostingItem={this.props.isPostingItem}
             />
         }
-      </div>
+      </FormContainer>
     )
   }
 
@@ -49,9 +55,11 @@ class PostNewItem extends Component {
 
 function mapStateToProps(state) {
   return {
-    skills: state.skills.skills,
+    posts: state.posts,
+    filters: state.filters,
     token: state.account.token,
-    filters: state.filters
+    skills: state.skills.skills,
+    isPostingItem: state.loader.isPostingItem
   }
 }
 

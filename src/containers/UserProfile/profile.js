@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Grid } from 'semantic-ui-react';
 import * as actions from '../../actions/profileActions';
 
 import ViewProfile from './components/viewprofile';
@@ -18,14 +19,23 @@ class Profile extends Component {
   render() {
     const type = this.props.match.params.type;
     return (
-      <div>
+      <Grid style={{ margin: 0 }}>
         { type === 'view' &&
-            <ViewProfile userId={this.props.userId} profileViewData={this.props.profile.profileViewData} onEdit={this.onEdit.bind(this)} />
+            <ViewProfile
+              onEdit={this.onEdit.bind(this)}
+              userId={this.props.userId}
+              profileViewData={this.props.profile.profileViewData}
+            />
         }
         { type === 'edit' && this.props.userId === this.props.profile.profileViewId &&
-            <EditProfileForm profile={this.props.profile} />
+            <EditProfileForm
+              skills={this.props.skills}
+              streams={this.props.streams}
+              profile={this.props.profile}
+              topicTypes={this.props.topicTypes}
+            />
         }
-      </div>
+      </Grid>
     )
   }
 }
@@ -33,8 +43,11 @@ class Profile extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profiles,
+    token: state.account.token,
+    skills: state.skills.skills,
     userId: state.account.userId,
-    token: state.account.token
+    streams: state.skills.streams,
+    topicTypes: state.filters.topicTypes
   }
 }
 

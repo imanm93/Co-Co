@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchBox from '../SearchBox';
-import Chip from './chip';
+import Chip from '../Chip';
 
 class SearchFormField extends Component {
 
@@ -35,6 +35,13 @@ class SearchFormField extends Component {
           fields.push(item);
         });
       }
+    }
+
+    resetState() {
+      this.setState({
+        selectedItems: new Set(),
+        selectedChips: []
+      });
     }
 
     render() {

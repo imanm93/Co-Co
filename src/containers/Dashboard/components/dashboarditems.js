@@ -19,7 +19,10 @@ class DashboardItems extends Component {
                         key={key}
                         token={this.props.token}
                         userId={this.props.userId}
-                        item={this.props.items[key]} />
+                        name={this.props.name}
+                        profilePhotoUrl={this.props.profilePhotoUrl}
+                        item={this.props.items[key]}
+                      />
             })
         }
       </div>

@@ -1,15 +1,19 @@
 import Rx from 'rxjs';
 import Utils from '../utils';
 
-import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
+import { SET_API_ERROR, CLEAR_API_ERROR } from '../constants/api/apiErrorTypes';
+import { GET_ITEM_COMMENT_URL } from '../constants/items/itemEndpoints';
 import { IS_LOADING_DASH_ITEMS } from '../constants/dashboard/dashboardLoaderTypes';
-import { FETCH_FILTERED_ITEMS, FETCH_EXPANDED_ITEM } from '../constants/items/itemFetchTypes';
-import { SET_FILTERED_ITEMS, SET_EXPANDED_ITEM } from '../constants/items/itemReducerTypes';
+import { FETCH_FILTERED_ITEMS, FETCH_EXPANDED_ITEM, FETCH_COMMENTS_FOR_ITEM } from '../constants/items/itemFetchTypes';
+import { SET_FILTERED_ITEMS, SET_EXPANDED_ITEM, SET_LOADING_COMMENTS, SET_COMMENTS } from '../constants/items/itemReducerTypes';
 
 export const getFilteredItems = (action$, store) =>
   action$.ofType(FETCH_FILTERED_ITEMS)
     .switchMap(action =>
         Rx.Observable.concat(
+          Rx.Observable.of({
+            type: CLEAR_API_ERROR
+          }),
           Rx.Observable.of({
             type: IS_LOADING_DASH_ITEMS,
             data: true
@@ -31,7 +35,7 @@ export const getFilteredItems = (action$, store) =>
               let sortedItems = {};
               const sortedKeys = Utils.sortDateTimeV2(res.items, 'timestamp');
               sortedKeys.map(key => {
-                return sortedItems[key] = Object.assign(res.items[key], { expanded: false });
+                return sortedItems[key] = Object.assign(res.items[key], { expanded: false, isExpanding: false, showComments:false, isLoadingComments: false });
               });
               return {
                 page: res.page,
@@ -43,10 +47,12 @@ export const getFilteredItems = (action$, store) =>
               items: res.items,
               page: res.page
           }))
-          .catch(err => ({
-            type: SET_API_ERROR,
-            error: err
-          })),
+          .catch(err => {
+            return Rx.Observable.of({
+              type: SET_API_ERROR,
+              error: err
+            })
+          }),
           Rx.Observable.of({
             type: IS_LOADING_DASH_ITEMS,
             data: false
@@ -77,28 +83,39 @@ export const getExpandedItem = (action$, store) =>
       }))
     )
 
-// export const getCommentsItem = (action$, store) =>
-//   action$.ofType(FETCH_ITEM_COMMENTS)
-//     .switchMap(action =>
-//       Rx.Observable.ajax(GET_COMMENTS_ITEM)
-//       .map(res => {
-//         //TODO: Update item comments state
-//       })
-//       .catch(err => {
-//         //TODO: Update with any error
-//       })
-//     )
-
-// export const postLike = (action$, store) =>
-//     action$.ofType(FETCH_ITEM_LIKE_URL)
-//       .switchMap(action =>
-//         Rx.Obserbable.ajax(POST_ITEM_LIKE, action.itemId)
-//         .map(res => Rx.Observable.of({
-//           type: SET_API_RES,
-//           data: res
-//         }))
-//         .catch(err => Rx.Observable.of({
-//           type: SET_API_ERROR,
-//           err: err
-//         }))
-//       )
+export const getCommentsItem = (action$, store) =>
+  action$.ofType(FETCH_COMMENTS_FOR_ITEM)
+    .switchMap(action =>
+      Rx.Observable.concat(
+        Rx.Observable.of({
+          type: SET_LOADING_COMMENTS,
+          id: action.itemId,
+          showComments: true,
+          isLoadingComments: true
+        }),
+        Rx.Observable.ajax({
+          url: GET_ITEM_COMMENT_URL + '/' + action.itemId,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + action.token
+          }
+        })
+        .map(res => {
+          return ({
+            type: SET_COMMENTS,
+            id: action.itemId,
+            data: res.response.results
+          })
+        })
+        .catch(err => ({
+          type: SET_API_ERROR,
+          error: err
+        })),
+        Rx.Observable.of({
+          type: SET_LOADING_COMMENTS,
+          id: action.itemId,
+          showComments: true,
+          isLoadingComments: false
+        })
+      )
+    )

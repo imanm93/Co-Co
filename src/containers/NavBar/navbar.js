@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Grid } from 'semantic-ui-react';
+import { Grid, Dropdown } from 'semantic-ui-react';
+import styles from './navbar.css';
 import * as actions from '../../actions/profileActions';
 
 import NewPostButton from '../../components/NewPostButton';
@@ -12,20 +13,40 @@ class NavBar extends Component {
     this.props.setProfileViewId(this.props.userId, this.props.history);
   }
 
+  signOut() {
+    // TODO: Console.log('signing out');
+  }
+
   render() {
     return(
-      <Grid>
+      <Grid style={{ backgroundColor: '#FFF', width: '70.25%' }}>
         <Grid.Row>
-          <Grid.Column width={4}>
-            Co & Co Logo
+          <Grid.Column width={3} style={{
+            backgroundColor: '#292F2E'
+          }}>
           </Grid.Column>
           <Grid.Column width={6}>
             <NotificationsBar />
           </Grid.Column>
           <Grid.Column width={4}>
-            <Button onClick={this.redirectToProfile.bind(this)}>My Profile</Button>
+            <Dropdown
+              className="navbar-btn-my-profile"
+              trigger={
+                <span>
+                  <div className="profilePic">
+                    <img src={this.props.profilePhotoUrl} alt={`profile of ${this.props.name}`} />
+                  </div>
+                </span>
+              }
+              pointing='top'
+              icon={null}>
+              <Dropdown.Menu>
+                  <Dropdown.Item text='Profile' icon="user" onClick={this.redirectToProfile.bind(this)} />
+                  <Dropdown.Item text='Sign Out' icon="sign out" onClick={this.signOut.bind(this)} />
+              </Dropdown.Menu>
+            </Dropdown>
           </Grid.Column>
-          <Grid.Column width={2}>
+          <Grid.Column width={3}>
             <NewPostButton history={this.props.history} />
           </Grid.Column>
         </Grid.Row>
@@ -37,7 +58,8 @@ class NavBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    userId: state.account.userId
+    userId: state.account.userId,
+    name: state.account.name
   }
 }
 

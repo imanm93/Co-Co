@@ -14,6 +14,7 @@ const initialState = {
 export default function(state=initialState, action) {
   switch(action.type) {
     case SET_AUTH_USER:
+      console.log(action.data);
       return { ...state, ...action.data };
     default:
       return state;

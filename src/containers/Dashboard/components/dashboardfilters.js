@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as types from '../../../constants/filters/filterTypes';
 import Filters from '../../../components/Filters';
+import { Accordion, Menu } from 'semantic-ui-react';
 
 class DashboardFilters extends Component {
 
@@ -8,7 +9,8 @@ class DashboardFilters extends Component {
     this.setState({
       [types.OPP_TYPES]: '',
       [types.EVENT_TYPES]: '',
-      [types.TOPICS]: ''
+      [types.TOPICS]: '',
+      activeIndex: -1
     });
   }
 
@@ -26,7 +28,7 @@ class DashboardFilters extends Component {
             this.setQuery(type, 'OpportunityTypeIds', q);
             break;
         case types.EVENT_TYPES:
-            this.setQuery(type, 'EventCategoryIds', q);
+            this.setQuery(type, 'EventTypeIds', q);
             break;
         case types.TOPICS:
             this.setQuery(type, 'TopicIds', q);
@@ -36,16 +38,38 @@ class DashboardFilters extends Component {
       }
   }
 
+  onExpandFilter(e, props) {
+    const { index } = props;
+    const { activeIndex } = this.state;
+    const newIndex = activeIndex === index ? -1 : index;
+    this.setState({ activeIndex: newIndex });
+  }
+
   render() {
+    const { activeIndex } = this.state;
     return(
-      <div style={{ textAlign: 'left' }}>
-        <b>Filter By</b><br/>
+      <Accordion as={Menu} vertical style={{ textAlign: 'left' }}>
+        <b>Filter By</b>
         {
           Object.keys(this.props.filters).map(key => {
-            return <Filters key={key} title={this.props.filters[key].type} filters={this.props.filters[key].filters} updateQuery={this.updateQuery.bind(this)} />
+            return <Menu.Item key={key}>
+              <Accordion.Title
+                active={activeIndex === parseInt(key)}
+                content={this.props.filters[key].type}
+                index={parseInt(key)}
+                onClick={this.onExpandFilter.bind(this)}
+              />
+              <Accordion.Content active={activeIndex === parseInt(key)} content={
+                  (<Filters
+                      type={this.props.filters[key].type}
+                      filters={this.props.filters[key].filters}
+                      updateQuery={this.updateQuery.bind(this)} />)
+                }
+              />
+            </Menu.Item>
           })
         }
-      </div>
+      </Accordion>
     )
   }
 

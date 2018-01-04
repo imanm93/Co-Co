@@ -1,15 +1,24 @@
 import { combineEpics } from 'redux-observable';
-import { getTopicsEpic, getOppTypesEpic, getEventTypesEpic } from './filtersEpic';
-import { getFilteredItems, getExpandedItem } from './itemsEpic';
 import { getProfileData } from './profilesEpic';
-import { getSkills } from './skillsEpic';
+import { getSkills, getStreams } from './skillsEpic';
+import { getExternalCompany, getExternalVerification } from './externalsEpic';
+import { getFilteredItems, getExpandedItem, getCommentsItem } from './itemsEpic';
+import { getTopicsEpic, getOppTypesEpic, getEventTypesEpic } from './filtersEpic';
+import { getCourses, getYears, getSignUpSources, getSignUpReasons } from './setupEpic';
 
 export default combineEpics(
+  getYears,
   getSkills,
+  getStreams,
+  getCourses,
   getTopicsEpic,
+  getProfileData,
   getOppTypesEpic,
-  getEventTypesEpic,
-  getFilteredItems,
   getExpandedItem,
-  getProfileData
+  getCommentsItem,
+  getFilteredItems,
+  getSignUpReasons,
+  getSignUpSources,
+  getEventTypesEpic,
+  getExternalVerification
 );
