@@ -1,0 +1,15 @@
+.status-body {
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.status-owner-profile-picture {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+}
+
+.status-owner-name {
+  font-size: 15px;
+}

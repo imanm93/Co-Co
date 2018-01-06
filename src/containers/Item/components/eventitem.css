@@ -1,0 +1,77 @@
+.event-date-and-cost {
+  margin-top: 0.75rem;
+  display: inline-block;
+  text-align: center;
+  color: #0B0B0B;
+	border: 1.5px solid #1C1C1C;
+  background-color: #FFFFFF;
+}
+
+.event-date {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1.5px solid #1C1C1C;
+}
+
+.event-date-number {
+	font-size: 21px;
+}
+
+.event-date-month {
+	font-size: 15px;
+  text-transform: uppercase;
+}
+
+.event-cost {
+	font-size: 14px;
+}
+
+.event-title {
+  color: #000000;
+  font-size: 21px;
+  font-weight: 500;
+  padding-top: 1rem;
+}
+
+.event-posted-by {
+	color: #000000;
+  font-size: 12px;
+  font-weight: 300;
+  margin-top: 0.25rem;
+}
+
+.event-posted-by-name {
+  font-weight: 600;
+}
+
+.event-posted-time {
+  margin-left: 0.25rem;
+}
+
+.event-attributes {
+  padding: 1rem 0rem;
+}
+
+.event-attribute {
+  color: #000000;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0.25rem;
+}
+
+.event-attribute>i {
+  text-align: center;
+  color: #7E7E7E;
+  font-weight: 100;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.25rem;
+}
+
+.event-see-more {
+  text-align: center;
+}
+
+.item-dotted-line {
+  border: 0.5px dashed #BCBCBC;
+  margin: 1rem 0rem 0rem 0rem;
+}

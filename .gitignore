@@ -5,7 +5,7 @@
 /coverage
 
 # css
-/src/**/*.css
+# /src/**/*.css
 
 # production
 /build

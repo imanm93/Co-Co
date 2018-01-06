@@ -1,0 +1,53 @@
+.opp-external-header {
+	background-color: #5BC238;
+}
+
+.opp-body {
+  background-color: #FFF;
+}
+
+.opp-service-needed {
+}
+
+.opp-owner-profile-picture {
+
+}
+
+.opp-topic-tag {
+	color: #000000;
+  font-size: 12px;
+}
+
+.opp-owner-name {
+	color: #000000;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.opp-owner-name>span {
+  margin-left: 1rem;
+}
+
+.opp-owner-picture {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.opp-title {
+	color: #000000;
+  font-size: 17px;
+  font-weight: 300;
+}
+
+.opp-type {
+  color: #000000;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.opp-time {
+	color: #000000;
+  font-size: 12px;
+  font-weight: 300;
+}

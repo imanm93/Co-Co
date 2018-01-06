@@ -1,0 +1,41 @@
+.react-autosuggest__container>input {
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: #292F2E;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  text-align: center;
+  outline: none;
+}
+
+.dashboard-btn-follow-topic {
+  width: 10rem;
+  margin-right: 3rem !important;
+  margin-bottom: 1rem !important;
+  border-radius: 69px !important;
+  font-size: 14px !important;
+  font-weight: 300 !important;
+  border: 1px solid #979797 !important;
+  background-color: #FFFFFF !important;
+}
+
+.dashboard-item-type-btn {
+  width: 100%;
+  height: 100%;
+  border-radius: 0 !important;
+  text-transform: uppercase !important;
+	font-size: 14px !important;
+  font-weight: 300 !important;
+	border: 1px solid #979797 !important;
+  background-color: #FFFFFF !important;
+  color: #000105;
+}
+
+.dashboard-item-type-btn.active {
+  background-color: #DEDEDE !important;
+  border-bottom: none !important;
+  color: #000000;
+}
