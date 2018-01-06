@@ -42,6 +42,7 @@ export function postSignInUser(details, ctx) {
             axios.defaults.headers = Object.assign({}, axios.defaults.headers,
               { 'Authorization': `Bearer ${response.data.access_token}` }
             );
+            console.log(axios.default.headers);
             ctx.props.getUserInfo(userId, ctx);
         })
         .catch(err => {
@@ -70,10 +71,10 @@ export function getUserInfo(userId, ctx) {
             dispatch({
                 type: SET_AUTH_USER,
                 data: {
-                    profileCompleted: response.data.profileComplete,
+                    name: response.data.name,
                     type: response.data.type,
                     profilePhotoUrl: response.data.profilePhotoUrl,
-                    name: response.data.name
+                    profileCompleted: response.data.profileComplete
                 }
             });
             dispatch({ type: IS_AUTHENTICATING, data: false });

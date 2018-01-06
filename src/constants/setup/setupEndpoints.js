@@ -1,8 +1,4 @@
-let ROOT_URL = 'http://localhost:5000';
-
-if (process.env.NODE_ENV === "production") {
-    ROOT_URL = 'http://coandcoapi.azurewebsites.net'
-}
+import { ROOT_URL } from '../url.js';
 
 export const GET_SIGN_UP_SOURCES_URL = `${ROOT_URL}/SignUpSources`;
 

@@ -1,7 +1,7 @@
 import { combineEpics } from 'redux-observable';
 import { getProfileData } from './profilesEpic';
 import { getSkills, getStreams } from './skillsEpic';
-import { getExternalCompany, getExternalVerification } from './externalsEpic';
+import { getExternalVerification } from './externalsEpic';
 import { getFilteredItems, getExpandedItem, getCommentsItem } from './itemsEpic';
 import { getTopicsEpic, getOppTypesEpic, getEventTypesEpic } from './filtersEpic';
 import { getCourses, getYears, getSignUpSources, getSignUpReasons } from './setupEpic';
