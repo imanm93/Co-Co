@@ -1,0 +1,60 @@
+.ui.selection.dropdown {
+  width: 100%;
+  border-radius: 0;
+  background-color: #FAFAFA;
+  box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
+}
+
+.coandco-btn-inverted {
+  font-weight: 600;
+  color: #000000 !important;
+  background-color: #FFF !important;
+  border: 1px solid #979797 !important;
+}
+
+.coandco-btn-inverted>i {
+  margin-right: 0.5rem;
+}
+
+.coandco-form-section-line {
+  width: 100%;
+}
+
+.coandco-input-search>.react-autosuggest__container>input {
+  width: 100%;
+  border-radius: 0;
+  background-color: #FAFAFA;
+  box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
+  text-align: left;
+  color: #000;
+  font-size: 13px;
+  padding: .67em 1em;
+}
+
+div.ui.grid.coandco-post-form-container {
+  background-color: #FFF;
+  box-shadow: 0 1px 3px 0 #979797;
+}
+
+.coandco-post-btn {
+  color: #FFF;
+  width: 100%;
+  font-size: 12px;
+  background-color: #2A2A2A;
+}
+
+.coandco-post-form-header {
+  color: #000000;
+  padding: 2rem;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.form-section-title {
+  color: #000000;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+}

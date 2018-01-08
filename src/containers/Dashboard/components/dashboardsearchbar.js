@@ -6,13 +6,11 @@ class DashboardSearchBar extends Component {
 
   render() {
     return(
-      <Grid style={{ backgroundColor: '#292F2E', width: '70.25%' }}>
-          <Grid.Row style={{ marginBottom: '1rem' }}>
-            <Grid.Column width={16} style={{ textAlign: 'center' }}>
-              <SearchBox items={this.props.items} placeholder='What are you looking for?' setSearchQuery={this.props.setSearchQuery} />
-            </Grid.Column>
-          </Grid.Row>
-      </Grid>
+      <Grid.Row style={{ backgroundColor: '#292F2E' }}>
+        <Grid.Column width={16} style={{ textAlign: 'center' }}>
+          <SearchBox items={this.props.items} placeholder='What are you looking for?' setSearchQuery={this.props.setSearchQuery} />
+        </Grid.Column>
+      </Grid.Row>
     )
   }
 

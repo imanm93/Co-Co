@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
-import { Button, Dimmer, Loader } from 'semantic-ui-react';
+import { Grid, Button, Dimmer, Loader } from 'semantic-ui-react';
 import { required } from '../../../validators';
 import { dictToArray } from '../../../utils/dictTransforms';
 
@@ -23,32 +23,43 @@ class StatusItemForm extends Component {
     const topicItems = dictToArray(this.props.topicTypes);
     return(
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
+        <Grid>
+          <Grid.Column width={16} style={{ padding: 0, backgroundColor: '#DEDEDE' }}>
+            <div className='coandco-post-form-header'>Share your status</div>
+          </Grid.Column>
+        </Grid>
+        <Grid className='coandco-post-form-container'>
           { this.props.isPostingItem &&
             <Dimmer active inverted>
               <Loader/>
             </Dimmer>
           }
-          <h3>Share your status</h3>
-          <hr/>
-          <Field
-            name='text'
-            label=''
-            placeholder='Write here'
-            component={inputFormField}
-            validate={required}
-          />
-          <hr/>
-          <FieldArray
-            name='topics'
-            component={searchFormField}
-            items={topicItems}
-          />
-          <hr/>
+          <Grid.Column width={16}>
+            <Field
+              name='text'
+              label=''
+              placeholder='Write here'
+              component={inputFormField}
+              validate={required}
+            />
+            <hr/>
+            <FieldArray
+              name='topics'
+              component={searchFormField}
+              items={topicItems}
+            />
+          </Grid.Column>
+          <hr className='coandco-form-section-line' />
+          <Grid.Column width={13} textAlign='right'>
           <FieldArray
             name='attachments'
             component={fileUploadFormField}
           />
-          <Button type="submit">Post</Button>
+          </Grid.Column>
+          <Grid.Column width={3}>
+            <Button type="submit" circular secondary>Post</Button>
+          </Grid.Column>
+        </Grid>
       </form>
     )
   }

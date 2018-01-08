@@ -22,12 +22,15 @@ class VerifiedCompany extends Component {
     this.getExternalCompany(email);
     return(
       <FormContainer>
-        <Grid>
-          <Grid.Row>
-            Your email has been verified! You can now post opportunities ...
+        <Grid className='coandco-post-form-container' style={{ padding: '2rem' }}>
+          <Grid.Row centered>
+            <div style={{ fontSize: '25px', fontWeight: 600 }}>
+              Your email has been verified!<br/><br/>
+              You can now post opportunities to hundreds of students in our community.
+            </div>
           </Grid.Row>
-          <Grid.Row>
-            <Button onClick={() => this.redirectToExternalPost()}>Go Post!</Button>
+          <Grid.Row centered>
+            <Button circular secondary onClick={() => this.redirectToExternalPost()}>Go Post!</Button>
           </Grid.Row>
         </Grid>
       </FormContainer>

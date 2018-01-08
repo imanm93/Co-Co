@@ -17,17 +17,16 @@ class ExternalVerifyForm extends Component {
     return(
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
         <Grid>
+          <Grid.Column width ={16} style={{ backgroundColor: '#DEDEDE', padding: 0 }}>
+            <div className="form-header">Verify your company</div>
+          </Grid.Column>
+        </Grid>
+        <Grid style={{ backgroundColor: '#FFF', boxShadow: '0 1px 3px 0 #979797' }}>
             { this.props.isLoadingExternal &&
                 <Dimmer active inverted>
                   <Loader />
                 </Dimmer>
             }
-            <Grid.Column width ={16}>
-              <div>Verify your company</div>
-              <a href='' onClick={() => this.props.redirectToRegister()}>
-                Not registered? Click here to register!
-              </a>
-            </Grid.Column>
             <Grid.Column width={16}>
               <Grid.Row>
                 <Field
@@ -44,9 +43,14 @@ class ExternalVerifyForm extends Component {
                   <div>{this.props.verifyError.split('=')[0]}</div>
                 </Grid.Row>
               }
-              <Grid.Row>
-                <Button>Verify</Button>
-              </Grid.Row>
+            </Grid.Column>
+            <Grid.Column width={8}>
+              <a className="form-link" href='' onClick={() => this.props.redirectToRegister()}>
+                Not registered? Click here to register!
+              </a>
+            </Grid.Column>
+            <Grid.Column width={8} textAlign='right'>
+              <Button circular secondary>Verify</Button>
             </Grid.Column>
         </Grid>
       </form>

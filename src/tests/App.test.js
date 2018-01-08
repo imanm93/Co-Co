@@ -5,7 +5,7 @@ import App from '../app';
 
 describe("App", () => {
     let props;
-    let mountedApp;
+
     const mountedApp = () => {
       if (!mountedApp) {
         mountedApp = mount(

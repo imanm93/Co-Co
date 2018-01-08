@@ -5,8 +5,8 @@ class FormContainer extends Component {
 
   render() {
     return (
-      <Grid style={{ height: '100vh' }} verticalAlign='middle' centered >
-        <Grid.Column mobile={16} tablet={10} computer={8}>
+      <Grid style={{ height: '100vh' }} verticalAlign='middle' centered>
+        <Grid.Column mobile={16} tablet={10} computer={10}>
           {this.props.children}
         </Grid.Column>
       </Grid>

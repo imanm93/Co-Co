@@ -9,9 +9,10 @@ import * as DashboardTabs from '../../constants/dashboard/dashboardTypes';
 import * as actions from '../../actions';
 
 import NavBar from '../NavBar';
+import PageContainer from '../../components/PageContainer';
+import DashboardResults from './components/dashboardresults';
 import DashboardSearchBar from './components/dashboardsearchbar';
 import DashboardItemsSelectorBar from './components/dashboarditemsselectorbar';
-import DashboardResults from './components/dashboardresults';
 
 class Dashboard extends Component {
 
@@ -24,13 +25,13 @@ class Dashboard extends Component {
       this.props.fetchOppTypes(this.props.token);
       this.props.fetchEventTypes(this.props.token);
       this.props.fetchDisciplines(this.props.token);
-      this.props.fetchFilteredItems(this.props.token, '4bc79c95-fe50-46f7-8cb8-624a25ac27bb', this.props.dash.tab, this.props.dash.query, this.props.dash.filters, 1);
+      this.props.fetchFilteredItems(this.props.token, '0d17ad18-7ff0-406e-b3ee-c3a113c97f55', this.props.dash.tab, this.props.dash.query, this.props.dash.filters, 1);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.dash !== this.props.dash) this.props.fetchFilteredItems(
       nextProps.token,
-      '4bc79c95-fe50-46f7-8cb8-624a25ac27bb',
+      '0d17ad18-7ff0-406e-b3ee-c3a113c97f55',
       nextProps.dash.tab,
       nextProps.dash.query,
       nextProps.dash.filters,
@@ -86,37 +87,35 @@ class Dashboard extends Component {
     const skills = dictToArray(this.props.skills);
     const filterControls = this.getFilterControls(this.props.dash.tab);
     return(
-      <Grid>
-        <Grid.Row centered>
+      <PageContainer>
+        <Grid style={{ margin: 0 }}>
           <NavBar history={this.props.history} profilePhotoUrl={this.props.profilePhotoUrl} />
-        </Grid.Row>
-        <Grid.Row style={{ padding: 0 }} centered>
           <DashboardSearchBar
             items={skills}
             onFollowTopic={this.onFollowTopic.bind(this)}
             setSearchQuery={this.updateItemsAndSearchQuery.bind(this)}
           />
-        </Grid.Row>
-        <Grid.Row style={{ paddingTop: 0 }} centered>
-          <DashboardItemsSelectorBar
-            tabs={DashboardTabs}
-            currentTab={this.props.dash.tab}
-            onSelected={this.onSelectedView.bind(this)}
-          />
-        </Grid.Row>
-        <Grid.Row centered>
-          <DashboardResults
-            name={this.props.name}
-            token={this.props.token}
-            filters={filterControls}
-            userId={this.props.userId}
-            items={this.props.items.items}
-            isLoading={this.props.isLoadingDashItems}
-            profilePhotoUrl={this.props.profilePhotoUrl}
-            setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
-          />
-        </Grid.Row>
-      </Grid>
+          <Grid.Row centered style={{ padding: 0 }}>
+            <DashboardItemsSelectorBar
+              tabs={DashboardTabs}
+              currentTab={this.props.dash.tab}
+              onSelected={this.onSelectedView.bind(this)}
+            />
+          </Grid.Row>
+          <Grid.Row centered>
+            <DashboardResults
+              name={this.props.name}
+              token={this.props.token}
+              filters={filterControls}
+              userId={this.props.userId}
+              items={this.props.items.items}
+              isLoading={this.props.isLoadingDashItems}
+              profilePhotoUrl={this.props.profilePhotoUrl}
+              setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
+            />
+          </Grid.Row>
+        </Grid>
+      </PageContainer>
     );
   }
 

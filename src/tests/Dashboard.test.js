@@ -5,7 +5,6 @@ import Dashboard from '../containers/Dashboard';
 
 describe("Dashboard", () => {
   let props;
-  let mountedApp;
 
   const mountedApp = () => {
     if (!mountedApp) {

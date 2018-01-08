@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from '../../actions/accountActions';
 import SignInForm from './components/signinform';
+import * as actions from '../../actions/accountActions';
+import FormContainer from '../../components/FormContainer';
 
 class SignIn extends Component {
 
   signInUser = (credentials) => {
-    this.props.postSignInUser(credentials, this);
+    this.props.postSignInUser(credentials, () => {
+      this.getUser();
+    });
+  }
+
+  getUser = () => {
+    this.props.getUserInfo(this.props.account.token, this.props.account.userId, this.props.history);
   }
 
   render() {
     return(
-      <div>
+      <FormContainer>
         <SignInForm signInUser={this.signInUser} />
-      </div>
+      </FormContainer>
     )
   }
 

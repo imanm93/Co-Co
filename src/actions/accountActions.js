@@ -18,7 +18,7 @@ import { SET_EMAIL_SENT_SUCCESSFULL, SET_VERIFY_USER_ID, IS_RESENDING_EMAIL, SET
  * Get authentication token for user
  * @param { email, password }
  */
-export function postSignInUser(details, ctx) {
+export function postSignInUser(details, callback) {
     return function (dispatch) {
         dispatch({ type: IS_AUTHENTICATING, data: true });
         axios.post(GET_AUTH_URL, qs.stringify({
@@ -42,8 +42,7 @@ export function postSignInUser(details, ctx) {
             axios.defaults.headers = Object.assign({}, axios.defaults.headers,
               { 'Authorization': `Bearer ${response.data.access_token}` }
             );
-            console.log(axios.default.headers);
-            ctx.props.getUserInfo(userId, ctx);
+            callback();
         })
         .catch(err => {
           dispatch({
@@ -61,11 +60,16 @@ export function postSignInUser(details, ctx) {
  * Get logged in user information
  * @param userId
  */
-export function getUserInfo(userId, ctx) {
+export function getUserInfo(token, userId, history) {
     return function (dispatch) {
         dispatch({ type: IS_AUTHENTICATING, data: true });
-        axios.get(GET_USER_URL, {
-          params: { userId: userId }
+        axios({
+          method: 'GET',
+          url: GET_USER_URL + '?userId=' + userId,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
         })
         .then(response => {
             dispatch({
@@ -78,7 +82,7 @@ export function getUserInfo(userId, ctx) {
                 }
             });
             dispatch({ type: IS_AUTHENTICATING, data: false });
-            ctx.props.history.push('/dashboard');
+            history.push('/dashboard');
         })
         .catch(err => {
             dispatch({

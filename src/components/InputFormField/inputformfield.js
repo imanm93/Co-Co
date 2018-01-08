@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input } from 'semantic-ui-react';
+import styles from './inputformfield.css';
 
 export default function inputFormField({
   input,
@@ -16,9 +17,8 @@ export default function inputFormField({
 }) {
   const hasError = touched && error !== undefined;
   return(
-    <div>
-      <div>{label}</div>
-      <br/>
+    <div className='coandco-input-field'>
+      <div className='coandco-input-label'>{label}</div>
       <InputType
         type={type}
         placholder={placholder}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react';
+import { Button, Label, Icon, Grid } from 'semantic-ui-react';
+import styles from './fileuploadformfield.css';
 import * as actions from '../../actions/fileActions';
 
 class FileUploadFormField extends Component {
@@ -28,19 +29,38 @@ class FileUploadFormField extends Component {
     fields.remove(index);
   }
 
+  openFileExplorer() {
+    this.refs['multiple-input-file'].click();
+  }
+
   render() {
     const { fields } = this.props;
     const files = fields.getAll();
     return(
-      <div>
-        <Button>Add Files</Button>
-        <input type='file' onChange={this.uploadFile.bind(this)} />
-        { files && files.length > 0 &&
-            files.map((file, index) => {
-              return <div key={index}>{file.image} <button type="button" onClick={() => this.onRemove(index)}>X</button></div>
+      <Grid>
+        <Grid.Row>
+          { files && files.length > 0 &&
+              files.map((file, index) => {
+                return <Label as='a' style={{
+                  borderRadius: '69px',
+                  backgroundColor: 'transparent',
+                  border: '1px solid #2A2A2A',
+                  color: '#2a2a2a',
+                  margin: '0.5em 0.25em'
+               }}>
+                {file.image}
+                <Icon name='delete' onClick={() => this.onRemove(index)} style={{
+                  color: 'red'
+                }}/>
+              </Label>
             })
-        }
-      </div>
+          }
+        </Grid.Row>
+        <Grid.Row>
+          <Button type='button' circular className='coandco-btn-inverted' onClick={() => this.openFileExplorer()}><i className='fa fa-paperclip'></i>Add Files</Button>
+          <input ref='multiple-input-file' className='coandco-file-input-file-btn' type='file' onChange={this.uploadFile.bind(this)} />
+        </Grid.Row>
+      </Grid>
     )
   }
 

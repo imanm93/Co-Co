@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as ItemTypes from '../../constants/items/itemTypes';
+import styles from './postnewitem.css';
 import * as actions from '../../actions/itemActions';
+import * as ItemTypes from '../../constants/items/itemTypes';
+import "react-datepicker/dist/react-datepicker.css";
 
 import OppItemForm from './components/oppitemform';
 import EventItemForm from './components/eventitemform';
@@ -17,7 +19,7 @@ class PostNewItem extends Component {
 
   render() {
     return(
-      <FormContainer>
+      <div>
         { this.props.posts.tab === ItemTypes.OPP_ITEM &&
             <OppItemForm
                 type={ItemTypes.OPP_ITEM}
@@ -47,7 +49,7 @@ class PostNewItem extends Component {
                 isPostingItem={this.props.isPostingItem}
             />
         }
-      </FormContainer>
+      </div>
     )
   }
 

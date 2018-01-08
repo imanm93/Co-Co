@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import FormContainer from '../../components/FormContainer';
+import styles from './external.css';
 
+import PageContainer from '../../components/PageContainer';
+import ExternalConfirm from './components/externalconfirm';
+import FormContainer from '../../components/FormContainer';
+import ExternalPostForm from './components/externalpostform';
 import ExternalSignUpForm from './components/externalsignupform';
 import ExternalVerifyForm from './components/externalverifyform';
-import ExternalPostForm from './components/externalpostform';
-import ExternalConfirm from './components/externalconfirm';
 
 class External extends Component {
 
   componentWillMount() {
     this.props.fetchSkills(this.props.token);
     this.props.fetchTopics(this.props.token);
+    this.props.fetchOppTypes(this.props.token);
+    this.props.fetchEventTypes(this.props.token);
   }
 
   registerExternal(values) {
@@ -21,7 +25,7 @@ class External extends Component {
         this.setState({
           redirect: this.redirectToHome.bind(this),
           buttonText: 'Go back to homepage',
-          confirmPageMessage: `a verification email has been sent. Please click on the link to verify`
+          confirmPageMessage: `A verification email has been sent. Please click on the link to verify your email.`
         }, function() {
           this.props.history.push('/external/confirm');
         })
@@ -73,45 +77,53 @@ class External extends Component {
 
   render() {
     return(
-      <FormContainer>
+      <PageContainer>
         { this.props.match.params.step === 'register' &&
-          <ExternalSignUpForm
-            register={this.registerExternal.bind(this)}
-            redirectToVerify={this.redirectToVerify.bind(this)}
-            isLoadingExternal={this.props.isLoadingExternal}
-            registerError={this.props.external.externalFormError}
-          />
+          <FormContainer>
+            <ExternalSignUpForm
+              register={this.registerExternal.bind(this)}
+              redirectToHome={this.redirectToHome.bind(this)}
+              redirectToVerify={this.redirectToVerify.bind(this)}
+              isLoadingExternal={this.props.isLoadingExternal}
+              registerError={this.props.external.externalFormError}
+            />
+          </FormContainer>
         }
         { this.props.match.params.step === 'verify' &&
-          <ExternalVerifyForm
-            verify={this.verifyExternal.bind(this)}
-            redirectToPost={this.redirectToPost.bind(this)}
-            redirectToRegister={this.redirectToRegister.bind(this)}
-            isVerifying={this.props.isVerifying}
-            isLoadingExternal={this.props.isLoadingExternal}
-            verifyError={this.props.external.externalVerifyFError}
-          />
+          <FormContainer>
+            <ExternalVerifyForm
+              verify={this.verifyExternal.bind(this)}
+              redirectToPost={this.redirectToPost.bind(this)}
+              redirectToRegister={this.redirectToRegister.bind(this)}
+              isVerifying={this.props.isVerifying}
+              isLoadingExternal={this.props.isLoadingExternal}
+              verifyError={this.props.external.externalVerifyFError}
+            />
+          </FormContainer>
         }
         { this.props.match.params.step === 'post' &&
-          <ExternalPostForm
-            post={this.postExternal.bind(this)}
-            status={this.props.postItemStatus}
-            resetForm={this.resetForm.bind(this)}
-            redirect={this.redirectToHome.bind(this)}
-            setPostFormTab={this.props.setPostFormTab}
-            postError={this.props.external.externalFormError}
-            externalEmail={this.props.external.externalDetails.contactEmail}
-          />
+            <ExternalPostForm
+              post={this.postExternal.bind(this)}
+              status={this.props.postItemStatus}
+              resetForm={this.resetForm.bind(this)}
+              setPostFormTab={this.props.setPostFormTab}
+              postError={this.props.external.externalFormError}
+              redirect={this.redirectToHome.bind(this)}
+              redirectToVerify={this.redirectToVerify.bind(this)}
+              externalEmail={this.props.external.externalDetails.contactEmail}
+            />
         }
         {
           this.props.match.params.step === 'confirm' && this.state &&
-          <ExternalConfirm
+          <FormContainer>
+            <ExternalConfirm
             redirect={this.state.redirect}
             message={this.state.confirmPageMessage}
             buttonText={this.state.buttonText}
-          />
+            />
+          </FormContainer>
         }
-      </FormContainer>
+      </PageContainer>
     )
   }
 

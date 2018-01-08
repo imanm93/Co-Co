@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react'
+import { Grid, Button } from 'semantic-ui-react'
 import * as actions from '../../actions/fileActions';
+import styles from './singlefileuploadformfield.css';
 
 class SingleFileUploadFormField extends Component {
 
@@ -22,17 +23,40 @@ class SingleFileUploadFormField extends Component {
     }
   }
 
+  openFileExplorer() {
+    this.refs['input-file'].click();
+  }
+
   render() {
     return (
-      <div>
-        <div style={{
+      <Grid style={{ margin: 0, marginRight: '1rem' }}>
+        <Grid.Column width={16} verticalAlign='middle' textAlign='center' className="coandco-image-input-field" style={{
           backgroundImage: this.props.input.value ? 'url(' + this.props.input.value + ')' : "",
-          height: '5rem',
-          width: '5rem'
-        }}></div>
-        <Button type="button">Add Image</Button>
-        <input type="file" name="image" accept="image/*" onChange={this.uploadFile.bind(this)} />
-      </div>
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundSize: 'contain'
+        }}>
+          <Grid.Row className="coandco-image-input-background">
+            { !this.props.input.value &&
+              <div style={{ marginTop: '0.75rem' }}>
+                  <i className="fa fa-camera" aria-hidden="true"></i>
+              </div>
+            }
+            { this.props.input.value &&
+              <div style={{ marginTop: '5.5em' }}>
+                <Button circular className="coandco-image-input-btn" type="button" onClick={() => this.openFileExplorer()}><i className="fa fa-paperclip" aria-hidden="true"></i>Add Image</Button>
+                <input className="coandco-image-input-file-btn" ref='input-file' type="file" name="image" accept="image/*" onChange={this.uploadFile.bind(this)} />
+              </div>
+            }
+            { !this.props.input.value &&
+              <div style={{ marginTop: '0.5rem' }}>
+                <Button circular className="coandco-image-input-btn" type="button" onClick={() => this.openFileExplorer()}><i className="fa fa-paperclip" aria-hidden="true"></i>Add Image</Button>
+                <input className="coandco-image-input-file-btn" ref='input-file' type="file" name="image" accept="image/*" onChange={this.uploadFile.bind(this)} />
+              </div>
+            }
+          </Grid.Row>
+        </Grid.Column>
+      </Grid>
     )
   }
 }

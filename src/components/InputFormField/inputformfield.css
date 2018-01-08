@@ -1,0 +1,22 @@
+.ui.input {
+  width: 100%;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.ui.input>input {
+  border-radius: 0;
+  background-color: #FAFAFA;
+  box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
+}
+
+.coandco-input-label {
+  color: #000B0B;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.coandco-input-field {
+  padding: 0.5rem;
+}

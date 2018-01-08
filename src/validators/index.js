@@ -12,6 +12,16 @@ export const timeBeforePresent = (values) => {
     return false;
 }
 
+export const timeBeforeStart = (value, otherValue) => {
+    if (value < otherValue.startTime) { return 'End time cannot be before start time.'; }
+    return false;
+}
+
+export const timeAfterEnd = (value, otherValue) => {
+    if (value > otherValue.endTime) { return 'Start time cannot be after end time.'; }
+    return false;
+}
+
 export const url = (value) => {
   return value && !/((https|http?):\/\/)?(www\.)?[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?$/i.test(value) ? 'Invalid field' : undefined;
 }

@@ -48,9 +48,10 @@ class SearchFormField extends Component {
       const { meta } = this.props;
       const hasError = meta.touched && meta.error !== undefined;
       return(
-        <div>
-          <div>
-            <SearchBox items={this.props.items} onSelectedItem={this.onSelectedItem.bind(this)} />
+        <div className='coandco-input-field'>
+          <div className='coandco-input-label'>{this.props.label}</div>
+          <div className='coandco-input-search'>
+            <SearchBox placeholder={this.props.placholder} items={this.props.items} onSelectedItem={this.onSelectedItem.bind(this)} />
           </div>
           {
             this.state.selectedChips.length > 0 && this.state.selectedChips.map(item => {

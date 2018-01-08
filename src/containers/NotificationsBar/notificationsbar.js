@@ -5,7 +5,6 @@ class NotificationsBar extends Component {
   render() {
     return(
       <div>
-        Notifications Bar
       </div>
     )
   }

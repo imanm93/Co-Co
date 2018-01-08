@@ -1,0 +1,30 @@
+.ui.secondary.inverted.pointing.menu {
+  border-color: transparent;
+}
+
+.ui.secondary.inverted.menu a.item {
+  color: gray !important;
+  font-weight: 600;
+}
+
+.ui.secondary.inverted.menu a.item:hover {
+  color: gray !important;
+  border-color: gray;
+  font-weight: 600;
+}
+
+.ui.secondary.inverted.pointing.menu .active.item {
+  color: #000 !important;
+  border-color: #000;
+}
+
+.coandco-external-link {
+  color: #FFF;
+  font-weight: 600;
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+.coandco-external-link:hover {
+  color: gray;
+}
