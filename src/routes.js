@@ -17,6 +17,7 @@ import UserSetup from './containers/UserSetup';
 import Dashboard from './containers/Dashboard';
 import PostNewItem from './containers/PostNewItem';
 import UserProfile from './containers/UserProfile';
+import VerifiedEmail from './containers/VerifiedEmail';
 import VerifiedCompany from './containers/VerifiedCompany';
 
 /**
@@ -24,14 +25,16 @@ import VerifiedCompany from './containers/VerifiedCompany';
  */
 import NotFoundPage from './components/NotFoundPage';
 
-// <Route path="/signup" component={SignUp} />
-// <Route path="/signin" component={SignIn} />
+
 
 const Routes = () => (
   <Switch>
       <Route exact path="/" component={withGATracker(Landing)} />
+      <Route path="/signup" component={SignUp} />
+      <Route path="/signin" component={SignIn} />
       <Route path="/verify" component={Verify} />
       <Route path="/setup" component={UserSetup} />
+      <Route path="/verifiedemail" component={VerifiedEmail} />
       <Route path="/post" component={PostNewItem} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/external/:step" component={External} />
