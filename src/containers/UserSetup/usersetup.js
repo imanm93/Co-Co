@@ -36,7 +36,7 @@ class UserSetup extends Component {
     newValues['staffSchoolId'] = 0;
     newValues['reason'] = "";
     newValues['otherName'] = "";
-    this.props.setupUser(this.props.token, newValues);
+    this.props.setupUser(this.props.token, newValues, this.props.history);
   }
 
   updateSignUpSelection(signUpReasonsIds) {

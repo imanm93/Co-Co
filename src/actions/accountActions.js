@@ -5,14 +5,14 @@
 import qs from 'qs';
 import axios from '../utils/axios';
 import jwt_decode from 'jwt-decode';
-
+ 
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { IS_SETTING_UP } from '../constants/setup/setupLoaderTypes';
 import { SET_AUTH_USER } from '../constants/account/accountReducerTypes';
 import { IS_AUTHENTICATING, IS_SIGNING_UP } from '../constants/account/accountLoaderTypes';
 import { SET_SIGN_IN_ERROR, SET_SIGN_UP_ERROR } from '../constants/account/accountErrorTypes';
-import { GET_AUTH_URL, GET_USER_URL, POST_SIGNUP_URL, GET_RESEND_URL } from '../constants/account/accountEndpoints';
-import { SET_EMAIL_SENT_SUCCESSFULL, SET_VERIFY_USER_ID, IS_RESENDING_EMAIL, SET_EMAIL_SENT_ERROR } from '../constants/verify/verifyReducerTypes';
+import { GET_AUTH_URL, GET_USER_URL, POST_SIGNUP_URL, GET_RESEND_URL, POST_SETUP_URL } from '../constants/account/accountEndpoints';
+import { SET_EMAIL_SENT_SUCCESSFULL, SET_VERIFY_USER_ID, IS_RESENDING_EMAIL, SET_EMAIL_SENT_ERROR, SET_SETUP_ERROR } from '../constants/verify/verifyReducerTypes';
 
 /**
  * Get authentication token for user
@@ -166,26 +166,26 @@ export function setupUser(token, values, history) {
       data: true
     });
     console.log(values);
-    // history.push('/dashboard');
-    // axios({
-    //   method: 'POST',
-    //   url: POST_SETUP_URL,
-    //   data: values
-    // })
-    // .then(resp => {
-    //   console.log(resp);
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    //   dispatch({
-    //     type: SET_API_ERROR,
-    //     error: err
-    //   });
-    //   dispatch({
-    //     type: SET_SETUP_ERROR,
-    //     error: err.response
-    //   });
-    // })
+    history.push('/dashboard');
+    axios({
+      method: 'POST',
+      url: POST_SETUP_URL,
+      data: values
+    })
+    .then(resp => {
+      console.log(resp);
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({
+        type: SET_API_ERROR,
+        error: err
+      });
+      dispatch({
+        type: SET_SETUP_ERROR,
+        error: err.response
+      });
+    })
     dispatch({
       type: IS_SETTING_UP,
       data: false
