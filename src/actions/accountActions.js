@@ -116,7 +116,7 @@ export function signUpUser(values, userType, ctx) {
           data: res.data
       });
       dispatch({ type: IS_SIGNING_UP, data: false });
-      ctx.props.history.push('/verify');
+      ctx.history.push('/verify');
     })
     .catch(err => {
       dispatch({ type: SET_SIGN_UP_ERROR, error: err.response.data ? err.response.data : "We're sorry something went wrong, please try again!" });
