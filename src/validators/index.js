@@ -4,6 +4,8 @@
  */
 import moment from 'moment';
 
+export const escapeRegexCharacters = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 export const required = value => (value ? undefined : '*this field is required');
 
 export const timeBeforePresent = (values) => {

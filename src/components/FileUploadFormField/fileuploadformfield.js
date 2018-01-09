@@ -38,7 +38,7 @@ class FileUploadFormField extends Component {
     const files = fields.getAll();
     return(
       <Grid>
-        <Grid.Row>
+        <Grid.Row style={{ padding: 0 }}>
           { files && files.length > 0 &&
               files.map((file, index) => {
                 return <Label as='a' style={{

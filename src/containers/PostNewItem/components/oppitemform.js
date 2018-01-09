@@ -10,6 +10,7 @@ import dateFormField from '../../../components/DateFormField';
 import inputFormField from '../../../components/InputFormField';
 import searchFormField from '../../../components/SearchFormField';
 import fileUploadFormField from '../../../components/FileUploadFormField';
+import SearchBox from '../../../components/SearchBox';
 
 class OppItemForm extends Component {
 
@@ -42,6 +43,8 @@ class OppItemForm extends Component {
       this.props.post(this.props.type, newValues);
     }
   }
+
+  // <SearchBox items={skillItems} onSelectedItem={this.displayselected}/>
 
   render() {
     const { handleSubmit } = this.props;
@@ -144,7 +147,7 @@ class OppItemForm extends Component {
             <Grid.Column width={7}>
             </Grid.Column>
             <hr className='coandco-form-section-line' />
-            <Grid.Column width={12} textAlign='right' style={{ paddingRight: 0 }}>
+            <Grid.Column width={12} style={{ paddingRight: 0 }}>
               <FieldArray
                 name='attachments'
                 component={fileUploadFormField}
