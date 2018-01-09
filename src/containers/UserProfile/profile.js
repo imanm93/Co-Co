@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 import * as actions from '../../actions/profileActions';
 
+import PageContainer from '../../components/PageContainer';
+import NavBar from '../NavBar';
 import ViewProfile from './components/viewprofile';
 import EditProfileForm from './components/editprofileform';
 
@@ -19,7 +21,10 @@ class Profile extends Component {
   render() {
     const type = this.props.match.params.type;
     return (
-      <Grid style={{ margin: 0 }}>
+      <PageContainer>
+        <Grid style={{ margin: 0 }}>
+          <NavBar history={this.props.history} profilePhotoUrl={this.props.profilePhotoUrl} />
+        </Grid>
         { type === 'view' &&
             <ViewProfile
               onEdit={this.onEdit.bind(this)}
@@ -33,9 +38,10 @@ class Profile extends Component {
               streams={this.props.streams}
               profile={this.props.profile}
               topicTypes={this.props.topicTypes}
+              profileViewData={this.props.profile.profileViewData}
             />
         }
-      </Grid>
+      </PageContainer>
     )
   }
 }
@@ -46,6 +52,7 @@ function mapStateToProps(state) {
     token: state.account.token,
     skills: state.skills.skills,
     userId: state.account.userId,
+    profilePhotoUrl: state.account.profilePhotoUrl,
     streams: state.skills.streams,
     topicTypes: state.filters.topicTypes
   }

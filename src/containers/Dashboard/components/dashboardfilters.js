@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import * as types from '../../../constants/filters/filterTypes';
 import Filters from '../../../components/Filters';
-import { Accordion, Menu } from 'semantic-ui-react';
+import { Grid, Accordion, Menu, Checkbox } from 'semantic-ui-react';
+import styles from './dashboardfilters.css';
 
 class DashboardFilters extends Component {
 
@@ -46,13 +47,19 @@ class DashboardFilters extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { activeIndex } = this.state;
     return(
-      <Accordion as={Menu} vertical style={{ textAlign: 'left' }}>
-        <b>Filter By</b>
+      <Grid.Row className='coandco-dashboard-filters'>
+        <div className='coandco-dashboard-filter-header'>Filter By</div>
+        { this.props.currentTab === 'People' &&
+          <div style={{ padding: '0.5rem', fontWeight: '600', borderTop: '1px solid rgba(34,36,38,.15)' }}>
+            <Checkbox label='MY CONNECTIONS' />
+          </div>
+        }
         {
           Object.keys(this.props.filters).map(key => {
-            return <Menu.Item key={key}>
+            return <Accordion as={Menu} vertical style={{ textAlign: 'left' }}>
               <Accordion.Title
                 active={activeIndex === parseInt(key)}
                 content={this.props.filters[key].type}
@@ -60,16 +67,18 @@ class DashboardFilters extends Component {
                 onClick={this.onExpandFilter.bind(this)}
               />
               <Accordion.Content active={activeIndex === parseInt(key)} content={
-                  (<Filters
+                  (
+                    <Filters
                       type={this.props.filters[key].type}
                       filters={this.props.filters[key].filters}
-                      updateQuery={this.updateQuery.bind(this)} />)
+                      updateQuery={this.updateQuery.bind(this)} />
+                  )
                 }
               />
-            </Menu.Item>
+            </Accordion>
           })
         }
-      </Accordion>
+      </Grid.Row>
     )
   }
 

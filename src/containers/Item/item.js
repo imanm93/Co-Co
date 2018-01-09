@@ -65,23 +65,25 @@ class Item extends Component {
         { this.props.item.itemType === 'post' &&
             <StatusItem item={this.props.item} />
         }
-        { !this.props.item.itemType &&
-            <PeopleItem />
+        { this.props.item.itemType === 'user' &&
+            <PeopleItem item={this.props.item} />
         }
-        <ItemControls
-          userId={this.props.userId}
-          type={this.props.item.itemType}
-          itemUserId={this.props.item.user.id}
-          numberOfLikes={this.props.item.numberOfLikes}
-          numberOfComments={this.props.item.numberOfComments}
-          numberGoing={this.props.item.numberGoing}
-          isLiked={this.props.item.isLiked}
-          onLike={this.onLike.bind(this)}
-          onComments={this.onComments.bind(this)}
-          onInterested={this.onInterested.bind(this)}
-          onDelete={this.onDelete.bind(this)}
-          onEnquire={this.onEnquire}
-        />
+        { this.props.item.itemType !== 'user' &&
+          <ItemControls
+            userId={this.props.userId}
+            type={this.props.item.itemType}
+            itemUserId={this.props.item.user.id}
+            numberOfLikes={this.props.item.numberOfLikes}
+            numberOfComments={this.props.item.numberOfComments}
+            numberGoing={this.props.item.numberGoing}
+            isLiked={this.props.item.isLiked}
+            onLike={this.onLike.bind(this)}
+            onComments={this.onComments.bind(this)}
+            onInterested={this.onInterested.bind(this)}
+            onDelete={this.onDelete.bind(this)}
+            onEnquire={this.onEnquire}
+          />
+        }
         { this.props.item.showComments &&
           <Grid.Row>
             <ItemComments

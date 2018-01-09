@@ -33,7 +33,7 @@ class ExternalVerifyForm extends Component {
                   name='email'
                   type='email'
                   label='Your contact email'
-                  placeholder='your_email@domain'
+                  placeholder='Please put your email here'
                   component={inputFormField}
                   validate={[required]}
                 />

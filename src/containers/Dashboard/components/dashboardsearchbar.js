@@ -6,7 +6,7 @@ class DashboardSearchBar extends Component {
 
   render() {
     return(
-      <Grid.Row style={{ backgroundColor: '#292F2E' }}>
+      <Grid.Row style={{ backgroundColor: '#2A2A2A' }}>
         <Grid.Column width={16} style={{ textAlign: 'center' }}>
           <SearchBox items={this.props.items} placeholder='What are you looking for?' setSearchQuery={this.props.setSearchQuery} />
         </Grid.Column>

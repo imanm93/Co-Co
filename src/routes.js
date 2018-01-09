@@ -24,13 +24,13 @@ import VerifiedCompany from './containers/VerifiedCompany';
  */
 import NotFoundPage from './components/NotFoundPage';
 
-// <Route path="/signin" component={SignIn} />
 // <Route path="/signup" component={SignUp} />
 
 const Routes = () => (
   <Switch>
       <Route exact path="/" component={withGATracker(Landing)} />
       <Route path="/verify" component={Verify} />
+      <Route path="/signin" component={SignIn} />
       <Route path="/setup" component={UserSetup} />
       <Route path="/post" component={PostNewItem} />
       <Route path="/dashboard" component={Dashboard} />

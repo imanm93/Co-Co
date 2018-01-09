@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Grid, Dropdown } from 'semantic-ui-react';
 import styles from './navbar.css';
+import { connect } from 'react-redux';
+import { Grid, Dropdown, Button } from 'semantic-ui-react';
 import * as actions from '../../actions/profileActions';
 
 import NewPostButton from '../../components/NewPostButton';
@@ -13,18 +13,28 @@ class NavBar extends Component {
     this.props.setProfileViewId(this.props.userId, this.props.history);
   }
 
+  redirectToDashboard() {
+    this.props.history.push('/dashboard');
+  }
+
   signOut() {
     // TODO: Console.log('signing out');
   }
 
   render() {
     return(
-      <Grid.Row verticalAlign='middle' style={{ backgroundColor: '#FFF', padding: 0 }}>
-        <Grid.Column width={3} stretched style={{
-          backgroundColor: '#292F2E'
-        }}>
+      <Grid.Row style={{ backgroundColor: '#FFF', padding: 0 }}>
+        <Grid.Column width={2} style={{
+          backgroundSize: 'contain',
+          backgroundColor: '#2A2A2A',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundImage: 'url(https://coandco.blob.core.windows.net/systemimagescoandco/files/coandco_white.png)',
+          border: '6px solid #2A2A2A',
+          cursor: 'pointer'
+        }} onClick={this.redirectToDashboard.bind(this)}>
         </Grid.Column>
-        <Grid.Column width={6}>
+        <Grid.Column width={7}>
           <NotificationsBar />
         </Grid.Column>
         <Grid.Column width={4} textAlign='right'>

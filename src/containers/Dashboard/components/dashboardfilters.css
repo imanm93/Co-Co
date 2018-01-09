@@ -1,0 +1,30 @@
+.coandco-dashboard-filters {
+  background-color: #FFF;
+  margin-top: 1.5rem;
+}
+
+.coandco-dashboard-filter-header {
+  color: #A4A4A4;
+  padding: 0.5rem;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+div.ui.vertical.accordion.ui.menu {
+  margin: 0;
+  width: 100%;
+  border-radius: 0;
+  border-top: 1px solid rgba(34,36,38,.15);
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+div.ui.vertical.accordion.ui.menu>.title {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+div.ui.vertical.accordion.ui.menu>.title>i {
+  color: #E6E6E6;
+}

@@ -29,7 +29,7 @@ class OppItemForm extends Component {
 
     let serviceNeededId = Object.keys(this.props.skills).filter(key => this.props.skills[key] === values.serviceNeeded);
     newValues['serviceNeeded'] = serviceNeededId[0];
-    if (newValues['skillIds'].length > 0) { newValues['skillIds'] = newValues['skillIds'].concat(serviceNeededId) }
+    if (newValues['skillIds'] && newValues['skillIds'].length > 0) { newValues['skillIds'] = newValues['skillIds'].concat(serviceNeededId) }
     else { newValues['skillIds'] = [].concat(serviceNeededId) }
 
     if (this.props.externalEmail) {
@@ -115,7 +115,7 @@ class OppItemForm extends Component {
                 <Field
                   name='reward'
                   label=''
-                  placeholder='Please specify'
+                  placeholder='e.g £12 p/h, £50 Amazon voucher, free drinks'
                   component={inputFormField}
                   validate={required}
                 />
@@ -132,14 +132,7 @@ class OppItemForm extends Component {
             </Grid.Column>
             <hr className='coandco-form-section-line' />
             <Grid.Column width={9}>
-              <div className='form-section-title'>3. Target</div>
-              <FieldArray
-                name='skills'
-                label='Target people with the following skills'
-                placholder='e.g. Adobe Photoshop'
-                component={searchFormField}
-                items={skillItems}
-              />
+              <div className='form-section-title'>3. Add Topics</div>
               <FieldArray
                 name='topics'
                 label='Target people with the following interests'
@@ -166,6 +159,14 @@ class OppItemForm extends Component {
   }
 
 }
+
+// <FieldArray
+//   name='skills'
+//   label='Target people with the following skills'
+//   placholder='e.g. Adobe Photoshop'
+//   component={searchFormField}
+//   items={skillItems}
+// />
 
 const selector = formValueSelector('OppItemForm')
 OppItemForm = connect(

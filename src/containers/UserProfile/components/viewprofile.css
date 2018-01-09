@@ -1,0 +1,52 @@
+.work-samples-container {
+  background-color:#efefef;
+  padding: 3em;
+}
+
+.work-examples {
+  background-color:#efefef;
+  padding: 2em 5em;
+}
+
+.ui.segment.profile-tab .main-content  {
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-top: 20px;
+  .header{
+    font-size: 18px;
+    margin: 0 0 20px 0;
+  }
+}
+
+.ui.borderless.two.item.menu{
+  width: 80%;
+  border-radius: 0;
+  text-align: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-left: 0!important;
+  margin-right: 0!important;
+  margin: auto !important;
+  padding-left: 0!important;
+  padding-right: 0!important;
+}
+
+.profilePicture {
+  height:13em;
+  width: 13em;
+  border-radius: 100%;
+  margin-bottom:2em;
+  background-size: cover;
+  background-position: center;
+}
+
+.ui.grid>.row>.column.work-examples,
+.ui.grid>.row>.column.margin-3rem {
+  padding-left: 12rem;
+  padding-right: 12rem;
+}
+
+.profile-tab.ui.segment{
+    border: none;
+    box-shadow: none;
+}

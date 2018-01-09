@@ -16,9 +16,6 @@ import DashboardItemsSelectorBar from './components/dashboarditemsselectorbar';
 
 class Dashboard extends Component {
 
-  // TODO: Uncomment when endpoints work
-  // Remove hard coded user and put in this.props.userId
-
   componentWillMount() {
       this.props.fetchTopics(this.props.token);
       this.props.fetchSkills(this.props.token);
@@ -68,7 +65,6 @@ class Dashboard extends Component {
       case DashboardTabs.STATUS:
         break;
       case DashboardTabs.PEOPLE:
-        filterControls.push({ type: FilterTypes.DISCIPLINES, filters: this.props.filters.disciplineTypes });
         break;
       default:
         filterControls.push({ type: FilterTypes.OPP_TYPES, filters: this.props.filters.oppTypes });
@@ -109,6 +105,7 @@ class Dashboard extends Component {
               filters={filterControls}
               userId={this.props.userId}
               items={this.props.items.items}
+              currentTab={this.props.dash.tab}
               isLoading={this.props.isLoadingDashItems}
               profilePhotoUrl={this.props.profilePhotoUrl}
               setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}

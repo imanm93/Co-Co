@@ -1,0 +1,15 @@
+.backgroundSection {
+  height:20em;
+  background-size: contain;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;  
+}
+
+.black-overlay {
+  color: #FFF;
+  padding: 0.5em;
+  background-color: rgba(0, 0, 0, 0.3);
+}
