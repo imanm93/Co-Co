@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { Grid, Button, Divider } from 'semantic-ui-react';
+import { Grid, Button, Divider, Dimmer, Loader } from 'semantic-ui-react';
 import { required } from '../../../validators';
 import inputFormField from '../../../components/InputFormField';
 
@@ -11,6 +11,7 @@ class SignInForm extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { handleSubmit } = this.props;
     return(
       <form onSubmit={handleSubmit(this.submit)}>
@@ -27,6 +28,11 @@ class SignInForm extends Component {
           </Grid.Column>
         </Grid>
         <Grid centered>
+          { this.props.isSigningIn &&
+            <Dimmer active inverted>
+              <Loader/>
+            </Dimmer>
+          }
           <Grid.Column width={12} style={{ backgroundColor: '#FFF', boxShadow: '0 1px 3px 0 #979797', padding: '2em', paddingBottom: 0 }}>
             <Grid.Row>
               <Grid>
@@ -64,6 +70,15 @@ class SignInForm extends Component {
             </Grid.Row>
           </Grid.Column>
         </Grid>
+        { this.props.signInError &&
+          <Grid centered>
+            <Grid.Column width={12} style={{ backgroundColor: '#FFF', paddingTop: 0 }}>
+              <Grid.Row style={{ padding: '1em', paddingBottom: 0 }}>
+                <span style={{color:'#E74C3C'}}>*{this.props.signInError.errorMessage}</span>
+              </Grid.Row>
+            </Grid.Column>
+          </Grid>
+        }
         <Grid centered>
           <Grid.Column width={12} style={{ backgroundColor: '#FFF', paddingTop: 0 }}>
             <Grid.Row style={{ padding: '1em', paddingBottom: 0 }}>

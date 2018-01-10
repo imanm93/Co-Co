@@ -5,7 +5,7 @@
 import qs from 'qs';
 import axios from '../utils/axios';
 import jwt_decode from 'jwt-decode';
- 
+
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { IS_SETTING_UP } from '../constants/setup/setupLoaderTypes';
 import { SET_AUTH_USER } from '../constants/account/accountReducerTypes';
@@ -47,8 +47,10 @@ export function postSignInUser(details, callback) {
         .catch(err => {
           dispatch({
             type: SET_SIGN_IN_ERROR,
-            error: true,
-            errorMessage: err.response ? err.response.data : "Couldn't validate your account"
+            data: {
+              error: true,
+              errorMessage: err.response ? err.response.data : "Couldn't validate your account"
+            }
           });
           dispatch({ type: SET_API_ERROR, data: err });
           dispatch({ type: IS_AUTHENTICATING, data: false });

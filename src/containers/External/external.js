@@ -137,7 +137,7 @@ function mapStateToProps(state) {
     external: state.external,
     token: state.account.token,
     postItemStatus: state.posts.status,
-    isLoadingExternal: state.loader.isLoadingExternal
+    isLoadingExternal: state.loaders.isLoadingExternal
   }
 }
 

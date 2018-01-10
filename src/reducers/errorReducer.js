@@ -4,7 +4,7 @@ import { SET_SIGN_IN_ERROR, SET_SIGN_UP_ERROR } from '../constants/account/accou
 
 const initialState = {
   apiError: {},
-  setupError: '',
+  setupError: {},
   signUpError: '',
   signInError: '',
   postItemError: '',
@@ -15,7 +15,7 @@ const initialState = {
 export default function(state=initialState, action) {
   switch(action.type) {
     case SET_SIGN_IN_ERROR:
-      return { ...state, ...{ signInError: action.error } };
+      return { ...state, ...{ signInError: action.data } };
     case SET_SIGN_UP_ERROR:
       return { ...state, ...{ signUpError: action.error } };
     case SET_LOAD_PROFILE_ERROR:

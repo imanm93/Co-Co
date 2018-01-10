@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Grid, Menu, Checkbox } from 'semantic-ui-react';
+import { Grid, Menu, Checkbox, Button } from 'semantic-ui-react';
 import { dictToArray } from '../../utils/dictTransforms';
 import SearchBox from '../SearchBox';
 import Chip from '../Chip';
+import styles from './skillsform.css';
 
 class SkillsForm extends Component {
 
   componentWillMount() {
     this.setState({
-      stream: 'Animation',
-      skills: this.props.streams['Animation'].skills,
+      skills: this.props.streams[Object.keys(this.props.streams)[0]].skills,
+      stream: Object.keys(this.props.streams)[0],
       selectedSkills: new Set()
     })
   }
@@ -68,17 +69,21 @@ class SkillsForm extends Component {
     const skillItems = dictToArray(this.props.skills);
     return(
       <div>
-        <Grid>
-          <Grid.Column width={16}>
+        <Grid style={{ margin: 0, padding: '2em' }}>
+          <Grid.Column width={16} style={{ paddingBottom: 0 }}>
+            <div className='coandco-skills-form-header'>Tell us what you are good at!</div>
+            <div className='coandco-skills-form-description'>This allows us to notify you of the opportunities most relevant opportunities</div>
+          </Grid.Column>
+          <Grid.Column width={16} style={{ paddingBottom: 0 }}>
             <SearchBox items={skillItems} placeholder='Start typing a skill here ...' setSearchQuery={this.setSearchQuery.bind(this)} />
           </Grid.Column>
-          <Grid.Column width={2}>
-            <Menu pointing vertical>
+          <Grid.Column width={6} style={{ paddingRight: 0, paddingTop: 0 }}>
+            <Menu vertical style={{ width: '100%', borderRadius: 0, maxHeight: '28em', overflowY: 'scroll', overflowX: 'hidden' }}>
               { this.genStreamItemsMenu() }
             </Menu>
           </Grid.Column>
-          <Grid.Column width={2}>
-            <Menu vertical>
+          <Grid.Column width={10} style={{ paddingLeft: 0, paddingTop: 0 }}>
+            <Menu vertical style={{ width: '100%', borderRadius: 0, maxHeight: '28em', overflowY: 'scroll' }}>
               { this.genSkillsItemMenu() }
             </Menu>
           </Grid.Column>

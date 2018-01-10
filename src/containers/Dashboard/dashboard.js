@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { dictToArray } from '../../utils/dictTransforms';
 import styles from './dashboard.css';
@@ -9,11 +9,11 @@ import * as DashboardTabs from '../../constants/dashboard/dashboardTypes';
 import * as actions from '../../actions';
 
 import NavBar from '../NavBar';
-import PageContainer from '../../components/PageContainer';
-import ModalContainer from '../../components/ModalContainer';
 import SkillsForm from '../../components/SkillsForm';
 import FiltersForm from '../../components/FiltersForm';
+import PageContainer from '../../components/PageContainer';
 import DashboardResults from './components/dashboardresults';
+import ModalContainer from '../../components/ModalContainer';
 import DashboardSearchBar from './components/dashboardsearchbar';
 import DashboardItemsSelectorBar from './components/dashboarditemsselectorbar';
 
@@ -22,21 +22,29 @@ class Dashboard extends Component {
   componentWillMount() {
       this.props.fetchTopics(this.props.token);
       this.props.fetchSkills(this.props.token);
+      this.props.fetchStreams(this.props.token);
       this.props.fetchOppTypes(this.props.token);
       this.props.fetchEventTypes(this.props.token);
       this.props.fetchDisciplines(this.props.token);
-      this.props.fetchFilteredItems(this.props.token, '0d17ad18-7ff0-406e-b3ee-c3a113c97f55', this.props.dash.tab, this.props.dash.query, this.props.dash.filters, 1);
+      this.props.fetchFilteredItems(this.props.token, '5c0abae8-58d3-4b8a-9d83-d53665407b7f', this.props.dash.tab, this.props.dash.query, this.props.dash.filters, 1);
+      this.setState({
+        modalStep: 0
+      });
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.dash !== this.props.dash) this.props.fetchFilteredItems(
       nextProps.token,
-      '0d17ad18-7ff0-406e-b3ee-c3a113c97f55',
+      '5c0abae8-58d3-4b8a-9d83-d53665407b7f',
       nextProps.dash.tab,
       nextProps.dash.query,
       nextProps.dash.filters,
       1
     );
+  }
+
+  redirectToSignIn() {
+    this.props.history.push('/signin');
   }
 
   updateItemsAndFilterQuery(key, newVal) {
@@ -77,12 +85,27 @@ class Dashboard extends Component {
     return filterControls;
   }
 
-  redirectToSignIn() {
-    this.props.history.push('/signin');
+  updateUserSkills(skill) {
+    console.log(skill);
+  }
+
+  updateUserTopics(topic) {
+    console.log(topic);
+  }
+
+  onNextModal() {
+    this.setState({
+      modalStep: 1
+    });
+  }
+
+  onSaveUserUpdates() {
+    console.log("TODO: call add topics and add skills api calls");
   }
 
   render() {
-    if (this.props.api.err.status === 401) this.redirectToSignIn();
+    // if (this.props.api.err.status === 401) this.redirectToSignIn();
+    console.log(this.props);
     const skills = dictToArray(this.props.skills);
     const filterControls = this.getFilterControls(this.props.dash.tab);
     return(
@@ -114,11 +137,30 @@ class Dashboard extends Component {
               setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
             />
           </Grid.Row>
-          { this.props.lastActivityTimestamp &&
-            <ModalContainer buttonName="Add new topics" buttonProps={{ circular: true, secondary: true, floated: "right" }}>
-              <SkillsForm />
+            <ModalContainer buttonName="Add new skills" buttonProps={{ circular: true, secondary: true, floated: "right" }}>
+              { this.state.modalStep == 0 &&
+                <div>
+                  <SkillsForm
+                    skills={this.props.skills.skills}
+                    streams={this.props.skills.streams}
+                    updateSelectedSkills={this.updateUserSkills.bind(this)}
+                  />
+                  <Button circular secondary onClick={this.onNextModal.bind(this)}>Save skills & Tell us what you like!</Button>
+                </div>
+              }
+              { this.state.modalStep == 1 &&
+                <div>
+                  <FiltersForm
+                    type={FilterTypes.TOPICS}
+                    title={'Topics'}
+                    types={this.props.filters.topicTypes}
+                    updateSelection={this.updateUserTopics.bind(this)}
+                    message={'Choose any topics from the list below to tell us what you like. Event suggestions are based on this.'}
+                  />
+                  <Button circular secondary onClick={this.onSaveUserUpdates.bind(this)}>Save & Update Profile</Button>
+                </div>
+              }
             </ModalContainer>
-          }
           </Grid>
       </PageContainer>
     );
@@ -129,11 +171,11 @@ class Dashboard extends Component {
 function mapStateToProps(state) {
   return {
     lastActivityTimestamp: state.account.lastActivityTimestamp,
-    isLoadingDashItems: state.loader.isLoadingDashItems,
+    isLoadingDashItems: state.loaders.isLoadingDashItems,
     profilePhotoUrl: state.account.profilePhotoUrl,
     courses: state.setup.courses,
     userId: state.account.userId,
-    skills: state.skills.skills,
+    skills: state.skills,
     token: state.account.token,
     name: state.account.name,
     filters: state.filters,

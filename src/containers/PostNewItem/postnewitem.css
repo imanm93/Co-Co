@@ -27,13 +27,29 @@
 .react-autosuggest__suggestions-list {
   padding-left: 0;
   margin-top: 0;
-  max-height: 10em;
+  max-height: 20em;
   overflow-y: scroll;
+  overflow-x: hidden;
+  position: absolute;
+  width: 97%;
+  z-index: 1000;
+  background-color: #FFF;
+  border: 1px solid rgba(34,36,38,.15);
+  box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5) !important;
 }
 
 .react-autosuggest__suggestions-list>li {
   padding: 0.5em;
   border: 1px solid #ECECEC;
+  border-top: none;
+  list-style-type: none;
+}
+
+.react-autosuggest__suggestions-list>li:hover {
+  padding: 0.5em;
+  border: 1px solid #ECECEC;
+  background-color: #ECECEC;
+  font-weight: 600;
   border-top: none;
   list-style-type: none;
 }

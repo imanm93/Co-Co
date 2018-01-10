@@ -47,7 +47,6 @@ class DashboardFilters extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { activeIndex } = this.state;
     return(
       <Grid.Row className='coandco-dashboard-filters'>

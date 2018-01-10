@@ -20,7 +20,7 @@ class SignIn extends Component {
   render() {
     return(
       <FormContainer>
-        <SignInForm signInUser={this.signInUser} />
+        <SignInForm signInUser={this.signInUser} signInError={this.props.signInError} isSigningIn={this.props.isSigningIn} />
       </FormContainer>
     )
   }
@@ -29,6 +29,8 @@ class SignIn extends Component {
 
 function mapStateToProps(state) {
   return {
+    isSigningIn: state.loaders.isAuthenticating,
+    signInError: state.errors.signInError,
     account: state.account,
     api: state.api
   };
