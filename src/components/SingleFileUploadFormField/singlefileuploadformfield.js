@@ -68,7 +68,7 @@ class SingleFileUploadFormField extends Component {
 
 function mapStateToProps(state) {
   return {
-    isUploadingImage: state.loader.isUploadingImage
+    isUploadingImage: state.loaders.isUploadingImage
   };
 }
 

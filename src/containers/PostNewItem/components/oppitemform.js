@@ -16,7 +16,8 @@ class OppItemForm extends Component {
 
   componentWillMount() {
     this.setState({
-      serviceNeeded: 0
+      serviceNeeded: 0,
+      serviceNeededError: ''
     });
   }
 
@@ -49,9 +50,17 @@ class OppItemForm extends Component {
   }
 
   onSelectedServiceNeeded(value) {
-    this.setState({
-      serviceNeeded: value.id
-    });
+    if (value) {
+      this.setState({
+        serviceNeeded: value.id,
+        serviceNeededError: ''
+      });
+    }
+    else {
+      this.setState({
+        serviceNeededError: '*Please select an option from the dropdown'
+      });
+    }
   }
 
   render() {
@@ -79,6 +88,7 @@ class OppItemForm extends Component {
             <div className='coandco-input-field'>
               <div className='coandco-input-label'>What service do you need?</div>
               <FilterBox items={skillItems} onSelectedItem={this.onSelectedServiceNeeded.bind(this)} placeholder='e.g. Poster Design'/>
+              <span style={{ color: '#E74C3C' }}>{this.state.serviceNeededError}</span>
             </div>
             <Field
               name='title'
@@ -109,15 +119,26 @@ class OppItemForm extends Component {
               validate={required}
               options={selectOptions}
             />
-            <Field
-              name='isPaid'
-              label='Is it paid?'
-              component={inputFormField}
-              InputType={Form.Select}
-              validate={required}
-              options={radioOptions}
-            />
-            { this.props.isPaid && this.props.isPaid === "true" &&
+            { !this.props.externalEmail &&
+              <Field
+                name='isPaid'
+                label='Is it paid?'
+                component={inputFormField}
+                InputType={Form.Select}
+                validate={required}
+                options={radioOptions}
+              />
+            }
+            { this.props.externalEmail &&
+              <Field
+                name='reward'
+                label='Incentivise'
+                placeholder='e.g £12 p/h, £50 Amazon voucher, free drinks'
+                component={inputFormField}
+                validate={required}
+              />
+            }
+            { !this.props.externalEmail && this.props.isPaid && this.props.isPaid === "true" &&
               <Field
                 name='reward'
                 label=''
