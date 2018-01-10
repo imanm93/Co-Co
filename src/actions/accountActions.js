@@ -172,7 +172,11 @@ export function setupUser(token, values, history) {
     axios({
       method: 'POST',
       url: POST_SETUP_URL,
-      data: values
+      data: values,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }
     })
     .then(resp => {
       console.log(resp);
