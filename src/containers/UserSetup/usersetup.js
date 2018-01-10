@@ -146,7 +146,7 @@ function mapStateToProps(state) {
     userId: state.account.userId,
     streams: state.skills.streams,
     topicTypes: state.filters.topicTypes,
-    isSettingUp: state.loader.isSettingUp
+    isSettingUp: state.loaders.isSettingUp
   }
 }
 
