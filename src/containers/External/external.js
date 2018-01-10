@@ -22,13 +22,7 @@ class External extends Component {
   registerExternal(values) {
     this.props.registerExternal(values, (success) => {
       if (success) {
-        this.setState({
-          redirect: this.redirectToHome.bind(this),
-          buttonText: 'Go back to homepage',
-          confirmPageMessage: `A verification email has been sent. Please click on the link to verify your email.`
-        }, function() {
-          this.props.history.push('/external/confirm');
-        })
+        this.props.history.push('/external/confirm');
       }
     });
   }
@@ -36,18 +30,6 @@ class External extends Component {
   verifyExternal(email) {
     this.props.verifiedExternal(email, (success) => {
       if (success) this.props.history.push('/external/post');
-    });
-  }
-
-  postExternal(values) {
-    this.props.postExternalItem(values, (success) => {
-      this.setState({
-        redirect: this.redirectToPost.bind(this),
-        buttonText: 'Post another opportunity!',
-        confirmPageMessage: `Your opportunity has been posted and targeted to hundreds of students!`
-      }, function() {
-        this.props.history.push('external/confirm');
-      })
     });
   }
 
@@ -103,7 +85,6 @@ class External extends Component {
         }
         { this.props.match.params.step === 'post' &&
             <ExternalPostForm
-              post={this.postExternal.bind(this)}
               status={this.props.postItemStatus}
               resetForm={this.resetForm.bind(this)}
               setPostFormTab={this.props.setPostFormTab}
@@ -113,13 +94,12 @@ class External extends Component {
               externalEmail={this.props.external.externalDetails.contactEmail}
             />
         }
-        {
-          this.props.match.params.step === 'confirm' && this.state &&
+        { this.props.match.params.step === 'confirm' &&
           <FormContainer>
             <ExternalConfirm
-            redirect={this.state.redirect}
-            message={this.state.confirmPageMessage}
-            buttonText={this.state.buttonText}
+              buttonText={'Go back to Homepage'}
+              redirect={this.redirectToHome.bind(this)}
+              message={`A verification email has been sent. Please click on the link to verify your email.`}
             />
           </FormContainer>
         }

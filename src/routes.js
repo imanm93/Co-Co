@@ -26,12 +26,12 @@ import VerifiedCompany from './containers/VerifiedCompany';
 import NotFoundPage from './components/NotFoundPage';
 
 // <Route path="/signup" component={SignUp} />
+// <Route path="/signin" component={SignIn} />
 
 const Routes = () => (
   <Switch>
-      <Route path="/verify" component={Verify} />
-      <Route path="/signin" component={SignIn} />
       <Route exact path="/" component={Landing} />
+      <Route path="/verify" component={Verify} />
       <Route path="/setup" component={UserSetup} />
       <Route path="/post" component={PostNewItem} />
       <Route path="/dashboard" component={Dashboard} />

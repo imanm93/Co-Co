@@ -60,7 +60,7 @@ function mapStateToProps(state) {
     filters: state.filters,
     token: state.account.token,
     skills: state.skills.skills,
-    isPostingItem: state.loader.isPostingItem
+    isPostingItem: state.loaders.isPostingItem
   }
 }
 

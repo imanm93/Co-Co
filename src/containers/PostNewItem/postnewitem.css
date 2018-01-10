@@ -31,7 +31,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   position: absolute;
-  width: 97%;
+  width: 90%;
   z-index: 1000;
   background-color: #FFF;
   border: 1px solid rgba(34,36,38,.15);
