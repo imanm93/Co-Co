@@ -8,7 +8,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import OppItemForm from './components/oppitemform';
 import EventItemForm from './components/eventitemform';
 import StatusItemForm from './components/statusitemform';
-import FormContainer from '../../components/FormContainer';
 
 class PostNewItem extends Component {
 

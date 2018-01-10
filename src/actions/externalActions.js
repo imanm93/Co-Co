@@ -3,7 +3,6 @@ import axios from '../utils/axios';
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { IS_LOADING_EXTERNAL } from '../constants/external/externalLoaderTypes';
 import { POST_EXTERNAL_URL, GET_EXTERNAL_COMPANY_URL } from '../constants/external/externalEndpoints';
-import { FETCH_EXTERNAL_COMPANY, FETCH_EXTERNAL_VERIFIED } from '../constants/external/externalFetchTypes';
 import { SET_COMPANY_DETAILS, SET_COMPANY_ERROR, SET_COMPANY_VERIFY_ERROR } from '../constants/external/externalReducerTypes';
 
 export function verifiedExternal(values, callback) {

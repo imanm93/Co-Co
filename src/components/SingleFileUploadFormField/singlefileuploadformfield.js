@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Grid, Button } from 'semantic-ui-react'
+import { Grid, Button, Dimmer, Loader } from 'semantic-ui-react'
 import * as actions from '../../actions/fileActions';
 import styles from './singlefileuploadformfield.css';
 
@@ -36,6 +36,11 @@ class SingleFileUploadFormField extends Component {
           backgroundPosition: 'center',
           backgroundSize: 'contain'
         }}>
+          { this.props.isUploadingImage &&
+            <Dimmer active inverted>
+              <Loader/>
+            </Dimmer>
+          }
           <Grid.Row className="coandco-image-input-background">
             { !this.props.input.value &&
               <div style={{ marginTop: '0.75rem' }}>
@@ -62,13 +67,9 @@ class SingleFileUploadFormField extends Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    isUploadingImage: state.loader.isUploadingImage
+  };
 }
 
 export default connect(mapStateToProps, actions)(SingleFileUploadFormField);
-
-// {this.props.isUploadingPersonalImage &&
-//   <Dimmer active inverted>
-//     <Loader />
-//   </Dimmer>
-// }

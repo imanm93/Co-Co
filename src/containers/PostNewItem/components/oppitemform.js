@@ -2,20 +2,25 @@ import React, { Component } from 'react';
 import moment from 'moment-timezone';
 import { connect } from 'react-redux';
 import { required, timeBeforePresent } from '../../../validators';
-import { Grid, Button, Form, Dimmer, Loader } from 'semantic-ui-react';
 import { reduxForm, Field, FieldArray, formValueSelector } from 'redux-form';
+import { Grid, Button, Form, Dimmer, Loader, Divider } from 'semantic-ui-react';
 import { dictToArray, dictToOptionsForSelect } from '../../../utils/dictTransforms';
 
+import FilterBox from '../../../components/FilterBox';
 import dateFormField from '../../../components/DateFormField';
 import inputFormField from '../../../components/InputFormField';
 import searchFormField from '../../../components/SearchFormField';
 import fileUploadFormField from '../../../components/FileUploadFormField';
-import SearchBox from '../../../components/SearchBox';
 
 class OppItemForm extends Component {
 
-  submit(values) {
+  componentWillMount() {
+    this.setState({
+      serviceNeeded: 0
+    });
+  }
 
+  submit(values) {
     let newValues = {};
     newValues['categoryId'] = 0;
     newValues['title'] = values.title;
@@ -28,10 +33,9 @@ class OppItemForm extends Component {
     if (values.topics) newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
     if (values.attachments) newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
 
-    let serviceNeededId = Object.keys(this.props.skills).filter(key => this.props.skills[key] === values.serviceNeeded);
-    newValues['serviceNeeded'] = serviceNeededId[0];
-    if (newValues['skillIds'] && newValues['skillIds'].length > 0) { newValues['skillIds'] = newValues['skillIds'].concat(serviceNeededId) }
-    else { newValues['skillIds'] = [].concat(serviceNeededId) }
+    newValues['serviceNeeded'] = this.state.serviceNeeded;
+    if (newValues['skillIds'] && newValues['skillIds'].length > 0) { newValues['skillIds'] = newValues['skillIds'].concat(this.state.serviceNeeded) }
+    else { newValues['skillIds'] = [].concat(this.state.serviceNeeded) }
 
     if (this.props.externalEmail) {
       newValues['companyEmail'] = this.props.externalEmail;
@@ -44,7 +48,11 @@ class OppItemForm extends Component {
     }
   }
 
-  // <SearchBox items={skillItems} onSelectedItem={this.displayselected}/>
+  onSelectedServiceNeeded(value) {
+    this.setState({
+      serviceNeeded: value.id
+    });
+  }
 
   render() {
     const { handleSubmit } = this.props;
@@ -68,15 +76,10 @@ class OppItemForm extends Component {
           }
           <Grid.Column width={9}>
             <div className='form-section-title'>1. The Basics</div>
-            <Field
-              name='serviceNeeded'
-              label='What service do you need?'
-              placeholder='Please choose'
-              component={inputFormField}
-              InputType={Form.Select}
-              validate={required}
-              options={skillOptions}
-            />
+            <div className='coandco-input-field'>
+              <div className='coandco-input-label'>What service do you need?</div>
+              <FilterBox items={skillItems} onSelectedItem={this.onSelectedServiceNeeded.bind(this)} placeholder='e.g. Poster Design'/>
+            </div>
             <Field
               name='title'
               label='Title'
@@ -91,85 +94,77 @@ class OppItemForm extends Component {
               component={inputFormField}
               validate={required}
             />
-            </Grid.Column>
-            <Grid.Column width={7}>
-            </Grid.Column>
-            <hr className='coandco-form-section-line' />
-            <Grid.Column width={9}>
-              <div className='form-section-title'>2. More Info</div>
+          </Grid.Column>
+          <Grid.Column width={7}>
+          </Grid.Column>
+          <Divider style={{ width: '100%', margin: 0 }} />
+          <Grid.Column width={9}>
+            <div className='form-section-title'>2. More Info</div>
+            <Field
+              name='opportunityTypeId'
+              label='What type of opportunity is this?'
+              placeholder='e.g. Project'
+              component={inputFormField}
+              InputType={Form.Select}
+              validate={required}
+              options={selectOptions}
+            />
+            <Field
+              name='isPaid'
+              label='Is it paid?'
+              component={inputFormField}
+              InputType={Form.Select}
+              validate={required}
+              options={radioOptions}
+            />
+            { this.props.isPaid && this.props.isPaid === "true" &&
               <Field
-                name='opportunityTypeId'
-                label='What type of opportunity is this?'
-                placeholder='e.g. Project'
+                name='reward'
+                label=''
+                placeholder='e.g £12 p/h, £50 Amazon voucher, free drinks'
                 component={inputFormField}
-                InputType={Form.Select}
                 validate={required}
-                options={selectOptions}
               />
-              <Field
-                name='isPaid'
-                label='Is it paid?'
-                component={inputFormField}
-                InputType={Form.Select}
-                validate={required}
-                options={radioOptions}
-              />
-              { this.props.isPaid && this.props.isPaid === "true" &&
-                <Field
-                  name='reward'
-                  label=''
-                  placeholder='e.g £12 p/h, £50 Amazon voucher, free drinks'
-                  component={inputFormField}
-                  validate={required}
-                />
-              }
-              <Field
-                name='endDate'
-                label='When is the deadline?'
-                dateFormat="DD/MM/YYYY"
-                component={dateFormField}
-                validate={[required, timeBeforePresent]}
-              />
-            </Grid.Column>
-            <Grid.Column width={7}>
-            </Grid.Column>
-            <hr className='coandco-form-section-line' />
-            <Grid.Column width={9}>
-              <div className='form-section-title'>3. Add Topics</div>
-              <FieldArray
-                name='topics'
-                label='Target people with the following interests'
-                placholder='e.g. Health & Wellbeing'
-                component={searchFormField}
-                items={topicItems}
-              />
-            </Grid.Column>
-            <Grid.Column width={7}>
-            </Grid.Column>
-            <hr className='coandco-form-section-line' />
-            <Grid.Column width={12} style={{ paddingRight: 0 }}>
-              <FieldArray
-                name='attachments'
-                component={fileUploadFormField}
-              />
-            </Grid.Column>
-            <Grid.Column width={4} textAlign='left' verticalAlign='middle'>
-              <Button circular secondary type="submit" className='coandco-post-btn'>Post</Button>
-            </Grid.Column>
+            }
+            <Field
+              name='endDate'
+              label='When is the deadline?'
+              dateFormat="DD/MM/YYYY"
+              component={dateFormField}
+              validate={[required, timeBeforePresent]}
+            />
+          </Grid.Column>
+          <Grid.Column width={7}>
+          </Grid.Column>
+          <Divider style={{ width: '100%', margin: 0 }} />
+          <Grid.Column width={9}>
+            <div className='form-section-title'>3. Add Topics</div>
+            <FieldArray
+              name='topics'
+              label='Target people with the following interests'
+              placholder='e.g. Health & Wellbeing'
+              component={searchFormField}
+              items={topicItems}
+            />
+          </Grid.Column>
+          <Grid.Column width={7}>
+          </Grid.Column>
+          <Divider style={{ width: '100%', margin: 0 }} />
+          <Grid.Column width={12} style={{ paddingRight: 0 }} textAlign='right'>
+            <FieldArray
+              name='attachments'
+              component={fileUploadFormField}
+            />
+          </Grid.Column>
+          <Grid.Column width={4} textAlign='left' verticalAlign='top'>
+            <Button circular secondary type="submit" className='coandco-post-btn'>Post</Button>
+          </Grid.Column>
         </Grid>
       </form>
     )
   }
 
 }
-
-// <FieldArray
-//   name='skills'
-//   label='Target people with the following skills'
-//   placholder='e.g. Adobe Photoshop'
-//   component={searchFormField}
-//   items={skillItems}
-// />
 
 const selector = formValueSelector('OppItemForm')
 OppItemForm = connect(

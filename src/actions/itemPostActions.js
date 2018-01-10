@@ -10,13 +10,14 @@ import { GET_ITEM_LIKES_URL, GET_ITEM_INTERESTED_URL, GET_ITEM_NOT_INTERESTED_UR
          GET_FILTERED_EVENT_ITEMS_URL, GET_FILTERED_OPP_ITEMS_URL, GET_FILTERED_STATUS_ITEMS_URL,
          POST_OPPS_EXTERNAL_URL, POST_EVENTS_EXTERNAL_URL } from '../constants/items/itemEndpoints';
 
-export function resetPostItemForm(formName) {
+export function resetPostItemForm(formName, ctx) {
   return function (dispatch) {
     dispatch(reset(formName));
     dispatch({
       type: SET_POST_ITEM_STATUS,
       data: ''
     });
+    ctx.push('/external/verify');
   }
 }
 

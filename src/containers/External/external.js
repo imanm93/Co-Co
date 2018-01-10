@@ -72,7 +72,7 @@ class External extends Component {
   }
 
   resetForm() {
-    this.props.resetPostItemForm('OppItemForm');
+    this.props.resetPostItemForm('OppItemForm', this.props.history);
   }
 
   render() {

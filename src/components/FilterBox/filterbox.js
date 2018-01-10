@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Autosuggest from 'react-autosuggest'; 
+import Autosuggest from 'react-autosuggest';
 
 const renderSuggestion = suggestion => (
   <div>
@@ -52,7 +52,7 @@ class FilterBox extends Component {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
     return inputLength === 0 ? this.props.items : this.props.items.filter(item =>
-      item.name.toLowerCase().slice(0, inputLength) === inputValue 
+      item.name.toLowerCase().slice(0, inputLength) === inputValue
     );
   }
   getSuggestionValue = suggestion => suggestion.name;
@@ -69,6 +69,7 @@ class FilterBox extends Component {
     };
     return (
       <Autosuggest
+        className='coandco-filter-box'
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}

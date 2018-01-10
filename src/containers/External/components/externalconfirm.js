@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Grid, Button } from 'semantic-ui-react';
 
 class ExternalConfirm extends Component {
 
   render() {
-    const { match, history } = this.props;
     return (
       <Grid style={{ backgroundColor: '#FFF', boxShadow: '0 1px 3px 0 #979797' }}>
         <Grid.Row centered>

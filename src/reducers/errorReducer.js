@@ -1,4 +1,4 @@
-import { SET_POST_ITEM_ERROR } from '../constants/items/itemErrorTypes';
+//import { SET_POST_ITEM_ERROR } from '../constants/items/itemErrorTypes';
 import { SET_SAVE_PROFILE_ERROR, SET_LOAD_PROFILE_ERROR } from '../constants/profiles/profileErrorTypes';
 import { SET_SIGN_IN_ERROR, SET_SIGN_UP_ERROR } from '../constants/account/accountErrorTypes';
 

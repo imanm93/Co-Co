@@ -10,6 +10,9 @@ import * as actions from '../../actions';
 
 import NavBar from '../NavBar';
 import PageContainer from '../../components/PageContainer';
+import ModalContainer from '../../components/ModalContainer';
+import SkillsForm from '../../components/SkillsForm';
+import FiltersForm from '../../components/FiltersForm';
 import DashboardResults from './components/dashboardresults';
 import DashboardSearchBar from './components/dashboardsearchbar';
 import DashboardItemsSelectorBar from './components/dashboarditemsselectorbar';
@@ -111,7 +114,12 @@ class Dashboard extends Component {
               setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
             />
           </Grid.Row>
-        </Grid>
+          { this.props.lastActivityTimestamp &&
+            <ModalContainer buttonName="Add new topics" buttonProps={{ circular: true, secondary: true, floated: "right" }}>
+              <SkillsForm />
+            </ModalContainer>
+          }
+          </Grid>
       </PageContainer>
     );
   }
@@ -120,6 +128,7 @@ class Dashboard extends Component {
 
 function mapStateToProps(state) {
   return {
+    lastActivityTimestamp: state.account.lastActivityTimestamp,
     isLoadingDashItems: state.loader.isLoadingDashItems,
     profilePhotoUrl: state.account.profilePhotoUrl,
     courses: state.setup.courses,

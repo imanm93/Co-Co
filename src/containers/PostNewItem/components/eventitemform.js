@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment-timezone';
 import { connect } from 'react-redux';
 import { required, timeBeforePresent, timeAfterEnd, timeBeforeStart } from '../../../validators';
-import { Grid, Button, Form, Dimmer, Loader } from 'semantic-ui-react';
+import { Grid, Button, Form, Dimmer, Loader, Divider } from 'semantic-ui-react';
 import { reduxForm, Field, FieldArray, formValueSelector } from 'redux-form';
 import { dictToArray, dictToOptionsForSelect } from '../../../utils/dictTransforms';
 
@@ -79,14 +79,14 @@ class EventItemForm extends Component {
               component={inputFormField}
             />
           </Grid.Column>
-          <Grid.Column width={7}>
+          <Grid.Column width={7} style={{ paddingTop: '3em' }}>
             <Field
               name='photoUrl'
               component={singleFileUploadFormField}
             />
           </Grid.Column>
-          <hr className='coandco-form-section-line' />
-          <Grid.Column width={9}>
+          <Divider style={{ width: '100%', margin: 0 }} />
+          <Grid.Column width={9} style={{ paddingBottom: 0 }}>
             <div className='form-section-title'>2. More Info</div>
             <Field
               name='eventTypeId'
@@ -105,22 +105,38 @@ class EventItemForm extends Component {
               validate={required}
               component={inputFormField}
             />
-            <Field
-              label='Starts'
-              name='startTime'
-              dateFormat="DD/MM/YYYY HH:mm:ss"
-              endDateTime={this.props.endDateTime}
-              component={dateFormField}
-              validate={[required, timeBeforePresent, timeAfterEnd]}
-            />
-            <Field
-              label='Ends'
-              name='endTime'
-              dateFormat="DD/MM/YYYY HH:mm:ss"
-              startDateTime={this.props.startDateTime}
-              component={dateFormField}
-              validate={[required, timeBeforePresent, timeBeforeStart]}
-            />
+          </Grid.Column>
+          <Grid.Column width={7}>
+          </Grid.Column>
+          <Grid.Column width={9}>
+            <Grid.Row>
+              <Grid>
+                <Grid.Column width={8} style={{paddingTop: 0, paddingBottom: 0 }}>
+                  <Field
+                    label='Starts'
+                    name='startTime'
+                    dateFormat="DD/MM/YYYY HH:mm:ss"
+                    endDateTime={this.props.endDateTime}
+                    component={dateFormField}
+                    validate={[required, timeBeforePresent, timeAfterEnd]}
+                  />
+                </Grid.Column>
+                <Grid.Column width={8} style={{paddingTop: 0, paddingBottom: 0 }}>
+                  <Field
+                    label='Ends'
+                    name='endTime'
+                    dateFormat="DD/MM/YYYY HH:mm:ss"
+                    startDateTime={this.props.startDateTime}
+                    component={dateFormField}
+                    validate={[required, timeBeforePresent, timeBeforeStart]}
+                  />
+                </Grid.Column>
+              </Grid>
+            </Grid.Row>
+          </Grid.Column>
+          <Grid.Column width={7}>
+          </Grid.Column>
+          <Grid.Column width={9} style={{ paddingTop: 0 }}>
             <Field
               name='fee'
               label='Fee'
@@ -140,8 +156,8 @@ class EventItemForm extends Component {
           </Grid.Column>
           <Grid.Column width={7}>
           </Grid.Column>
-          <hr className='coandco-form-section-line' />
-          <Grid.Column width={12} textAlign='right' style={{ paddingRight: 0 }}>
+          <Divider style={{ width: '100%', margin: 0 }} />
+          <Grid.Column width={12} style={{ paddingRight: 0 }}>
             <FieldArray
               name='attachments'
               component={fileUploadFormField}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SearchBox from '../SearchBox';
+import FilterBox from '../FilterBox';
 import Chip from '../Chip';
 
 class SearchFormField extends Component {
@@ -51,7 +51,7 @@ class SearchFormField extends Component {
         <div className='coandco-input-field'>
           <div className='coandco-input-label'>{this.props.label}</div>
           <div className='coandco-input-search'>
-            <SearchBox placeholder={this.props.placholder} items={this.props.items} onSelectedItem={this.onSelectedItem.bind(this)} />
+            <FilterBox placeholder={this.props.placholder} items={this.props.items} onSelectedItem={this.onSelectedItem.bind(this)} />
           </div>
           {
             this.state.selectedChips.length > 0 && this.state.selectedChips.map(item => {

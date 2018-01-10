@@ -20,8 +20,6 @@ export default function (state=initialState, action) {
       return { ...state, ...{ externalFormError: action.error } };
     case SET_COMPANY_VERIFY_ERROR:
       return { ...state, ...{ externalVerifyFError: action.error } };
-    case SET_IS_VERIFIED:
-      return { ...state, ...{ isVerified: action.data }  };
     default:
       return state;
   }
