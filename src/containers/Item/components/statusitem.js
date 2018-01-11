@@ -16,8 +16,8 @@ class StatusItem extends Component {
           <Grid.Row style={{ backgroundColor: '#FFF', padding: 0 }}>
             <div className='status-body'>{this.props.item.text}</div>
           </Grid.Row>
-          <Grid.Row style={{ backgroundColor: '#FFF', padding: 0 }}>
-            <Grid.Column width={2}>
+          <Grid.Row style={{ backgroundColor: '#FFF', padding: '1em' }}>
+            <Grid.Column width={2} style={{ paddingRight: 0, textAlign: 'right' }}>
               <img className='status-owner-profile-picture' src={this.props.item.user.profilePhotoUrl} alt={'profile'} />
             </Grid.Column>
             <Grid.Column width={14}>

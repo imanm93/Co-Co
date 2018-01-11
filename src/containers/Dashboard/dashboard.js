@@ -115,6 +115,7 @@ class Dashboard extends Component {
   }
 
   render() {
+    console.log(this.props.lastActivityTimestamp);
     // if (this.props.api.err.status === 401) this.redirectToSignIn();
     const skills = dictToArray(this.props.skills);
     const filterControls = this.getFilterControls(this.props.dash.tab);

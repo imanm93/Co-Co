@@ -37,23 +37,24 @@ class WorkExampleFormField extends Component {
                     rows={8}
                     autoHeight
                     validate={required}
+                    style={{ width: '100%' }}
                     InputType={Form.TextArea}
                     component={inputFormField}
-                    label='Give a brief description'
                     name={`${sample}.description`}
+                    label='Give a brief description'
                     placeholder="Describe your project, such as the materials used, or the idea behind it"
                   />
                   <Field
                     validate={url}
+                    label='Project Url'
                     InputType={Form.Input}
                     component={inputFormField}
                     name={`${sample}.projectUrl`}
-                    label='Project Url'
                     placeholder="Add an URL for more info"
                   />
                 </Grid.Column>
                 <Grid.Column width={16} textAlign='center' style={{ padding: '2em', paddingBottom: 0 }}>
-                  <Button circular secondary onClick={() => this.removeWorkExample(index)}>
+                  <Button types='button' circular secondary onClick={() => this.removeWorkExample(index)}>
                     Remove work example
                   </Button>
                 </Grid.Column>

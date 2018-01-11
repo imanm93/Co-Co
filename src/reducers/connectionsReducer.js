@@ -1,5 +1,4 @@
-import { SET_CONNECTIONS,
-         SET_CONNECTION_REQUESTS } from '../constants/connections/connectionReducerTypes';
+import { SET_CONNECTIONS, SET_CONNECTION_REQUESTS, SET_CONNECTION_REQUEST_STATUS  } from '../constants/connections/connectionReducerTypes';
 
 const initialState = {
   connections: {},
@@ -12,6 +11,13 @@ export default function(state=initialState, action) {
       return { ...state, ...{ connections: action.data } };
     case SET_CONNECTION_REQUESTS:
       return { ...state, ...{ requests: action.data } };
+    case SET_CONNECTION_REQUEST_STATUS:
+      let requestStatus = [].concat(state.requests);
+      const newConnectionsStatus = requestStatus.map(request => {
+        if (request.userId === action.userId) return Object.assign({}, request, { status: action.status, error: action.error });
+        return request;
+      });
+      return { ...state, ...{ requests: newConnectionsStatus } };
     default:
       return state;
   }

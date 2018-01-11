@@ -6,6 +6,7 @@
 
 .item-btn-control {
   color: #333333 !important;
+  padding-right: 0 !important;
   font-size: 13px !important;
   text-align: left !important;
   text-decoration: underline !important;

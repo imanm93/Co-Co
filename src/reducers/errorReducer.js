@@ -1,12 +1,15 @@
 //import { SET_POST_ITEM_ERROR } from '../constants/items/itemErrorTypes';
-import { SET_SAVE_PROFILE_ERROR, SET_LOAD_PROFILE_ERROR } from '../constants/profiles/profileErrorTypes';
+// case SET_POST_ITEM_ERROR:
+//   return { ...state, ...{ postItemError: action.error } };
+
 import { SET_SIGN_IN_ERROR, SET_SIGN_UP_ERROR } from '../constants/account/accountErrorTypes';
+import { SET_SAVE_PROFILE_ERROR, SET_LOAD_PROFILE_ERROR } from '../constants/profiles/profileErrorTypes';
 
 const initialState = {
   apiError: {},
   setupError: {},
-  signUpError: '',
   signInError: '',
+  signUpError: '',
   postItemError: '',
   loadProfileError: '',
   saveProfileError: ''
@@ -26,6 +29,3 @@ export default function(state=initialState, action) {
       return state;
   }
 }
-
-// case SET_POST_ITEM_ERROR:
-//   return { ...state, ...{ postItemError: action.error } };

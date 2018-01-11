@@ -29,6 +29,7 @@ class ConnectionItemNotifications extends Component {
         {
           this.props.connectionRequests && this.props.connectionRequests.map(request => {
             return <ConnectionItemNotification
+              key={'connectionitem' + request.userId}
               request={request}
               onRejectConnection={this.props.onRejectConnection}
               onAcceptConnection={this.props.onAcceptConnection}

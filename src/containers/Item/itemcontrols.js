@@ -6,8 +6,8 @@ class ItemControls extends Component {
   render() {
     return(
       <Grid.Row style={{ paddingTop: 0, paddingBottom: 0, backgroundColor: '#F1F1F1', borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px', textAlign: 'left' }}>
-        <Grid.Column width={10}>
-          <Button className='item-btn-control' onClick={() => this.props.onLike()}>
+        <Grid.Column width={12}>
+          <Button className='item-btn-control' style={{ paddingLeft: 0 }} onClick={() => this.props.onLike()}>
             { this.props.isLiked &&
                 <i className="fa fa-heart" aria-hidden="true"></i>
             }
@@ -25,7 +25,7 @@ class ItemControls extends Component {
               <Button className='item-btn-control' onClick={() => this.props.onEnquire()}>Enquire</Button>
           }
         </Grid.Column>
-        <Grid.Column width={6} style={{ textAlign: 'right' }}>
+        <Grid.Column width={4} style={{ textAlign: 'right' }}>
           { this.props.userId === this.props.itemUserId &&
               <Button className='item-btn-control' onClick={() => this.props.onDelete()}>Delete</Button>
           }

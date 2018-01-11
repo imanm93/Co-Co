@@ -14,6 +14,10 @@ class Profile extends Component {
     if (this.props.profile.profileViewId) this.props.fetchProfileData(this.props.token, this.props.profile.profileViewId);
   }
 
+  onConnect(userId) {
+    this.props.postConnectFromProfile(this.props.token, userId);
+  }
+
   onEdit() {
     this.props.history.push('/profile/edit');
   }

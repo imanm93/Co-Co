@@ -25,11 +25,11 @@ class OppItem extends Component {
           </Grid.Row>
           <Grid.Row style={{ backgroundColor: '#FFF' }}>
             <Grid>
-              <Grid.Column width={13}>
+              <Grid.Column width={12}>
                 <Grid.Row style={{ padding: '1rem' }}>
                   <div className='opp-title'>{this.props.item.title}</div>
                 </Grid.Row>
-                <Grid.Row>
+                <Grid.Row style={{ padding: '1em 1em', paddingTop: '0em' }}>
                   <Grid>
                     <Grid.Column width={2} style={{ textAlign: 'right', paddingRight: 0 }}>
                       <img className='opp-owner-picture' src={this.props.item.user.profilePhotoUrl} alt={'profile'} />
@@ -43,7 +43,7 @@ class OppItem extends Component {
                   </Grid>
                 </Grid.Row>
               </Grid.Column>
-              <Grid.Column width={3}>
+              <Grid.Column width={4}>
                 { !this.props.item.expanded &&
                     <Button className='item-btn-see-more' onClick={() => this.props.onExpand(this.props.type, this.props.item.itemId)}>See More <i className="fa fa-chevron-down" aria-hidden="true"></i></Button>
                 }

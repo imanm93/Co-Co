@@ -17,22 +17,24 @@ class NotificationsBar extends Component {
   }
 
   onAcceptConnection(userId) {
-    console.log('Accepting', userId);
+    this.props.postAcceptConnection(this.props.token, userId);
   }
 
   onRejectConnection(userId) {
-    console.log('Rejecting', userId);
+    this.props.postRejectConnection(this.props.token, userId);
   }
 
   render() {
     return(
       <Grid.Row>
         <Grid style={{ margin: 0 }}>
+          <Grid.Column width={14}>
+          </Grid.Column>
           <Grid.Column width={1}>
             <Popup
               trigger={
                 <div>
-                  <Icon style={{ fontSize: '17px' }} name='user plus' />
+                  <Icon style={{ fontSize: '22px' }} name='user plus' />
                   <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
                     {this.props.connectionRequests.length}
                   </Label>
@@ -58,7 +60,7 @@ class NotificationsBar extends Component {
               onOpen={this.getNotifications.bind(this)}
               trigger={
                 <div>
-                  <Icon name='bell' />
+                  <Icon style={{ fontSize: '22px' }} name='bell' />
                   <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
                     {this.props.notifications.length}
                   </Label>
@@ -75,7 +77,6 @@ class NotificationsBar extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state.connections.requests);
   return {
     isLoadingNotifications: state.loaders.isLoadingNotifications,
     isLoadingConnections: state.loaders.isLoadingConnections,

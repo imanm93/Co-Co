@@ -33,6 +33,16 @@ class ViewProfile extends Component {
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
+                        { this.props.userId !== this.props.profileViewData.userId &&
+                          <Grid centered>
+                            <Grid.Row centered>
+                              <Grid.Column width={3}>
+                                <Button circular secondary onClick={() => this.props.onConnect(this.props.profileViewData.userId)}>Connect</Button>
+                                <a href={'mailto:' + this.props.email}>Email</a>
+                              </Grid.Column>
+                            </Grid.Row>
+                          </Grid>
+                        }
                         { this.props.profileViewData.workExamples && this.props.profileViewData.workExamples.length > 0 &&
                             <Grid centered>
                                 <Grid.Row centered>
@@ -172,7 +182,6 @@ class ViewProfile extends Component {
   }
 
   render() {
-    console.log(this.props.profileViewData);
     const isOwner = this.props.userId === this.props.profileViewData.userId;
     return (
         <Grid.Row>
@@ -182,14 +191,14 @@ class ViewProfile extends Component {
                         <BackgroundImage
                             useLink={true}
                             showName={true}
+                            isOwner={isOwner}
+                            isReadOnly={!isOwner}
                             showDiscipline={true}
                             linkTo="/profile/edit"
                             buttonName="Edit Profile"
-                            isOwner={isOwner}
-                            isReadOnly={!isOwner}
                             backgroundImageUrl={this.props.profileViewData.coverPhotoUrl}
-                            discipline={this.state.isOwner ? this.props.profileViewData.discipline : this.props.profileViewData.discipline || ""}
-                            name={this.state.isOwner ? `Welcome, ${this.props.profileViewData.name}` : `${this.props.profileViewData.name || ""}`}
+                            discipline={isOwner ? this.props.profileViewData.discipline : this.props.profileViewData.discipline || ""}
+                            name={isOwner ? `Welcome, ${this.props.profileViewData.name}` : `${this.props.profileViewData.name || ""}`}
                         />
                     </Grid.Column>
                 </Grid.Row>

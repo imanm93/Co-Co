@@ -10,7 +10,6 @@
 }
 
 .opp-owner-profile-picture {
-
 }
 
 .opp-topic-tag {
@@ -29,8 +28,8 @@
 }
 
 .opp-owner-picture {
-  width: 4rem;
-  height: 4rem;
+	height: 3rem;
+  width: 3rem;
   border-radius: 50%;
 }
 

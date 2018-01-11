@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Grid } from 'semantic-ui-react';
-import SearchBox from '../../../components/SearchBox';
+import FilterBox from '../../../components/FilterBox';
 
 class DashboardSearchBar extends Component {
 
@@ -8,7 +8,7 @@ class DashboardSearchBar extends Component {
     return(
       <Grid.Row style={{ backgroundColor: '#2A2A2A' }}>
         <Grid.Column width={16} style={{ textAlign: 'center' }}>
-          <SearchBox items={this.props.items} placeholder='What are you looking for?' setSearchQuery={this.props.setSearchQuery} />
+          <FilterBox items={this.props.items} placeholder='What are you looking for?' setSearchQuery={this.props.setSearchQuery} />
         </Grid.Column>
       </Grid.Row>
     )

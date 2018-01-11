@@ -5,6 +5,7 @@ import inputFormField from '../../../components/InputFormField';
 import singleFileUploadFormField from '../../../components/SingleFileUploadFormField';
 import workExampleFormField from '../../../components/WorkExampleFormField';
 import * as FilterTypes from '../../../constants/filters/filterTypes';
+import styles from './editprofileform.css';
 import Chip from '../../../components/Chip';
 
 import BackgroundImage from './backgroundimage';
@@ -25,8 +26,6 @@ class EditProfileForm extends Component {
   updateTopicSelection() {
     // TODO: add topics
   }
-
-  // {this.props.profileViewData.bio ? this.props.profileViewData.bio : ""}
 
   render() {
     const { handleSubmit } = this.props;
@@ -53,14 +52,17 @@ class EditProfileForm extends Component {
                 />
               </Grid.Column>
               <Grid.Column width={8}>
-                  <div>Your bio</div>
-                  <div>This is your chance to tell others about you and convince them about connecting with you. Dont be shy and mention what makes you tick.</div>
+                  <div className='coandco-edit-profile-section-title'>Your bio</div>
+                  <div className='coandco-edit-profile-section-description'>This is your chance to tell others about you and convince them about connecting with you. Dont be shy and mention what makes you tick.</div>
                   <Field
-                    name='bio'
+                    rows={4}
                     label=''
+                    name='bio'
                     placeholder=''
-                    component={inputFormField}
+                    style={{ width: '100%' }}
                     InputType={Form.TextArea}
+                    component={inputFormField}
+                    value={this.props.profileViewData ? this.props.profileViewData.bio : ''}
                   />
               </Grid.Column>
           </Grid.Row>
@@ -131,7 +133,7 @@ class EditProfileForm extends Component {
             <Grid.Column width={4}>
             </Grid.Column>
             <Grid.Column width={8}>
-              <div className='coandco-edit-profile-section-header'>Links</div>
+              <div className='coandco-edit-profile-section-title'>Links</div>
               <div className='coandco-edit-profile-section-description'>Add portfolio and social links for others see the full package.</div>
             </Grid.Column>
           </Grid.Row>

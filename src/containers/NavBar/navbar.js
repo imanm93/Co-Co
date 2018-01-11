@@ -34,10 +34,10 @@ class NavBar extends Component {
           cursor: 'pointer'
         }} onClick={this.redirectToDashboard.bind(this)}>
         </Grid.Column>
-        <Grid.Column width={9}>
+        <Grid.Column width={10}>
           <NotificationsBar token={this.props.token} />
         </Grid.Column>
-        <Grid.Column width={2} textAlign='right'>
+        <Grid.Column width={1} textAlign='right'>
           <Dropdown
             className="navbar-btn-my-profile"
             trigger={

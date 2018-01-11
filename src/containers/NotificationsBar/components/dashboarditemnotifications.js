@@ -13,8 +13,11 @@ class DashboardItemNotifications extends Component {
             <Loader/>
           </Dimmer>
         }
-        { this.props.notifications.map(notification => {
-            return <DashboardItemNotification notification={notification} />
+        { this.props.notifications.map((notification, index) => {
+            return <DashboardItemNotification
+              key={'notificationitem' + index}
+              notification={notification}
+            />
           })
         }
       </div>
