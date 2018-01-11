@@ -30,7 +30,18 @@ class PeopleItem extends Component {
           }
         </Grid.Column>
         <Grid.Column width={3}>
-          <Button circular secondary onClick={this.props.onConnect}>Connect</Button>
+          { !this.props.item.connectionState &&
+            <Button circular secondary onClick={this.props.onConnect}>Connect</Button>
+          }
+          { this.props.item.connectionState === 'initial' &&
+            <Button circular secondary onClick={this.props.onConnect}>Connect</Button>
+          }
+          { this.props.item.connectionState === 'requested' &&
+            <Button circular secondary disabled>Pending</Button>
+          }
+          { this.props.item.connectionState === 'connected' &&
+            <Button circular secondary disabled style={{ backgroundColor: 'green' }}>Connected</Button>
+          }
         </Grid.Column>
       </Grid.Row>
     )

@@ -3,8 +3,10 @@ import { reset } from 'redux-form';
 import * as ItemTypes from '../constants/items/itemTypes';
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { IS_POSTING_ITEM } from '../constants/items/itemLoaderTypes';
-import { SET_POST_ITEM_STATUS } from '../constants/postForm/postFormReducerTypes';
 import { SET_NEW_COMMENT_ERROR } from '../constants/items/itemErrorTypes';
+import { SET_POST_ITEM_STATUS } from '../constants/postForm/postFormReducerTypes';
+import { GET_CONNECTION_REQUESTS_URL } from '../constants/connections/connectionEndpoints';
+import { SET_REQUESTED_CONNECTION, UNSET_REQUESTED_CONNECTION } from '../constants/connections/connectionReducerTypes';
 import { INCREMENT_LIKES, DECREMENT_LIKES, INCREMENT_INTERESTED, DECREMENT_INTERESTED, SET_NEW_COMMENT } from '../constants/items/itemReducerTypes';
 import { GET_ITEM_LIKES_URL, GET_ITEM_INTERESTED_URL, GET_ITEM_NOT_INTERESTED_URL, GET_ITEM_COMMENT_URL,
          GET_FILTERED_EVENT_ITEMS_URL, GET_FILTERED_OPP_ITEMS_URL, GET_FILTERED_STATUS_ITEMS_URL,
@@ -18,6 +20,37 @@ export function resetPostItemForm(formName, ctx) {
       data: ''
     });
     ctx.push('/external/verify');
+  }
+}
+
+export function postConnect(token, userId) {
+  return function (dispatch) {
+    dispatch({
+      type: SET_REQUESTED_CONNECTION,
+      id: userId
+    });
+    axios({
+      method: 'POST',
+      url: GET_CONNECTION_REQUESTS_URL + '/' + userId,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      }
+    })
+    .then(res => {
+      console.log(res);
+      /* Do nothing */
+    })
+    .catch(err => {
+      dispatch({
+        type: UNSET_REQUESTED_CONNECTION,
+        id: userId
+      });
+      dispatch({
+        type: SET_API_ERROR,
+        error: err.response ? err.response.data : 'Network error, please try again!'
+      });
+    })
   }
 }
 

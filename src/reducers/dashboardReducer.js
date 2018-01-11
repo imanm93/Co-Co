@@ -10,10 +10,19 @@ const initialState = {
 export default function(state=initialState, action) {
   switch(action.type) {
     case SET_DASH_FILTER:
-      return { ...state, ...{
-          filters: Object.assign({}, state.filters, action.filter)
-        }
-      };
+      if (action.filter.myConnections) {
+        return { ...state, ...{
+            filters: Object.assign({}, action.filter)
+          }
+        };
+      }
+      else
+      {
+        return { ...state, ...{
+            filters: Object.assign({}, state.filters, action.filter)
+          }
+        };
+      }
     case SET_DASH_QUERY:
       return { ...state, ...{
           query: action.query

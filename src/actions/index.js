@@ -7,3 +7,4 @@ export * from './profileActions';
 export * from './setupActions';
 export * from './externalActions';
 export * from './postButtonActions';
+export * from './notificationBarActions';

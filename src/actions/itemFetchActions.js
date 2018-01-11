@@ -4,11 +4,17 @@
  */
 import qs from 'qs';
 import * as ItemTypes from '../constants/items/itemTypes';
-import * as DashboardTabs from '../constants/dashboard/dashboardTypes';
 import { RESET_COMMENTS } from '../constants/items/itemReducerTypes';
+import * as DashboardTabs from '../constants/dashboard/dashboardTypes';
+import { FETCH_CONNECTIONS } from '../constants/connections/connectionFetchTypes';
 import { FETCH_FILTERED_ITEMS, FETCH_EXPANDED_ITEM, FETCH_COMMENTS_FOR_ITEM } from '../constants/items/itemFetchTypes';
 import { GET_FILTERED_ITEMS_URL, GET_FILTERED_EVENT_ITEMS_URL, GET_FILTERED_OPP_ITEMS_URL, GET_FILTERED_STATUS_ITEMS_URL, GET_EXPANDED_OPP_ITEM_URL,
          GET_EXPANDED_EVENT_ITEM_URL, GET_FILTERED_PEOPLE_ITEMS_URL } from '../constants/items/itemEndpoints';
+
+export const fetchConnections = (token) => ({
+ type: FETCH_CONNECTIONS,
+ token: token
+})
 
 export const fetchFilteredItems = (token, userId, tab, search, filter, page) => {
     let action = {};

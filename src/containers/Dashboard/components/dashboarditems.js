@@ -16,7 +16,7 @@ class DashboardItems extends Component {
         { !this.props.isLoading && this.props.items &&
             Object.keys(this.props.items).map(key => {
               return <Item
-                        key={key}
+                        key={String(key)}
                         token={this.props.token}
                         userId={this.props.userId}
                         name={this.props.name}

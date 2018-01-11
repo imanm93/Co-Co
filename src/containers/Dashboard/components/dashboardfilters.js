@@ -53,12 +53,12 @@ class DashboardFilters extends Component {
         <div className='coandco-dashboard-filter-header'>Filter By</div>
         { this.props.currentTab === 'People' &&
           <div style={{ padding: '0.5rem', fontWeight: '600', borderTop: '1px solid rgba(34,36,38,.15)' }}>
-            <Checkbox label='MY CONNECTIONS' />
+            <Checkbox label='MY CONNECTIONS' onChange={this.props.onMyConnections} />
           </div>
         }
         {
           Object.keys(this.props.filters).map(key => {
-            return <Accordion as={Menu} vertical style={{ textAlign: 'left' }}>
+            return <Accordion as={Menu} vertical style={{ textAlign: 'left' }} key={String(key)}>
               <Accordion.Title
                 active={activeIndex === parseInt(key)}
                 content={this.props.filters[key].type}

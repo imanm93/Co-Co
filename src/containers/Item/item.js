@@ -41,6 +41,10 @@ class Item extends Component {
     this.props.postDelete(this.props.token, this.props.item.itemType, this.props.item.itemId);
   }
 
+  onConnect() {
+    this.props.postConnect(this.props.token, this.props.item.user.id);
+  }
+
   onEmail(itemId) {
     console.log("Email", itemId);
   }
@@ -66,7 +70,7 @@ class Item extends Component {
             <StatusItem item={this.props.item} />
         }
         { this.props.item.itemType === 'user' &&
-            <PeopleItem item={this.props.item} />
+            <PeopleItem item={this.props.item} onConnect={this.onConnect.bind(this)} />
         }
         { this.props.item.itemType !== 'user' &&
           <ItemControls

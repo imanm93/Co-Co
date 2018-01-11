@@ -34,10 +34,10 @@ class NavBar extends Component {
           cursor: 'pointer'
         }} onClick={this.redirectToDashboard.bind(this)}>
         </Grid.Column>
-        <Grid.Column width={7}>
-          <NotificationsBar />
+        <Grid.Column width={9}>
+          <NotificationsBar token={this.props.token} />
         </Grid.Column>
-        <Grid.Column width={4} textAlign='right'>
+        <Grid.Column width={2} textAlign='right'>
           <Dropdown
             className="navbar-btn-my-profile"
             trigger={
@@ -72,6 +72,7 @@ class NavBar extends Component {
 function mapStateToProps(state) {
   return {
     userId: state.account.userId,
+    token: state.account.token,
     name: state.account.name
   }
 }
