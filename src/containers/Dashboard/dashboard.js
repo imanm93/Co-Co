@@ -26,21 +26,28 @@ class Dashboard extends Component {
       this.props.fetchOppTypes(this.props.token);
       this.props.fetchEventTypes(this.props.token);
       this.props.fetchDisciplines(this.props.token);
-      this.props.fetchFilteredItems(this.props.token, '5c0abae8-58d3-4b8a-9d83-d53665407b7f', this.props.dash.tab, this.props.dash.query, this.props.dash.filters, 1);
+      this.props.fetchFilteredItems(this.props.token, this.props.userId, this.props.dash.tab, this.props.dash.query, this.props.dash.filters, 1);
       this.setState({
         modalStep: 0
       });
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.dash !== this.props.dash) this.props.fetchFilteredItems(
-      nextProps.token,
-      '5c0abae8-58d3-4b8a-9d83-d53665407b7f',
-      nextProps.dash.tab,
-      nextProps.dash.query,
-      nextProps.dash.filters,
-      1
-    );
+    if (nextProps.dash !== this.props.dash) {
+      if (!nextProps.dash.filters.myConnections) {
+        this.props.fetchFilteredItems(
+          nextProps.token,
+          this.props.userId,
+          nextProps.dash.tab,
+          nextProps.dash.query,
+          nextProps.dash.filters,
+          1
+        );
+      }
+      else {
+        this.props.fetchConnections(nextProps.token);
+      }
+    }
   }
 
   redirectToSignIn() {
@@ -53,6 +60,10 @@ class Dashboard extends Component {
 
   updateItemsAndSearchQuery(query) {
     this.props.setDashQuery(query);
+  }
+
+  onMyConnections(e, value) {
+    this.props.setDashFilter({ 'myConnections': value.checked });
   }
 
   onSelectedView(tab) {
@@ -93,19 +104,18 @@ class Dashboard extends Component {
     console.log(topic);
   }
 
+  onSaveUserUpdates() {
+    console.log("TODO: call add topics and add skills api calls");
+  }
+
   onNextModal() {
     this.setState({
       modalStep: 1
     });
   }
 
-  onSaveUserUpdates() {
-    console.log("TODO: call add topics and add skills api calls");
-  }
-
   render() {
     // if (this.props.api.err.status === 401) this.redirectToSignIn();
-    console.log(this.props);
     const skills = dictToArray(this.props.skills);
     const filterControls = this.getFilterControls(this.props.dash.tab);
     return(
@@ -135,6 +145,7 @@ class Dashboard extends Component {
               isLoading={this.props.isLoadingDashItems}
               profilePhotoUrl={this.props.profilePhotoUrl}
               setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
+              onMyConnections={this.onMyConnections.bind(this)}
             />
           </Grid.Row>
             <ModalContainer buttonName="Add new skills" buttonProps={{ circular: true, secondary: true, floated: "right" }}>
@@ -170,16 +181,16 @@ class Dashboard extends Component {
 
 function mapStateToProps(state) {
   return {
-    lastActivityTimestamp: state.account.lastActivityTimestamp,
+    lastActivityTimestamp: state.account.lastActiivityTimestamp,
     isLoadingDashItems: state.loaders.isLoadingDashItems,
     profilePhotoUrl: state.account.profilePhotoUrl,
     courses: state.setup.courses,
     userId: state.account.userId,
-    skills: state.skills,
     token: state.account.token,
     name: state.account.name,
     filters: state.filters,
     search: state.search,
+    skills: state.skills,
     items: state.items,
     dash: state.dash,
     api: state.api

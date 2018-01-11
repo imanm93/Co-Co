@@ -1,9 +1,11 @@
 import { IS_SETTING_UP } from '../constants/setup/setupLoaderTypes';
 import { IS_POSTING_ITEM } from '../constants/items/itemLoaderTypes';
-import { IS_LOADING_DASH_ITEMS } from '../constants/dashboard/dashboardLoaderTypes';
 import { IS_LOADING_EXTERNAL } from '../constants/external/externalLoaderTypes';
+import { IS_LOADING_DASH_ITEMS } from '../constants/dashboard/dashboardLoaderTypes';
 import { IS_AUTHENTICATING, IS_SIGNING_UP } from '../constants/account/accountLoaderTypes';
+import { IS_LOADING_NOTIFICATIONS } from '../constants/notifications/notificationLoaderTypes';
 import { IS_UPLOADING_IMAGE, IS_UPLOADING_ATTACHMENTS } from '../constants/file/fileLoaderTypes';
+import { IS_LOADING_CONNECTION_NOTIFICATIONS } from '../constants/connections/connectionLoaderTypes';
 
 const initialState = {
   isSigningUp: false,
@@ -13,6 +15,8 @@ const initialState = {
   isUploadingImage: false,
   isLoadingExternal: false,
   isLoadingDashItems: false,
+  isLoadingConnections: false,
+  isLoadingNotifications: false,
   isUploadingAttachments: false
 }
 
@@ -32,6 +36,10 @@ export default function(state=initialState, action) {
       return { ...state, ...{ isLoadingDashItems: action.data } };
     case IS_UPLOADING_ATTACHMENTS:
       return { ...state, ...{ isUploadingAttachments: action.data } };
+    case IS_LOADING_CONNECTION_NOTIFICATIONS:
+      return { ...state, ...{ isLoadingConnections: action.data } };
+    case IS_LOADING_NOTIFICATIONS:
+      return { ...state, ...{ isLoadingNotifications: action.data } };
     case IS_LOADING_EXTERNAL:
       return { ...state, ...{ isLoadingExternal: action.data } };
     default:

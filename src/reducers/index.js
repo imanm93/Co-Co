@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
+import notifcationsReducer from './notificationsReducer';
+import connectionsReducer from './connectionsReducer';
 import dashboardReducer from './dashboardReducer';
 import externalReducer from './externalReducer';
 import accountReducer from './accountReducer';
@@ -16,6 +18,8 @@ import postReducer from './postsReducer';
 import apiReducer from './apiReducer';
 
 const rootReducer = combineReducers({
+  notifications: notifcationsReducer,
+  connections: connectionsReducer,
   external: externalReducer,
   profiles: profileReducer,
   account: accountReducer,

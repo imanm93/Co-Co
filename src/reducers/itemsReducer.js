@@ -1,5 +1,6 @@
 import * as ItemTypes from '../constants/items/itemTypes';
 import { SET_NEW_COMMENT_ERROR } from '../constants/items/itemErrorTypes';
+import { SET_REQUESTED_CONNECTION, UNSET_REQUESTED_CONNECTION } from '../constants/connections/connectionReducerTypes';
 import { SET_FILTERED_ITEMS, SET_EXPANDED_ITEM,
          SET_LOADING_COMMENTS, SET_COMMENTS, SET_NEW_COMMENT, RESET_COMMENTS,
          INCREMENT_LIKES, DECREMENT_LIKES, INCREMENT_INTERESTED, DECREMENT_INTERESTED } from '../constants/items/itemReducerTypes';
@@ -126,6 +127,24 @@ export default function(state=initialState, action) {
             items: Object.assign({}, state.items, newItemDecrementInterested)
           }
         };
+    case SET_REQUESTED_CONNECTION:
+      let itemSetConnectionRequested = Object.assign({}, state.items[action.id]);
+      itemSetConnectionRequested['connectionState'] = 'requested';
+      const newItemSetConnectionRequested = Object.assign({}, { [action.id]: itemSetConnectionRequested });
+      return {
+        ...state, ...{
+          items: Object.assign({}, state.items, newItemSetConnectionRequested)
+        }
+      };
+    case UNSET_REQUESTED_CONNECTION:
+      let itemUnSetConnectionRequested = Object.assign({}, state.items[action.id]);
+      itemUnSetConnectionRequested['connectionState'] = 'initial';
+      const newItemUnSetConnectionRequested = Object.assign({}, { [action.id]: itemUnSetConnectionRequested });
+      return {
+        ...state, ...{
+          items: Object.assign({}, state.items, newItemUnSetConnectionRequested)
+        }
+      };
     default:
         return state;
   }

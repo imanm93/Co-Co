@@ -15,6 +15,7 @@ class DashboardResults extends Component {
                 filters={this.props.filters}
                 currentTab={this.props.currentTab}
                 setFilterQuery={this.props.setFilterQuery}
+                onMyConnections={this.props.onMyConnections}
               />
             </Grid.Column>
             <Grid.Column width={11}>
