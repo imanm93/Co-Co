@@ -33,9 +33,9 @@ class NotificationsBar extends Component {
               trigger={
                 <div>
                   <Icon style={{ fontSize: '17px' }} name='user plus' />
-                  <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
-                    {this.props.connectionRequests.length}
-                  </Label>
+                  {this.props.connectionRequests.length > 0 && <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
+                    {this.props.connectionRequests.length == 0}
+                  </Label>}
                 </div>
               }
               content={<ConnectionItemNotifications
@@ -59,9 +59,12 @@ class NotificationsBar extends Component {
               trigger={
                 <div>
                   <Icon name='bell' />
-                  <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
-                    {this.props.notifications.length}
-                  </Label>
+                  {
+                    this.props.notifications.length > 0 &&                  
+                    <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
+                      {this.props.notifications.length}
+                    </Label>
+                  }
                 </div>
               }
               content={<DashboardItemNotifications loading={this.props.isLoadingNotifications} notifications={this.props.notifications}/>}
