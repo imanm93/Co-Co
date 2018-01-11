@@ -68,7 +68,7 @@ class Landing extends Component {
           <Grid container stackable verticalAlign='middle'>
             <Grid.Row centered>
               <Link to='/external/register'>
-                <div className='coandco-external-link'>‘Business’ - POST YOUR OPPORTUNITY’!</div>
+                <div className='coandco-external-link'>Business’ - POST YOUR OPPORTUNITY!</div>
               </Link>
             </Grid.Row>
           </Grid>
