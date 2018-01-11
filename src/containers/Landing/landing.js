@@ -80,7 +80,7 @@ class Landing extends Component {
               <Grid.Column width={8}>
                 <Header as='h3' style={{ fontSize: '2em' }}>Mission</Header>
                 <p style={{ fontSize: '1.33em' }}>
-                  Co & Co is on a mission to curate a world of opportunity. Our members can share, discover & come together to champion their creations, while building their networks, forming the fabric of their communities.
+                Co & Co students is a digital platform to connect students who ‘create’ within educational institutions & outwith industry. A service for students to discover projects, build networks and take part in events to enhance employability.
                   <br/><br/>
                   <b>Watch this space.</b>
                 </p>
