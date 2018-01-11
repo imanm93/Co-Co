@@ -166,19 +166,24 @@ export function setupUser(token, values, history) {
     dispatch({
       type: IS_SETTING_UP,
       data: true
-    });
-    console.log(values);
-    history.push('/dashboard');
+    }); 
     axios({
       method: 'POST',
       url: POST_SETUP_URL,
-      data: values
+      data: values,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }
     })
-    .then(resp => {
-      console.log(resp);
+    .then(resp => {  
+      dispatch({
+        type: IS_SETTING_UP,
+        data: false
+      })      
+      history.push('/dashboard');
     })
     .catch(err => {
-      console.log(err);
       dispatch({
         type: SET_API_ERROR,
         error: err
@@ -187,10 +192,11 @@ export function setupUser(token, values, history) {
         type: SET_SETUP_ERROR,
         error: err.response
       });
-    })
-    dispatch({
-      type: IS_SETTING_UP,
-      data: false
+      
+      dispatch({
+        type: IS_SETTING_UP,
+        data: false
+      })      
     })
   }
 }

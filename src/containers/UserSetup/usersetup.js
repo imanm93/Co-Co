@@ -35,13 +35,13 @@ class UserSetup extends Component {
     newValues['groupIds'] = [];
     newValues['staffSchoolId'] = 0;
     newValues['reason'] = "";
-    newValues['otherName'] = "";
+    newValues['otherName'] = ""; 
     this.props.setupUser(this.props.token, newValues, this.props.history);
   }
 
   updateSignUpSelection(signUpReasonsIds) {
     this.setState({
-      values: Object.assign({}, this.state.values, { signUpReasonIds: signUpReasonsIds })
+      values: Object.assign({}, this.state.values, { signUpReasonsIds: signUpReasonsIds })
     })
   }
 
