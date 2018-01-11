@@ -71,7 +71,7 @@ class UserBasicInfoForm extends Component {
           validate={[required]}
         />
         <Field
-          name='signUpReasonsIds'
+          name='sourceId'
           label='How did you hear about us?'
           placeholder='Please choose'
           component={inputFormField}
