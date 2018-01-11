@@ -177,7 +177,6 @@ export function setupUser(token, values, history) {
       }
     })
     .then(resp => {  
-      console.dir(resp);    
       dispatch({
         type: IS_SETTING_UP,
         data: false
@@ -185,7 +184,6 @@ export function setupUser(token, values, history) {
       history.push('/dashboard');
     })
     .catch(err => {
-      console.dir(err);
       dispatch({
         type: SET_API_ERROR,
         error: err

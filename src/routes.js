@@ -31,7 +31,7 @@ const Routes = () => (
   <Switch>
       <Route exact path="/" component={Landing} />
       <Route path="/verify" component={Verify} />
-      <Route path="/signin" component={SignIn} />
+      <Route path="/signin" component={SignIn} /> 
       <Route path="/setup" component={UserSetup} />
       <Route path="/post" component={PostNewItem} />
       <Route path="/dashboard" component={Dashboard} />
