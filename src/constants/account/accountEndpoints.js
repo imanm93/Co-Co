@@ -11,3 +11,5 @@ export const POST_LOGOUT_URL = `${ROOT_URL}/Account/Logout`;
 export const POST_SIGNUP_URL = `${ROOT_URL}/Account/Register`;
 
 export const GET_RESEND_URL = `${ROOT_URL}/Account/ResendVerificationEmail`;
+
+export const POST_FORGOT_PASSWORD_URL = `${ROOT_URL}/Account/ForgotPassword`;
