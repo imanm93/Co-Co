@@ -15,7 +15,7 @@ class ForgotPassword extends Component {
   render() { 
     return(
       <FormContainer>
-      <ForgotPasswordForm onSend={this.onSend} onBack={this.props.history.goBack} isSendingForgotPassword={this.props.isSendingForgotPassword} forgotPasswordError={this.props.forgotPasswordError}/>
+      <ForgotPasswordForm onSend={this.onSend} onBack={this.props.history.goBack} forgotPasswordSuccess={this.props.forgotPasswordSuccess} isSendingForgotPassword={this.props.isSendingForgotPassword} forgotPasswordError={this.props.forgotPasswordError}/>
     </FormContainer>
     )
   }
@@ -24,6 +24,7 @@ function mapStateToProps(state) {
   return { 
     isSendingForgotPassword: state.loaders.isSendingForgotPassword,
     forgotPasswordError: state.errors.forgotPasswordError,
+    forgotPasswordSuccess : state.success.forgotPasswordSuccess
   }
 }
 export default connect(mapStateToProps, actions)(ForgotPassword);  

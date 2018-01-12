@@ -8,6 +8,7 @@ import externalReducer from './externalReducer';
 import accountReducer from './accountReducer';
 import profileReducer from './profileReducer';
 import filtersReducer from './filtersReducer';
+import successReducer from './successReducer';
 import skillsReducer from './skillsReducer';
 import loaderReducer from './loaderReducer';
 import verifyReducer from './verifyReducer';
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   external: externalReducer,
   profiles: profileReducer,
   account: accountReducer,
+  success: successReducer,
   filters: filtersReducer,
   dash: dashboardReducer,
   loaders: loaderReducer,

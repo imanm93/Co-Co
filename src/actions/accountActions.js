@@ -9,6 +9,7 @@ import jwt_decode from 'jwt-decode';
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { IS_SETTING_UP } from '../constants/setup/setupLoaderTypes';
 import { SET_AUTH_USER } from '../constants/account/accountReducerTypes';
+import { SET_FORGOT_PASSWORD_EMAIL_SENT_SUCCESSFULL } from '../constants/account/accountSuccessTypes';
 import { IS_AUTHENTICATING, IS_SIGNING_UP, IS_SENDING_FORGOT_PASSWORD } from '../constants/account/accountLoaderTypes';
 import { SET_SIGN_IN_ERROR, SET_SIGN_UP_ERROR, SET_FORGOT_PASSWORD_ERROR } from '../constants/account/accountErrorTypes';
 import { GET_AUTH_URL, GET_USER_URL, POST_SIGNUP_URL, GET_RESEND_URL, POST_SETUP_URL, POST_FORGOT_PASSWORD_URL } from '../constants/account/accountEndpoints';
@@ -208,13 +209,17 @@ export function setupUser(token, values, history) {
  */
 export function forgotPassword(email) {
   return function (dispatch) {
-    let type = IS_SENDING_FORGOT_PASSWORD; 
+    let type = IS_SENDING_FORGOT_PASSWORD;
     dispatch({ type: type, data: true });
-    axios.post(POST_FORGOT_PASSWORD_URL+`?email=${email}`)
+    axios.post(POST_FORGOT_PASSWORD_URL + `?email=${email.email}`)
       .then(res => {
-        dispatch({ type: type, data: false }); 
+        dispatch({ type: type, data: false });
+        dispatch({
+          type: SET_FORGOT_PASSWORD_ERROR, error: null
+        }); 
+        dispatch({ type: SET_FORGOT_PASSWORD_EMAIL_SENT_SUCCESSFULL, data: res })
       })
-      .catch(err => { 
+      .catch(err => {
         dispatch({
           type: SET_FORGOT_PASSWORD_ERROR,
           error: err.response.data

@@ -44,7 +44,7 @@ export default function(state=initialState, action) {
     case IS_LOADING_EXTERNAL:
       return { ...state, ...{ isLoadingExternal: action.data } };
     case IS_SENDING_FORGOT_PASSWORD:
-        return { ...state, ...{ isSendingForgotPassword: action.data } };
+      return { ...state, ...{ isSendingForgotPassword: action.data } };
     default:
       return state;
   }

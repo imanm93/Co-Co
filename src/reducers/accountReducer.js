@@ -17,7 +17,7 @@ export default function(state=initialState, action) {
     case SET_AUTH_USER:
       return { ...state, ...action.data };
     case UNSET_AUTH_USER:
-      return { ...state, ...initialState };
+      return { ...state, ...initialState }; 
     default:
       return state;
   }
