@@ -14,10 +14,14 @@ import UserProfilePictureForm from './components/userprofilepictureform';
 class UserSetup extends Component {
 
   componentWillMount() {
+
     this.setState({
       step: 1,
       values: {}
     });
+    if(this.props.account && this.props.account.profileCompleted){
+      this.props.history.push("/dashboard");
+    }
     this.props.fetchTopics(this.props.token);
     this.props.fetchSkills(this.props.token);
     this.props.fetchStreams(this.props.token);
@@ -146,7 +150,8 @@ function mapStateToProps(state) {
     userId: state.account.userId,
     streams: state.skills.streams,
     topicTypes: state.filters.topicTypes,
-    isSettingUp: state.loaders.isSettingUp
+    isSettingUp: state.loaders.isSettingUp,
+    account: state.account
   }
 }
 
