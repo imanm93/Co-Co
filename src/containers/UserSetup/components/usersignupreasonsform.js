@@ -7,6 +7,27 @@ import { required } from '../../../validators';
 
 class UserSignUpReasonsForm extends Component {
 
+  componentWillMount() {    
+    this.setState({
+      seletedCount: 0
+    });
+  }
+
+  moveNext = ()=>{
+
+    if(this.state.seletedCount == 0 ){ 
+      return;
+    }
+    this.props.onNext();
+  }
+
+  updateSignUpSelection = (values)=>{
+    this.setState({
+      seletedCount: values.length
+    });
+    this.props.updateSignUpSelection(values);
+  }
+
   render() {
     const signUpReasons = {}
     this.props.signUpReasons.map(reason => {
@@ -18,11 +39,13 @@ class UserSignUpReasonsForm extends Component {
           types={signUpReasons}
           title={this.props.title}
           type={FilterTypes.SIGN_UP_REASONS}
-          updateSelection={this.props.updateSignUpSelection}
+          updateSelection={this.updateSignUpSelection}
           validate={[required]}
         />
+        <div> You must select at least one </div>
+        <br/>
         <Button onClick={() => this.props.onPrevious()}>Back to your interests</Button>
-        <Button onClick={() => this.props.onNext()}>Setup</Button>
+        <Button onClick={() => this.moveNext()}>Setup</Button>
       </Grid>
     )
   }
