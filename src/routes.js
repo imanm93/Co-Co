@@ -43,6 +43,7 @@ const Routes = () => (
       <Route path="/verifiedemail" component={VerifiedEmail} />
       <Route path="/forgotpassword" component ={ForgotPassword} />
       <Route path="/verifiedcompany" component={VerifiedCompany} />
+      <Route path="/view/items/:itemIds" component={VerifiedCompany} />
       <Route component={NotFoundPage} />
   </Switch>
 )

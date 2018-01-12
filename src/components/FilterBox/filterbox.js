@@ -9,8 +9,7 @@ const renderSuggestion = (suggestion) => {
 }
 class FilterBox extends Component {
 
-  componentWillMount() {
-    console.log(this.props.items);
+  componentWillMount() { 
     this.setState({
       value: '',
       suggestions: this.props.items
