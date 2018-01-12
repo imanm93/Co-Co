@@ -45,7 +45,7 @@ class SignUp extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    isSigningUp: state.loader.isSigningUp,
+    isSigningUp: state.loaders.isSigningUp,
     signUpError: state.errors.signUpError
   }
 }
