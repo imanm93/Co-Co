@@ -19,7 +19,7 @@ class UserSetup extends Component {
       step: 1,
       values: {}
     });
-    if(!this.props.account){
+    if(!this.props.account || this.props.account.token == 0){
       this.props.history.push("/signin");
     }
     if(this.props.account && this.props.account.profileCompleted){
