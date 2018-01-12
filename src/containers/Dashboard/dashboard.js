@@ -25,10 +25,11 @@ class Dashboard extends Component {
       this.props.fetchStreams(this.props.token);
       this.props.fetchOppTypes(this.props.token);
       this.props.fetchEventTypes(this.props.token);
-      this.props.fetchDisciplines(this.props.token);
+      this.props.fetchMyProfile(this.props.token, this.props.userId);
       this.props.fetchFilteredItems(this.props.token, this.props.userId, this.props.dash.tab, this.props.dash.query, this.props.dash.filters, 1);
       this.setState({
-        modalStep: 0
+        modalStep: 0,
+        skills: new Set()
       });
   }
 
@@ -96,27 +97,35 @@ class Dashboard extends Component {
     return filterControls;
   }
 
-  updateUserSkills(skill) {
-    console.log(skill);
-  }
-
-  updateUserTopics(topic) {
-    console.log(topic);
-  }
-
-  onSaveUserUpdates() {
-    console.log("TODO: call add topics and add skills api calls");
-  }
-
-  onNextModal() {
+  updateUserSkills(skills) {
     this.setState({
-      modalStep: 1
+      newSkills: skills
+    });
+  }
+
+  updateUserTopics(topics) {
+    this.setState({
+      newTopics: topics
+    });
+  }
+
+  onSaveTopics() {
+    this.props.setUserTopics(this.props.token, this.state.newTopics, (success) => {
+      if (success) this.setState({
+        showModal: false
+      });
+    });
+  }
+
+  onSaveSkills() {
+    this.props.setUserSkills(this.props.token, [...this.state.newSkills], (success) => {
+      if (success) this.setState({
+        modalStep: 1
+      });
     });
   }
 
   render() {
-    console.log(this.props.lastActivityTimestamp);
-    // if (this.props.api.err.status === 401) this.redirectToSignIn();
     const skills = dictToArray(this.props.skills);
     const filterControls = this.getFilterControls(this.props.dash.tab);
     return(
@@ -155,9 +164,10 @@ class Dashboard extends Component {
                   <SkillsForm
                     skills={this.props.skills.skills}
                     streams={this.props.skills.streams}
+                    userSkills={this.props.userSkills}
                     updateSelectedSkills={this.updateUserSkills.bind(this)}
                   />
-                  <Button circular secondary onClick={this.onNextModal.bind(this)}>Save skills & Tell us what you like!</Button>
+                  <Button circular secondary onClick={this.onSaveSkills.bind(this)}>Save skills & Tell us what you like!</Button>
                 </div>
               }
               { this.state.modalStep == 1 &&
@@ -165,11 +175,12 @@ class Dashboard extends Component {
                   <FiltersForm
                     type={FilterTypes.TOPICS}
                     title={'Topics'}
+                    selectedTopics={this.props.userTopics}
                     types={this.props.filters.topicTypes}
                     updateSelection={this.updateUserTopics.bind(this)}
                     message={'Choose any topics from the list below to tell us what you like. Event suggestions are based on this.'}
                   />
-                  <Button circular secondary onClick={this.onSaveUserUpdates.bind(this)}>Save & Update Profile</Button>
+                  <Button circular secondary onClick={this.onSaveTopics.bind(this)}>Save & Update Profile</Button>
                 </div>
               }
             </ModalContainer>
@@ -191,6 +202,14 @@ function mapStateToProps(state) {
     name: state.account.name,
     filters: state.filters,
     search: state.search,
+    userTopics: [
+      "5",
+      "2"
+    ],
+    userSkills: [
+      281,
+      280
+    ],
     skills: state.skills,
     items: state.items,
     dash: state.dash,

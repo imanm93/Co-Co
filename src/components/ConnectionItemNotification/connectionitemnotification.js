@@ -20,7 +20,7 @@ class ConnectionItemNotification extends Component {
         }
         { this.props.request.status === 'rejected' &&
           <Grid.Column width={2} style={{ padding: '1em 0em' }}>
-            <Label>Accepted</Label>
+            <Label>Rejected</Label>
           </Grid.Column>
         }
         { (!this.props.request.status || this.props.request.status === 'default') &&

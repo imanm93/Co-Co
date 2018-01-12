@@ -12,7 +12,11 @@ class SkillsForm extends Component {
       skills: this.props.streams[Object.keys(this.props.streams)[0]].skills,
       stream: Object.keys(this.props.streams)[0],
       selectedSkills: new Set()
-    })
+    }, function() {
+      if (this.props.userSkills) this.props.userSkills.map(id => {
+        this.onSkillSelected(String(id));
+      });
+    });
   }
 
   onSkillSelected(value) {

@@ -22,7 +22,7 @@ class ItemControls extends Component {
               <Button className='item-btn-control' onClick={() => this.props.onInterested()}><i className="fa fa-check" aria-hidden="true"></i> Interested(<span>{this.props.numberGoing} are going</span>)</Button>
           }
           { this.props.type === "opportunity" &&
-              <Button className='item-btn-control' onClick={() => this.props.onEnquire()}>Enquire</Button>
+              <a className='item-btn-control' href={'mailto:' + this.props.email}><i className="fa fa-envelope" aria-hidden="true"></i> Enquire</a>
           }
         </Grid.Column>
         <Grid.Column width={4} style={{ textAlign: 'right' }}>

@@ -31,17 +31,18 @@ class PeopleItem extends Component {
         </Grid.Column>
         <Grid.Column width={3}>
           { !this.props.item.connectionState &&
-            <Button circular secondary onClick={this.props.onConnect}>Connect</Button>
+            <Button circular secondary onClick={this.props.onConnect}><i className='fa fa-link'></i></Button>
           }
           { this.props.item.connectionState === 'initial' &&
-            <Button circular secondary onClick={this.props.onConnect}>Connect</Button>
+            <Button circular secondary onClick={this.props.onConnect}><i className='fa fa-link'></i></Button>
           }
           { this.props.item.connectionState === 'requested' &&
-            <Button circular secondary disabled>Pending</Button>
+            <Button circular secondary disabled><i className='fa fa-link'></i></Button>
           }
           { this.props.item.connectionState === 'connected' &&
-            <Button circular secondary disabled style={{ backgroundColor: 'green' }}>Connected</Button>
+            <Button circular secondary disabled style={{ backgroundColor: 'green' }}><i className='fa fa-link'></i></Button>
           }
+          <a circular secondary href={'mailto:'+this.props.item.user.email}><i className="fa fa-envelope" aria-hidden="true"></i></a>
         </Grid.Column>
       </Grid.Row>
     )

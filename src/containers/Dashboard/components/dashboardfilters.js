@@ -41,9 +41,8 @@ class DashboardFilters extends Component {
 
   onExpandFilter(e, props) {
     const { index } = props;
-    const { activeIndex } = this.state;
-    const newIndex = activeIndex === index ? -1 : index;
-    this.setState({ activeIndex: newIndex });
+    if (this.state[index]) this.setState({ [index]: false });
+    if (!this.state[index]) this.setState({ [index]: true });
   }
 
   render() {
@@ -60,12 +59,11 @@ class DashboardFilters extends Component {
           Object.keys(this.props.filters).map(key => {
             return <Accordion as={Menu} vertical style={{ textAlign: 'left' }} key={String(key)}>
               <Accordion.Title
-                active={activeIndex === parseInt(key)}
-                content={this.props.filters[key].type}
                 index={parseInt(key)}
+                content={this.props.filters[key].type}
                 onClick={this.onExpandFilter.bind(this)}
               />
-              <Accordion.Content active={activeIndex === parseInt(key)} content={
+              <Accordion.Content active={this.state[key]} content={
                   (
                     <Filters
                       type={this.props.filters[key].type}

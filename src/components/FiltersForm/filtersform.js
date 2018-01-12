@@ -15,7 +15,7 @@ class FiltersForm extends Component {
         { this.props.message &&
           <div>{this.props.message}</div>
         }
-        <Filters type={this.props.type} filters={this.props.types} updateQuery={this.updateSelected.bind(this)} />
+        <Filters type={this.props.type} filters={this.props.types} updateQuery={this.updateSelected.bind(this)} selectedTopics={this.props.selectedTopics} />
       </div>
     )
   }

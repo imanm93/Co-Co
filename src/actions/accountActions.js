@@ -166,7 +166,7 @@ export function setupUser(token, values, history) {
     dispatch({
       type: IS_SETTING_UP,
       data: true
-    }); 
+    });
     axios({
       method: 'POST',
       url: POST_SETUP_URL,
@@ -176,11 +176,11 @@ export function setupUser(token, values, history) {
         'Authorization': 'Bearer ' + token
       }
     })
-    .then(resp => {  
+    .then(resp => {
       dispatch({
         type: IS_SETTING_UP,
         data: false
-      })      
+      })
       history.push('/dashboard');
     })
     .catch(err => {
@@ -192,11 +192,11 @@ export function setupUser(token, values, history) {
         type: SET_SETUP_ERROR,
         error: err.response
       });
-      
+
       dispatch({
         type: IS_SETTING_UP,
         data: false
-      })      
+      })
     })
   }
 }

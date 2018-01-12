@@ -11,7 +11,6 @@ class SignInForm extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { handleSubmit } = this.props;
     return(
       <form onSubmit={handleSubmit(this.submit)}>

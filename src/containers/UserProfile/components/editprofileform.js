@@ -19,12 +19,32 @@ class EditProfileForm extends Component {
     console.log(values);
   }
 
-  updateSelectedSkills() {
-    // TODO: add skill
+  componentWillMount() {
+    this.setState({
+      selectedSkills: [],
+      selectedTopics: []
+    });
   }
 
-  updateTopicSelection() {
-    // TODO: add topics
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      workExamples: nextProps.profileViewData.workExamples,
+      currentSkills: nextProps.profileViewData.skills,
+      currentTopics: nextProps.profileViewData.topics
+    });
+  }
+
+  updateSelectedSkills(skills) {
+    this.setState({
+      selectedSkills: [...skills]
+    });
+  }
+
+  updateTopicSelection(topics) {
+    console.log(topics);
+    // this.setState({
+    //   selectedTopics: topics
+    // });
   }
 
   render() {
@@ -43,7 +63,12 @@ class EditProfileForm extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Grid style={{ margin: 0, marginTop: '0.5em', padding: '5em', backgroundColor: '#FFF' }}>
+        <Grid style={{ margin: 0, backgroundColor: '#DEDEDE' }}>
+          <Grid.Row centered>
+            <Button circular secondary type='submit'><Icon name="checkmark" /> Confirm and Save</Button>
+          </Grid.Row>
+        </Grid>
+        <Grid style={{ margin: 0, padding: '5em', backgroundColor: '#FFF' }}>
           <Grid.Row centered>
               <Grid.Column width={4}>
                 <Field
@@ -91,13 +116,18 @@ class EditProfileForm extends Component {
             <Grid.Column width={4}>
             </Grid.Column>
             <Grid.Column width={8} style={{ backgroundColor: '#DEDEDE', padding: '2em' }}>
-              { this.props.selectedSkills && this.props.selectedSkills.length > 0 &&
-                    this.props.selectedSkills.map((item, index) => {
+              { this.state.selectedSkills && this.state.selectedSkills.length > 0 &&
+                    this.state.selectedSkills.map((item, index) => {
                       return <Chip key={String(index)} item={item} />
                     })
               }
               <ModalContainer buttonName="Add new skills" buttonProps={{ circular: true, secondary: true, floated: "right" }}>
-                <SkillsForm streams={this.props.streams} skills={this.props.skills} updateSelectedSkills={this.updateSelectedSkills.bind(this)} />
+                <SkillsForm
+                  streams={this.props.streams}
+                  skills={this.props.skills}
+                  updateSelectedSkills={this.updateSelectedSkills.bind(this)}
+                />
+                <Button circular secondary onClick={() => this.closeModal()}>Save Skills</Button>
               </ModalContainer>
             </Grid.Column>
           </Grid.Row>
@@ -126,6 +156,7 @@ class EditProfileForm extends Component {
                   updateSelection={this.updateTopicSelection.bind(this)}
                   message={'Choose any topics from the list below to tell us what you like. Event suggestions are based on this.'}
                 />
+                <Button circular secondary onClick={() => this.closeModal()}>Save Topics</Button>
               </ModalContainer>
             </Grid.Column>
           </Grid.Row>

@@ -1,8 +1,9 @@
-import { SET_PROFILE_VIEW_ID, SET_PROFILE_VIEW_DATA } from '../constants/profiles/profileReducerTypes';
+import { SET_PROFILE_VIEW_ID, SET_PROFILE_VIEW_DATA, SET_MY_PROFILE_DATA } from '../constants/profiles/profileReducerTypes';
 
 const initialState = {
   profileViewId: '',
-  profileViewData: {}
+  profileViewData: {},
+  profileEditData: {}
 }
 
 export default function(state=initialState, action) {
@@ -11,6 +12,8 @@ export default function(state=initialState, action) {
       return { ...state, ...{ profileViewId: action.data } };
     case SET_PROFILE_VIEW_DATA:
       return { ...state, ...{ profileViewData: action.data } };
+    case SET_MY_PROFILE_DATA:
+      return { ...state, ...{ profileEditData: action.data } };
     default:
       return state;
   }

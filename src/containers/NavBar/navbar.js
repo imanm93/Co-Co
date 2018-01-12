@@ -18,7 +18,7 @@ class NavBar extends Component {
   }
 
   signOut() {
-    // TODO: Console.log('signing out');
+    this.props.signOutUser(this.props.token, this.props.userId, this.props.history);
   }
 
   render() {

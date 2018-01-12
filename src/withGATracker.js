@@ -31,7 +31,6 @@ const withGATracker = (WrappedComponent, options = {}) => {
     componentWillReceiveProps(nextProps) {
       const currentPage = this.props.location.pathname;
       const nextPage = nextProps.location.pathname;
-
       if (currentPage !== nextPage) {
         trackPage(nextPage);
       }
