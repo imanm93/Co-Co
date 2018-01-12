@@ -18,12 +18,7 @@ class SignIn extends Component {
   }
 
   handleUserInfo = (response) => { 
-    if(response.data.profileComplete){
-      this.props.history.push("/dashboard");
-    }
-    else{
-      this.props.history.push("/setup")
-    }
+    this.props.history.push("/dashboard");
   }
 
   render() {
