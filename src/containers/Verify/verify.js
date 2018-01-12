@@ -9,6 +9,10 @@ class Verify extends Component {
     this.props.resendVerificationEmail(this.props.verifyUserId);
   }
 
+  redirectToLogin = () =>{
+    this.props.history.push("signin");
+  }
+
   render() {
     const { match, history } = this.props;
     return (
@@ -23,7 +27,7 @@ class Verify extends Component {
           <div>a verification email has been sent to {this.props.verifyUserEmail}</div>
           <div>
             <Button disabled={this.props.isResendingEmail} onClick={this.resendVerificationEmail.bind(this)} as='a'>resend email</Button>
-            <Button>Sign in!</Button>
+            <Button onClick={this.redirectToLogin}>Sign in!</Button>
           </div>
           <div>
             {this.props.emailSent &&
@@ -47,4 +51,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Verify);
+export default connect(mapStateToProps,actions)(Verify);

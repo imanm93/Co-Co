@@ -148,6 +148,10 @@ export function resendVerificationEmail(userId) {
             type: SET_EMAIL_SENT_SUCCESSFULL
           });
         }, 1000);
+        dispatch({
+          type: IS_RESENDING_EMAIL,
+          data: false
+        });
       })
       .catch(err => {
         dispatch({

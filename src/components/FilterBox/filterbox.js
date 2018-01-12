@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
 
-const renderSuggestion = suggestion => (
-  <div>
+const renderSuggestion = (suggestion) => {
+  console.log(suggestion);
+  return <div>
     {suggestion.name}
   </div>
-);
-
+}
 class FilterBox extends Component {
 
   componentWillMount() {
+    console.log(this.props.items);
     this.setState({
       value: '',
       suggestions: this.props.items
