@@ -14,7 +14,16 @@ class SignIn extends Component {
   }
 
   getUser = () => {
-    this.props.getUserInfo(this.props.account.token, this.props.account.userId, this.props.history);
+    this.props.getUserInfo(this.props.account.token, this.props.account.userId, this.handleUserInfo);
+  }
+
+  handleUserInfo = (response) => { 
+    if(response.data.profileComplete){
+      this.props.history.push("/dashboard");
+    }
+    else{
+      this.props.history.push("/setup")
+    }
   }
 
   render() {

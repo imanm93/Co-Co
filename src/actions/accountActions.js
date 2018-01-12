@@ -63,7 +63,7 @@ export function postSignInUser(details, callback) {
  * Get logged in user information
  * @param userId
  */
-export function getUserInfo(token, userId, history) {
+export function getUserInfo(token, userId, callback) {
   return function (dispatch) {
     dispatch({ type: IS_AUTHENTICATING, data: true });
     axios({
@@ -85,7 +85,7 @@ export function getUserInfo(token, userId, history) {
           }
         });
         dispatch({ type: IS_AUTHENTICATING, data: false });
-        history.push('/dashboard');
+        callback(response);
       })
       .catch(err => {
         dispatch({
