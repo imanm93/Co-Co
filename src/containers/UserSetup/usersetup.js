@@ -19,6 +19,9 @@ class UserSetup extends Component {
       step: 1,
       values: {}
     });
+    if(!this.props.account){
+      this.props.history.push("/signin");
+    }
     if(this.props.account && this.props.account.profileCompleted){
       this.props.history.push("/dashboard");
     }
