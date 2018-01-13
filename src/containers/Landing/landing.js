@@ -9,10 +9,13 @@ const FixedMenu = () => (
     <Container>
       <Menu.Item as='a' style={{
         backgroundImage: 'url(https://coandco.blob.core.windows.net/systemimagescoandco/files/coandco_black.png)',
-        backgroundSize: 'contain'
+        backgroundSize: 'contain',
+        width: '5em'
       }}>
       </Menu.Item>
-      <Menu.Item as='a' active>Login</Menu.Item>
+      <Menu.Item as={Link} to='/signin'>
+        Login
+      </Menu.Item>
     </Container>
   </Menu>
 )
@@ -42,7 +45,13 @@ class Landing extends Component {
           >
             <Container>
               <Menu inverted pointing secondary size='large' style={{ color: '#000' }}>
-                <Menu.Item as='a' active>Home</Menu.Item>
+                <Menu.Item as='a' style={{
+                  backgroundImage: 'url(https://coandco.blob.core.windows.net/systemimagescoandco/files/coandco_black.png)',
+                  backgroundSize: 'contain',
+                  width: '5em'
+                }}>
+                </Menu.Item>
+                <Menu.Item as={Link} to='/signin' active>Login</Menu.Item>
               </Menu>
             </Container>
           </Segment>
@@ -58,7 +67,9 @@ class Landing extends Component {
                   </div>
                 </Grid.Column>
                 <Grid.Column width={3}>
-                  <Button inverted>Book your ticket!</Button>
+                  <Link to='https://www.eventbrite.co.uk/e/connect-create-tickets-42032780177?aff=eac2'>
+                    <Button inverted>Book your ticket!</Button>
+                  </Link>
                 </Grid.Column>
               </Grid>
             </Label>
@@ -74,11 +85,15 @@ class Landing extends Component {
                   </Grid.Row>
                   <Grid.Row style={{ height: '10em', paddingTop: '2em' }}>
                     <Grid.Column width={16} verticalAlign='middle'>
-                      <Button circular secondary style={{ backgroundColor: '#2A2A2A' }}>
-                        Sign Up as a Student
-                      </Button>
+                      <Link to='/signup'>
+                        <Button circular secondary style={{ backgroundColor: '#2A2A2A' }}>
+                          Sign Up as a Student
+                        </Button>
+                      </Link>
                       <Link to='/external/register'>
-                        <Button circular secondary style={{ backgroundColor: '#FFF', color: '#000', border: '1px solid' }}>Post an Opportunity!</Button>
+                        <Button circular secondary style={{ backgroundColor: '#FFF', color: '#000', border: '1px solid' }}>
+                          Post an Opportunity!
+                        </Button>
                       </Link>
                     </Grid.Column>
                   </Grid.Row>
