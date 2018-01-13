@@ -44,11 +44,8 @@ class UserSetup extends Component {
     newValues['groupIds'] = [];
     newValues['staffSchoolId'] = 0;
     newValues['otherName'] = ""; 
-    this.props.setupUser(this.props.token, newValues, (response) => {
-      console.log('call user info');
-      this.props.getUserInfo(this.props.token, (resp) => {
-        console.log(resp);
-        console.log('Move to dahboard');
+    this.props.setupUser(this.props.token, newValues, (response) => { 
+      this.props.getUserInfo(this.props.token, (resp) => { 
         this.props.history.push("/dashboard");
       })
     });
