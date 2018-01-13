@@ -23,7 +23,7 @@ class NotificationsBar extends Component {
 
   redirectToNotification(notifications) {
     const ids = notifications.map(n => n.itemId).join(',');
-    console.log(ids);
+    this.props.history.push('/view/items/' + ids);
   }
 
   render() {
