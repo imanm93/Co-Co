@@ -18,7 +18,7 @@ class DashboardResults extends Component {
                 onMyConnections={this.props.onMyConnections}
               />
             </Grid.Column>
-            <Grid.Column width={11}>
+            <Grid.Column width={12} style={{ paddingTop: '2.5em' }}>
               <DashboardItems
                 items={this.props.items}
                 userId={this.props.userId}

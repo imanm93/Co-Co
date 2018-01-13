@@ -6,7 +6,7 @@ class DashboardItems extends Component {
 
   render() {
     return(
-      <div style={{ marginTop: '2rem' }}>
+      <div>
         {
           this.props.isLoading &&
             <Dimmer active inverted>

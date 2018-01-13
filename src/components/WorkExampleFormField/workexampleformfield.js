@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
-import inputFormField from '../InputFormField';
-import { reduxForm, Field, formValueSelector, FieldArray, arrayRemove, change } from 'redux-form';
-import { Icon, Container, Form, Grid, TextArea, Button, Label, Input, Divider } from 'semantic-ui-react';
+import { reduxForm, Field, FieldArray, change } from 'redux-form';
+import { Icon, Form, Grid, Button, Label, Divider } from 'semantic-ui-react';
 import { required, url } from '../../validators';
+import * as actions from '../../actions';
 
-import WorkSampleMedia from './worksamplemedia';
+import inputFormField from '../InputFormField';
+import singleFileUploadFormField from '../SingleFileUploadFormField';
 
 class WorkExampleFormField extends Component {
+
+    removeWorkExample(index) {
+      const { fields } = this.props;
+      fields.remove(index);
+    }
 
     render() {
       const { fields } = this.props;
@@ -19,14 +24,13 @@ class WorkExampleFormField extends Component {
                 <Grid.Column width={5}>
                   <Field
                     name={`${sample}.mediaUrl`}
-                    component={WorkSampleMedia}
+                    component={singleFileUploadFormField}
                     componentId={`background-profile-picture-${index}`}
                     mediaUrl={`${sample}.mediaUrl`}
                   />
                 </Grid.Column>
                 <Grid.Column width={11}>
                   <Field
-                    InputType={Form.Input}
                     placeholder="the project name"
                     component={inputFormField}
                     label='What is your project called?'
@@ -47,7 +51,6 @@ class WorkExampleFormField extends Component {
                   <Field
                     validate={url}
                     label='Project Url'
-                    InputType={Form.Input}
                     component={inputFormField}
                     name={`${sample}.projectUrl`}
                     placeholder="Add an URL for more info"

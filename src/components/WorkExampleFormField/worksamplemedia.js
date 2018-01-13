@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Icon, Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import * as actions from '../../actions/fileActions';
 
 class WorkSampleMedia extends Component {
 
@@ -16,7 +16,7 @@ class WorkSampleMedia extends Component {
         reader.readAsDataURL(file);
         let data = new FormData();
         data.append('files', file);
-        this.props.uploadBackgroundImage(data, (imageUrl) => {
+        this.props.uploadFile(data, (imageUrl) => {
             onChange(imageUrl);
         });
     }
@@ -39,10 +39,19 @@ class WorkSampleMedia extends Component {
                     <div className="profile-image-buttons">
                         <Button type="button" circular secondary  onClick={this.openFileInput}>
                             <label className="upload-button">
-                                <Button.Content visible><Icon name="camera" size='small' />Upload image, sound file</Button.Content>
+                                <Button.Content visible>
+                                  <Icon name="camera" size='small' />Upload image, sound file
+                                </Button.Content>
                             </label>
-                            <input ref="workSampleMediaInput" className="input-upload" id={this.props.componentId} type="file"
-                                name={this.props.componentId} accept="image/*" onChange={this.handleClick.bind(this)} />
+                            <input
+                              ref="workSampleMediaInput"
+                              className="input-upload"
+                              id={this.props.componentId}
+                              type="file"
+                              name={this.props.componentId}
+                              accept="image/*"
+                              onChange={this.handleClick.bind(this)}
+                            />
                         </Button>
                         {
                           /* TODO: <Button type="button" circular secondary><Icon name="video camera" />Enter video url</Button> */

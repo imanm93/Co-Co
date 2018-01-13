@@ -4,6 +4,7 @@ import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { POST_LOGOUT_URL } from '../constants/account/accountEndpoints';
 import { UNSET_AUTH_USER } from '../constants/account/accountReducerTypes';
 import { FETCH_PROFILE_DATA } from '../constants/profiles/profileFetchTypes';
+import { GET_PROFILE } from '../constants/profiles/profileEndpoints';
 import { SET_PROFILE_VIEW_ID } from '../constants/profiles/profileReducerTypes';
 import { GET_CONNECTION_REQUESTS_URL } from '../constants/connections/connectionEndpoints';
 import { PUT_USER_SKILLS_URL, PUT_USER_TOPICS_URL } from '../constants/profiles/profileEndpoints';
@@ -16,20 +17,22 @@ export const fetchProfileData = (token, userId) => ({
   my: false
 });
 
-export const fetchMyProfile = (token, userId) => ({
-  type: FETCH_PROFILE_DATA,
-  userId: userId,
-  token: token,
-  my: true
-});
+export const fetchMyProfile = (token, userId) => {
+  return ({
+    type: FETCH_PROFILE_DATA,
+    userId: userId,
+    token: token,
+    my: true
+  });
+}
 
-export function setProfileViewId(userId, history) {
+export function setProfileViewId(token, userId, ctx) {
   return function (dispatch) {
     dispatch({
       type: SET_PROFILE_VIEW_ID,
       data: userId
-    })
-    history.push('/profile/view');
+    });
+    ctx.history.push('/profile/view');
   }
 }
 
@@ -51,6 +54,34 @@ export function setUserTopics(token, topics, callback) {
     })
     .catch(err => {
       /* Set some error and show on container */
+    })
+  }
+}
+
+export function putUserProfile(token, values, ctx) {
+  return function (dispatch) {
+    // dispatch({
+    //   type: IS_SAVING_PROFILE,
+    //   data: true
+    // });
+    axios({
+      method: 'PUT',
+      url: GET_PROFILE,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      data: values
+    })
+    .then(res => {
+      ctx.history.push('/profile/view');
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({
+        type: SET_API_ERROR,
+        error: err.response ? err.response.data : 'Network error, please try again!'
+      });
     })
   }
 }

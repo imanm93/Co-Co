@@ -87,7 +87,12 @@ class OppItemForm extends Component {
             <div className='form-section-title'>1. The Basics</div>
             <div className='coandco-input-field'>
               <div className='coandco-input-label'>What service do you need?</div>
-              <FilterBox items={skillItems} onSelectedItem={this.onSelectedServiceNeeded.bind(this)} placeholder='e.g. Poster Design'/>
+              <FilterBox
+                items={skillItems}
+                className='form-search'
+                onSelectedItem={this.onSelectedServiceNeeded.bind(this)}
+                placeholder='e.g. Poster Design'
+              />
               <span style={{ color: '#E74C3C' }}>{this.state.serviceNeededError}</span>
             </div>
             <Field

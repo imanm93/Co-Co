@@ -16,21 +16,18 @@ import FiltersForm from '../../../components/FiltersForm';
 class EditProfileForm extends Component {
 
   submit(values) {
-    console.log(values);
+    let newValues = {};
+    newValues = values;
+    if (this.state.selectedSkills) newValues['skillIds'] = this.state.selectedSkills;
+    if (this.state.selectedTopics) newValues['topicIds'] = this.state.selectedTopics;
+    this.props.onSaveProfile(newValues);
   }
 
   componentWillMount() {
     this.setState({
-      selectedSkills: [],
-      selectedTopics: []
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      workExamples: nextProps.profileViewData.workExamples,
-      currentSkills: nextProps.profileViewData.skills,
-      currentTopics: nextProps.profileViewData.topics
+      workExamples: this.props.profileEditData.workExamples,
+      selectedSkills: this.props.profileEditData.skills,
+      selectedTopics: this.props.profileEditData.topics
     });
   }
 
@@ -41,11 +38,24 @@ class EditProfileForm extends Component {
   }
 
   updateTopicSelection(topics) {
-    console.log(topics);
-    // this.setState({
-    //   selectedTopics: topics
-    // });
+    this.setState({
+      selectedTopics: topics
+    });
   }
+
+  removeSelectedSkill(skill) {
+    this.setState({
+      selectedSkills: this.state.selectedSkills.filter(s => s !== skill.id)
+    });
+  }
+
+  removeSelectedTopic(topic) {
+    this.setState({
+      selectedTopics: this.state.selectedTopics.filter(t => t !== topic.id)
+    });
+  }
+
+  onCloseModal() {}
 
   render() {
     const { handleSubmit } = this.props;
@@ -58,7 +68,7 @@ class EditProfileForm extends Component {
                 name="coverPhotoUrl"
                 component={BackgroundImage}
                 buttonName="Upload a background image"
-                backgroundImageUrl={this.props.profileViewData.coverPhotoUrl}
+                backgroundImageUrl={this.props.profileEditData.coverPhotoUrl}
               />
             </Grid.Column>
           </Grid.Row>
@@ -87,7 +97,7 @@ class EditProfileForm extends Component {
                     style={{ width: '100%' }}
                     InputType={Form.TextArea}
                     component={inputFormField}
-                    value={this.props.profileViewData ? this.props.profileViewData.bio : ''}
+                    initialvalue={this.props.profileEditData ? this.props.profileEditData.bio : ''}
                   />
               </Grid.Column>
           </Grid.Row>
@@ -117,17 +127,23 @@ class EditProfileForm extends Component {
             </Grid.Column>
             <Grid.Column width={8} style={{ backgroundColor: '#DEDEDE', padding: '2em' }}>
               { this.state.selectedSkills && this.state.selectedSkills.length > 0 &&
-                    this.state.selectedSkills.map((item, index) => {
-                      return <Chip key={String(index)} item={item} />
+                    this.state.selectedSkills.map((skill, index) => {
+                      return <Chip key={String(index)} item={{
+                          id: skill,
+                          name: this.props.skills[skill]
+                        }}
+                        onRemove={this.removeSelectedSkill.bind(this)}
+                      />
                     })
               }
               <ModalContainer buttonName="Add new skills" buttonProps={{ circular: true, secondary: true, floated: "right" }}>
                 <SkillsForm
-                  streams={this.props.streams}
                   skills={this.props.skills}
+                  streams={this.props.streams}
+                  selectedSkills={this.state.selectedSkills}
                   updateSelectedSkills={this.updateSelectedSkills.bind(this)}
                 />
-                <Button circular secondary onClick={() => this.closeModal()}>Save Skills</Button>
+                <Button circular secondary onClick={() => this.onCloseModal()}>Save Skills</Button>
               </ModalContainer>
             </Grid.Column>
           </Grid.Row>
@@ -143,20 +159,26 @@ class EditProfileForm extends Component {
             <Grid.Column width={4}>
             </Grid.Column>
             <Grid.Column width={8} style={{ backgroundColor: '#DEDEDE', padding: '2em' }}>
-              { this.props.selectedTopics && this.props.selectedTopics.length > 0 &&
-                    this.props.selectedTopics.map((item, index) => {
-                      return <Chip key={String(index)} item={item} />
+              { this.state.selectedTopics && this.state.selectedTopics.length > 0 &&
+                    this.state.selectedTopics.map((topic, index) => {
+                      return <Chip key={String(index)} item={{
+                          id: topic,
+                          name: this.props.topicTypes[topic]
+                        }}
+                        onRemove={this.removeSelectedTopic.bind(this)}
+                      />
                     })
               }
               <ModalContainer buttonName="Add new topics" buttonProps={{ circular: true, secondary: true, floated: "right" }}>
                 <FiltersForm
-                  type={FilterTypes.TOPICS}
                   title={'Topics'}
+                  type={FilterTypes.TOPICS}
                   types={this.props.topicTypes}
+                  selectedTopics={this.state.selectedTopics}
                   updateSelection={this.updateTopicSelection.bind(this)}
                   message={'Choose any topics from the list below to tell us what you like. Event suggestions are based on this.'}
                 />
-                <Button circular secondary onClick={() => this.closeModal()}>Save Topics</Button>
+                <Button circular secondary onClick={() => this.onCloseModal()}>Save Topics</Button>
               </ModalContainer>
             </Grid.Column>
           </Grid.Row>
@@ -173,16 +195,18 @@ class EditProfileForm extends Component {
             </Grid.Column>
             <Grid.Column width={8}>
               { this.props.portfolioLinkItems && this.props.portfolioLinkItems.map((item) => {
-                  return <Field
-                    key={item.key}
-                    name={item.name}
-                    labelPosition="left"
-                    validate={item.regex}>
-                    component={inputFormField}
-                    placeholder={item.placeholder}
-                    <Label basic>{item.label}</Label>
-                  </Field>
-                  })
+                  return <div>
+                      <i className={item.iconClass ? item.iconClass : 'fa fa-link'}></i> {item.label}
+                      <Field
+                        key={item.key}
+                        name={item.name}
+                        labelPosition="left"
+                        validate={item.regex}
+                        component={inputFormField}
+                        placeholder={item.placeholder}
+                      />
+                    </div>
+                })
               }
             </Grid.Column>
           </Grid.Row>

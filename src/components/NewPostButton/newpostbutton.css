@@ -1,0 +1,43 @@
+.coandco-new-post-btn {
+  min-width: 10em !important;
+  color: #FFF !important;
+  border-radius: 69px !important;
+  border: 1px solid #FFF !important;
+  background-color: #2A2A2A !important;
+  margin: 0.5em !important;
+}
+
+.coandco-new-post-btn-main>i {
+  margin-right: 1em;
+}
+
+.coandco-new-post-btn-main {
+  min-width: 10em !important;
+  color: #FFF !important;
+  border-radius: 69px !important;
+  border: 1px solid #FFF !important;
+  background-color: #2A2A2A !important;
+  margin: 0.5em !important;
+}
+
+.coandco-new-post-btn:hover {
+  min-width: 10em !important;
+  color: #2A2A2A !important;
+  border-radius: 69px !important;
+  background-color: #FFF !important;
+  border: 1px solid #2A2A2A !important;
+  margin: 0.5em !important;
+}
+
+.coandco-new-post-btn-inverted {
+  min-width: 10em !important;
+  color: #2A2A2A !important;
+  border-radius: 69px !important;
+  background-color: #FFF !important;
+  border: 1px solid #2A2A2A !important;
+  margin: 0.5em !important;
+}
+
+.coandco-new-post-btn-inverted>i {
+  margin-right: 1em;
+}

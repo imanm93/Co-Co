@@ -57,11 +57,17 @@ class Item extends Component {
     console.log("Report", itemId);
   }
 
-  render() { 
+  getItemOuterStyle() {
+    if (this.props.item.itemType !== 'user') return { padding: '0', borderRadius: '5px', boxShadow: '0 1px 3px 0 rgba(0,0,0,0.22)', margin: '0.5em', marginTop: '0em', marginBottom: '2em' }
+    else return { padding: '0', borderRadius: '5px', boxShadow: '0 1px 3px 0 rgba(0,0,0,0.22)', margin: '0.5em', marginTop: '0em', marginBottom: '0em' }
+  }
+
+  render() {
+    const itemOuterStyle = this.getItemOuterStyle();
     return (
-      <Grid style={{ padding: '0.5rem' }}>
+      <Grid style={itemOuterStyle}>
         { this.props.item.itemType === 'opportunity' &&
-            <OppItem item={this.props.item} type={ItemTypes.OPP_ITEM} onExpand={this.onExpand.bind(this)} />
+            <OppItem skills={this.props.skills} item={this.props.item} type={ItemTypes.OPP_ITEM} onExpand={this.onExpand.bind(this)} />
         }
         { this.props.item.itemType === 'event' &&
             <EventItem item={this.props.item} type={ItemTypes.EVENT_ITEM} onExpand={this.onExpand.bind(this)} />
@@ -104,7 +110,9 @@ class Item extends Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    skills: state.skills.skills
+  };
 }
 
 export default connect(mapStateToProps, actions)(Item);

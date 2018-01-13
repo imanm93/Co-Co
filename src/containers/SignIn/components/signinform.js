@@ -35,7 +35,7 @@ class SignInForm extends Component {
           <Grid.Column width={12} style={{ backgroundColor: '#FFF', boxShadow: '0 1px 3px 0 #979797', padding: '2em', paddingBottom: 0 }}>
             <Grid.Row>
               <Grid>
-                <Grid.Column width={8}>
+                <Grid.Column width={8} style={{ paddingRight: 0 }}>
                   <Field
                     name='email'
                     type='text'
@@ -45,7 +45,7 @@ class SignInForm extends Component {
                     component={inputFormField}
                   />
                 </Grid.Column>
-                <Grid.Column width={8}>
+                <Grid.Column width={8} style={{ paddingLeft: 0 }}>
                   <Field
                     name='password'
                     type='password'

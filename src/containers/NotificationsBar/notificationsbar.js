@@ -23,11 +23,10 @@ class NotificationsBar extends Component {
 
   redirectToNotification(notifications) {
     const ids = notifications.map(n => n.itemId).join(',');
-    console.log(ids);
+    this.props.history.push('/view/items/' + ids);
   }
 
   render() {
-    console.log(this.props.dashItemNotifications);
     return(
       <Grid.Row>
         <Grid style={{ margin: 0 }}>
@@ -73,7 +72,7 @@ class NotificationsBar extends Component {
               content={<DashboardItemNotifications
                 loading={this.props.isLoadingNotifications}
                 notifications={this.props.dashItemNotifications}
-                redirectToNotifications={this.redirectToNotification.bind(this)} 
+                redirectToNotifications={this.redirectToNotification.bind(this)}
               />}
               style={{ padding: 0 }}
               hideOnScroll={true}

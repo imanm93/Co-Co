@@ -10,7 +10,7 @@ import NotificationsBar from '../NotificationsBar';
 class NavBar extends Component {
 
   redirectToProfile() {
-    this.props.setProfileViewId(this.props.userId, this.props.history);
+    this.props.setProfileViewId(this.props.token, this.props.userId, this.props);
   }
 
   redirectToDashboard() {

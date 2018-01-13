@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
 
 const renderSuggestion = (suggestion) => {
-  console.log(suggestion);
   return <div>
     {suggestion.name}
   </div>
 }
+
 class FilterBox extends Component {
 
-  componentWillMount() { 
+  componentWillMount() {
     this.setState({
       value: '',
       suggestions: this.props.items
@@ -68,17 +68,18 @@ class FilterBox extends Component {
       onKeyPress: this.onKeyPress
     };
     return (
-      <Autosuggest
-        className='coandco-filter-box'
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        onSuggestionSelected={this.onSuggestionSelected}
-        getSuggestionValue={this.getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        shouldRenderSuggestions={this.shouldRenderSuggestions}
-        inputProps={inputProps}
-      />
+      <div className={this.props.className}>
+        <Autosuggest
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          onSuggestionSelected={this.onSuggestionSelected}
+          getSuggestionValue={this.getSuggestionValue}
+          renderSuggestion={renderSuggestion}
+          shouldRenderSuggestions={this.shouldRenderSuggestions}
+          inputProps={inputProps}
+        />
+      </div>
     );
   }
 }

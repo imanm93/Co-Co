@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Icon } from 'semantic-ui-react';
 import styles from './statusitem.css';
 
 class StatusItem extends Component {
@@ -8,10 +8,15 @@ class StatusItem extends Component {
     return (
       <Grid.Row>
         <Grid style={{ padding: '0rem 1rem' }}>
-          <Grid.Row style={{ padding: '0.5rem', backgroundColor: '#F1F1F1', borderTopLeftRadius: '5px', borderTopRightRadius: '5px', textAlign: 'left' }}>
-            {this.props.item.topics && this.props.item.topics.map(topic =>
-              (<span key={this.props.item.itemId + topic}># {topic}</span>)
-            )}
+          <Grid.Row style={{ padding: '0.6em 1em', backgroundColor: '#F1F1F1', borderTopLeftRadius: '5px', borderTopRightRadius: '5px', textAlign: 'left' }}>
+            <Grid.Column width={1} style={{ paddingRight: 0, fontSize: '12px', textAlign: 'right' }}>
+              <Icon name='hashtag' style={{ color: 'rgb(112,112,112)' }} />
+            </Grid.Column>
+            <Grid.Column width={15} style={{ paddingLeft: 0 }}>
+              {this.props.item.topics && this.props.item.topics.map(topic =>
+                (<span className='opp-topic-tag' key={this.props.item.itemId + topic}>{topic}</span>)
+              )}
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row style={{ backgroundColor: '#FFF', padding: 0 }}>
             <div className='status-body'>{this.props.item.text}</div>

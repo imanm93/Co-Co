@@ -37,7 +37,9 @@ class ViewProfile extends Component {
                           <Grid centered>
                             <Grid.Row centered>
                               <Grid.Column width={3}>
-                                <Button circular secondary onClick={() => this.props.onConnect(this.props.profileViewData.userId)}>Connect</Button>
+                                { !this.props.profileViewData.connectionStatus &&
+                                  <Button circular secondary onClick={() => this.props.onConnect(this.props.profileViewData.userId)}>Connect</Button>
+                                }
                                 <a href={'mailto:' + this.props.email}>Email</a>
                               </Grid.Column>
                             </Grid.Row>
@@ -77,10 +79,10 @@ class ViewProfile extends Component {
                                         <List.Item>
                                             <List.Header>Skills</List.Header>
                                         </List.Item>
-                                        { this.props.profileViewData.skills && Object.keys(this.props.profileViewData.skills).map(skillId => {
+                                        { this.props.skills && this.props.profileViewData.skills && this.props.profileViewData.skills.map(skillId => {
                                             return <List.Item key={String(skillId)}>
                                                 <Label basic circular size="large">
-                                                    {this.props.profileViewData.skills[skillId]}
+                                                    {this.props.skills[String(skillId)]}
                                                 </Label>
                                             </List.Item>
                                         })}
@@ -91,9 +93,11 @@ class ViewProfile extends Component {
                                         <List.Item>
                                             <List.Header>Interests</List.Header>
                                         </List.Item>
-                                        { this.props.profileViewData.interests && Object.keys(this.props.profileViewData.topics).map(topicId => {
+                                        { this.props.topics && this.props.profileViewData.topics && this.props.profileViewData.topics.map(topicId => {
                                             return <List.Item key={String(topicId)}>
-                                                {this.props.profileViewData.topics[topicId]}
+                                                <Label basic circular size="large">
+                                                  {this.props.topics[topicId]}
+                                                </Label>
                                             </List.Item>
                                         })}
                                     </List>
@@ -175,10 +179,6 @@ class ViewProfile extends Component {
               }
           ]
       }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.props.profileViewData !== nextProps.profileViewData;
   }
 
   render() {

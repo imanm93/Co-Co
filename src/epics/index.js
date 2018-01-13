@@ -16,14 +16,14 @@ export default combineEpics(
   getCourses,
   getTopicsEpic,
   getProfileData,
-  getConnections,
   getOppTypesEpic,
   getExpandedItem,
   getCommentsItem,
-  getNotifications,
   getFilteredItems,
   getSignUpReasons,
   getSignUpSources,
   getEventTypesEpic,
-  getConnectionRequests
+  getConnectionRequests,
+  getNotifications,
+  getConnections  
 );

@@ -176,7 +176,7 @@ class Dashboard extends Component {
                 <SkillsForm
                   skills={this.props.skills.skills}
                   streams={this.props.skills.streams}
-                  userSkills={this.props.userSkills}
+                  selectedSkills={this.props.userSkills}
                   updateSelectedSkills={this.updateUserSkills.bind(this)}
                 />
                 <Button circular secondary onClick={this.onSaveSkills.bind(this)}>Save skills & Tell us what you like!</Button>
@@ -207,23 +207,15 @@ function mapStateToProps(state) {
   return {
     lastActivityTimestamp: state.account.lastActiivityTimestamp,
     isLoadingDashItems: state.loaders.isLoadingDashItems,
+    profileCompleted: state.account.profileCompleted,
     profilePhotoUrl: state.account.profilePhotoUrl,
     courses: state.setup.courses,
     userId: state.account.userId,
+    skills: state.skills.skills,
     token: state.account.token,
     name: state.account.name,
-    profileCompleted: state.account.profileCompleted, 
     filters: state.filters,
     search: state.search,
-    userTopics: [
-      "5",
-      "2"
-    ],
-    userSkills: [
-      281,
-      280
-    ],
-    skills: state.skills,
     items: state.items,
     dash: state.dash,
     api: state.api

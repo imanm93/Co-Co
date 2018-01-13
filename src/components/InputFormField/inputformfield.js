@@ -22,7 +22,7 @@ export default function inputFormField({
       <InputType
         type={type}
         placholder={placholder}
-        value={input.value}
+        value={input.value ? input.value : custom.initialvalue}
         {...input}
         onChange={(param, data) => {
           input.onChange(data.value)

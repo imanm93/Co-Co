@@ -27,16 +27,13 @@ import ViewSpecificItems from './containers/ViewSpecificItems';
  */
 import NotFoundPage from './components/NotFoundPage';
 
-// 
-// 
-//  
 const Routes = () => (
   <Switch>
       <Route exact path="/" component={Landing} />
       <Route path="/verify" component={Verify} />
       <Route path="/setup" component={UserSetup} />
       <Route path="/signup" component={SignUp} />
-      <Route path="/signin" component={SignIn} /> 
+      <Route path="/signin" component={SignIn} />
       <Route path="/post" component={PostNewItem} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/external/:step" component={External} />
