@@ -41,9 +41,8 @@ class UserSetup extends Component {
     if (!newValues['signUpReasonsIds']) newValues['signUpReasonsIds'] = [];
     newValues['groupIds'] = [];
     newValues['staffSchoolId'] = 0;
-    newValues['otherName'] = ""; 
-    console.log(newValues);
-    //this.props.setupUser(this.props.token, newValues, this.props.history);
+    newValues['otherName'] = "";  
+    this.props.setupUser(this.props.token, newValues, this.props.history);
   }
 
   updateSignUpSelection(signUpReasonsIds) {
