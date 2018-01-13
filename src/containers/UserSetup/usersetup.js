@@ -19,12 +19,14 @@ class UserSetup extends Component {
       step: 1,
       values: {}
     });
-    if(!this.props.account || this.props.account.token == 0){
+    console.log('setup?');
+    if (!this.props.account || this.props.account.token == 0) {
       this.props.history.push("/signin");
     }
-    if(this.props.account && this.props.account.profileCompleted){
+    if (this.props.account && this.props.account.profileCompleted) {
       this.props.history.push("/dashboard");
     }
+
     this.props.fetchTopics(this.props.token);
     this.props.fetchSkills(this.props.token);
     this.props.fetchStreams(this.props.token);
@@ -41,8 +43,15 @@ class UserSetup extends Component {
     if (!newValues['signUpReasonsIds']) newValues['signUpReasonsIds'] = [];
     newValues['groupIds'] = [];
     newValues['staffSchoolId'] = 0;
-    newValues['otherName'] = "";  
-    this.props.setupUser(this.props.token, newValues, this.props.history);
+    newValues['otherName'] = ""; 
+    this.props.setupUser(this.props.token, newValues, (response) => {
+      console.log('call user info');
+      this.props.getUserInfo(this.props.token, (resp) => {
+        console.log(resp);
+        console.log('Move to dahboard');
+        this.props.history.push("/dashboard");
+      })
+    });
   }
 
   updateSignUpSelection(signUpReasonsIds) {
@@ -88,14 +97,14 @@ class UserSetup extends Component {
   }
 
   render() {
-    return(
+    return (
       <FormContainer>
-        { this.props.isSettingUp &&
+        {this.props.isSettingUp &&
           <Dimmer active inverted>
-            <Loader/>
+            <Loader />
           </Dimmer>
         }
-        { this.state.step === 1 &&
+        {this.state.step === 1 &&
           <UserBasicInfoForm
             setupData={this.props.setupData}
             onNext={this.onNext.bind(this)}
@@ -103,14 +112,14 @@ class UserSetup extends Component {
             updateBasicInfo={this.updateBasicInfo.bind(this)}
           />
         }
-        { this.state.step === 2 &&
+        {this.state.step === 2 &&
           <UserProfilePictureForm
             onNext={this.onNext.bind(this)}
             onPrevious={this.onPrevious.bind(this)}
             updateProfilePicture={this.updateProfilePicture.bind(this)}
           />
         }
-        { this.state.step === 3 &&
+        {this.state.step === 3 &&
           <UserSkillsForm
             skills={this.props.skills}
             streams={this.props.streams}
@@ -119,7 +128,7 @@ class UserSetup extends Component {
             updateSelectedSkills={this.updateSkillsSelection.bind(this)}
           />
         }
-        { this.state.step === 4 &&
+        {this.state.step === 4 &&
           <UserInterestsForm
             topicTypes={this.props.topicTypes}
             onNext={this.onNext.bind(this)}

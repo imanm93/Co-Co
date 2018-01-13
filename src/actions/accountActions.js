@@ -63,12 +63,12 @@ export function postSignInUser(details, callback) {
  * Get logged in user information
  * @param userId
  */
-export function getUserInfo(token, userId, callback) {
+export function getUserInfo(token, callback) {
   return function (dispatch) {
     dispatch({ type: IS_AUTHENTICATING, data: true });
     axios({
       method: 'GET',
-      url: GET_USER_URL + '?userId=' + userId,
+      url: GET_USER_URL,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
@@ -84,7 +84,7 @@ export function getUserInfo(token, userId, callback) {
             profileCompleted: response.data.profileComplete
           }
         });
-        dispatch({ type: IS_AUTHENTICATING, data: false });
+        dispatch({ type: IS_AUTHENTICATING, data: false });  
         callback(response);
       })
       .catch(err => {
@@ -166,7 +166,7 @@ export function resendVerificationEmail(userId) {
   }
 }
 
-export function setupUser(token, values, history) {
+export function setupUser(token, values, callback) {
   return function (dispatch) {
     dispatch({
       type: IS_SETTING_UP,
@@ -186,12 +186,12 @@ export function setupUser(token, values, history) {
           type: IS_SETTING_UP,
           data: false
         })
-        history.push('/dashboard');
+        callback(resp);
       })
       .catch(err => {
         dispatch({
           type: SET_API_ERROR,
-          error: err
+          error: err  
         });
         dispatch({
           type: SET_SETUP_ERROR,
@@ -220,7 +220,7 @@ export function forgotPassword(email) {
         dispatch({ type: type, data: false });
         dispatch({
           type: SET_FORGOT_PASSWORD_ERROR, error: null
-        }); 
+        });
         dispatch({ type: SET_FORGOT_PASSWORD_EMAIL_SENT_SUCCESSFULL, data: res })
       })
       .catch(err => {

@@ -14,12 +14,12 @@ class SignIn extends Component {
   }
 
   getUser = () => {
-    this.props.getUserInfo(this.props.account.token, this.props.account.userId, this.handleUserInfo);
-  }
-
-  handleUserInfo = (response) => { 
-    this.props.history.push("/dashboard");
-  }
+    var history = this.props.history;
+    this.props.getUserInfo(this.props.account.token, ()=>{
+      history.push("/dashboard")
+    });
+      
+  } 
 
   render() {
     return(
