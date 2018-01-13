@@ -8,6 +8,7 @@ export const getProfileData = (action$, store) =>
   action$.ofType(FETCH_PROFILE_DATA)
     .switchMap(action =>
       Rx.Observable.ajax({
+        method: 'GET',
         url: GET_PROFILE + '/' + action.userId,
         headers: {
           'Content-Type': 'application/json',
@@ -16,13 +17,13 @@ export const getProfileData = (action$, store) =>
       })
       .map(res => {
         if (action.my) {
-          return Rx.Observable.of({
+          return ({
             type: SET_MY_PROFILE_DATA,
             data: res.response
           })
         }
         else {
-          return Rx.Observable.of({
+          return ({
             type: SET_PROFILE_VIEW_DATA,
             data: res.response
           })

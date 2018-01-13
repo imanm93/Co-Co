@@ -27,7 +27,6 @@ class NotificationsBar extends Component {
   }
 
   render() {
-    console.log(this.props.dashItemNotifications);
     return(
       <Grid.Row>
         <Grid style={{ margin: 0 }}>
@@ -73,7 +72,7 @@ class NotificationsBar extends Component {
               content={<DashboardItemNotifications
                 loading={this.props.isLoadingNotifications}
                 notifications={this.props.dashItemNotifications}
-                redirectToNotifications={this.redirectToNotification.bind(this)} 
+                redirectToNotifications={this.redirectToNotification.bind(this)}
               />}
               style={{ padding: 0 }}
               hideOnScroll={true}

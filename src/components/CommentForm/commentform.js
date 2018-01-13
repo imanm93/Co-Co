@@ -12,7 +12,6 @@ class CommentForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-    console.log(this.props);
     return(
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
         <Field
@@ -20,7 +19,7 @@ class CommentForm extends Component {
           component={inputFormField}
           InputType={Form.TextArea}
         />
-        <Button type='submit'>Add Comment</Button>
+        <Button type='submit' secondary>Add Comment</Button>
       </form>
     )
   }

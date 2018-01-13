@@ -8,15 +8,16 @@ class DashboardSearchBar extends Component {
     return(
       <Grid.Row style={{ backgroundColor: '#2A2A2A' }}>
         <Grid.Column width={16} style={{ textAlign: 'center' }}>
-          <FilterBox items={this.props.items} placeholder='What are you looking for?' setSearchQuery={this.props.setSearchQuery} />
+          <FilterBox
+            items={this.props.items}
+            className='dashboard-search'
+            placeholder='What are you looking for?'
+            setSearchQuery={this.props.setSearchQuery}
+          />
         </Grid.Column>
       </Grid.Row>
     )
   }
-
-  // <Grid.Column width={6} style={{ textAlign: 'right' }}>
-  //   <Button className="dashboard-btn-follow-topic" onClick={() => this.props.onFollowTopic}>Follow Topic</Button>
-  // </Grid.Column>
 
 }
 

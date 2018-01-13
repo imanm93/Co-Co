@@ -6,7 +6,7 @@ class PeopleItem extends Component {
 
   render() {
     return (
-      <Grid.Row style={{ backgroundColor: '#FFF' }}>
+      <Grid.Row style={{ backgroundColor: '#FFF', padding: '1.5em 0em', borderBottom: '0.5px solid #DEDEDE' }}>
         <Grid.Column textAlign='center' width={2}>
           <Image avatar style={{
             width: '3em',
@@ -20,7 +20,7 @@ class PeopleItem extends Component {
         <Grid.Column width={7}>
           {
             this.props.item.workExampleUrls && this.props.item.workExampleUrls.map(we => {
-              return <Image style={{
+              return <Image key={we} style={{
                 width: '4em',
                 height: '3em',
                 borderRadius: 0,
@@ -29,7 +29,7 @@ class PeopleItem extends Component {
             })
           }
         </Grid.Column>
-        <Grid.Column width={3}>
+        <Grid.Column width={3} style={{ padding: 0 }}>
           { !this.props.item.connectionState &&
             <Button circular secondary onClick={this.props.onConnect}><i className='fa fa-link'></i></Button>
           }
@@ -42,7 +42,9 @@ class PeopleItem extends Component {
           { this.props.item.connectionState === 'connected' &&
             <Button circular secondary disabled style={{ backgroundColor: 'green' }}><i className='fa fa-link'></i></Button>
           }
-          <a circular secondary href={'mailto:'+this.props.item.user.email}><i className="fa fa-envelope" aria-hidden="true"></i></a>
+          <Button circular secondary style={{ backgroundColor: '#FFF', border: '1px solid #2A2A2A' }}>
+            <a style={{ color: '#2A2A2A' }} href={'mailto:'+this.props.item.user.email}><i className="fa fa-envelope" aria-hidden="true"></i></a>
+          </Button>
         </Grid.Column>
       </Grid.Row>
     )

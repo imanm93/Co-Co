@@ -7,20 +7,24 @@ import PageContainer from '../../components/PageContainer';
 import NavBar from '../NavBar';
 import ViewProfile from './components/viewprofile';
 import EditProfileForm from './components/editprofileform';
+import portfolioLinkItems from '../../constants/portfolioLinkItems/portfolioLinkItems';
 
 class Profile extends Component {
 
   componentWillMount() {
-    // if (this.props.profile.profileViewId === this.props.userId) this.props.fetchMyProfile(this.props.token, this.props.userId);
-    // if (this.props.profile.profileViewId !== this.props.userId) this.props.fetchProfileData(this.props.token, this.props.profile.profileViewId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.profileViewId === this.props.userId) this.props.fetchMyProfile(this.props.token, this.props.userId);
+    if (nextProps.profileViewId !== this.props.userId) this.props.fetchProfileData(this.props.token, this.props.userId);
   }
 
   onConnect(userId) {
     this.props.postConnectFromProfile(this.props.token, userId);
   }
 
-  onEdit() {
-    this.props.history.push('/profile/edit');
+  onSaveProfile(values) {
+    this.props.putUserProfile(this.props.token, values);
   }
 
   render() {
@@ -30,18 +34,12 @@ class Profile extends Component {
         <Grid style={{ margin: 0 }}>
           <NavBar history={this.props.history} profilePhotoUrl={this.props.profilePhotoUrl} />
         </Grid>
-        { type === 'view' && this.props.userId !== this.props.profile.profileViewId &&
+        { type === 'view' &&
             <ViewProfile
-              onEdit={this.onEdit.bind(this)}
               userId={this.props.userId}
+              skills={this.props.skills}
+              topics={this.props.topicTypes}
               profileViewData={this.props.profile.profileViewData}
-            />
-        }
-        { type === 'view' && this.props.userId === this.props.profile.profileViewId &&
-            <ViewProfile
-              onEdit={this.onEdit.bind(this)}
-              userId={this.props.userId}
-              profileViewData={this.props.profile.profileEditData}
             />
         }
         { type === 'edit' && this.props.userId === this.props.profile.profileViewId &&
@@ -50,7 +48,10 @@ class Profile extends Component {
               streams={this.props.streams}
               profile={this.props.profile}
               topicTypes={this.props.topicTypes}
-              profileViewData={this.props.profile.profileEditData}
+              profileEditData={this.props.profile.profileViewData}
+              initialValues={this.props.profile.profileViewData}
+              onSaveProfile={this.onSaveProfile.bind(this)}
+              portfolioLinkItems={portfolioLinkItems}
             />
         }
       </PageContainer>

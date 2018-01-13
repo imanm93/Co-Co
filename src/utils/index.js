@@ -14,6 +14,12 @@ const Utils = {
       return Object.keys(input).sort(function (i1, i2) {
           return moment(input[i2].timestamp) - moment(input[i1].timestamp);
       });
+    },
+    isEmpty: function (obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key)) return false;
+        }
+        return true;
     }
 };
 

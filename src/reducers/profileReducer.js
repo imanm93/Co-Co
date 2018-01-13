@@ -13,6 +13,7 @@ export default function(state=initialState, action) {
     case SET_PROFILE_VIEW_DATA:
       return { ...state, ...{ profileViewData: action.data } };
     case SET_MY_PROFILE_DATA:
+      console.log("getting my data");
       return { ...state, ...{ profileEditData: action.data } };
     default:
       return state;

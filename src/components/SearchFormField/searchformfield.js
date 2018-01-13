@@ -51,7 +51,12 @@ class SearchFormField extends Component {
         <div className='coandco-input-field'>
           <div className='coandco-input-label'>{this.props.label}</div>
           <div className='coandco-input-search'>
-            <FilterBox placeholder={this.props.placholder} items={this.props.items} onSelectedItem={this.onSelectedItem.bind(this)} />
+            <FilterBox
+              className='form-search'
+              items={this.props.items}
+              placeholder={this.props.placholder}
+              onSelectedItem={this.onSelectedItem.bind(this)}
+            />
           </div>
           {
             this.state.selectedChips.length > 0 && this.state.selectedChips.map(item => {

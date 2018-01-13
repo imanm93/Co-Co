@@ -6,12 +6,11 @@ import moment from 'moment';
 class EventItem extends Component {
 
   render() {
-    // backgroundImage: this.props.item.photoUrl ? 'http://somethingdifferentcompanies.com/wp-content/uploads/2016/06/event-image.jpeg' : 'url(' + this.props.item.photoUrl + ')',
     const month = ["Jan", "Feb", "Mar", "Apr", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
     return (
       <Grid.Row style={{ paddingBottom: 0, paddingTop: 0, textAlign: 'left' }}>
         <Grid.Column width={7} style={{
-          backgroundImage: 'url(https://n6-img-fp.akamaized.net/free-photo/pink-wooden-surface-with-decorative-twigs_23-2147600605.jpg?size=338&ext=jpg)',
+          backgroundImage: this.props.item.photoUrl ? 'url(https://n6-img-fp.akamaized.net/free-photo/pink-wooden-surface-with-decorative-twigs_23-2147600605.jpg?size=338&ext=jpg)' : 'url(' + this.props.item.photoUrl + ')',
           borderTopLeftRadius: '5px',
           objectFit: 'cover'
         }}>
@@ -23,7 +22,7 @@ class EventItem extends Component {
             <div className='event-cost'>{ this.props.item.cost ? 'Paid' : 'Free' }</div>
           </div>
         </Grid.Column>
-        <Grid.Column width={9} style={{ backgroundColor: '#FFF', borderTopRightRadius: '5px', }}>
+        <Grid.Column width={9} style={{ padding: 0, backgroundColor: '#FFF', borderTopRightRadius: '5px', }}>
           <div className='event-title'>{this.props.item.title}</div>
           <div className='event-posted-by'>Posted by: <b className='event-posted-by-name'>{this.props.item.user.name}</b><span className='event-posted-time'>{this.props.item.displayDateTime}</span></div>
           <div className='event-attributes'>

@@ -1,43 +1,75 @@
 import React, { Component } from 'react';
-import { Button, Grid } from 'semantic-ui-react';
+import { Button, Grid, Icon } from 'semantic-ui-react';
 import styles from './oppitem.css';
 
 class OppItem extends Component {
 
+  getOppHeaderStyle(isExternal) {
+    if (isExternal) return { padding: '0.6em 1em', marginBottom: '1rem', backgroundColor: '#F1F1F1', textAlign: 'left' }
+    else return { padding: '0.6em 1em', marginBottom: '1rem', backgroundColor: '#F1F1F1', borderTopLeftRadius: '5px', borderTopRightRadius: '5px', textAlign: 'left' }
+  }
+
   render() {
+    const isExternal = this.props.item.companyDetails && this.props.item.companyDetails.contactEmail;
+    const oppHeaderStyle = this.getOppHeaderStyle(isExternal);
     return (
       <Grid.Row style={{ padding: 0 }}>
         <Grid.Column width={16} style={{ padding: 0 }}>
-          { this.props.item.companyDetails.contactEmail &&
-              <Grid.Row><b className="opp-external-header">External</b></Grid.Row>
+          { this.props.item.companyDetails && this.props.item.companyDetails.contactEmail &&
+              <Grid.Row className="opp-external-header"><b>External</b></Grid.Row>
           }
-          <Grid.Row style={{ padding: '0.5rem', marginBottom: '1rem', backgroundColor: '#F1F1F1', borderTopLeftRadius: '5px', borderTopRightRadius: '5px', textAlign: 'left' }}>
+          <Grid.Row style={oppHeaderStyle}>
             <Grid>
-              <Grid.Column width={6}>
+              <Grid.Column width={4}>
                 <div className='opp-type'>{this.props.item.type}</div>
               </Grid.Column>
-              <Grid.Column width={10}>
+              <Grid.Column width={1} style={{ paddingRight: 0, fontSize: '12px', textAlign: 'right' }}>
+                <Icon name='hashtag' style={{ color: 'rgb(112,112,112)' }} />
+              </Grid.Column>
+              <Grid.Column width={11} style={{ paddingLeft: 0 }}>
                 {this.props.item.topics && this.props.item.topics.map(topic =>
-                  (<span className='opp-topic-tag' key={this.props.item.itemId + topic}>#{topic}</span>)
+                  (<span className='opp-topic-tag' key={this.props.item.itemId + topic}>{topic}</span>)
                 )}
               </Grid.Column>
             </Grid>
           </Grid.Row>
-          <Grid.Row style={{ backgroundColor: '#FFF' }}>
+          <Grid.Row style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
             <Grid>
               <Grid.Column width={12}>
-                <Grid.Row style={{ padding: '1rem' }}>
+                <Grid.Row style={{ padding: '0.5em 1rem' }}>
+                  <div className='opp-service-needed'>{this.props.skills[this.props.item.serviceNeeded]}</div>
+                </Grid.Row>
+                <Grid.Row style={{ padding: '0.5em 1rem' }}>
                   <div className='opp-title'>{this.props.item.title}</div>
                 </Grid.Row>
-                <Grid.Row style={{ padding: '1em 1em', paddingTop: '0em' }}>
-                  <Grid>
-                    <Grid.Column width={2} style={{ textAlign: 'right', paddingRight: 0 }}>
-                      <img className='opp-owner-picture' src={this.props.item.user.profilePhotoUrl} alt={'profile'} />
+                <Grid.Row style={{ padding: '0.5em 1em 1em', paddingTop: '0em' }}>
+                  <Grid style={{ margin: 0 }}>
+                    <Grid.Column width={2} style={{ padding: 0, paddingTop: '0.5em' }}>
+                      { !this.props.item.companyDetails &&
+                        <img className='opp-owner-picture' src={this.props.item.user.profilePhotoUrl} alt={'profile'} /> }
+                      { this.props.item.companyDetails && !this.props.item.companyDetails.contactEmail &&
+                        <img className='opp-owner-picture' src={this.props.item.user.profilePhotoUrl} alt={'profile'} /> }
+                      { this.props.item.companyDetails && this.props.item.companyDetails.contactEmail &&
+                        <img className='opp-owner-picture' src={this.props.item.companyDetails.logo} alt={'profile'} /> }
                     </Grid.Column>
-                    <Grid.Column width={4}>
-                      <div className='opp-owner-name'>{this.props.item.user.name}</div>
+                    <Grid.Column width={7} style={{ padding: 0, paddingTop: '0.75em' }}>
+                      { !this.props.item.companyDetails &&
+                        <div>
+                          <div className='opp-owner-name'>{this.props.item.user.name}</div>
+                          <div className='opp-owner-course-name'>{this.props.item.user.courseName}</div>
+                        </div>
+                      }
+                      { this.props.item.companyDetails && !this.props.item.companyDetails.contactEmail &&
+                        <div>
+                          <div className='opp-owner-name'>{this.props.item.user.name}</div>
+                          <div className='opp-owner-course-name'>{this.props.item.user.courseName}</div>
+                        </div>
+                      }
+                      { this.props.item.companyDetails && this.props.item.companyDetails.contactEmail &&
+                        <div className='opp-owner-name'>{this.props.item.companyDetails.name}</div>
+                      }
                     </Grid.Column>
-                    <Grid.Column width={4}>
+                    <Grid.Column width={7} style={{ padding: 0, paddingTop: '0.75em' }}>
                       <div className='opp-time'>{this.props.item.displayDateTime}</div>
                     </Grid.Column>
                   </Grid>
