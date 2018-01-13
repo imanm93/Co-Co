@@ -20,6 +20,7 @@ import UserProfile from './containers/UserProfile';
 import VerifiedEmail from './containers/VerifiedEmail';
 import ForgotPassword from './containers/ForgotPassword';
 import VerifiedCompany from './containers/VerifiedCompany';
+import ViewSpecificItems from './containers/ViewSpecificItems';
 
 /**
  * Components
@@ -43,6 +44,7 @@ const Routes = () => (
       <Route path="/verifiedemail" component={VerifiedEmail} />
       <Route path="/forgotpassword" component ={ForgotPassword} />
       <Route path="/verifiedcompany" component={VerifiedCompany} />
+      <Route path="/view/items/:itemIds" component={ViewSpecificItems} />
       <Route component={NotFoundPage} />
   </Switch>
 )

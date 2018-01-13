@@ -81,7 +81,7 @@ class Item extends Component {
         { this.props.item.itemType !== 'user' &&
           <ItemControls
             userId={this.props.userId}
-            email={this.props.item.companyDetails ? this.props.item.companyDetails.contactEmail : this.props.item.user.email}
+            email={this.props.item.companyDetails && this.props.item.companyDetails.contactEmail ? this.props.item.companyDetails.contactEmail : this.props.item.user.email}
             type={this.props.item.itemType}
             itemUserId={this.props.item.user.id}
             numberOfLikes={this.props.item.numberOfLikes}
