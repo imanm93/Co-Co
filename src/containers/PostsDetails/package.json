@@ -1,6 +1,0 @@
-{
-  "name": "PostDetails",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./postdetails.js"
-}
