@@ -174,8 +174,8 @@ class Dashboard extends Component {
             {this.state.modalStep == 0 &&
               <div>
                 <SkillsForm
-                  skills={this.props.skills.skills}
-                  streams={this.props.skills.streams}
+                  skills={this.props.skills}
+                  streams={this.props.streams}
                   selectedSkills={this.props.userSkills}
                   updateSelectedSkills={this.updateUserSkills.bind(this)}
                 />
@@ -211,10 +211,11 @@ function mapStateToProps(state) {
     profilePhotoUrl: state.account.profilePhotoUrl,
     courses: state.setup.courses,
     userId: state.account.userId,
-    skills: state.skills.skills,
     token: state.account.token,
     name: state.account.name,
     filters: state.filters,
+    skills: state.skills.skills,
+    streams: state.skills.streams,
     search: state.search,
     items: state.items,
     dash: state.dash,

@@ -18,6 +18,24 @@
   border-color: #000;
 }
 
+.coandco-landing-feature-icon {
+  font-size: 100px;
+}
+
+.coandco-landing-feature-title {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 0.5em 0em;
+  color: #2A2A2A !important;
+  text-transform: uppercase;
+}
+
+.coandco-landing-feature-description {
+  font-size: 18px;
+  color: #868e96 !important;
+  text-align: center;
+}
+
 .coandco-external-link {
   color: #FFF;
   font-weight: 600;
