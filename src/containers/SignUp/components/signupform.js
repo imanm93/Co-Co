@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Form } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Grid, Divider, Button, Form } from 'semantic-ui-react';
 import { reduxForm, formValueSelector, Field } from 'redux-form';
 import { required, mandatoryCheckbox } from '../../../validators';
 import inputFormField from '../../../components/InputFormField';
@@ -42,44 +43,86 @@ class SignUpForm extends Component {
     const { handleSubmit, usertype } = this.props;
     return (
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
-        <div>Verify your account</div>
-        <hr/>
-        <div>A bit about you</div>
-        <Field
-          name="userType"
-          label='What type of user are you?'
-          placeholder='What type of user are you?'
-          component={inputFormField}
-          options={[
-            {text:'Student', value:"Student"},
-            {text:'Staff', value:"Staff"},
-            {text:'Other', value:"Other"},
-          ]}
-          InputType={Form.Select}
-          validate={[required]}
-        />
-        { this.genUserTypeFields(usertype) }
-        <hr/>
-        <Field
-          toggle
-          name = "acceptedWeeklyDigest"
-          label="I want to receive weekly digest of whats going on around ECA."
-          component ={checkboxFormField}
-          InputType={Form.Checkbox}
-        />
-        <Field
-          toggle
-          name = "acceptterms"
-          label="I accept the"
-          component ={checkboxFormField}
-          InputType={Form.Checkbox}
-          validate={[mandatoryCheckbox]}
-        />
-        <a href="" onClick={this.props.onShowTandCs}>Terms & Conditions.</a>
-        <hr/>
-        {this.props.submitError && <p className="errorMessage"> <br/>{this.props.submitError}</p>}
-        <Button>Back to homepage</Button>
-        <Button type="submit"> Get verified '>'</Button>
+        <Grid>
+          <Grid.Column width ={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
+            <div className='form-header'>Sign Up to Co & Co</div>
+          </Grid.Column>
+        </Grid>
+        <Grid>
+          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
+            <Grid.Row>
+              <Divider/>
+            </Grid.Row>
+          </Grid.Column>
+        </Grid>
+        <Grid>
+          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
+            <div className='form-section-title'>1. A bit about you</div>
+            <Field
+            name="userType"
+            label='What type of user are you?'
+            placeholder='What type of user are you?'
+            component={inputFormField}
+            options={[
+              {text:'Student', value:"Student"},
+              {text:'Staff', value:"Staff"},
+              {text:'Other', value:"Other"},
+            ]}
+            InputType={Form.Select}
+            validate={[required]}
+            />
+            { this.genUserTypeFields(usertype) }
+          </Grid.Column>
+        </Grid>
+        <Grid>
+          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
+            <Grid.Row>
+              <Divider/>
+            </Grid.Row>
+          </Grid.Column>
+        </Grid>
+        <Grid>
+          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
+            <Field
+              toggle
+              name = "acceptedWeeklyDigest"
+              label="I want to receive weekly digest of whats going on around ECA."
+              component ={checkboxFormField}
+              InputType={Form.Checkbox}
+            />
+            <Field
+              toggle
+              name = "acceptterms"
+              label="I accept the"
+              component ={checkboxFormField}
+              InputType={Form.Checkbox}
+              validate={[mandatoryCheckbox]}
+            />
+            <a href="" onClick={this.props.onShowTandCs} style={{ position: 'absolute', left: '150px', top: '22px' }}>Terms & Conditions.</a>
+          </Grid.Column>
+        </Grid>
+        <Grid>
+          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
+            <Grid.Row>
+              <Divider/>
+            </Grid.Row>
+          </Grid.Column>
+        </Grid>
+        <Grid>
+          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
+            <Grid.Row>
+              {this.props.submitError && <p className="errorMessage"> <br/>{this.props.submitError}</p>}
+            </Grid.Row>
+          </Grid.Column>
+        </Grid>
+        <Grid>
+          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '1em', textAlign: 'right' }}>
+            <Link to='/'>
+              <Button type='button' circular className='coandco-btn-inverted'>Back to Homepage</Button>
+            </Link>
+            <Button type="submit" circular secondary> Get verified <i className='fa fa-chevron-right'></i></Button>
+          </Grid.Column>
+        </Grid>
       </form>
     )
   }
@@ -89,7 +132,7 @@ class SignUpForm extends Component {
 const selector = formValueSelector('SignUpForm')
 SignUpForm = connect(
   state => {
-    const usertype = selector(state, 'usertype')
+    const usertype = selector(state, 'userType')
     return {
       usertype
     }
