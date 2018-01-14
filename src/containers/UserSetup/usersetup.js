@@ -39,7 +39,7 @@ class UserSetup extends Component {
   onSubmit() {
     const newValues = this.state.values;
     if (!newValues['skillIds']) newValues['skillIds'] = [];
-    if (!newValues['interestIds']) newValues['interestIds'] = [];
+    if (!newValues['topicIds']) newValues['topicIds'] = [];
     if (!newValues['signUpReasonsIds']) newValues['signUpReasonsIds'] = [];
     newValues['groupIds'] = [];
     newValues['staffSchoolId'] = 0;
@@ -59,7 +59,7 @@ class UserSetup extends Component {
 
   updateTopicSelection(topicIds) {
     this.setState({
-      values: Object.assign({}, this.state.values, { interestIds: topicIds })
+      values: Object.assign({}, this.state.values, { topicIds: topicIds })
     });
   }
 
