@@ -14,9 +14,9 @@ class FiltersForm extends Component {
     return(
       <Grid>
         <Grid.Row style={{ padding: '3em 3em 0.5em' }}>
-          <div className='coandco-skills-form-header'>{this.props.title}</div>
+          <div className='coandco-skills-form-header' style={{ width: '100%' }}>{this.props.title}</div>
           { this.props.message &&
-            <div className='coandco-skills-form-description'>{this.props.message}</div>
+            <div className='coandco-skills-form-description' style={{ width: '100%' }}>{this.props.message}</div>
           }
         </Grid.Row>
         <Grid.Row style={{ padding: '0.5em 3em' }}>

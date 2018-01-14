@@ -39,7 +39,7 @@ class UserSignUpReasonsForm extends Component {
           <Grid.Row>
             <FiltersForm
               title={this.props.title}
-              message={'Pick all that apply ...'}
+              message={'Pick all that apply'}
               types={signUpReasons}
               type={FilterTypes.SIGN_UP_REASONS}
               updateSelection={this.updateSignUpSelection}
@@ -51,7 +51,7 @@ class UserSignUpReasonsForm extends Component {
             <div style={{ paddingLeft: '3em', color: 'red' }}>* You must select one!</div>
           </Grid.Row>
         </Grid.Column>
-        <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '2em 1em 0em', textAlign: 'right' }}>
+        <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '2em 1em 1em', textAlign: 'right' }}>
           <Button onClick={() => this.props.onPrevious()} circular style={{ backgroundColor: '#FFF', color: '#2A2A2A', border: '1px solid #2A2A2A' }}>Back to your interests</Button>
           {
             this.props.selectedReasons && this.props.selectedReasons.length > 0 && this.props.selectedReasons[0] !== "" &&
