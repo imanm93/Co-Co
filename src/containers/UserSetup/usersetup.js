@@ -60,7 +60,7 @@ class UserSetup extends Component {
 
   updateTopicSelection(topicIds) {
     this.setState({
-      values: Object.assign({}, this.state.values, { interestIds: topicIds })
+      values: Object.assign({}, this.state.values, { topicIds: topicIds })
     });
   }
 
