@@ -20,7 +20,6 @@ import DashboardItemsSelectorBar from './components/dashboarditemsselectorbar';
 class Dashboard extends Component {
 
   componentWillMount() {
-
     if (!this.props.token) {
       this.redirectToSignIn();
     }
@@ -44,8 +43,7 @@ class Dashboard extends Component {
         skills: new Set()
       });
     }
-    else
-    {
+    else {
       this.setState({
         modalStep: 0,
         modalOpen: false,
@@ -142,6 +140,10 @@ class Dashboard extends Component {
       });
     });
   }
+  loadMoreItems() {
+    this.props.fetchFilteredItems(this.props.token, this.props.userId, this.props.dash.tab, this.props.dash.query, this.props.dash.filters, this.props.items.page + 1);
+  }
+
 
   onStartProcess() {
     this.setState({
@@ -188,19 +190,20 @@ class Dashboard extends Component {
               profilePhotoUrl={this.props.profilePhotoUrl}
               setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
               onMyConnections={this.onMyConnections.bind(this)}
+              loadMoreItems={this.loadMoreItems.bind(this)}
             />
           </Grid.Row>
           <Modal open={this.state.modalOpen}>
-            { this.state.modalStep == 0 &&
+            {this.state.modalStep == 0 &&
               <Grid style={{ margin: 0 }}>
                 <Grid.Row>
                   <Grid.Column width={16} style={{ padding: '2em 3em 0.5em', fontSize: '25px', fontWeight: 600 }}>
                     Welcome back {this.props.name.split(' ')[0]}!
                   </Grid.Column>
                   <Grid.Column width={16} style={{ padding: '0.5em 3.5em', fontSize: '22px' }}>
-                    We hope you had a great holiday.<br/><br/>
+                    We hope you had a great holiday.<br /><br />
                     We sure did and want to update you on all the latest changes. We are now using a new taargeting mechanism
-                    designed to show you things that will interest you most.<br/><br/>
+                    designed to show you things that will interest you most.<br /><br />
                     But for us to do this really well, we need your help!
                   </Grid.Column>
                 </Grid.Row>
@@ -211,7 +214,7 @@ class Dashboard extends Component {
                 </Grid.Row>
               </Grid>
             }
-            { this.state.modalStep == 1 &&
+            {this.state.modalStep == 1 &&
               <div>
                 <SkillsForm
                   skills={this.props.skills}

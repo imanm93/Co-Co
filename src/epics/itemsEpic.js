@@ -69,7 +69,7 @@ export const getFilteredItems = (action$, store) =>
         })
           .map(payload => {
             return {
-              page: action.page,
+              page: payload.response.page,
               items: Object.assign({}, payload.response.dictionaryResults)
             };
           })
