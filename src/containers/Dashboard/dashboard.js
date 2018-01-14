@@ -20,7 +20,7 @@ import DashboardItemsSelectorBar from './components/dashboarditemsselectorbar';
 class Dashboard extends Component {
 
   componentWillMount() {
-    console.log(this.props.profileComplete);
+    console.log(this.props.items);
     if (!this.props.token) {
       this.redirectToSignIn();
     }
@@ -38,7 +38,7 @@ class Dashboard extends Component {
     this.setState({
       modalStep: 0,
       skills: new Set()
-    }); 
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -129,6 +129,10 @@ class Dashboard extends Component {
     });
   }
 
+  loadMoreItems(){
+    this.props.fetchFilteredItems(this.props.token, this.props.userId, this.props.dash.tab, this.props.dash.query, this.props.dash.filters, this.props.items.page + 1);
+  }
+
   onSaveSkills() {
     this.props.setUserSkills(this.props.token, [...this.state.newSkills], (success) => {
       if (success) this.setState({
@@ -168,6 +172,7 @@ class Dashboard extends Component {
               profilePhotoUrl={this.props.profilePhotoUrl}
               setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
               onMyConnections={this.onMyConnections.bind(this)}
+              loadMoreItems={this.loadMoreItems.bind(this)}
             />
           </Grid.Row>
           <ModalContainer buttonName="Add new skills" buttonProps={{ circular: true, secondary: true, floated: "right" }}>

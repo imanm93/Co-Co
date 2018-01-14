@@ -26,6 +26,7 @@ class DashboardResults extends Component {
                 profilePhotoUrl={this.props.profilePhotoUrl}
                 token={this.props.token}
                 isLoading={this.props.isLoading}
+                loadMoreItems={this.props.loadMoreItems}
               />
             </Grid.Column>
             <Grid.Column width={1}>
