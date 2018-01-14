@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Button, Form, Label, Icon } from 'semantic-ui-react';
+import { Grid, Button, Form, Label, Icon, Dimmer, Loader } from 'semantic-ui-react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import inputFormField from '../../../components/InputFormField';
 import singleFileUploadFormField from '../../../components/SingleFileUploadFormField';
@@ -62,6 +62,16 @@ class EditProfileForm extends Component {
     return(
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
         <Grid>
+          { this.props.isLoadingProfile &&
+            <Dimmer active inverted>
+              <Loader />
+            </Dimmer>
+          }
+          { this.props.isSavingProfile &&
+            <Dimmer active inverted>
+              <Loader />
+            </Dimmer>
+          }
           <Grid.Row centered>
             <Grid.Column width={16}>
               <Field
@@ -73,9 +83,9 @@ class EditProfileForm extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Grid style={{ margin: 0, backgroundColor: '#DEDEDE' }}>
+        <Grid className='coandco-edit-profile-save' style={{ margin: 0, backgroundColor: '#2A2A2A', cursor: 'pointer' }}>
           <Grid.Row centered>
-            <Button circular secondary type='submit'><Icon name="checkmark" /> Confirm and Save</Button>
+            <Button circular secondary type='submit' style={{ backgroundColor: 'transparent' }}><Icon name="checkmark" /> Confirm and Save</Button>
           </Grid.Row>
         </Grid>
         <Grid style={{ margin: 0, padding: '5em', backgroundColor: '#FFF' }}>
@@ -211,9 +221,9 @@ class EditProfileForm extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Grid style={{ margin: 0, backgroundColor: '#DEDEDE' }}>
+        <Grid className='coandco-edit-profile-save' style={{ margin: 0, backgroundColor: '#2A2A2A', cursor: 'pointer' }}>
           <Grid.Row centered>
-            <Button circular secondary type='submit'><Icon name="checkmark" /> Confirm and Save</Button>
+            <Button circular secondary type='submit' style={{ backgroundColor: 'transparent' }}><Icon name="checkmark" /> Confirm and Save</Button>
           </Grid.Row>
         </Grid>
       </form>

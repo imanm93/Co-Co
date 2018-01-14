@@ -8,3 +8,7 @@
 
 .coandco-edit-profile-section-description {
 }
+
+.coandco-edit-profile-save>.centered.row:hover {
+  background-color: rgb(108,198,108);
+}

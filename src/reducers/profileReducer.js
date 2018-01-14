@@ -8,8 +8,7 @@ const initialState = {
 
 export default function(state=initialState, action) {
   switch(action.type) {
-    case SET_PROFILE_VIEW_ID: 
-    console.log('set profile');
+    case SET_PROFILE_VIEW_ID:
       return { ...state, ...{ profileViewId: action.data } };
     case SET_PROFILE_VIEW_DATA:
       return { ...state, ...{ profileViewData: action.data } };

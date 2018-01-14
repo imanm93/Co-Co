@@ -23,7 +23,8 @@ store.subscribe(throttle(() => {
   saveState({
       account: store.getState().account,
       filters: store.getState().filters,
-      skills: store.getState().skills
+      skills: store.getState().skills,
+      profiles: store.getState().profiles
   });
 }, 1000));
 

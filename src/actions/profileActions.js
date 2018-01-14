@@ -1,10 +1,11 @@
-
 import axios from '../utils/axios';
+
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
+import { GET_PROFILE } from '../constants/profiles/profileEndpoints';
 import { POST_LOGOUT_URL } from '../constants/account/accountEndpoints';
 import { UNSET_AUTH_USER } from '../constants/account/accountReducerTypes';
 import { FETCH_PROFILE_DATA } from '../constants/profiles/profileFetchTypes';
-import { GET_PROFILE } from '../constants/profiles/profileEndpoints';
+import { IS_SAVING_PROFILE } from '../constants/profiles/profileLoaderTypes';
 import { SET_PROFILE_VIEW_ID } from '../constants/profiles/profileReducerTypes';
 import { GET_CONNECTION_REQUESTS_URL } from '../constants/connections/connectionEndpoints';
 import { PUT_USER_SKILLS_URL, PUT_USER_TOPICS_URL } from '../constants/profiles/profileEndpoints';
@@ -58,12 +59,12 @@ export function setUserTopics(token, topics, callback) {
   }
 }
 
-export function putUserProfile(token, values, ctx) {
+export function putUserProfile(token, values, userId, ctx) {
   return function (dispatch) {
-    // dispatch({
-    //   type: IS_SAVING_PROFILE,
-    //   data: true
-    // });
+    dispatch({
+      type: IS_SAVING_PROFILE,
+      data: true
+    });
     axios({
       method: 'PUT',
       url: GET_PROFILE,
@@ -74,10 +75,25 @@ export function putUserProfile(token, values, ctx) {
       data: values
     })
     .then(res => {
-      ctx.history.push('/profile/view');
+      dispatch({
+        type: IS_SAVING_PROFILE,
+        data: false
+      });
+      dispatch({
+        type: SET_PROFILE_VIEW_ID,
+        data: ''
+      });
+      dispatch({
+        type: SET_PROFILE_VIEW_ID,
+        data: userId
+      });
+      ctx.push('/profile/view');
     })
     .catch(err => {
-      console.log(err);
+      dispatch({
+        type: IS_SAVING_PROFILE,
+        data: false
+      });
       dispatch({
         type: SET_API_ERROR,
         error: err.response ? err.response.data : 'Network error, please try again!'

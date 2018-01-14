@@ -11,17 +11,11 @@ import portfolioLinkItems from '../../constants/portfolioLinkItems/portfolioLink
 
 class Profile extends Component {
 
-  componentWillMount() {
-    console.log(this.props);
-  }
   refresh(profileId) {
-    if (profileId === this.props.userId) {
-      this.props.fetchMyProfile(this.props.token, this.props.userId);
-    }
-    if (profileId !== this.props.userId) {
-      this.props.fetchProfileData(this.props.token, this.props.userId);
-    }
+    if (profileId === this.props.userId) { this.props.fetchMyProfile(this.props.token, this.props.userId); }
+    if (profileId !== this.props.userId) { this.props.fetchProfileData(this.props.token, this.props.userId); }
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.profile.profileViewId !== this.props.profile.profileViewId) {
       this.refresh(nextProps.profile.profileViewId);
@@ -33,7 +27,7 @@ class Profile extends Component {
   }
 
   onSaveProfile(values) {
-    this.props.putUserProfile(this.props.token, values);
+    this.props.putUserProfile(this.props.token, values, this.props.userId, this.props.history);
   }
 
   render() {
@@ -44,22 +38,34 @@ class Profile extends Component {
         <Grid style={{ margin: 0 }}>
           <NavBar history={this.props.history} profilePhotoUrl={this.props.profilePhotoUrl} />
         </Grid>
-        {type === 'view' &&
+        { type === 'view' && this.props.userId !== this.props.profile.profileViewId &&
           <ViewProfile
             userId={this.props.userId}
             skills={this.props.skills}
             topics={this.props.topicTypes}
+            isLoadingProfile={this.props.isLoadingProfile}
             profileViewData={this.props.profile.profileViewData}
           />
         }
-        {type === 'edit' && this.props.userId === this.props.profile.profileViewId &&
+        { type === 'view' && this.props.userId === this.props.profile.profileViewId &&
+          <ViewProfile
+            userId={this.props.userId}
+            skills={this.props.skills}
+            topics={this.props.topicTypes}
+            isLoadingProfile={this.props.isLoadingProfile}
+            profileViewData={this.props.profile.profileEditData}
+          />
+        }
+        { type === 'edit' && this.props.userId === this.props.profile.profileViewId &&
           <EditProfileForm
             skills={this.props.skills}
             streams={this.props.streams}
             profile={this.props.profile}
             topicTypes={this.props.topicTypes}
-            profileEditData={this.props.profile.profileViewData}
-            initialValues={this.props.profile.profileViewData}
+            isSavingProfile={this.props.isSavingProfile}
+            isLoadingProfile={this.props.isLoadingProfile}
+            profileEditData={this.props.profile.profileEditData}
+            initialValues={this.props.profile.profileEditData}
             onSaveProfile={this.onSaveProfile.bind(this)}
             portfolioLinkItems={portfolioLinkItems}
           />
@@ -77,7 +83,9 @@ function mapStateToProps(state) {
     userId: state.account.userId,
     streams: state.skills.streams,
     topicTypes: state.filters.topicTypes,
-    profilePhotoUrl: state.account.profilePhotoUrl
+    profilePhotoUrl: state.account.profilePhotoUrl,
+    isSavingProfile: state.loaders.isSavingProfile,
+    isLoadingProfile: state.loaders.isLoadingProfile
   }
 }
 

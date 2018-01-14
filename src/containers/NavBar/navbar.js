@@ -10,8 +10,6 @@ import NotificationsBar from '../NotificationsBar';
 class NavBar extends Component {
 
   redirectToProfile() {
-    console.log('moving');
-    console.log(this.props.userId);
     this.props.setProfileViewId(this.props.token, this.props.userId, this.props);
   }
 

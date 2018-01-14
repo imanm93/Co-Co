@@ -39,16 +39,16 @@ class Dashboard extends Component {
     const timeStamp = Math.floor(Date.now());
     if (this.props.lastActivityTimestamp < timeStamp) {
       this.setState({
-        modalOpen: false,
         modalStep: 0,
+        modalOpen: false,
         skills: new Set()
       });
     }
     else
     {
       this.setState({
-        modalOpen: false,
         modalStep: 0,
+        modalOpen: false,
         skills: new Set()
       });
     }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './viewprofile.css';
-import { Grid, Button, Image, Tab, List, Item, Label, Divider } from 'semantic-ui-react';
+import { Grid, Button, Image, Tab, List, Item, Label, Divider, Dimmer, Loader } from 'semantic-ui-react';
 
 import WorkExample from './workexample';
 import BackgroundImage from './backgroundimage';
@@ -188,6 +188,11 @@ class ViewProfile extends Component {
     return (
         <Grid.Row>
             <Grid>
+                { this.props.isLoadingProfile &&
+                  <Dimmer active inverted>
+                    <Loader/>
+                  </Dimmer>
+                }
                 <Grid.Row centered>
                     <Grid.Column width={16}>
                         <BackgroundImage
