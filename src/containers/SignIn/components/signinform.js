@@ -61,7 +61,9 @@ class SignInForm extends Component {
                   </Grid>
                 </Grid.Row>
                 <Grid.Row>
-                  <a href='' className='form-link'>Forgot Password?</a>
+                  <Link to='/forgotpassword'>
+                    <a href='' className='form-link'>Forgot Password?</a>
+                  </Link>
                 </Grid.Row>
               </Grid.Column>
             </Grid>

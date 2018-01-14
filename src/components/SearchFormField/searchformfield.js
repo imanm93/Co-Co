@@ -14,7 +14,7 @@ class SearchFormField extends Component {
     onRemove(item) {
       const { fields } = this.props;
       let newSet = this.state.selectedItems;
-      newSet.delete(item);
+      newSet.delete(item.id);
       this.setState({
         selectedItems: newSet,
         selectedChips: [...newSet]
@@ -25,9 +25,9 @@ class SearchFormField extends Component {
 
     onSelectedItem(item) {
       const { fields } = this.props;
-      if (item && !this.state.selectedItems.has(item)) {
+      if (item && !this.state.selectedItems.has(item.id)) {
         let newSet = this.state.selectedItems;
-        newSet.add(item);
+        newSet.add(item.id);
         this.setState({
           selectedItems: newSet,
           selectedChips: [...newSet]
@@ -60,11 +60,14 @@ class SearchFormField extends Component {
           </div>
           {
             this.state.selectedChips.length > 0 && this.state.selectedChips.map(item => {
-              return <Chip
-                key={item.id}
-                item={item}
-                onRemove={this.onRemove.bind(this)}
-              />
+              const chipItem = {
+                id: item,
+                name: this.props.items.filter(i => i.id === item)[0].name
+              };
+              return <Chip key={item}
+                  item={chipItem}
+                  onRemove={this.onRemove.bind(this)}
+                />
             })
           }
           { hasError && <span style={{color:'#E74C3C'}}><i>{meta.error}</i></span> }

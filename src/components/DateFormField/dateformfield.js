@@ -7,6 +7,8 @@ export default function dateFormField({
   input,
   type,
   dateFormat,
+  datePickerClass,
+  showTimeSelect,
   label,
   placholder,
   meta: {
@@ -20,8 +22,15 @@ export default function dateFormField({
   return(
     <div className='coandco-input-field'>
         <div className='coandco-input-label'>{label}</div>
-        <DatePicker {...input} dateForm={dateFormat} selected={input.value ? moment(input.value) : null} />
-        { hasError && <span style={{color:'#E74C3C'}}><i>{error}</i></span> }
+          <div className={datePickerClass}>
+            { showTimeSelect &&
+              <DatePicker {...input} dateForm={dateFormat} selected={input.value ? moment(input.value) : null} showTimeSelect />
+            }
+            { !showTimeSelect &&
+              <DatePicker {...input} dateForm={dateFormat} selected={input.value ? moment(input.value) : null} />
+            }
+            { hasError && <span style={{color:'#E74C3C'}}><i>{error}</i></span> }
+          </div>
     </div>
   );
 }

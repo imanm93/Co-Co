@@ -6,8 +6,8 @@ class StatusItem extends Component {
 
   render() {
     return (
-      <Grid.Row>
-        <Grid style={{ padding: '0rem 1rem' }}>
+      <Grid.Row style={{ paddingTop: 0, paddingBottom: 0 }}>
+        <Grid style={{ width: '100%', margin: 0 }}>
           <Grid.Row style={{ padding: '0.6em 1em', backgroundColor: '#F1F1F1', borderTopLeftRadius: '5px', borderTopRightRadius: '5px', textAlign: 'left' }}>
             <Grid.Column width={1} style={{ paddingRight: 0, fontSize: '12px', textAlign: 'right' }}>
               <Icon name='hashtag' style={{ color: 'rgb(112,112,112)' }} />

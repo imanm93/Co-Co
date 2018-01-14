@@ -11,7 +11,6 @@ class ForgotPasswordForm extends Component {
   }
 
   render() {
-    console.log(this.props.forgotPasswordSuccess);
     const { onSend, onBack, handleSubmit, isSendingForgotPassword, forgotPasswordError } = this.props;
     return (
       <form onSubmit={handleSubmit(this.submit)}>
@@ -25,7 +24,7 @@ class ForgotPasswordForm extends Component {
             <Grid.Row>
               <div>{this.props.forgotPasswordSuccess.data}</div>
             </Grid.Row>
-          </Grid.Column> 
+          </Grid.Column>
         </Grid>}
         <Grid centered>
           <Grid.Column width={12} style={{ backgroundColor: '#FFF', padding: 0 }}>
@@ -39,8 +38,8 @@ class ForgotPasswordForm extends Component {
             <Dimmer active inverted>
               <Loader />
             </Dimmer>
-          } 
-          <Grid.Column width={12} style={{ backgroundColor: '#FFF', boxShadow: '0 1px 3px 0 #979797', padding: '2em', paddingBottom: 0 }}>
+          }
+          <Grid.Column width={12} style={{ backgroundColor: '#FFF', padding: '0em 2em', paddingBottom: 0 }}>
             <Grid.Row>
               <Grid>
                 <Grid.Column width={16}>
@@ -78,7 +77,7 @@ class ForgotPasswordForm extends Component {
             <Grid.Row style={{ padding: '1em', paddingBottom: 0 }}>
               <Grid>
                 <Grid.Column width={8} style={{ textAlign: 'left', paddingTop: 0 }}>
-                  <Button circular className='coandco-btn-inverted' type='button' onClick={onBack} >Back</Button>
+                  <Button type='button' circular style={{ backgroundColor: '#FFF', color: '#2A2A2A', border: '1px solid #2A2A2A' }} onClick={onBack} >Back to Sign In</Button>
                 </Grid.Column>
                 <Grid.Column width={8} style={{ textAlign: 'right', paddingTop: 0 }}>
                   <Button circular secondary type='submit'>Send email</Button>

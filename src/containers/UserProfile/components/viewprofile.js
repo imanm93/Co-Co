@@ -40,7 +40,9 @@ class ViewProfile extends Component {
                                 { !this.props.profileViewData.connectionStatus &&
                                   <Button circular secondary onClick={() => this.props.onConnect(this.props.profileViewData.userId)}>Connect</Button>
                                 }
-                                <a href={'mailto:' + this.props.email}>Email</a>
+                                <a href={'mailto:' + this.props.email}>
+                                  <Button circular style={{ backgroundColor: '#FFF', color: '#2A2A2A', border: '1px solid #2A2A2A' }}>Email</Button>
+                                </a>
                               </Grid.Column>
                             </Grid.Row>
                           </Grid>

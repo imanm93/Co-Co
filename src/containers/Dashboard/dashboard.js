@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid, Button, Modal } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { dictToArray } from '../../utils/dictTransforms';
 import styles from './dashboard.css';
@@ -20,7 +20,7 @@ import DashboardItemsSelectorBar from './components/dashboarditemsselectorbar';
 class Dashboard extends Component {
 
   componentWillMount() {
-    console.log(this.props.profileComplete);
+
     if (!this.props.token) {
       this.redirectToSignIn();
     }
@@ -35,10 +35,24 @@ class Dashboard extends Component {
     this.props.fetchEventTypes(this.props.token);
     this.props.fetchMyProfile(this.props.token, this.props.userId);
     this.props.fetchFilteredItems(this.props.token, this.props.userId, this.props.dash.tab, this.props.dash.query, this.props.dash.filters, 1);
-    this.setState({
-      modalStep: 0,
-      skills: new Set()
-    }); 
+
+    const timeStamp = Math.floor(Date.now());
+    if (this.props.lastActivityTimestamp < timeStamp) {
+      this.setState({
+        modalOpen: false,
+        modalStep: 0,
+        skills: new Set()
+      });
+    }
+    else
+    {
+      this.setState({
+        modalOpen: false,
+        modalStep: 0,
+        skills: new Set()
+      });
+    }
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -124,15 +138,21 @@ class Dashboard extends Component {
   onSaveTopics() {
     this.props.setUserTopics(this.props.token, this.state.newTopics, (success) => {
       if (success) this.setState({
-        showModal: false
+        modalOpen: false
       });
+    });
+  }
+
+  onStartProcess() {
+    this.setState({
+      modalStep: 1
     });
   }
 
   onSaveSkills() {
     this.props.setUserSkills(this.props.token, [...this.state.newSkills], (success) => {
       if (success) this.setState({
-        modalStep: 1
+        modalStep: 2
       });
     });
   }
@@ -170,8 +190,28 @@ class Dashboard extends Component {
               onMyConnections={this.onMyConnections.bind(this)}
             />
           </Grid.Row>
-          <ModalContainer buttonName="Add new skills" buttonProps={{ circular: true, secondary: true, floated: "right" }}>
-            {this.state.modalStep == 0 &&
+          <Modal open={this.state.modalOpen}>
+            { this.state.modalStep == 0 &&
+              <Grid style={{ margin: 0 }}>
+                <Grid.Row>
+                  <Grid.Column width={16} style={{ padding: '2em 3em 0.5em', fontSize: '25px', fontWeight: 600 }}>
+                    Welcome back {this.props.name.split(' ')[0]}!
+                  </Grid.Column>
+                  <Grid.Column width={16} style={{ padding: '0.5em 3.5em', fontSize: '22px' }}>
+                    We hope you had a great holiday.<br/><br/>
+                    We sure did and want to update you on all the latest changes. We are now using a new taargeting mechanism
+                    designed to show you things that will interest you most.<br/><br/>
+                    But for us to do this really well, we need your help!
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column width={16} style={{ padding: '0em 2em 2em', textAlign: 'center' }}>
+                    <Button circular secondary onClick={this.onStartProcess.bind(this)}>Please tell us about your latest skills and interests!</Button>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            }
+            { this.state.modalStep == 1 &&
               <div>
                 <SkillsForm
                   skills={this.props.skills}
@@ -179,10 +219,12 @@ class Dashboard extends Component {
                   selectedSkills={this.props.userSkills}
                   updateSelectedSkills={this.updateUserSkills.bind(this)}
                 />
-                <Button circular secondary onClick={this.onSaveSkills.bind(this)}>Save skills & Tell us what you like!</Button>
+                <Grid.Column width={16} style={{ textAlign: 'right', padding: '0em 3em 2em' }}>
+                  <Button circular secondary onClick={this.onSaveSkills.bind(this)}>Save skills & Tell us what you like!</Button>
+                </Grid.Column>
               </div>
             }
-            {this.state.modalStep == 1 &&
+            {this.state.modalStep == 2 &&
               <div>
                 <FiltersForm
                   type={FilterTypes.TOPICS}
@@ -192,10 +234,12 @@ class Dashboard extends Component {
                   updateSelection={this.updateUserTopics.bind(this)}
                   message={'Choose any topics from the list below to tell us what you like. Event suggestions are based on this.'}
                 />
-                <Button circular secondary onClick={this.onSaveTopics.bind(this)}>Save & Update Profile</Button>
+                <Grid.Column width={16} style={{ textAlign: 'right', padding: '0em 3em 2em' }}>
+                  <Button circular secondary onClick={this.onSaveTopics.bind(this)}>Save & Update Profile</Button>
+                </Grid.Column>
               </div>
             }
-          </ModalContainer>
+          </Modal>
         </Grid>
       </PageContainer>
     );

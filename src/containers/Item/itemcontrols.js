@@ -21,10 +21,16 @@ class ItemControls extends Component {
             <i className="fa fa-comment" aria-hidden="true"></i>
             <span>{this.props.numberOfComments}</span> <span style={{ textDecoration: 'underline' }}>Comments</span>
           </Button>
-          { this.props.type === "event" &&
+          { this.props.type === "event" && this.props.going &&
               <Button className='item-btn-control' onClick={() => this.props.onInterested()}>
                 <i className="fa fa-check" aria-hidden="true"></i>
                 <span style={{ textDecoration: 'underline' }}>Interested</span> <span style={{ textDecoration: 'none' }}>({this.props.numberGoing} going)</span>
+              </Button>
+          }
+          { this.props.type === "event" && !this.props.going &&
+              <Button className='item-btn-control' onClick={() => this.props.onInterested()}>
+                <i className="fa fa-check" aria-hidden="true"></i>
+                <span style={{ textDecoration: 'underline' }}>Not Interested</span> <span style={{ textDecoration: 'none' }}>({this.props.numberGoing} going)</span>
               </Button>
           }
           { this.props.type === "opportunity" &&

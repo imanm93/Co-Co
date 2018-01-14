@@ -15,12 +15,12 @@ import Landing from './containers/Landing';
 import External from './containers/External';
 import UserSetup from './containers/UserSetup';
 import Dashboard from './containers/Dashboard';
-import PostNewItem from './containers/PostNewItem';
 import UserProfile from './containers/UserProfile';
 import VerifiedEmail from './containers/VerifiedEmail';
 import ForgotPassword from './containers/ForgotPassword';
 import VerifiedCompany from './containers/VerifiedCompany';
 import ViewSpecificItems from './containers/ViewSpecificItems';
+import PostNewItemContainer from './containers/PostNewItemContainer';
 
 /**
  * Components
@@ -34,10 +34,10 @@ const Routes = () => (
       <Route path="/setup" component={UserSetup} />
       <Route path="/signup" component={SignUp} />
       <Route path="/signin" component={SignIn} />
-      <Route path="/post" component={PostNewItem} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/external/:step" component={External} />
       <Route path="/profile/:type" component={UserProfile} />
+      <Route path="/post" component={PostNewItemContainer} />
       <Route path="/verifiedemail" component={VerifiedEmail} />
       <Route path="/forgotpassword" component ={ForgotPassword} />
       <Route path="/verifiedcompany" component={VerifiedCompany} />

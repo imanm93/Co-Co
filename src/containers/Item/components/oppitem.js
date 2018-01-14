@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Grid, Icon } from 'semantic-ui-react';
+import { Button, Grid, Icon, Dimmer, Loader } from 'semantic-ui-react';
 import styles from './oppitem.css';
+import moment from 'moment';
 
 class OppItem extends Component {
 
@@ -35,6 +36,11 @@ class OppItem extends Component {
           </Grid.Row>
           <Grid.Row style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
             <Grid>
+              { this.props.item.isExpanding &&
+                <Dimmer active inverted>
+                  <Loader />
+                </Dimmer>
+              }
               <Grid.Column width={12}>
                 <Grid.Row style={{ padding: '0.5em 1rem' }}>
                   <div className='opp-service-needed'>{this.props.skills[this.props.item.serviceNeeded]}</div>
@@ -82,13 +88,20 @@ class OppItem extends Component {
               </Grid.Column>
             </Grid>
           </Grid.Row>
-          <Grid.Row>
+          <Grid.Row style={{ backgroundColor: '#FFF', padding: '0em 2em' }}>
             { this.props.item.expanded &&
-                <div>
-                  <div>Description: {this.props.item.description}</div>
-                  <div>Reward: {this.props.item.reward}</div>
-                  <div>End Time: {this.props.item.endDateTime}</div>
-                </div>
+                <Grid style={{ margin: 0 }}>
+                  <Grid.Row>
+                    {this.props.item.description}
+                  </Grid.Row>
+                  { this.props.item.reward || this.props.item.endDateTime &&
+                    <div className='event-attributes' style={{ paddingBottom: '2em' }}>
+                      { this.props.item.reward &&
+                        <div className='event-attribute'><i className="fa fa-hashtag" aria-hidden="true"></i> {this.props.item.type}</div> }
+                      <div className='event-attribute'><i className='fa fa-clock-o'></i> {moment(this.props.item.endDateTime).format("LLL")}</div>
+                    </div>
+                  }
+                </Grid>
             }
           </Grid.Row>
         </Grid.Column>

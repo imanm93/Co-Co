@@ -46,6 +46,7 @@ class PostNewItem extends Component {
                 topicTypes={this.props.filters.topicTypes}
                 post={this.post.bind(this)}
                 isPostingItem={this.props.isPostingItem}
+                user={this.props.user}
             />
         }
       </div>
@@ -60,7 +61,11 @@ function mapStateToProps(state) {
     filters: state.filters,
     token: state.account.token,
     skills: state.skills.skills,
-    isPostingItem: state.loaders.isPostingItem
+    isPostingItem: state.loaders.isPostingItem,
+    user: {
+      name: state.account.name,
+      profilePhotoUrl: state.account.profilePhotoUrl
+    }
   }
 }
 
