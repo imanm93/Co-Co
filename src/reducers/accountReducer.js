@@ -8,8 +8,8 @@ const initialState = {
   profilePhotoUrl: "",
   firstimeLogin: true,
   authenticated: false,
-  profileCompleted: false,
-  lastActiivityTimestamp: ''
+  profileComplete: false,
+  lastActivityTimestamp: ''
 }
 
 export default function(state=initialState, action) {

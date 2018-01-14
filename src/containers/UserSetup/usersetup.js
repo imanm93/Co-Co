@@ -23,7 +23,7 @@ class UserSetup extends Component {
     if (!this.props.account || this.props.account.token == 0) {
       this.props.history.push("/signin");
     }
-    if (this.props.account && this.props.account.profileCompleted) {
+    if (this.props.account && this.props.account.profileComplete) {
       this.props.history.push("/dashboard");
     }
 
@@ -46,6 +46,7 @@ class UserSetup extends Component {
     newValues['otherName'] = "";
     this.props.setupUser(this.props.token, newValues, (response) => {
       this.props.getUserInfo(this.props.token, (resp) => {
+        console.log(resp);
         this.props.history.push("/dashboard");
       })
     });
