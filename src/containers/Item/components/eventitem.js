@@ -10,10 +10,10 @@ class EventItem extends Component {
     return (
       <Grid.Row style={{ paddingBottom: 0, paddingTop: 0, textAlign: 'left' }}>
         <Grid.Column width={7} style={{
-          backgroundImage: this.props.item.photoUrl ? 'url(https://n6-img-fp.akamaized.net/free-photo/pink-wooden-surface-with-decorative-twigs_23-2147600605.jpg?size=338&ext=jpg)' : 'url(' + this.props.item.photoUrl + ')',
           borderTopLeftRadius: '5px',
-          objectFit: 'cover'
+          padding: 0
         }}>
+          <img className='event-image' src={this.props.item.photoUrl ? this.props.item.photoUrl : 'https://n6-img-fp.akamaized.net/free-photo/pink-wooden-surface-with-decorative-twigs_23-2147600605.jpg?size=338&ext=jpg)'} />
           <div className='event-date-and-cost'>
             <div className='event-date'>
               <div className='event-date-number'>{ moment(this.props.item.startDateTime).date() }</div>

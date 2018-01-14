@@ -4,6 +4,7 @@ import { Grid, Dimmer, Loader } from 'semantic-ui-react';
 import * as actions from '../../actions/accountActions';
 
 import SignUpForm from './components/signupform';
+import FormContainer from '../../components/FormContainer';
 import TermsAndConditionsModal from '../../components/TermsAndConditionsModal';
 
 class SignUp extends React.Component {
@@ -29,7 +30,7 @@ class SignUp extends React.Component {
 
   render() {
     return(
-      <Grid style={{ margin: 0 }}>
+      <FormContainer>
         { this.props.isSigningUp &&
             <Dimmer active inverted>
               <Loader />
@@ -37,7 +38,7 @@ class SignUp extends React.Component {
         }
         <SignUpForm onSignUp={this.onSignUp.bind(this)} onShowTandCs={this.onShowTandCs.bind(this)} submitError={this.props.signUpError} />
         <TermsAndConditionsModal open={this.state.showTermsConditions} onClose={this.onHideTandCs.bind(this)}  />
-      </Grid>
+      </FormContainer>
     )
   }
 

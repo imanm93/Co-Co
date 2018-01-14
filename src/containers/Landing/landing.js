@@ -9,10 +9,13 @@ const FixedMenu = () => (
     <Container>
       <Menu.Item as='a' style={{
         backgroundImage: 'url(https://coandco.blob.core.windows.net/systemimagescoandco/files/coandco_black.png)',
-        backgroundSize: 'contain'
+        backgroundSize: 'contain',
+        width: '5em'
       }}>
       </Menu.Item>
-      <Menu.Item as='a' active>Login</Menu.Item>
+      <Menu.Item as={Link} to='/signin'>
+        Login
+      </Menu.Item>
     </Container>
   </Menu>
 )
@@ -42,7 +45,15 @@ class Landing extends Component {
           >
             <Container>
               <Menu inverted pointing secondary size='large' style={{ color: '#000' }}>
-                <Menu.Item as='a' active>Home</Menu.Item>
+                <Menu.Item as='a' style={{
+                  backgroundImage: 'url(https://coandco.blob.core.windows.net/systemimagescoandco/files/coandco_black.png)',
+                  backgroundSize: 'contain',
+                  width: '8em',
+                  height: '5em',
+                  marginTop: '1em',
+                  backgroundRepeat: 'no-repeat'
+                }}>
+                </Menu.Item>
               </Menu>
             </Container>
           </Segment>
@@ -58,7 +69,9 @@ class Landing extends Component {
                   </div>
                 </Grid.Column>
                 <Grid.Column width={3}>
-                  <Button inverted>Book your ticket!</Button>
+                  <a href='https://www.eventbrite.co.uk/e/connect-create-tickets-42032780177?aff=eac2'>
+                    <Button inverted>Book your ticket!</Button>
+                  </a>
                 </Grid.Column>
               </Grid>
             </Label>
@@ -69,16 +82,25 @@ class Landing extends Component {
                   </Grid.Row>
                   <Grid.Row>
                     <h1 style={{ fontWeight: 600, fontSize: '50px' }}>
-                      The skills sharing platform, connecting you to students who ‘create stuff’ at Edinburgh University.
+                      The skills sharing platform, connecting you to students who ‘create’ at Edinburgh University.
                     </h1>
                   </Grid.Row>
                   <Grid.Row style={{ height: '10em', paddingTop: '2em' }}>
                     <Grid.Column width={16} verticalAlign='middle'>
-                      <Button circular secondary style={{ backgroundColor: '#2A2A2A' }}>
-                        Sign Up as a Student
-                      </Button>
+                      <Link to='/signin'>
+                        <Button circular secondary style={{ backgroundColor: '#2A2A2A' }}>
+                          Login
+                        </Button>
+                      </Link>
                       <Link to='/external/register'>
-                        <Button circular secondary style={{ backgroundColor: '#FFF', color: '#000', border: '1px solid' }}>Post an Opportunity!</Button>
+                        <Button circular secondary style={{ backgroundColor: '#FFF', color: '#000', border: '1px solid' }}>
+                          Post an Opportunity to the Creatives!
+                        </Button>
+                      </Link>
+                    </Grid.Column>
+                    <Grid.Column width={16} verticalAlign='middle' style={{ padding: '2em 0em', fontSize: '16px' }}>
+                      <Link to='/signup' style={{ textDecoration: 'underline', color: '#2A2A2A' }}>
+                        Sign Up as a student
                       </Link>
                     </Grid.Column>
                   </Grid.Row>

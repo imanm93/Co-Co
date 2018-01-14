@@ -35,12 +35,19 @@ class FilterBox extends Component {
   };
 
   onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    }, function() {
-      if (this.props.setSearchQuery && this.state.value.length > 0) this.props.setSearchQuery(this.state.value);
-      if (this.props.onSelectedItem && this.state.value.length > 0) this.props.onSelectedItem(this.getSelectedObject(this.state.value));
-    });
+    if (this.state.suggestions.length > 0) {
+      this.setState({
+        suggestions: []
+      }, function() {
+        if (this.props.setSearchQuery && this.state.value.length > 0) this.props.setSearchQuery(this.state.value);
+        if (this.props.onSelectedItem && this.state.value.length > 0) {
+          this.props.onSelectedItem(this.getSelectedObject(this.state.value));
+        }
+        this.setState({
+          value: ''
+        });
+      });
+    }
   };
 
   getSelectedObject = value => {

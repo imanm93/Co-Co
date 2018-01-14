@@ -16,16 +16,16 @@ class UserSetup extends Component {
   componentWillMount() {
 
     this.setState({
-      step: 1,
+      step: 3,
       values: {}
     });
-    console.log('setup?');
-    if (!this.props.account || this.props.account.token == 0) {
-      this.props.history.push("/signin");
-    }
-    if (this.props.account && this.props.account.profileCompleted) {
-      this.props.history.push("/dashboard");
-    }
+
+    // if (!this.props.account || this.props.account.token == 0) {
+    //   this.props.history.push("/signin");
+    // }
+    // if (this.props.account && this.props.account.profileCompleted) {
+    //   this.props.history.push("/dashboard");
+    // }
 
     this.props.fetchTopics(this.props.token);
     this.props.fetchSkills(this.props.token);
@@ -43,9 +43,9 @@ class UserSetup extends Component {
     if (!newValues['signUpReasonsIds']) newValues['signUpReasonsIds'] = [];
     newValues['groupIds'] = [];
     newValues['staffSchoolId'] = 0;
-    newValues['otherName'] = ""; 
-    this.props.setupUser(this.props.token, newValues, (response) => { 
-      this.props.getUserInfo(this.props.token, (resp) => { 
+    newValues['otherName'] = "";
+    this.props.setupUser(this.props.token, newValues, (response) => {
+      this.props.getUserInfo(this.props.token, (resp) => {
         this.props.history.push("/dashboard");
       })
     });

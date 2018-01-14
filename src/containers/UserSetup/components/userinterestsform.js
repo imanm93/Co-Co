@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import { Button } from 'semantic-ui-react';
+import { Grid, Button } from 'semantic-ui-react';
 import FiltersForm from '../../../components/FiltersForm';
 import * as FilterTypes from '../../../constants/filters/filterTypes';
 

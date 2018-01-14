@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Grid, Menu, Checkbox, Button } from 'semantic-ui-react';
 import { dictToArray } from '../../utils/dictTransforms';
-import SearchBox from '../SearchBox';
-import Chip from '../Chip';
+import FilterBox from '../FilterBox';
 import styles from './skillsform.css';
+import Chip from '../Chip';
 
 class SkillsForm extends Component {
 
@@ -19,9 +19,9 @@ class SkillsForm extends Component {
     });
   }
 
-  onSkillSelected(value) {
+  onSkillSelected(type, value) {
     const selectedSkills = this.state.selectedSkills;
-    if (selectedSkills.has(value)) { selectedSkills.delete(value) }
+    if (selectedSkills.has(value) && type === 'check') { selectedSkills.delete(value) }
     else if (!selectedSkills.has(value)) { selectedSkills.add(value) }
     this.setState({
       selectedSkills: selectedSkills
@@ -57,16 +57,15 @@ class SkillsForm extends Component {
     return Object.keys(this.state.skills).map(skillId => {
       return <Menu.Item key={"MenuItem" + skillId}>
         { this.state.selectedSkills.has(skillId) &&
-          <Checkbox label={this.state.skills[skillId]} onChange={() => this.onSkillSelected(skillId)} checked={true} /> }
+          <Checkbox label={this.state.skills[skillId]} onChange={() => this.onSkillSelected('check', skillId)} checked={true} /> }
         { !this.state.selectedSkills.has(skillId) &&
-          <Checkbox label={this.state.skills[skillId]} onChange={() => this.onSkillSelected(skillId)} checked={false} /> }
+          <Checkbox label={this.state.skills[skillId]} onChange={() => this.onSkillSelected('check', skillId)} checked={false} /> }
       </Menu.Item>
     })
   }
 
-  setSearchQuery(q) {
-    const skillId = Object.keys(this.props.skills).filter(id => this.props.skills[id] === q)[0];
-    this.onSkillSelected(String(skillId));
+  onSelectedItem(skill) {
+    this.onSkillSelected('search', String(skill.id));
   }
 
   render() {
@@ -79,7 +78,7 @@ class SkillsForm extends Component {
             <div className='coandco-skills-form-description'>This allows us to notify you of the opportunities most relevant opportunities</div>
           </Grid.Column>
           <Grid.Column width={16} style={{ paddingBottom: 0 }}>
-            <SearchBox items={skillItems} placeholder='Start typing a skill here ...' setSearchQuery={this.setSearchQuery.bind(this)} />
+            <FilterBox items={skillItems} placeholder='Start typing a skill here ...' onSelectedItem={this.onSelectedItem.bind(this)} />
           </Grid.Column>
           <Grid.Column width={6} style={{ paddingRight: 0, paddingTop: 0 }}>
             <Menu vertical style={{ width: '100%', borderRadius: 0, maxHeight: '28em', overflowY: 'scroll', overflowX: 'hidden' }}>
