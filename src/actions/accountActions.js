@@ -84,7 +84,7 @@ export function getUserInfo(token, callback) {
             profileCompleted: response.data.profileComplete
           }
         });
-        dispatch({ type: IS_AUTHENTICATING, data: false });  
+        dispatch({ type: IS_AUTHENTICATING, data: false });
         callback(response);
       })
       .catch(err => {
@@ -191,7 +191,7 @@ export function setupUser(token, values, callback) {
       .catch(err => {
         dispatch({
           type: SET_API_ERROR,
-          error: err  
+          error: err
         });
         dispatch({
           type: SET_SETUP_ERROR,

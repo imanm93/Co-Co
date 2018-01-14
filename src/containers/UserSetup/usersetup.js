@@ -16,16 +16,16 @@ class UserSetup extends Component {
   componentWillMount() {
 
     this.setState({
-      step: 3,
+      step: 1,
       values: {}
     });
 
-    // if (!this.props.account || this.props.account.token == 0) {
-    //   this.props.history.push("/signin");
-    // }
-    // if (this.props.account && this.props.account.profileCompleted) {
-    //   this.props.history.push("/dashboard");
-    // }
+    if (!this.props.account || this.props.account.token == 0) {
+      this.props.history.push("/signin");
+    }
+    if (this.props.account && this.props.account.profileCompleted) {
+      this.props.history.push("/dashboard");
+    }
 
     this.props.fetchTopics(this.props.token);
     this.props.fetchSkills(this.props.token);
@@ -141,6 +141,7 @@ class UserSetup extends Component {
             onPrevious={this.onPrevious.bind(this)}
             signUpReasons={this.props.setupData.signUpReasons}
             updateSignUpSelection={this.updateSignUpSelection.bind(this)}
+            selectedReasons={this.state.values.signUpReasonsIds}
             title="And what made you sign up?"
           />
         }

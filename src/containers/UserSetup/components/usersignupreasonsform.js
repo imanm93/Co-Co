@@ -34,41 +34,38 @@ class UserSignUpReasonsForm extends Component {
       signUpReasons[reason.id] = reason.name;
     });
     return (
-      <Grid style={{ backgroundColor: '#FFF' }}>
-        <Grid.Row>
-          <Grid.Column width ={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
-            <div className='form-header'></div>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
-            <Grid.Row>
-              <Divider/>
-            </Grid.Row>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '2em 1em 0em' }}>
+      <Grid>
+        <Grid.Column width={16} style={{ backgroundColor: '#FFF' }}>
+          <Grid.Row>
             <FiltersForm
-              types={signUpReasons}
               title={this.props.title}
+              message={'Pick all that apply ...'}
+              types={signUpReasons}
               type={FilterTypes.SIGN_UP_REASONS}
               updateSelection={this.updateSignUpSelection}
-              validate={[required]}
             />
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '2em 1em 0em' }}>
-            <div style={{ color: 'red' }}>* You must select at least one </div>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '2em 1em 0em', textAlign: 'right' }}>
-            <Button onClick={() => this.props.onPrevious()} circular style={{ backgroundColor: '#FFF', color: '#2A2A2A', border: '1px solid #2A2A2A' }}>Back to your interests</Button>
-            <Button onClick={() => this.moveNext()} circular secondary>Setup</Button>
-          </Grid.Column>
-        </Grid.Row>
+          </Grid.Row>
+        </Grid.Column>
+        <Grid.Column width={16} style={{ backgroundColor: '#FFF' }}>
+          <Grid.Row>
+            <div style={{ paddingLeft: '3em', color: 'red' }}>* You must select one!</div>
+          </Grid.Row>
+        </Grid.Column>
+        <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '2em 1em 0em', textAlign: 'right' }}>
+          <Button onClick={() => this.props.onPrevious()} circular style={{ backgroundColor: '#FFF', color: '#2A2A2A', border: '1px solid #2A2A2A' }}>Back to your interests</Button>
+          {
+            this.props.selectedReasons && this.props.selectedReasons.length > 0 && this.props.selectedReasons[0] !== "" &&
+              <Button onClick={() => this.moveNext()} circular secondary>Setup</Button>
+          }
+          {
+            this.props.selectedReasons && this.props.selectedReasons.length === 1 && this.props.selectedReasons[0] === "" &&
+              <Button disabled circular secondary>Setup</Button>
+          }
+          {
+            !this.props.selectedReasons &&
+            <Button disabled circular secondary>Setup</Button>
+          }
+        </Grid.Column>
       </Grid>
     )
   }
