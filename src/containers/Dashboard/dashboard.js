@@ -20,11 +20,11 @@ import DashboardItemsSelectorBar from './components/dashboarditemsselectorbar';
 class Dashboard extends Component {
 
   componentWillMount() {
-
+    console.log(this.props.profileComplete);
     if (!this.props.token) {
       this.redirectToSignIn();
     }
-    else if (!this.props.profileCompleted) {
+    else if (!this.props.profileComplete) {
       this.redirectToSetup();
     }
 
@@ -38,12 +38,10 @@ class Dashboard extends Component {
     this.setState({
       modalStep: 0,
       skills: new Set()
-    });
-    console.log(this.props.lastActivityTimestamp);
+    }); 
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props.lastActivityTimestamp);
     if (nextProps.dash !== this.props.dash) {
       if (!nextProps.dash.filters.myConnections) {
         this.props.fetchFilteredItems(
@@ -209,7 +207,7 @@ function mapStateToProps(state) {
   return {
     lastActivityTimestamp: state.account.lastActivityTimestamp,
     isLoadingDashItems: state.loaders.isLoadingDashItems,
-    profileCompleted: state.account.profileCompleted,
+    profileComplete: state.account.profileComplete,
     profilePhotoUrl: state.account.profilePhotoUrl,
     courses: state.setup.courses,
     userId: state.account.userId,

@@ -16,16 +16,16 @@ class UserSetup extends Component {
   componentWillMount() {
 
     this.setState({
-      step: 3,
+      step: 1,
       values: {}
     });
 
-    // if (!this.props.account || this.props.account.token == 0) {
-    //   this.props.history.push("/signin");
-    // }
-    // if (this.props.account && this.props.account.profileCompleted) {
-    //   this.props.history.push("/dashboard");
-    // }
+    if (!this.props.account || this.props.account.token == 0) {
+      this.props.history.push("/signin");
+    }
+    if (this.props.account && this.props.account.profileComplete) {
+      this.props.history.push("/dashboard");
+    }
 
     this.props.fetchTopics(this.props.token);
     this.props.fetchSkills(this.props.token);
@@ -39,13 +39,14 @@ class UserSetup extends Component {
   onSubmit() {
     const newValues = this.state.values;
     if (!newValues['skillIds']) newValues['skillIds'] = [];
-    if (!newValues['interestIds']) newValues['interestIds'] = [];
+    if (!newValues['topicIds']) newValues['topicIds'] = [];
     if (!newValues['signUpReasonsIds']) newValues['signUpReasonsIds'] = [];
     newValues['groupIds'] = [];
     newValues['staffSchoolId'] = 0;
     newValues['otherName'] = "";
     this.props.setupUser(this.props.token, newValues, (response) => {
       this.props.getUserInfo(this.props.token, (resp) => {
+        console.log(resp);
         this.props.history.push("/dashboard");
       })
     });

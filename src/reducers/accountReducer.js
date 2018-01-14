@@ -8,7 +8,7 @@ const initialState = {
   profilePhotoUrl: "",
   firstimeLogin: true,
   authenticated: false,
-  profileCompleted: false,
+  profileComplete: false,
   lastActivityTimestamp: ''
 }
 

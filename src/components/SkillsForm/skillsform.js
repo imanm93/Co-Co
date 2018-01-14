@@ -31,7 +31,7 @@ class SkillsForm extends Component {
   }
 
   onSkillRemove(values) {
-    this.onSkillSelected(values.id);
+    this.onSkillSelected('check',values.id);
   }
 
   onStreamSelected(stream) {

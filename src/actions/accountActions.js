@@ -77,14 +77,9 @@ export function getUserInfo(token, callback) {
       .then(response => {
         dispatch({
           type: SET_AUTH_USER,
-          data: {
-            name: response.data.name,
-            type: response.data.type,
-            profilePhotoUrl: response.data.profilePhotoUrl,
-            profileCompleted: response.data.profileComplete
-          }
+          data: response.data
         });
-        dispatch({ type: IS_AUTHENTICATING, data: false });  
+        dispatch({ type: IS_AUTHENTICATING, data: false });
         callback(response);
       })
       .catch(err => {
@@ -182,6 +177,7 @@ export function setupUser(token, values, callback) {
       }
     })
       .then(resp => {
+        console.log(resp);
         dispatch({
           type: IS_SETTING_UP,
           data: false
@@ -189,9 +185,10 @@ export function setupUser(token, values, callback) {
         callback(resp);
       })
       .catch(err => {
+        console.log(err);
         dispatch({
           type: SET_API_ERROR,
-          error: err  
+          error: err
         });
         dispatch({
           type: SET_SETUP_ERROR,
