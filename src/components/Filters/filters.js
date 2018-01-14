@@ -8,7 +8,7 @@ class Filters extends Component {
       filters: this.props.filters,
       selectedCheckbox: new Set()
     }, function() {
-      if (this.props.selectedTopics) this.props.selectedTopics.map(topicId => {
+      if (this.props.selectedFilters) this.props.selectedFilters.map(topicId => {
         this.updateFilter(topicId);
       });
     });

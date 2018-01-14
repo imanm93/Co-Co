@@ -16,7 +16,11 @@ import ItemComments from './itemcomments';
 class Item extends Component {
 
   onExpand() {
-      this.props.fetchExpandedItem(this.props.token, this.props.item.itemType, this.props.item.itemId, this.props.userId);
+    this.props.fetchExpandedItem(this.props.token, this.props.item.itemType, this.props.item.itemId, this.props.userId);
+  }
+
+  onShrink() {
+    this.props.shrinkItem(this.props.token, this.props.item.itemType, this.props.item.itemId, this.props.userId);
   }
 
   onComments() {
@@ -70,7 +74,7 @@ class Item extends Component {
             <OppItem skills={this.props.skills} item={this.props.item} type={ItemTypes.OPP_ITEM} onExpand={this.onExpand.bind(this)} />
         }
         { this.props.item.itemType === 'event' &&
-            <EventItem item={this.props.item} type={ItemTypes.EVENT_ITEM} onExpand={this.onExpand.bind(this)} />
+            <EventItem item={this.props.item} type={ItemTypes.EVENT_ITEM} onExpand={this.onExpand.bind(this)} onShrink={this.onShrink.bind(this)} />
         }
         { this.props.item.itemType === 'post' &&
             <StatusItem item={this.props.item} />
@@ -87,6 +91,7 @@ class Item extends Component {
             numberOfLikes={this.props.item.numberOfLikes}
             numberOfComments={this.props.item.numberOfComments}
             numberGoing={this.props.item.numberGoing}
+            going={this.props.item.going}
             isLiked={this.props.item.isLiked}
             onLike={this.onLike.bind(this)}
             onComments={this.onComments.bind(this)}

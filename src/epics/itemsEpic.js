@@ -5,7 +5,7 @@ import { GET_ITEM_COMMENT_URL, GET_ITEMS_BY_IDS } from '../constants/items/itemE
 import { SET_API_ERROR, CLEAR_API_ERROR } from '../constants/api/apiErrorTypes';
 import { IS_LOADING_DASH_ITEMS, IS_LOADING_VIEW_SPECIFIC_ITEMS } from '../constants/dashboard/dashboardLoaderTypes';
 import { FETCH_FILTERED_ITEMS, FETCH_EXPANDED_ITEM, FETCH_COMMENTS_FOR_ITEM, FETCH_ITEMS_BY_ID } from '../constants/items/itemFetchTypes';
-import { SET_FILTERED_ITEMS, SET_EXPANDED_ITEM, SET_LOADING_COMMENTS, SET_COMMENTS } from '../constants/items/itemReducerTypes';
+import { SET_FILTERED_ITEMS, SET_EXPANDED_ITEM, SET_LOADING_COMMENTS, SET_COMMENTS, SET_EXPANDING_ITEM } from '../constants/items/itemReducerTypes';
 import { FETCH_CONNECTIONS } from '../constants/connections/connectionFetchTypes';
 import { SET_CONNECTIONS } from '../constants/connections/connectionReducerTypes';
 import { GET_CONNECTIONS_URL } from '../constants/connections/connectionEndpoints';
@@ -105,13 +105,19 @@ export const getFilteredItems = (action$, store) =>
 export const getExpandedItem = (action$, store) =>
   action$.ofType(FETCH_EXPANDED_ITEM)
     .switchMap(action =>
-      Rx.Observable.ajax({
-        url: action.endpoint + '/' + action.itemId,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + action.token
-        }
-      })
+      Rx.Observable.concat(
+        Rx.Observable.of({
+          type: SET_EXPANDING_ITEM,
+          id: action.itemId,
+          data: true
+        }),
+        Rx.Observable.ajax({
+          url: action.endpoint + '/' + action.itemId,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + action.token
+          }
+        })
         .map(payload => ({
           type: SET_EXPANDED_ITEM,
           id: action.itemId,
@@ -123,6 +129,7 @@ export const getExpandedItem = (action$, store) =>
           type: SET_API_ERROR,
           error: err
         }))
+      )
     )
 
 export const getCommentsItem = (action$, store) =>
@@ -161,4 +168,3 @@ export const getCommentsItem = (action$, store) =>
         })
       )
     )
-

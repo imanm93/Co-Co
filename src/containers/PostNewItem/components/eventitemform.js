@@ -111,21 +111,25 @@ class EventItemForm extends Component {
           <Grid.Column width={9}>
             <Grid.Row>
               <Grid>
-                <Grid.Column width={8} style={{paddingTop: 0, paddingBottom: 0 }}>
+                <Grid.Column width={8} style={{ paddingTop: 0, paddingBottom: 0, paddingRight: 0 }}>
                   <Field
                     label='Starts'
                     name='startTime'
+                    showTimeSelect
+                    datePickerClass='event'
                     dateFormat="DD/MM/YYYY HH:mm:ss"
                     endDateTime={this.props.endDateTime}
                     component={dateFormField}
                     validate={[required, timeBeforePresent, timeAfterEnd]}
                   />
                 </Grid.Column>
-                <Grid.Column width={8} style={{paddingTop: 0, paddingBottom: 0 }}>
+                <Grid.Column width={8} style={{ paddingTop: 0, paddingBottom: 0, paddingLeft: 0 }}>
                   <Field
                     label='Ends'
                     name='endTime'
-                    dateFormat="DD/MM/YYYY HH:mm:ss"
+                    showTimeSelect
+                    datePickerClass='event'
+                    dateFormat="DD/MM/YYYY"
                     startDateTime={this.props.startDateTime}
                     component={dateFormField}
                     validate={[required, timeBeforePresent, timeBeforeStart]}

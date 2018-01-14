@@ -18,6 +18,8 @@
   border: 1px solid #FFF !important;
   background-color: #2A2A2A !important;
   margin: 0.5em !important;
+  padding-top: 0.7em !important;
+  padding-bottom: 0.7em !important;
 }
 
 .coandco-new-post-btn:hover {

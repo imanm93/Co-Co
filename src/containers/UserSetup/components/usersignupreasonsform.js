@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid, Button, Divider } from 'semantic-ui-react';
 import FiltersForm from '../../../components/FiltersForm';
 import * as FilterTypes from '../../../constants/filters/filterTypes';
 import { required } from '../../../validators';
 
 class UserSignUpReasonsForm extends Component {
 
-  componentWillMount() {    
+  componentWillMount() {
     this.setState({
       seletedCount: 0
     });
@@ -15,7 +15,7 @@ class UserSignUpReasonsForm extends Component {
 
   moveNext = ()=>{
 
-    if(this.state.seletedCount == 0 ){ 
+    if(this.state.seletedCount == 0 ){
       return;
     }
     this.props.onNext();
@@ -35,17 +35,37 @@ class UserSignUpReasonsForm extends Component {
     });
     return (
       <Grid>
-        <FiltersForm
-          types={signUpReasons}
-          title={this.props.title}
-          type={FilterTypes.SIGN_UP_REASONS}
-          updateSelection={this.updateSignUpSelection}
-          validate={[required]}
-        />
-        <div> You must select at least one </div>
-        <br/>
-        <Button onClick={() => this.props.onPrevious()}>Back to your interests</Button>
-        <Button onClick={() => this.moveNext()}>Setup</Button>
+        <Grid.Column width={16} style={{ backgroundColor: '#FFF' }}>
+          <Grid.Row>
+            <FiltersForm
+              title={this.props.title}
+              message={'Pick all that apply'}
+              types={signUpReasons}
+              type={FilterTypes.SIGN_UP_REASONS}
+              updateSelection={this.updateSignUpSelection}
+            />
+          </Grid.Row>
+        </Grid.Column>
+        <Grid.Column width={16} style={{ backgroundColor: '#FFF' }}>
+          <Grid.Row>
+            <div style={{ paddingLeft: '3em', color: 'red' }}>* You must select one!</div>
+          </Grid.Row>
+        </Grid.Column>
+        <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '2em 1em 1em', textAlign: 'right' }}>
+          <Button onClick={() => this.props.onPrevious()} circular style={{ backgroundColor: '#FFF', color: '#2A2A2A', border: '1px solid #2A2A2A' }}>Back to your interests</Button>
+          {
+            this.props.selectedReasons && this.props.selectedReasons.length > 0 && this.props.selectedReasons[0] !== "" &&
+              <Button onClick={() => this.moveNext()} circular secondary>Setup</Button>
+          }
+          {
+            this.props.selectedReasons && this.props.selectedReasons.length === 1 && this.props.selectedReasons[0] === "" &&
+              <Button disabled circular secondary>Setup</Button>
+          }
+          {
+            !this.props.selectedReasons &&
+            <Button disabled circular secondary>Setup</Button>
+          }
+        </Grid.Column>
       </Grid>
     )
   }

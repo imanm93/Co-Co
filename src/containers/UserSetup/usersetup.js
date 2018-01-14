@@ -142,6 +142,7 @@ class UserSetup extends Component {
             onPrevious={this.onPrevious.bind(this)}
             signUpReasons={this.props.setupData.signUpReasons}
             updateSignUpSelection={this.updateSignUpSelection.bind(this)}
+            selectedReasons={this.state.values.signUpReasonsIds}
             title="And what made you sign up?"
           />
         }

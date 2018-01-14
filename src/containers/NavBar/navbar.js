@@ -32,7 +32,7 @@ class NavBar extends Component {
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
           backgroundImage: 'url(https://coandco.blob.core.windows.net/systemimagescoandco/files/coandco_white.png)',
-          border: '6px solid #2A2A2A',
+          border: '8px solid #2A2A2A',
           cursor: 'pointer'
         }} onClick={this.redirectToDashboard.bind(this)}>
         </Grid.Column>

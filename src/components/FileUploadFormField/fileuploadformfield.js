@@ -33,6 +33,9 @@ class FileUploadFormField extends Component {
     }
     catch (err) {
       console.log(err);
+      this.setState({
+        uploadingAttchment: false
+      });
     }
   }
 

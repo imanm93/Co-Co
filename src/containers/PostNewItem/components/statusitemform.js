@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
-import { Grid, Button, Dimmer, Loader } from 'semantic-ui-react';
+import { Grid, Button, Dimmer, Loader, Form, Image } from 'semantic-ui-react';
 import { required } from '../../../validators';
 import { dictToArray } from '../../../utils/dictTransforms';
 
@@ -35,29 +35,48 @@ class StatusItemForm extends Component {
             </Dimmer>
           }
           <Grid.Column width={16}>
-            <Field
-              name='text'
-              label=''
-              placeholder='Write here'
-              component={inputFormField}
-              validate={required}
-            />
-            <hr/>
+            <Grid.Row>
+              <Grid>
+                <Grid.Column width={16} style={{ padding: '1.5em 0em 0.5em 1.5em' }}>
+                  <Image avatar style={{ width: '3em', height: '3em', display: 'inline-block' }} src={this.props.user.profilePhotoUrl} />
+                  <div style={{ fontWeight: 600, display: 'inline-block' }}>
+                    <div>{this.props.user.name}</div>
+                  </div>
+                </Grid.Column>
+              </Grid>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid>
+                <Grid.Column width={16}>
+                  <Field
+                    label=''
+                    rows={5}
+                    name='text'
+                    placeholder='Write here'
+                    InputType={Form.TextArea}
+                    style={{ width: '100%' }}
+                    component={inputFormField}
+                    validate={required}
+                  />
+                  <FieldArray
+                    name='topics'
+                    label='Add a topic'
+                    placholder='e.g. Health & Wellbeing'
+                    component={searchFormField}
+                    items={topicItems}
+                  />
+                </Grid.Column>
+              </Grid>
+            </Grid.Row>
+          </Grid.Column>
+          <Grid.Column width={12} textAlign='right' style={{ paddingRight: 0, paddingBottom: '2em' }}>
             <FieldArray
-              name='topics'
-              component={searchFormField}
-              items={topicItems}
+              name='attachments'
+              component={fileUploadFormField}
             />
           </Grid.Column>
-          <hr className='coandco-form-section-line' />
-          <Grid.Column width={13} textAlign='right'>
-          <FieldArray
-            name='attachments'
-            component={fileUploadFormField}
-          />
-          </Grid.Column>
-          <Grid.Column width={3}>
-            <Button type="submit" circular secondary>Post</Button>
+          <Grid.Column width={4} style={{ paddingBottom: '2em' }}>
+            <Button type="submit" circular secondary style={{ padding: '0.8em 4em' }}>Post</Button>
           </Grid.Column>
         </Grid>
       </form>

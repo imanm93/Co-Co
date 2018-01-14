@@ -6,6 +6,12 @@ import styles from './singlefileuploadformfield.css';
 
 class SingleFileUploadFormField extends Component {
 
+  componentWillMount() {
+    this.setState({
+      uploadingAttchment: false
+    });
+  }
+
   uploadFile = (e) => {
     const { onChange } = this.props.input;
     var file = e.target.files[0]
@@ -14,12 +20,21 @@ class SingleFileUploadFormField extends Component {
       reader.readAsDataURL(file);
       let data = new FormData();
       data.append('files', file);
+      this.setState({
+        uploadingAttchment: true
+      });
       this.props.uploadFile(data, (imageUrl) => {
         onChange(imageUrl);
+        this.setState({
+          uploadingAttchment: false
+        });
       });
     }
     catch(err) {
       console.log(err);
+      this.setState({
+        uploadingAttchment: false
+      });
     }
   }
 
@@ -36,7 +51,7 @@ class SingleFileUploadFormField extends Component {
           backgroundPosition: 'center',
           backgroundSize: 'contain'
         }}>
-          { this.props.isUploadingImage &&
+          { this.state.uploadingAttchment &&
             <Dimmer active inverted>
               <Loader/>
             </Dimmer>
@@ -67,9 +82,7 @@ class SingleFileUploadFormField extends Component {
 }
 
 function mapStateToProps(state) {
-  return {
-    isUploadingImage: state.loaders.isUploadingImage
-  };
+  return {};
 }
 
 export default connect(mapStateToProps, actions)(SingleFileUploadFormField);

@@ -18,8 +18,8 @@ class SignIn extends Component {
     this.props.getUserInfo(this.props.account.token, ()=>{
       history.push("/dashboard")
     });
-      
-  } 
+
+  }
 
   render() {
     return(

@@ -7,7 +7,7 @@ import { SET_NEW_COMMENT_ERROR } from '../constants/items/itemErrorTypes';
 import { SET_POST_ITEM_STATUS } from '../constants/postForm/postFormReducerTypes';
 import { GET_CONNECTION_REQUESTS_URL } from '../constants/connections/connectionEndpoints';
 import { SET_REQUESTED_CONNECTION, UNSET_REQUESTED_CONNECTION } from '../constants/connections/connectionReducerTypes';
-import { INCREMENT_LIKES, DECREMENT_LIKES, INCREMENT_INTERESTED, DECREMENT_INTERESTED, SET_NEW_COMMENT } from '../constants/items/itemReducerTypes';
+import { INCREMENT_LIKES, DECREMENT_LIKES, INCREMENT_INTERESTED, DECREMENT_INTERESTED, SET_NEW_COMMENT, SET_SHRINK_ITEM } from '../constants/items/itemReducerTypes';
 import { GET_ITEM_LIKES_URL, GET_ITEM_INTERESTED_URL, GET_ITEM_NOT_INTERESTED_URL, GET_ITEM_COMMENT_URL,
          GET_FILTERED_EVENT_ITEMS_URL, GET_FILTERED_OPP_ITEMS_URL, GET_FILTERED_STATUS_ITEMS_URL,
          POST_OPPS_EXTERNAL_URL, POST_EVENTS_EXTERNAL_URL } from '../constants/items/itemEndpoints';
@@ -20,6 +20,16 @@ export function resetPostItemForm(formName, ctx) {
       data: ''
     });
     ctx.push('/external/verify');
+  }
+}
+
+export function shrinkItem(token, type, itemId, userId) {
+  return function (dispatch) {
+    dispatch({
+      type: SET_SHRINK_ITEM,
+      id: itemId,
+      data: false
+    });
   }
 }
 
@@ -204,13 +214,13 @@ export function postInterested(token, userId, itemId) {
     axios({
       method: 'post',
       url: GET_ITEM_INTERESTED_URL,
-      data: {
-        userId: userId,
-        eventId: itemId
-      },
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
+      },
+      data: {
+        userId: userId,
+        eventId: itemId
       }
     })
     .then(res => {
@@ -244,13 +254,13 @@ export function postNotInterested(token, userId, itemId) {
     axios({
       method: 'post',
       url: GET_ITEM_NOT_INTERESTED_URL,
-      data: {
-        userId: userId,
-        eventId: itemId
-      },
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
+      },
+      data: {
+        userId: userId,
+        eventId: itemId
       }
     })
     .then(res => {
