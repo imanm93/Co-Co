@@ -9,7 +9,7 @@ const initialState = {
   firstimeLogin: true,
   authenticated: false,
   profileCompleted: false,
-  lastActiivityTimestamp: ''
+  lastActivityTimestamp: ''
 }
 
 export default function(state=initialState, action) {

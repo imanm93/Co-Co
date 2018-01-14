@@ -39,9 +39,11 @@ class Dashboard extends Component {
       modalStep: 0,
       skills: new Set()
     });
+    console.log(this.props.lastActivityTimestamp);
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(this.props.lastActivityTimestamp);
     if (nextProps.dash !== this.props.dash) {
       if (!nextProps.dash.filters.myConnections) {
         this.props.fetchFilteredItems(
@@ -205,7 +207,7 @@ class Dashboard extends Component {
 
 function mapStateToProps(state) {
   return {
-    lastActivityTimestamp: state.account.lastActiivityTimestamp,
+    lastActivityTimestamp: state.account.lastActivityTimestamp,
     isLoadingDashItems: state.loaders.isLoadingDashItems,
     profileCompleted: state.account.profileCompleted,
     profilePhotoUrl: state.account.profilePhotoUrl,
