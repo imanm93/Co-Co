@@ -14,7 +14,9 @@ const initialState = {
 export default function(state=initialState, action) {
   switch(action.type) {
     case SET_FILTERED_ITEMS:
-        const newItems = Object.assign({}, state.items, action.items);
+        let newItems = {};
+        if (action.page === 1) newItems = Object.assign({}, action.items);
+        if (action.page > 1) newItems = Object.assign({}, state.items, action.items);
         return { ...state, ...{ items: newItems, page: action.page } };
     case SET_SHRINK_ITEM:
         let itemShrink = Object.assign({}, state.items[action.id]);

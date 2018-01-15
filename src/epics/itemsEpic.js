@@ -3,7 +3,7 @@ import Utils from '../utils';
 
 import { GET_ITEM_COMMENT_URL, GET_ITEMS_BY_IDS } from '../constants/items/itemEndpoints';
 import { SET_API_ERROR, CLEAR_API_ERROR } from '../constants/api/apiErrorTypes';
-import { IS_LOADING_DASH_ITEMS, IS_LOADING_VIEW_SPECIFIC_ITEMS } from '../constants/dashboard/dashboardLoaderTypes';
+import { IS_LOADING_DASH_ITEMS, IS_LOADING_VIEW_SPECIFIC_ITEMS, IS_MY_CONNECTIONS } from '../constants/dashboard/dashboardLoaderTypes';
 import { FETCH_FILTERED_ITEMS, FETCH_EXPANDED_ITEM, FETCH_COMMENTS_FOR_ITEM, FETCH_ITEMS_BY_ID } from '../constants/items/itemFetchTypes';
 import { SET_FILTERED_ITEMS, SET_EXPANDED_ITEM, SET_LOADING_COMMENTS, SET_COMMENTS, SET_EXPANDING_ITEM } from '../constants/items/itemReducerTypes';
 import { FETCH_CONNECTIONS } from '../constants/connections/connectionFetchTypes';
@@ -14,6 +14,10 @@ export const getConnections = (action$, store) =>
   action$.ofType(FETCH_CONNECTIONS)
     .switchMap(action =>
       Rx.Observable.concat(
+        Rx.Observable.of({
+          type: IS_MY_CONNECTIONS,
+          data: true
+        }),
         Rx.Observable.of({
           type: IS_LOADING_DASH_ITEMS,
           data: true
@@ -55,6 +59,10 @@ export const getFilteredItems = (action$, store) =>
       Rx.Observable.concat(
         Rx.Observable.of({
           type: CLEAR_API_ERROR
+        }),
+        Rx.Observable.of({
+          type: IS_MY_CONNECTIONS,
+          data: false
         }),
         Rx.Observable.of({
           type: action.loader,

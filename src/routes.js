@@ -29,19 +29,19 @@ import NotFoundPage from './components/NotFoundPage';
 
 const Routes = () => (
   <Switch>
-      <Route exact path="/" component={Landing} />
-      <Route path="/verify" component={Verify} />
-      <Route path="/setup" component={UserSetup} />
-      <Route path="/signup" component={SignUp} />
-      <Route path="/signin" component={SignIn} />
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/external/:step" component={External} />
-      <Route path="/profile/:type" component={UserProfile} />
-      <Route path="/post" component={PostNewItemContainer} />
-      <Route path="/verifiedemail" component={VerifiedEmail} />
-      <Route path="/forgotpassword" component ={ForgotPassword} />
-      <Route path="/verifiedcompany" component={VerifiedCompany} />
-      <Route path="/view/items/:itemIds" component={ViewSpecificItems} />
+      <Route exact path="/" component={withGATracker(Landing)} />
+      <Route path="/verify" component={withGATracker(Verify)} />
+      <Route path="/setup" component={withGATracker(UserSetup)} />
+      <Route path="/signup" component={withGATracker(SignUp)} />
+      <Route path="/signin" component={withGATracker(SignIn)} />
+      <Route path="/dashboard" component={withGATracker(Dashboard)} />
+      <Route path="/external/:step" component={withGATracker(External)} />
+      <Route path="/profile/:type" component={withGATracker(UserProfile)} />
+      <Route path="/post" component={withGATracker(PostNewItemContainer)} />
+      <Route path="/verifiedemail" component={withGATracker(VerifiedEmail)} />
+      <Route path="/forgotpassword" component ={withGATracker(ForgotPassword)} />
+      <Route path="/verifiedcompany" component={withGATracker(VerifiedCompany)} />
+      <Route path="/view/items/:itemIds" component={withGATracker(ViewSpecificItems)} />
       <Route component={NotFoundPage} />
   </Switch>
 )

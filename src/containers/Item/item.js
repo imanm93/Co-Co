@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import styles from './item.css';
 
-import * as actions from '../../actions/itemActions';
+import * as actions from '../../actions';
 import * as ItemTypes from '../../constants/items/itemTypes';
 
 import OppItem from './components/oppitem';
@@ -61,6 +61,10 @@ class Item extends Component {
     console.log("Report", itemId);
   }
 
+  onRedirectToProfile() {
+    this.props.setProfileViewId(this.props.token, this.props.item.user.id, this.props.history);
+  }
+
   getItemOuterStyle() {
     if (this.props.item.itemType !== 'user') return { padding: '0', borderRadius: '5px', boxShadow: '0 1px 3px 0 rgba(0,0,0,0.22)', margin: '0.5em', marginTop: '0em', marginBottom: '2em' }
     else return { padding: '0', borderRadius: '5px', boxShadow: '0 1px 3px 0 rgba(0,0,0,0.22)', margin: '0.5em', marginTop: '0em', marginBottom: '0em' }
@@ -80,7 +84,7 @@ class Item extends Component {
             <StatusItem item={this.props.item} />
         }
         { this.props.item.itemType === 'user' &&
-            <PeopleItem item={this.props.item} onConnect={this.onConnect.bind(this)} />
+            <PeopleItem item={this.props.item} onConnect={this.onConnect.bind(this)} redirectToProfile={this.onRedirectToProfile.bind(this)} />
         }
         { this.props.item.itemType !== 'user' &&
           <ItemControls

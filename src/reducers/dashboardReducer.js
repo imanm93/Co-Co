@@ -34,8 +34,12 @@ export default function(state=initialState, action) {
         }
       };
     case SET_DASH_TAB:
+      console.log(state.tab);
+      console.log(action.tab);
+      console.log(action.page);
       return { ...state, ...{
-          tab: action.tab
+          tab: action.tab,
+          page: action.page
         }
       };
     case RESET_DASH:

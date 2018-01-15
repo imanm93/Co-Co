@@ -17,11 +17,10 @@ class VerifiedEmail extends Component {
           <Grid.Row centered>
             <div style={{ fontSize: '25px', fontWeight: 600 }}>
               Your email has been verified!<br/><br/>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam molestie posuere ante. In viverra diam eu interdum mollis. Suspendisse non tortor eget dui placerat feugiat a eu dui. 
             </div>
           </Grid.Row>
           <Grid.Row centered>
-            <Button circular secondary onClick={() => this.redirectToSignIn()}>Lorem ipsum dolor!</Button>
+            <Button circular secondary onClick={() => this.redirectToSignIn()}>Go Sign In!</Button>
           </Grid.Row>
         </Grid>
       </FormContainer>

@@ -43,7 +43,7 @@ class FilterBox extends Component {
         if (this.props.onSelectedItem && this.state.value.length > 0) {
           this.props.onSelectedItem(this.getSelectedObject(this.state.value));
         }
-        this.setState({
+        if (!this.props.single) this.setState({
           value: ''
         });
       });

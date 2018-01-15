@@ -9,12 +9,12 @@ import NotificationsBar from '../NotificationsBar';
 
 class NavBar extends Component {
 
-  redirectToProfile() {
-    this.props.setProfileViewId(this.props.token, this.props.userId, this.props);
-  }
-
   redirectToDashboard() {
     this.props.history.push('/dashboard');
+  }
+
+  redirectToProfile() {
+    this.props.setProfileViewId(this.props.token, this.props.userId, this.props);
   }
 
   signOut() {
@@ -35,7 +35,6 @@ class NavBar extends Component {
         }} onClick={this.redirectToDashboard.bind(this)}>
         </Grid.Column>
         <Grid.Column width={10}>
-          <NotificationsBar token={this.props.token} />
         </Grid.Column>
         <Grid.Column width={1} textAlign='right'>
           <Dropdown
@@ -68,6 +67,8 @@ class NavBar extends Component {
   }
 
 }
+
+// <NotificationsBar token={this.props.token} />
 
 function mapStateToProps(state) {
   return {

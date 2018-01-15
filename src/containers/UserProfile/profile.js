@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 import * as actions from '../../actions/profileActions';
+import Utils from '../../utils';
 
 import PageContainer from '../../components/PageContainer';
 import NavBar from '../NavBar';
@@ -13,7 +14,11 @@ class Profile extends Component {
 
   refresh(profileId) {
     if (profileId === this.props.userId) { this.props.fetchMyProfile(this.props.token, this.props.userId); }
-    if (profileId !== this.props.userId) { this.props.fetchProfileData(this.props.token, this.props.userId); }
+    if (profileId !== this.props.userId) { this.props.fetchProfileData(this.props.token, this.props.profile.profileViewId); }
+  }
+
+  componentWillMount() {
+    this.refresh(this.props.profile.profileViewId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,7 +36,6 @@ class Profile extends Component {
   }
 
   render() {
-    console.log(this.props.profile);
     const type = this.props.match.params.type;
     return (
       <PageContainer>

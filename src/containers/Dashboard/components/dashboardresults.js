@@ -16,17 +16,22 @@ class DashboardResults extends Component {
                 currentTab={this.props.currentTab}
                 setFilterQuery={this.props.setFilterQuery}
                 onMyConnections={this.props.onMyConnections}
+                isMyConnections={this.props.isMyConnections}
               />
             </Grid.Column>
             <Grid.Column width={12} style={{ paddingTop: '2.5em' }}>
               <DashboardItems
-                items={this.props.items}
-                userId={this.props.userId}
                 name={this.props.name}
-                profilePhotoUrl={this.props.profilePhotoUrl}
+                items={this.props.items}
+                tab={this.props.currentTab}
                 token={this.props.token}
+                userId={this.props.userId}
                 isLoading={this.props.isLoading}
+                profilePhotoUrl={this.props.profilePhotoUrl}
                 onLoadMoreItems={this.props.onLoadMoreItems}
+                isLoadingMoreItems={this.props.isLoadingMoreItems}
+                isMyConnections={this.props.isMyConnections}
+                history={this.props.history}
               />
             </Grid.Column>
             <Grid.Column width={1}>

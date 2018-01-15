@@ -24,7 +24,11 @@ store.subscribe(throttle(() => {
       account: store.getState().account,
       filters: store.getState().filters,
       skills: store.getState().skills,
-      profiles: store.getState().profiles
+      profiles: {
+        profileViewId: store.getState().profiles.profileViewId,
+        profileViewData: {},
+        profileEditData: {}
+      }
   });
 }, 1000));
 

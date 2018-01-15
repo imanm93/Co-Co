@@ -10,6 +10,7 @@ class DashboardSearchBar extends Component {
         <Grid.Column width={16} style={{ textAlign: 'center' }}>
           <FilterBox
             items={this.props.items}
+            single={true}
             className='dashboard-search'
             placeholder='What are you looking for?'
             setSearchQuery={this.props.setSearchQuery}

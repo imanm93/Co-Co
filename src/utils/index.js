@@ -12,7 +12,7 @@ const Utils = {
     },
     sortDateTimeV2: function (input) {
       return Object.keys(input).sort(function (i1, i2) {
-          return moment(input[i2].timestamp) - moment(input[i1].timestamp);
+          return moment(input[i1].timestamp) - moment(input[i2].timestamp);
       });
     },
     isEmpty: function (obj) {

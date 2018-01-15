@@ -90,6 +90,7 @@ class OppItemForm extends Component {
               <FilterBox
                 items={skillItems}
                 className='form-search'
+                single={true}
                 onSelectedItem={this.onSelectedServiceNeeded.bind(this)}
                 placeholder='e.g. Poster Design'
               />

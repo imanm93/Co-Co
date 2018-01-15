@@ -8,7 +8,7 @@ import jwt_decode from 'jwt-decode';
 
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { IS_SETTING_UP } from '../constants/setup/setupLoaderTypes';
-import { SET_AUTH_USER } from '../constants/account/accountReducerTypes';
+import { SET_AUTH_USER, SET_LAST_ACTIVITY_TIMESTAMP } from '../constants/account/accountReducerTypes';
 import { SET_FORGOT_PASSWORD_EMAIL_SENT_SUCCESSFULL } from '../constants/account/accountSuccessTypes';
 import { IS_AUTHENTICATING, IS_SIGNING_UP, IS_SENDING_FORGOT_PASSWORD } from '../constants/account/accountLoaderTypes';
 import { SET_SIGN_IN_ERROR, SET_SIGN_UP_ERROR, SET_FORGOT_PASSWORD_ERROR } from '../constants/account/accountErrorTypes';
@@ -227,5 +227,14 @@ export function forgotPassword(email) {
         });
         dispatch({ type: type, data: false });
       });
+  }
+}
+
+export function setLastActivityTimestamp(lastActivityTimestamp) {
+  return function (dispatch) {
+    dispatch({
+      type: SET_LAST_ACTIVITY_TIMESTAMP,
+      data: lastActivityTimestamp
+    });
   }
 }

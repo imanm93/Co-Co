@@ -71,7 +71,7 @@ class ViewProfile extends Component {
                                 </Grid.Row>
                             </Grid>
                         }
-                        <Grid centered columns={4}>
+                        <Grid centered columns={4} style={{ paddingBottom: '4em' }}>
                             { this.props.profileViewData.workExamples && this.props.profileViewData.workExamples.length === 0 &&
                               <Divider className="main-content" />
                             }
@@ -116,14 +116,16 @@ class ViewProfile extends Component {
                                               <a href={makeAbsoluteUrl(this.props.profileViewData.portfolioUrl)}>{this.props.profileViewData.portfolioUrl}</a>
                                             </div>
                                         </List.Item>
-                                        <List.Item>
-                                            <List.Header style={{ marginTop: "20px" }}>On social media</List.Header>
-                                        </List.Item>
-                                        {this.props.profileViewData.facebookUrl &&
-                                            <List.Item>
-                                                <List.Icon name='facebook square' />
-                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.facebookUrl)}>Facebook</a></List.Content>
-                                            </List.Item>
+                                        { this.props.profileViewData.facebookUrl &&
+                                          <List.Item>
+                                              <List.Header style={{ marginTop: "20px" }}>On social media</List.Header>
+                                          </List.Item>
+                                        }
+                                        { this.props.profileViewData.facebookUrl &&
+                                          <List.Item>
+                                            <List.Icon name='facebook square' />
+                                            <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.facebookUrl)}>Facebook</a></List.Content>
+                                          </List.Item>
                                         }
                                         {this.props.profileViewData.twitterUrl &&
                                             <List.Item>
@@ -185,6 +187,7 @@ class ViewProfile extends Component {
 
   render() {
     const isOwner = this.props.userId === this.props.profileViewData.userId;
+    console.log()
     return (
         <Grid.Row>
             <Grid>

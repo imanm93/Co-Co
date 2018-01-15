@@ -1,12 +1,12 @@
 import { IS_SETTING_UP } from '../constants/setup/setupLoaderTypes';
 import { IS_POSTING_ITEM } from '../constants/items/itemLoaderTypes';
 import { IS_LOADING_EXTERNAL } from '../constants/external/externalLoaderTypes';
-import { IS_LOADING_DASH_ITEMS, IS_LOADING_MORE_DASH_ITEMS } from '../constants/dashboard/dashboardLoaderTypes';
+import { IS_LOADING_DASH_ITEMS, IS_LOADING_MORE_DASH_ITEMS, IS_MY_CONNECTIONS } from '../constants/dashboard/dashboardLoaderTypes';
 import { IS_AUTHENTICATING, IS_SIGNING_UP, IS_SENDING_FORGOT_PASSWORD } from '../constants/account/accountLoaderTypes';
 import { IS_LOADING_NOTIFICATIONS } from '../constants/notifications/notificationLoaderTypes';
 import { IS_UPLOADING_IMAGE, IS_UPLOADING_ATTACHMENTS } from '../constants/file/fileLoaderTypes';
 import { IS_LOADING_CONNECTION_NOTIFICATIONS } from '../constants/connections/connectionLoaderTypes';
-import { IS_LOADING_PROFILE, IS_SAVING_PROFILE } from '../constants/profiles/profileLoaderTypes';
+import { IS_LOADING_PROFILE, IS_SAVING_PROFILE, IS_SAVING_SKILLS, IS_SAVING_TOPICS } from '../constants/profiles/profileLoaderTypes';
 
 const initialState = {
   isSigningUp: false,
@@ -15,10 +15,13 @@ const initialState = {
   isAuthenticating: false,
   isLoadingProfile: false,
   isSavingProfile: false,
+  isSavingSkills: false,
+  isSavingTopics: false,
   isUploadingImage: false,
   isLoadingExternal: false,
   isLoadingDashItems: false,
   isLoadingMoreDashItems: false,
+  isMyConnections: false,
   isLoadingConnections: false,
   isLoadingNotifications: false,
   isUploadingAttachments: false,
@@ -39,10 +42,16 @@ export default function(state=initialState, action) {
       return { ...state, ...{ isUploadingImage: action.data } };
     case IS_LOADING_PROFILE:
       return { ...state, ...{ isLoadingProfile: action.data } };
+    case IS_SAVING_SKILLS:
+      return { ...state, ...{ isSavingSkills: action.data } };
+    case IS_SAVING_TOPICS:
+      return { ...state, ...{ isSavingTopics: action.data } };
     case IS_SAVING_PROFILE:
       return { ...state, ...{ isSavingProfile: action.data } };
     case IS_LOADING_DASH_ITEMS:
       return { ...state, ...{ isLoadingDashItems: action.data } };
+    case IS_MY_CONNECTIONS:
+      return { ...state, ...{ isMyConnections: action.data } };
     case IS_UPLOADING_ATTACHMENTS:
       return { ...state, ...{ isUploadingAttachments: action.data } };
     case IS_LOADING_CONNECTION_NOTIFICATIONS:

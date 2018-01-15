@@ -55,7 +55,7 @@ class DashboardFilters extends Component {
             <Checkbox label='MY CONNECTIONS' onChange={this.props.onMyConnections} />
           </div>
         }
-        {
+        { !this.props.isMyConnections &&
           Object.keys(this.props.filters).map(key => {
             return <Accordion as={Menu} vertical style={{ textAlign: 'left' }} key={String(key)}>
               <Accordion.Title

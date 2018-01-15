@@ -22,7 +22,8 @@ export function setDashTab(tab) {
   return function (dispatch) {
     dispatch({
       type: SET_DASH_TAB,
-      tab: tab
+      tab: tab,
+      page: 1
     });
   }
 }

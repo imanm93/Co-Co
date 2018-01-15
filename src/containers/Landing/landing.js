@@ -178,7 +178,7 @@ class Landing extends Component {
                       <LandingFeature iconClass='fa fa-dot-circle-o' title='Targeted' text='Target students based on the skills and work that you need.' />
                       <LandingFeature iconClass='fa fa-share' title='Post' text='Post an opportunity to students from Art, Design, Music, & Architecture.' />
                       <LandingFeature iconClass='fa fa-search' title='Explore' text='Find projects and work to get involved with from others around Edinburgh.' />
-                      <LandingFeature iconClass='fa fa-graduation-cap' title='Discover' text='Find students based on the skills and work you need, while adding yours for people to find you.' />
+                      <LandingFeature iconClass='fa fa-graduation-cap' title='Connect' text='Make connections during your time at University, leaving with a solid community to tap into.' />
                     </Grid>
                   </Grid.Row>
                 </Grid.Column>
@@ -262,7 +262,6 @@ class Landing extends Component {
 //     </Grid.Row>
 //   </Grid>
 // </Segment>
-
 // <Header as='h3' style={{ fontSize: '2em' }}>Launch Event</Header>
 // <p style={{ fontSize: '1.33em' }}>
 //   We are holding a launch event at the firestation on the 6th of February. Invites will be sent out soon!

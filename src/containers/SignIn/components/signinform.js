@@ -35,7 +35,7 @@ class SignInForm extends Component {
               </Grid.Column>
             </Grid>
             <Grid>
-              <Grid.Column width={16} style={{ backgroundColor: '#FFF', boxShadow: '0 1px 3px 0 #979797', padding: '2em', paddingBottom: 0 }}>
+              <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '2em', paddingBottom: 0 }}>
                 <Grid.Row>
                   <Grid>
                     <Grid.Column width={8} style={{ paddingRight: 0 }}>

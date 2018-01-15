@@ -10,11 +10,12 @@ class PeopleItem extends Component {
         <Grid.Column textAlign='center' width={2}>
           <Image avatar style={{
             width: '3em',
-            height: '3em'
-          }} src={this.props.item.user.profilePhotoUrl} />
+            height: '3em',
+            cursor: 'pointer'
+          }} src={this.props.item.user.profilePhotoUrl} onClick={() => this.props.redirectToProfile()}/>
         </Grid.Column>
         <Grid.Column width={4} style={{ paddingLeft: 0 }}>
-          <div className='people-name'>{this.props.item.user.name}</div>
+          <div className='people-name' onClick={() => this.props.redirectToProfile()}>{this.props.item.user.name}</div>
           <div className='people-course'>{this.props.item.user.courseName}</div>
         </Grid.Column>
         <Grid.Column width={7}>
@@ -24,6 +25,7 @@ class PeopleItem extends Component {
                 width: '4em',
                 height: '3em',
                 borderRadius: 0,
+                display: 'inline-block',
                 objectFit: 'cover'
               }} src={we} />
             })

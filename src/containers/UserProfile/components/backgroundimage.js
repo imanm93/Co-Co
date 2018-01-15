@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './backgroundimage.css';
+import { connect } from 'react-redux';
+import * as actions from '../../../actions/fileActions';
 import { Button, Dimmer, Loader, Icon } from 'semantic-ui-react';
 
 class BackgroundImage extends Component {
+
+  componentWillMount() {
+    this.setState({
+      isUploadingImage: false
+    });
+  }
 
   handleClick = () => {
     const { value, onChange } = this.props.input;
@@ -16,7 +24,16 @@ class BackgroundImage extends Component {
     reader.readAsDataURL(file);
     let data = new FormData();
     data.append('files', file);
-    console.log(data);
+    this.setState({
+      isUploadingImage: true
+    });
+    this.props.uploadFile(data, (imageUrl) => {
+      this.setState({
+        isUploadingImage: false
+      }, function() {
+        onChange(imageUrl);
+      });
+    });
   }
 
   openFileInput = () => {
@@ -27,7 +44,7 @@ class BackgroundImage extends Component {
     return(
       <div>
         <div className="backgroundSection" style={{ backgroundImage: this.props.backgroundImageUrl ? 'url(' + this.props.backgroundImageUrl + ')' : "" }}>
-          {this.props.isUploadingBackgroundImage &&
+          {this.state.isUploadingImage &&
             <Dimmer active inverted>
               <Loader />
             </Dimmer>
@@ -60,4 +77,8 @@ class BackgroundImage extends Component {
 
 }
 
-export default BackgroundImage;
+function mapStateToProps(state) {
+  return {}
+}
+
+export default connect(mapStateToProps, actions)(BackgroundImage);

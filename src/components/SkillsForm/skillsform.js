@@ -14,7 +14,7 @@ class SkillsForm extends Component {
       selectedSkills: new Set()
     }, function() {
       if (this.props.selectedSkills) this.props.selectedSkills.map(id => {
-        this.onSkillSelected(String(id));
+        this.onSkillSelected('search', String(id));
       });
     });
   }

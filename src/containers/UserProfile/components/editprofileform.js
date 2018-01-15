@@ -55,7 +55,9 @@ class EditProfileForm extends Component {
     });
   }
 
-  onCloseModal() {}
+  onCloseModal() {
+
+  }
 
   render() {
     const { handleSubmit } = this.props;
@@ -83,9 +85,9 @@ class EditProfileForm extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Grid className='coandco-edit-profile-save' style={{ margin: 0, backgroundColor: '#2A2A2A', cursor: 'pointer' }}>
-          <Grid.Row centered>
-            <Button circular secondary type='submit' style={{ backgroundColor: 'transparent' }}><Icon name="checkmark" /> Confirm and Save</Button>
+        <Grid style={{ margin: 0, cursor: 'pointer' }}>
+          <Grid.Row centered style={{ padding: 0 }}>
+            <Button type='submit' secondary className='coandco-edit-profile-save'><Icon name="checkmark" /> Confirm and Save</Button>
           </Grid.Row>
         </Grid>
         <Grid style={{ margin: 0, padding: '5em', backgroundColor: '#FFF' }}>
@@ -112,7 +114,7 @@ class EditProfileForm extends Component {
               </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Grid style={{ margin: 0, padding: '5em', backgroundColor: '#DEDEDE' }}>
+        <Grid style={{ margin: 0, padding: '5em', backgroundColor: '#DEDEDE', border: '20px solid #FFF' }}>
           <Grid.Row centered>
             <div className='coandco-edit-profile-section-header'>Upload Work Examples</div>
           </Grid.Row>
@@ -205,7 +207,8 @@ class EditProfileForm extends Component {
             </Grid.Column>
             <Grid.Column width={8}>
               { this.props.portfolioLinkItems && this.props.portfolioLinkItems.map((item) => {
-                  return <div>
+                  if (item.name === 'portfolioUrl') {
+                    return <div>
                       <i className={item.iconClass ? item.iconClass : 'fa fa-link'}></i> {item.label}
                       <Field
                         key={item.key}
@@ -216,14 +219,15 @@ class EditProfileForm extends Component {
                         placeholder={item.placeholder}
                       />
                     </div>
+                  }
                 })
               }
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Grid className='coandco-edit-profile-save' style={{ margin: 0, backgroundColor: '#2A2A2A', cursor: 'pointer' }}>
-          <Grid.Row centered>
-            <Button circular secondary type='submit' style={{ backgroundColor: 'transparent' }}><Icon name="checkmark" /> Confirm and Save</Button>
+        <Grid style={{ margin: 0, cursor: 'pointer' }}>
+          <Grid.Row centered style={{ padding: 0 }}>
+            <Button type='submit' secondary className='coandco-edit-profile-save'><Icon name="checkmark" /> Confirm and Save</Button>
           </Grid.Row>
         </Grid>
       </form>

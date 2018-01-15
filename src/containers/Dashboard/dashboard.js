@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Grid, Button, Modal } from 'semantic-ui-react';
+import styles from './dashboard.css';
 import { connect } from 'react-redux';
 import { dictToArray } from '../../utils/dictTransforms';
-import styles from './dashboard.css';
+import { Grid, Button, Modal, Dimmer, Loader } from 'semantic-ui-react';
 
 import * as FilterTypes from '../../constants/filters/filterTypes';
 import * as DashboardTabs from '../../constants/dashboard/dashboardTypes';
@@ -35,11 +35,11 @@ class Dashboard extends Component {
     this.props.fetchMyProfile(this.props.token, this.props.userId);
     this.props.fetchFilteredItems(this.props.token, this.props.userId, this.props.dash.tab, this.props.dash.query, this.props.dash.filters, 1);
 
-    const timeStamp = Math.floor(Date.now());
+    const timeStamp = new Date('Mon Jan 15 2018 06:30:00 GMT+0000').getTime();
     if (this.props.lastActivityTimestamp < timeStamp) {
       this.setState({
         modalStep: 0,
-        modalOpen: false,
+        modalOpen: true,
         skills: new Set()
       });
     }
@@ -111,6 +111,9 @@ class Dashboard extends Component {
     this.props.setUserTopics(this.props.token, this.state.newTopics, (success) => {
       if (success) this.setState({
         modalOpen: false
+      }, function() {
+        const timestamp = new Date().getTime();
+        this.props.setLastActivityTimestamp(timestamp);
       });
     });
   }
@@ -188,9 +191,12 @@ class Dashboard extends Component {
               currentTab={this.props.dash.tab}
               isLoading={this.props.isLoadingDashItems}
               profilePhotoUrl={this.props.profilePhotoUrl}
-              setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
-              onMyConnections={this.onMyConnections.bind(this)}
               onLoadMoreItems={this.onLoadNextPage.bind(this)}
+              onMyConnections={this.onMyConnections.bind(this)}
+              isLoadingMoreItems={this.props.isLoadingMoreDashItems}
+              isMyConnections={this.props.isMyConnections}
+              setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
+              history={this.props.history}
             />
           </Grid.Row>
           <Modal open={this.state.modalOpen}>
@@ -202,9 +208,9 @@ class Dashboard extends Component {
                   </Grid.Column>
                   <Grid.Column width={16} style={{ padding: '0.5em 3.5em', fontSize: '22px' }}>
                     We hope you had a great holiday.<br /><br />
-                    We sure did and want to update you on all the latest changes. We are now using a new taargeting mechanism
+                    We sure did and want to update you on all the latest changes. We are now using a new targeting mechanism
                     designed to show you things that will interest you most.<br /><br />
-                    But for us to do this really well, we need your help!
+                    But for us to do this even better, we need your help!
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
@@ -214,8 +220,13 @@ class Dashboard extends Component {
                 </Grid.Row>
               </Grid>
             }
-            {this.state.modalStep == 1 &&
+            { this.state.modalStep == 1 && this.props.userSkills && this.props.skills &&
               <div>
+                { this.props.isSavingSkills &&
+                  <Dimmer active inverted>
+                    <Loader />
+                  </Dimmer>
+                }
                 <SkillsForm
                   skills={this.props.skills}
                   streams={this.props.streams}
@@ -227,8 +238,13 @@ class Dashboard extends Component {
                 </Grid.Column>
               </div>
             }
-            {this.state.modalStep == 2 &&
+            { this.state.modalStep == 2 && this.props.userTopics && this.props.filters &&
               <div>
+                { this.props.isSavingTopics &&
+                  <Dimmer active inverted>
+                    <Loader />
+                  </Dimmer>
+                }
                 <FiltersForm
                   type={FilterTypes.TOPICS}
                   title={'Topics'}
@@ -253,16 +269,22 @@ class Dashboard extends Component {
 function mapStateToProps(state) {
   return {
     lastActivityTimestamp: state.account.lastActivityTimestamp,
+    isLoadingMoreDashItems: state.loaders.isLoadingMoreDashItems,
     isLoadingDashItems: state.loaders.isLoadingDashItems,
+    userSkills: state.profiles.profileEditData.skills,
+    userTopics: state.profiles.profileEditData.topics,
     profileComplete: state.account.profileComplete,
     profilePhotoUrl: state.account.profilePhotoUrl,
+    isMyConnections: state.loaders.isMyConnections,
+    isSavingSkills: state.loaders.isSavingSkills,
+    isSavingTopics: state.loaders.isSavingTopics,
+    streams: state.skills.streams,
     courses: state.setup.courses,
     userId: state.account.userId,
+    skills: state.skills.skills,
     token: state.account.token,
     name: state.account.name,
     filters: state.filters,
-    skills: state.skills.skills,
-    streams: state.skills.streams,
     search: state.search,
     items: state.items,
     dash: state.dash,
