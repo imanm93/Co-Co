@@ -12,6 +12,7 @@ import {
   GET_FILTERED_ITEMS_URL, GET_FILTERED_EVENT_ITEMS_URL, GET_FILTERED_OPP_ITEMS_URL, GET_FILTERED_STATUS_ITEMS_URL, GET_EXPANDED_OPP_ITEM_URL,
   GET_EXPANDED_EVENT_ITEM_URL, GET_FILTERED_PEOPLE_ITEMS_URL, GET_ITEMS_BY_IDS
 } from '../constants/items/itemEndpoints';
+import { IS_LOADING_DASH_ITEMS, IS_LOADING_MORE_DASH_ITEMS } from '../constants/dashboard/dashboardLoaderTypes';
 
 export const fetchConnections = (token) => ({
   type: FETCH_CONNECTIONS,
@@ -41,6 +42,8 @@ export const fetchFilteredItems = (token, userId, tab, search, filter, page) => 
     return key + '=' + filter[key]
   })).join('&');
   action['query'] = action['query'] + '&' + filters;
+  if (page === 1) { action['loader'] = IS_LOADING_DASH_ITEMS; }
+  if (page > 1) { action['loader'] = IS_LOADING_MORE_DASH_ITEMS; }
   switch (tab) {
     case DashboardTabs.ALL_RESULTS:
       action['endpoint'] = GET_FILTERED_ITEMS_URL;

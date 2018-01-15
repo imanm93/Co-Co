@@ -57,7 +57,7 @@ export const getFilteredItems = (action$, store) =>
           type: CLEAR_API_ERROR
         }),
         Rx.Observable.of({
-          type: IS_LOADING_DASH_ITEMS,
+          type: action.loader,
           data: true
         }),
         Rx.Observable.ajax({
@@ -95,12 +95,12 @@ export const getFilteredItems = (action$, store) =>
               error: err
             })
           }),
-        Rx.Observable.of({
-          type: IS_LOADING_DASH_ITEMS,
-          data: false
-        })
+          Rx.Observable.of({
+            type: action.loader,
+            data: false
+          })
+        )
       )
-    )
 
 export const getExpandedItem = (action$, store) =>
   action$.ofType(FETCH_EXPANDED_ITEM)

@@ -62,7 +62,7 @@ class Dashboard extends Component {
           nextProps.dash.tab,
           nextProps.dash.query,
           nextProps.dash.filters,
-          1
+          nextProps.dash.page
         );
       }
       else {
@@ -95,6 +95,44 @@ class Dashboard extends Component {
     this.props.setDashTab(tab);
   }
 
+  updateUserSkills(skills) {
+    this.setState({
+      newSkills: skills
+    });
+  }
+
+  updateUserTopics(topics) {
+    this.setState({
+      newTopics: topics
+    });
+  }
+
+  onSaveTopics() {
+    this.props.setUserTopics(this.props.token, this.state.newTopics, (success) => {
+      if (success) this.setState({
+        modalOpen: false
+      });
+    });
+  }
+
+  onLoadNextPage() {
+    this.props.setNextPage(this.props.items.page + 1);
+  }
+
+  onStartProcess() {
+    this.setState({
+      modalStep: 1
+    });
+  }
+
+  onSaveSkills() {
+    this.props.setUserSkills(this.props.token, [...this.state.newSkills], (success) => {
+      if (success) this.setState({
+        modalStep: 2
+      });
+    });
+  }
+
   onFollowTopic(topic) {
     console.log("Following Topic", topic);
   }
@@ -119,44 +157,6 @@ class Dashboard extends Component {
         break;
     }
     return filterControls;
-  }
-
-  updateUserSkills(skills) {
-    this.setState({
-      newSkills: skills
-    });
-  }
-
-  updateUserTopics(topics) {
-    this.setState({
-      newTopics: topics
-    });
-  }
-
-  onSaveTopics() {
-    this.props.setUserTopics(this.props.token, this.state.newTopics, (success) => {
-      if (success) this.setState({
-        modalOpen: false
-      });
-    });
-  }
-  loadMoreItems() {
-    this.props.fetchFilteredItems(this.props.token, this.props.userId, this.props.dash.tab, this.props.dash.query, this.props.dash.filters, this.props.items.page + 1);
-  }
-
-
-  onStartProcess() {
-    this.setState({
-      modalStep: 1
-    });
-  }
-
-  onSaveSkills() {
-    this.props.setUserSkills(this.props.token, [...this.state.newSkills], (success) => {
-      if (success) this.setState({
-        modalStep: 2
-      });
-    });
   }
 
   render() {
@@ -190,7 +190,7 @@ class Dashboard extends Component {
               profilePhotoUrl={this.props.profilePhotoUrl}
               setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
               onMyConnections={this.onMyConnections.bind(this)}
-              loadMoreItems={this.loadMoreItems.bind(this)}
+              onLoadMoreItems={this.onLoadNextPage.bind(this)}
             />
           </Grid.Row>
           <Modal open={this.state.modalOpen}>

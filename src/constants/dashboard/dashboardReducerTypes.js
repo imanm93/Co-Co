@@ -1,3 +1,5 @@
+export const SET_PAGE = "Set_Page";
+
 export const RESET_DASH = "Reset_Dash";
 
 export const SET_DASH_TAB = "Set_Dash_Tab";

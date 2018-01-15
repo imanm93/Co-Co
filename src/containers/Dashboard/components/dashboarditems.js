@@ -6,6 +6,7 @@ import Waypoint from 'react-waypoint';
 class DashboardItems extends Component {
 
   render() {
+    console.log(Object.keys(this.props.items));
     return (
       <div>
         {
@@ -26,8 +27,8 @@ class DashboardItems extends Component {
             />
           })
         }
-        {!this.props.isLoading && this.props.items &&
-          <Waypoint onEnter={this.props.loadMoreItems} />
+        { !this.props.isLoading && this.props.items && Object.keys(this.props.items).length >= 9 &&
+          <Waypoint onEnter={this.props.onLoadMoreItems} />
         }
       </div>
     )

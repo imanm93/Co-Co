@@ -14,8 +14,8 @@ const initialState = {
 export default function(state=initialState, action) {
   switch(action.type) {
     case SET_FILTERED_ITEMS:
-    console.log('setting page to ',action);
-        return { ...state, ...{ items: action.items, page: action.page } };
+        const newItems = Object.assign({}, state.items, action.items);
+        return { ...state, ...{ items: newItems, page: action.page } };
     case SET_SHRINK_ITEM:
         let itemShrink = Object.assign({}, state.items[action.id]);
         itemShrink['expanded'] = false;

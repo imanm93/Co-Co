@@ -1,4 +1,4 @@
-import { RESET_DASH, SET_DASH_TAB, SET_DASH_QUERY, SET_DASH_FILTER } from '../constants/dashboard/dashboardReducerTypes';
+import { RESET_DASH, SET_DASH_TAB, SET_DASH_QUERY, SET_DASH_FILTER, SET_PAGE } from '../constants/dashboard/dashboardReducerTypes';
 
 export function setDashQuery(query) {
   return function(dispatch) {
@@ -31,6 +31,15 @@ export function resetDash() {
   return function (dispatch) {
     dispatch({
       type: RESET_DASH
+    })
+  }
+}
+
+export function setNextPage(page) {
+  return function (dispatch) {
+    dispatch({
+      type: SET_PAGE,
+      page: page
     })
   }
 }
