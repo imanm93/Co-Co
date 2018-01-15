@@ -11,3 +11,7 @@ export const SET_EMAIL_SENT_SUCCESSFULL = "Set_Email_Sent_Successfull";
 export const SET_EMAIL_SENT_ERROR = "Set_Email_Sent_Error";
 
 export const SET_SETUP_ERROR = "Set_Setup_Error";
+
+export const PASSWORD_RESET_SUCCESSFULLY = "Password_ResetSuccessfully";
+
+export const PASSWORD_RESET_FAILED = "Password_Reset_Failed";

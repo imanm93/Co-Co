@@ -17,6 +17,7 @@ import UserSetup from './containers/UserSetup';
 import Dashboard from './containers/Dashboard';
 import UserProfile from './containers/UserProfile';
 import VerifiedEmail from './containers/VerifiedEmail';
+import ResetPassword from './containers/ResetPassword';
 import ForgotPassword from './containers/ForgotPassword';
 import VerifiedCompany from './containers/VerifiedCompany';
 import ViewSpecificItems from './containers/ViewSpecificItems';
@@ -31,6 +32,7 @@ const Routes = () => (
   <Switch>
       <Route exact path="/" component={withGATracker(Landing)} />
       <Route path="/verify" component={withGATracker(Verify)} />
+      <Route path="/resetpassword" component={withGATracker(ResetPassword)}/>
       <Route path="/setup" component={withGATracker(UserSetup)} />
       <Route path="/signup" component={withGATracker(SignUp)} />
       <Route path="/signin" component={withGATracker(SignIn)} />

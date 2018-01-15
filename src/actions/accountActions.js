@@ -9,11 +9,11 @@ import jwt_decode from 'jwt-decode';
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { IS_SETTING_UP } from '../constants/setup/setupLoaderTypes';
 import { SET_AUTH_USER, SET_LAST_ACTIVITY_TIMESTAMP } from '../constants/account/accountReducerTypes';
-import { SET_FORGOT_PASSWORD_EMAIL_SENT_SUCCESSFULL } from '../constants/account/accountSuccessTypes';
-import { IS_AUTHENTICATING, IS_SIGNING_UP, IS_SENDING_FORGOT_PASSWORD } from '../constants/account/accountLoaderTypes';
-import { SET_SIGN_IN_ERROR, SET_SIGN_UP_ERROR, SET_FORGOT_PASSWORD_ERROR } from '../constants/account/accountErrorTypes';
-import { GET_AUTH_URL, GET_USER_URL, POST_SIGNUP_URL, GET_RESEND_URL, POST_SETUP_URL, POST_FORGOT_PASSWORD_URL } from '../constants/account/accountEndpoints';
-import { SET_EMAIL_SENT_SUCCESSFULL, SET_VERIFY_USER_ID, IS_RESENDING_EMAIL, SET_EMAIL_SENT_ERROR, SET_SETUP_ERROR } from '../constants/verify/verifyReducerTypes';
+import { SET_FORGOT_PASSWORD_EMAIL_SENT_SUCCESSFULL, RESET_PASSWORD_SUCCESSFULL } from '../constants/account/accountSuccessTypes';
+import { IS_AUTHENTICATING, IS_SIGNING_UP, IS_SENDING_FORGOT_PASSWORD, IS_SENDING_RESET_PASSWORD } from '../constants/account/accountLoaderTypes';
+import { SET_SIGN_IN_ERROR, SET_SIGN_UP_ERROR, SET_PASSWORD_RESET_FAILED, SET_FORGOT_PASSWORD_ERROR } from '../constants/account/accountErrorTypes';
+import { GET_AUTH_URL, GET_USER_URL, POST_SIGNUP_URL, GET_RESEND_URL, POST_SETUP_URL, POST_FORGOT_PASSWORD_URL, RESET_PASSWORD_URL } from '../constants/account/accountEndpoints';
+import { SET_EMAIL_SENT_SUCCESSFULL, SET_VERIFY_USER_ID, IS_RESENDING_EMAIL, SET_EMAIL_SENT_ERROR, SET_SETUP_ERROR, PASSWORD_RESET_SUCCESSFULLY, PASSWORD_RESET_FAILED } from '../constants/verify/verifyReducerTypes';
 
 /**
  * Get authentication token for user
@@ -237,4 +237,39 @@ export function setLastActivityTimestamp(lastActivityTimestamp) {
       data: lastActivityTimestamp
     });
   }
+}
+
+
+export function resetPassword(code, userId, password, callback) {
+  return function (dispatch) {
+    console.log(code, userId, password);
+    dispatch({
+      type: IS_SENDING_RESET_PASSWORD,
+      data: true
+    });
+    axios.post(RESET_PASSWORD_URL, {}, {
+      params: { userId, code, password }
+    })
+      .then(response => {
+        dispatch({
+          type: IS_SENDING_RESET_PASSWORD,
+          data: false
+        });
+        dispatch({ type: RESET_PASSWORD_SUCCESSFULL })
+        callback(response);
+
+
+      })
+      .catch(err => {
+        dispatch({
+          type: SET_PASSWORD_RESET_FAILED,
+          error: err.response.data
+        });
+        dispatch({
+          type: IS_SENDING_RESET_PASSWORD,
+          data: false
+        });
+      });
+  }
+
 }

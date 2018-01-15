@@ -2,7 +2,7 @@ import { IS_SETTING_UP } from '../constants/setup/setupLoaderTypes';
 import { IS_POSTING_ITEM } from '../constants/items/itemLoaderTypes';
 import { IS_LOADING_EXTERNAL } from '../constants/external/externalLoaderTypes';
 import { IS_LOADING_DASH_ITEMS, IS_LOADING_MORE_DASH_ITEMS, IS_MY_CONNECTIONS } from '../constants/dashboard/dashboardLoaderTypes';
-import { IS_AUTHENTICATING, IS_SIGNING_UP, IS_SENDING_FORGOT_PASSWORD } from '../constants/account/accountLoaderTypes';
+import { IS_AUTHENTICATING, IS_SIGNING_UP, IS_SENDING_FORGOT_PASSWORD,IS_SENDING_RESET_PASSWORD } from '../constants/account/accountLoaderTypes';
 import { IS_LOADING_NOTIFICATIONS } from '../constants/notifications/notificationLoaderTypes';
 import { IS_UPLOADING_IMAGE, IS_UPLOADING_ATTACHMENTS } from '../constants/file/fileLoaderTypes';
 import { IS_LOADING_CONNECTION_NOTIFICATIONS } from '../constants/connections/connectionLoaderTypes';
@@ -64,6 +64,8 @@ export default function(state=initialState, action) {
       return { ...state, ...{ isSendingForgotPassword: action.data } };
     case IS_LOADING_MORE_DASH_ITEMS:
       return { ...state, ...{ isLoadingMoreDashItems: action.data } };
+    case IS_SENDING_RESET_PASSWORD:
+      return { ...state, ...{ isLoadingResetPassword: action.data } };
     default:
       return state;
   }

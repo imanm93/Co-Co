@@ -13,3 +13,5 @@ export const POST_SIGNUP_URL = `${ROOT_URL}/Account/Register`;
 export const GET_RESEND_URL = `${ROOT_URL}/Account/ResendVerificationEmail`;
 
 export const POST_FORGOT_PASSWORD_URL = `${ROOT_URL}/Account/ForgotPassword`;
+
+export const RESET_PASSWORD_URL = `${ROOT_URL}/Account/ResetPassword`;
