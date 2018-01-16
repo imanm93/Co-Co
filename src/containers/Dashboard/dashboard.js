@@ -112,7 +112,7 @@ class Dashboard extends Component {
     this.props.setUserTopics(this.props.token, this.state.newTopics, (success) => {
       if (success) this.setState({
         modalOpen: false
-      }, function() {
+      }, function () {
         const timestamp = new Date().getTime();
         this.props.setLastActivityTimestamp(timestamp);
       });
@@ -166,6 +166,17 @@ class Dashboard extends Component {
   render() {
     const skills = dictToArray(this.props.skills);
     const filterControls = this.getFilterControls(this.props.dash.tab);
+    const items = []; 
+    for (let key in this.props.items.items) {
+      let value = this.props.items.items[key];
+      value.id = key;
+      items[items.length] = value; 
+    }
+    
+    items.sort((a, b) => {
+      return b.timestamp - a.timestamp;
+    });
+
     return (
       <PageContainer>
         <Grid style={{ margin: 0 }}>
@@ -188,7 +199,7 @@ class Dashboard extends Component {
               token={this.props.token}
               filters={filterControls}
               userId={this.props.userId}
-              items={this.props.items.items}
+              items={items}
               currentTab={this.props.dash.tab}
               isLoading={this.props.isLoadingDashItems}
               profilePhotoUrl={this.props.profilePhotoUrl}
@@ -221,9 +232,9 @@ class Dashboard extends Component {
                 </Grid.Row>
               </Grid>
             }
-            { this.state.modalStep == 1 && this.props.userSkills && this.props.skills &&
+            {this.state.modalStep == 1 && this.props.userSkills && this.props.skills &&
               <div>
-                { this.props.isSavingSkills &&
+                {this.props.isSavingSkills &&
                   <Dimmer active inverted>
                     <Loader />
                   </Dimmer>
@@ -239,9 +250,9 @@ class Dashboard extends Component {
                 </Grid.Column>
               </div>
             }
-            { this.state.modalStep == 2 && this.props.userTopics && this.props.filters &&
+            {this.state.modalStep == 2 && this.props.userTopics && this.props.filters &&
               <div>
-                { this.props.isSavingTopics &&
+                {this.props.isSavingTopics &&
                   <Dimmer active inverted>
                     <Loader />
                   </Dimmer>

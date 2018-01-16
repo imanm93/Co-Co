@@ -87,14 +87,14 @@ export const getFilteredItems = (action$, store) =>
             };
           })
           .map(res => {
-            let sortedItems = {};
-            const sortedKeys = Utils.sortDateTimeV2(res.items, 'timestamp');
-            sortedKeys.map(key => {
-              return sortedItems[key] = Object.assign(res.items[key], { expanded: false, isExpanding: false, showComments: false, isLoadingComments: false });
-            });
+            // let sortedItems = {};
+            // const sortedKeys = Utils.sortDateTimeV2(res.items, 'timestamp');
+            // sortedKeys.map(key => {
+            //   return sortedItems[key] = Object.assign(res.items[key], { expanded: false, isExpanding: false, showComments: false, isLoadingComments: false });
+            // });
             return {
               page: res.page,
-              items: sortedItems
+              items: res.items
             };
           })
           .map(res => ({
