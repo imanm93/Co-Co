@@ -86,13 +86,10 @@ export function registerExternal(values, callback) {
           error: err.response.data.message
         });
       }
-      else
-      {
-        dispatch({
-          type: SET_API_ERROR,
-          error: err
-        });
-      }
+      dispatch({
+        type: SET_API_ERROR,
+        error: err
+      });
       dispatch({
         type: IS_LOADING_EXTERNAL,
         data: false

@@ -13,15 +13,9 @@ class NewPostButton extends Component {
     })
   }
 
-  // toggle() {
-  //   this.setState({
-  //     showPostOptions: !this.state.showPostOptions
-  //   });
-  // }
-
-  onCreatePost() {
+  onToggle() {
     this.setState({
-      showPostOptions: true
+      showPostOptions: !this.state.showPostOptions
     });
   }
 
@@ -40,11 +34,11 @@ class NewPostButton extends Component {
           <div>
             {
               !this.state.showPostOptions &&
-                <Button className="coandco-new-post-btn-main" onClick={() => this.onCreatePost()}><i className="fa fa-plus" aria-hidden="true"></i>Post</Button>
+                <Button className="coandco-new-post-btn-main" onClick={() => this.onToggle()}><i className="fa fa-plus" aria-hidden="true"></i>Post</Button>
             }
             {
               this.state.showPostOptions &&
-                <Button className="coandco-new-post-btn-inverted" onClick={() => this.onCreatePost()}><i className="fa fa-times" aria-hidden="true"></i>Post</Button>
+                <Button className="coandco-new-post-btn-inverted" onClick={() => this.onToggle()}><i className="fa fa-times" aria-hidden="true"></i>Post</Button>
             }
           </div>
           <div style={{ position: 'absolute', zIndex: '1001' }}>

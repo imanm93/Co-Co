@@ -31,12 +31,14 @@ class DashboardItems extends Component {
               <Loader active inline='centered'/>
           </Grid>
         }
-        { !this.props.isMyConnections && !this.props.isLoading && !this.props.isLoadingMoreItems && this.props.tab === 'People' && this.props.items && Object.keys(this.props.items).length > 10 &&
+        { !this.props.isMyConnections && !this.props.isLoading && !this.props.isLoadingMoreItems && this.props.tab === 'People' && this.props.items &&
+          !this.props.items && Object.keys(this.props.items).length !== 0 && Object.keys(this.props.items).length > 10 &&
           <Grid style={{ wdith: '100%' }}>
             <Waypoint onEnter={this.props.onLoadMoreItems} />
           </Grid>
         }
-        { !this.props.isMyConnections && !this.props.isLoading && !this.props.isLoadingMoreItems && this.props.tab !== 'People' && this.props.items && Object.keys(this.props.items).length > 5 &&
+        { !this.props.isMyConnections && !this.props.isLoading && !this.props.isLoadingMoreItems && this.props.tab !== 'People' && this.props.items &&
+          !this.props.items && Object.keys(this.props.items).length !== 0 && this.props.items && Object.keys(this.props.items).length > 5 &&
           <Grid style={{ wdith: '100%' }}>
             <Waypoint onEnter={this.props.onLoadMoreItems} />
           </Grid>

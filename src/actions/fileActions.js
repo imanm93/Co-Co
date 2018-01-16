@@ -17,11 +17,11 @@ export function uploadFile(data, callback) {
       callback(res.data.result);
     })
     .catch(err => {
-      callback(0);
       dispatch({
         type: SET_API_ERROR,
         data: err
       });
+      callback(0);
     });
   }
 }

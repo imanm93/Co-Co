@@ -53,7 +53,10 @@ class UserProfilePictureForm extends Component {
           </Grid.Column>
         </Grid>
         <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', paddingTop: 0, textAlign: 'right' }}>
+          <Grid.Column width={7} style={{ backgroundColor: '#FFF' }}>
+            <a href={'mailto:info@ed.ac.uk'}>Please email info@ed.ac.uk if you face any issues</a>
+          </Grid.Column>
+          <Grid.Column width={9} style={{ backgroundColor: '#FFF', paddingTop: 0, textAlign: 'right' }}>
             <Button onClick={() => this.props.onPrevious()} className='coandco-btn-inverted'>Back to Profile</Button>
             <Button type='submit' circular secondary>Tell us what you're good at <i className='fa fa-chevron-right'></i></Button>
           </Grid.Column>

@@ -3,6 +3,7 @@ import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { FETCH_CONNETION_REQUESTS } from '../constants/connections/connectionFetchTypes';
 import { GET_CONNECTION_REQUESTS_URL } from '../constants/connections/connectionEndpoints';
 import { SET_CONNECTION_REQUEST_STATUS } from '../constants/connections/connectionReducerTypes';
+import { SET_NOTIFICATIONS_ERROR } from '../constants/connections/connectionErrorTypes';
 import { FETCH_NOTIFICATIONS, FETCH_NOTIFICATION_ITEMS } from '../constants/notifications/notificationFetchTypes';
 import { PUT_DASHBOARD_ITEMS_SEEN } from '../constants/items/itemEndpoints';
 
@@ -42,8 +43,12 @@ export function putDashboardItemSeen(token, itemIds) {
     })
     .catch(err => {
       dispatch({
+        type: SET_NOTIFICATIONS_ERROR,
+        error: 'There was an error getting your notifications, please try again!'
+      });
+      dispatch({
         type: SET_API_ERROR,
-        error: err.resonse ? err.response : 'There was an getting notification item!'
+        error: err
       });
     })
   }
@@ -78,7 +83,7 @@ export function postAcceptConnection(token, userId) {
       });
       dispatch({
         type: SET_API_ERROR,
-        error: err.resonse ? err.response : 'There was an error, please try again!'
+        error: err
       });
     })
   }
@@ -113,7 +118,7 @@ export function postRejectConnection(token, userId) {
       });
       dispatch({
         type: SET_API_ERROR,
-        error: err.resonse ? err.response : 'There was an error, please try again!'
+        error: err
       });
     })
   }

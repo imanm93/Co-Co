@@ -6,7 +6,8 @@ import { POST_LOGOUT_URL } from '../constants/account/accountEndpoints';
 import { UNSET_AUTH_USER } from '../constants/account/accountReducerTypes';
 import { FETCH_PROFILE_DATA } from '../constants/profiles/profileFetchTypes';
 import { IS_SAVING_PROFILE, IS_SAVING_SKILLS, IS_SAVING_TOPICS } from '../constants/profiles/profileLoaderTypes';
-import { SET_PROFILE_VIEW_ID } from '../constants/profiles/profileReducerTypes';
+import { SET_PROFILE_VIEW_ID, SET_CONNECTIONS_STATUS_PRFOFILE, UNSET_CONNECTIONS_STATUS_PRFOFILE } from '../constants/profiles/profileReducerTypes';
+import { SET_SAVE_PROFILE_ERROR } from '../constants/profiles/profileErrorTypes';
 import { GET_CONNECTION_REQUESTS_URL } from '../constants/connections/connectionEndpoints';
 import { PUT_USER_SKILLS_URL, PUT_USER_TOPICS_URL } from '../constants/profiles/profileEndpoints';
 import { SET_REQUESTED_CONNECTION, UNSET_REQUESTED_CONNECTION } from '../constants/connections/connectionReducerTypes';
@@ -65,6 +66,10 @@ export function setUserTopics(token, topics, callback) {
     .catch(err => {
       /* Set some error and show on container */
       dispatch({
+        type: SET_API_ERROR,
+        error: err
+      });
+      dispatch({
         type: IS_SAVING_TOPICS,
         data: false
       });
@@ -108,8 +113,12 @@ export function putUserProfile(token, values, userId, ctx) {
         data: false
       });
       dispatch({
+        type: SET_SAVE_PROFILE_ERROR,
+        error: 'There was a network error, please try again.'
+      });
+      dispatch({
         type: SET_API_ERROR,
-        error: err.response ? err.response.data : 'Network error, please try again!'
+        error: err
       });
     })
   }
@@ -141,11 +150,15 @@ export function setUserSkills(token, skills, callback) {
     })
     .catch(err => {
       /* Set some error and show on container */
-      callback(0);
+      dispatch({
+        type: SET_API_ERROR,
+        error: err
+      });
       dispatch({
         type: IS_SAVING_SKILLS,
         data: false
       });
+      callback(0);
     })
   }
 }
@@ -157,6 +170,10 @@ export function postConnectFromProfile(token, userId) {
       type: SET_REQUESTED_CONNECTION,
       id: userId
     });
+    dispatch({
+      type: SET_CONNECTIONS_STATUS_PRFOFILE,
+      data: 'requested'
+    });
     axios({
       method: 'POST',
       url: GET_CONNECTION_REQUESTS_URL + '/' + userId,
@@ -166,7 +183,6 @@ export function postConnectFromProfile(token, userId) {
       }
     })
     .then(res => {
-      console.log(res);
       /* Do nothing */
     })
     .catch(err => {
@@ -175,8 +191,12 @@ export function postConnectFromProfile(token, userId) {
         id: userId
       });
       dispatch({
+        type: UNSET_CONNECTIONS_STATUS_PRFOFILE,
+        data: 'requested'
+      });
+      dispatch({
         type: SET_API_ERROR,
-        error: err.response ? err.response.data : 'Network error, please try again!'
+        error: err
       });
     })
   }

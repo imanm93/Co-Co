@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Grid, Icon, Dimmer, Loader } from 'semantic-ui-react';
+import { Button, Grid, Icon, Dimmer, Loader, Label } from 'semantic-ui-react';
 import styles from './oppitem.css';
 import moment from 'moment';
 
@@ -90,18 +90,27 @@ class OppItem extends Component {
           </Grid.Row>
           <Grid.Row style={{ backgroundColor: '#FFF', padding: '0em 2em' }}>
             { this.props.item.expanded &&
-                <Grid style={{ margin: 0 }}>
+              <Grid style={{ margin: 0 }}>
+                <Grid.Row>
+                  {this.props.item.description}
+                </Grid.Row>
+                { this.props.item.reward || this.props.item.endDateTime &&
+                  <div className='event-attributes' style={{ paddingBottom: '2em' }}>
+                    { this.props.item.reward &&
+                      <div className='event-attribute'><i className="fa fa-hashtag" aria-hidden="true"></i> {this.props.item.type}</div> }
+                    <div className='event-attribute'><i className='fa fa-clock-o'></i> {moment(this.props.item.endDateTime).format("LLL")}</div>
+                  </div>
+                }
+                { this.props.item.attachments &&
                   <Grid.Row>
-                    {this.props.item.description}
+                    { this.props.item.attachments.map((attachment, index) => {
+                      return <Label as='a' href={attachment}>
+                        {'Attachment ' + index}
+                      </Label>
+                    })}
                   </Grid.Row>
-                  { this.props.item.reward || this.props.item.endDateTime &&
-                    <div className='event-attributes' style={{ paddingBottom: '2em' }}>
-                      { this.props.item.reward &&
-                        <div className='event-attribute'><i className="fa fa-hashtag" aria-hidden="true"></i> {this.props.item.type}</div> }
-                      <div className='event-attribute'><i className='fa fa-clock-o'></i> {moment(this.props.item.endDateTime).format("LLL")}</div>
-                    </div>
-                  }
-                </Grid>
+                }
+              </Grid>
             }
           </Grid.Row>
         </Grid.Column>

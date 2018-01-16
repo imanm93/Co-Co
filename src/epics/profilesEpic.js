@@ -1,4 +1,6 @@
 import Rx from 'rxjs';
+
+import { push } from 'react-router-redux';
 import { GET_PROFILE } from '../constants/profiles/profileEndpoints';
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { FETCH_PROFILE_DATA } from '../constants/profiles/profileFetchTypes';
@@ -35,10 +37,14 @@ export const getProfileData = (action$, store) =>
             })
           }
         })
-        .catch(err => ({
-          type: SET_API_ERROR,
-          error: err
-        })),
+        .catch(err => {
+          if (err && err.status === 401) return Rx.Observable.of(push('/signin'));
+          if (err && err.status === 403) return Rx.Observable.of(push('/signin'));
+          return ({
+            type: SET_API_ERROR,
+            error: err
+          });
+        }),
         Rx.Observable.of({
           type: IS_LOADING_PROFILE,
           data: false

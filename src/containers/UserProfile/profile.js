@@ -47,6 +47,7 @@ class Profile extends Component {
             userId={this.props.userId}
             skills={this.props.skills}
             topics={this.props.topicTypes}
+            onConnect={this.onConnect.bind(this)}
             isLoadingProfile={this.props.isLoadingProfile}
             profileViewData={this.props.profile.profileViewData}
           />
@@ -81,6 +82,7 @@ class Profile extends Component {
 
 function mapStateToProps(state) {
   return {
+    api: state.api,
     profile: state.profiles,
     token: state.account.token,
     skills: state.skills.skills,

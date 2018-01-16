@@ -1,6 +1,7 @@
 import Rx from 'rxjs';
 import Utils from '../utils';
 
+import { push } from 'react-router-redux';
 import { GET_ITEM_COMMENT_URL, GET_ITEMS_BY_IDS } from '../constants/items/itemEndpoints';
 import { SET_API_ERROR, CLEAR_API_ERROR } from '../constants/api/apiErrorTypes';
 import { IS_LOADING_DASH_ITEMS, IS_LOADING_VIEW_SPECIFIC_ITEMS, IS_MY_CONNECTIONS } from '../constants/dashboard/dashboardLoaderTypes';
@@ -42,10 +43,14 @@ export const getConnections = (action$, store) =>
             items: connections,
             page: 1
           }))
-          .catch(err => ({
-            type: SET_API_ERROR,
-            error: err.response ? err.response.data : 'There was a network error, please try again!'
-          })),
+          .catch(err => {
+            if (err && err.status === 401) return Rx.Observable.of(push('/signin'));
+            if (err && err.status === 403) return Rx.Observable.of(push('/signin'));
+            return ({
+              type: SET_API_ERROR,
+              error: err
+            })
+          }),
         Rx.Observable.of({
           type: IS_LOADING_DASH_ITEMS,
           data: false

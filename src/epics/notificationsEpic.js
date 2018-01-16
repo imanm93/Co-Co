@@ -28,7 +28,7 @@ export const getNotifications = (action$, store) =>
         }))
         .catch(err => ({
           type: SET_API_ERROR,
-          data: err.response ? err.response : 'There was an error getting notifications but no error message was sent'
+          data: err
         })),
         Rx.Observable.of({
           type: IS_LOADING_NOTIFICATIONS,

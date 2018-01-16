@@ -117,6 +117,7 @@ export function signUpUser(values, userType, ctx) {
         ctx.history.push('/verify');
       })
       .catch(err => {
+        dispatch({ type: SET_API_ERROR, data: err });
         dispatch({ type: SET_SIGN_UP_ERROR, error: err.response.data ? err.response.data : "We're sorry something went wrong, please try again!" });
         dispatch({ type: IS_SIGNING_UP, data: false });
       });
@@ -153,6 +154,7 @@ export function resendVerificationEmail(userId) {
           type: SET_EMAIL_SENT_ERROR,
           error: err.response ? 'Could not be sent, please try again' : ''
         })
+        dispatch({ type: SET_API_ERROR, data: err });
         dispatch({
           type: IS_RESENDING_EMAIL,
           data: false
@@ -177,7 +179,6 @@ export function setupUser(token, values, callback) {
       }
     })
       .then(resp => {
-        console.log(resp);
         dispatch({
           type: IS_SETTING_UP,
           data: false
@@ -185,7 +186,6 @@ export function setupUser(token, values, callback) {
         callback(resp);
       })
       .catch(err => {
-        console.log(err);
         dispatch({
           type: SET_API_ERROR,
           error: err
@@ -225,6 +225,7 @@ export function forgotPassword(email) {
           type: SET_FORGOT_PASSWORD_ERROR,
           error: err.response.data
         });
+        dispatch({ type: SET_API_ERROR, data: err });
         dispatch({ type: type, data: false });
       });
   }
@@ -265,6 +266,7 @@ export function resetPassword(code, userId, password, callback) {
           type: SET_PASSWORD_RESET_FAILED,
           error: err.response.data
         });
+        dispatch({ type: SET_API_ERROR, data: err });
         dispatch({
           type: IS_SENDING_RESET_PASSWORD,
           data: false

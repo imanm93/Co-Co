@@ -116,7 +116,10 @@ class SignUpForm extends Component {
           </Grid.Column>
         </Grid>
         <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '1em', textAlign: 'right' }}>
+          <Grid.Column width={7} style={{ backgroundColor: '#FFF', paddingLeft: '1em' }}>
+            <a href={'mailto:info@ed.ac.uk'}>Please email info@ed.ac.uk if you face any issues</a>
+          </Grid.Column>
+          <Grid.Column width={9} style={{ backgroundColor: '#FFF', padding: '1em', textAlign: 'right' }}>
             <Link to='/'>
               <Button type='button' circular className='coandco-btn-inverted'>Back to Homepage</Button>
             </Link>

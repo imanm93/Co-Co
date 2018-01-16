@@ -16,6 +16,16 @@ let makeAbsoluteUrl = (url) => {
 
 class ViewProfile extends Component {
 
+  // { this.props.onConnect && !this.props.profileViewData.connectionStatus &&
+  //   <Button circular secondary onClick={() => this.props.onConnect(this.props.profileViewData.userId)}>Connect</Button>
+  // }
+  // { this.props.onConnect && this.props.profileViewData.connectionStatus === 'requested' &&
+  //   <Button circular secondary disabled>Connect</Button>
+  // }
+  // { this.props.onConnect && this.props.profileViewData.connectionStatus === 'connected' &&
+  //   <Button circular secondary disabled style={{ backgroundColor: 'green' }}>Connected</Button>
+  // }
+
   constructor(props) {
       super(props);
       this.state = {
@@ -37,9 +47,6 @@ class ViewProfile extends Component {
                           <Grid centered>
                             <Grid.Row centered>
                               <Grid.Column width={3}>
-                                { !this.props.profileViewData.connectionStatus &&
-                                  <Button circular secondary onClick={() => this.props.onConnect(this.props.profileViewData.userId)}>Connect</Button>
-                                }
                                 <a href={'mailto:' + this.props.email}>
                                   <Button circular style={{ backgroundColor: '#FFF', color: '#2A2A2A', border: '1px solid #2A2A2A' }}>Email</Button>
                                 </a>
@@ -116,57 +123,55 @@ class ViewProfile extends Component {
                                               <a href={makeAbsoluteUrl(this.props.profileViewData.portfolioUrl)}>{this.props.profileViewData.portfolioUrl}</a>
                                             </div>
                                         </List.Item>
-                                        { this.props.profileViewData.facebookUrl &&
-                                          <List.Item>
-                                              <List.Header style={{ marginTop: "20px" }}>On social media</List.Header>
-                                          </List.Item>
-                                        }
-                                        { this.props.profileViewData.facebookUrl &&
+                                        <List.Item>
+                                            <List.Header style={{ marginTop: "20px" }}>On social media</List.Header>
+                                        </List.Item>
+                                        { this.props.profileViewData.additionalUrls && this.props.profileViewData.additionalUrls.facebook &&
                                           <List.Item>
                                             <List.Icon name='facebook square' />
-                                            <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.facebookUrl)}>Facebook</a></List.Content>
+                                            <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.additionalUrls.facebook)}>Facebook</a></List.Content>
                                           </List.Item>
                                         }
-                                        {this.props.profileViewData.twitterUrl &&
+                                        { this.props.profileViewData.additionalUrls && this.props.profileViewData.additionalUrls.twitter &&
                                             <List.Item>
                                                 <List.Icon name='twitter square' />
-                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.twitterUrl)}>Twitter</a></List.Content>
+                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.additionalUrls.twitter)}>Twitter</a></List.Content>
                                             </List.Item>
                                         }
-                                        {this.props.profileViewData.instagramUrl &&
+                                        { this.props.profileViewData.additionalUrls && this.props.profileViewData.additionalUrls.instagram &&
                                             <List.Item>
                                                 <List.Icon name='instagram' />
-                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.instagramUrl)}>Instagram</a></List.Content>
+                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.additionalUrls.instagram)}>Instagram</a></List.Content>
                                             </List.Item>
                                         }
-                                        {this.props.profileViewData.vimeoUrl &&
+                                        { this.props.profileViewData.additionalUrls && this.props.profileViewData.additionalUrls.vimeo &&
                                             <List.Item>
                                                 <List.Icon name='vimeo square' />
-                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.vimeoUrl)}>Vimeo</a></List.Content>
+                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.additionalUrls.vimeo)}>Vimeo</a></List.Content>
                                             </List.Item>
                                         }
-                                        {this.props.profileViewData.youtubeUrl &&
+                                        { this.props.profileViewData.additionalUrls && this.props.profileViewData.additionalUrls.youtube &&
                                             <List.Item>
                                                 <List.Icon name='youtube square' />
-                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.youtubeUrl)}>Youtube</a></List.Content>
+                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.additionalUrls.youtube)}>Youtube</a></List.Content>
                                             </List.Item>
                                         }
-                                        {this.props.profileViewData.soundcloudUrl &&
+                                        { this.props.profileViewData.additionalUrls && this.props.profileViewData.additionalUrls.soundcloud &&
                                             <List.Item>
                                                 <List.Icon name='soundcloud' />
-                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.soundcloudUrl)}>Soundcloud</a></List.Content>
+                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.additionalUrls.soundcloud)}>Soundcloud</a></List.Content>
                                             </List.Item>
                                         }
-                                        {this.props.profileViewData.behanceUrl &&
+                                        { this.props.profileViewData.additionalUrls && this.props.profileViewData.additionalUrls.behance &&
                                             <List.Item>
                                                 <List.Icon name='behance square' />
-                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.behanceUrl)}>Behance</a></List.Content>
+                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.additionalUrls.behance)}>Behance</a></List.Content>
                                             </List.Item>
                                         }
-                                        {this.props.profileViewData.githubUrl &&
+                                        { this.props.profileViewData.additionalUrls && this.props.profileViewData.additionalUrls.github &&
                                             <List.Item>
                                                 <List.Icon name='github square' />
-                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.githubUrl)}>Github</a></List.Content>
+                                                <List.Content><a target="_blank" href={makeAbsoluteUrl(this.props.profileViewData.additionalUrls.github)}>Github</a></List.Content>
                                             </List.Item>
                                         }
                                     </List>
@@ -187,7 +192,6 @@ class ViewProfile extends Component {
 
   render() {
     const isOwner = this.props.userId === this.props.profileViewData.userId;
-    console.log()
     return (
         <Grid.Row>
             <Grid>

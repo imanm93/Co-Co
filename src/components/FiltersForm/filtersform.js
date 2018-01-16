@@ -20,15 +20,8 @@ class FiltersForm extends Component {
           }
         </Grid.Row>
         <Grid.Row style={{ padding: '0.5em 3em' }}>
-          <Grid.Column width={8}>
+          <Grid.Column width={16}>
             <Filters type={this.props.type} filters={this.props.types} updateQuery={this.updateSelected.bind(this)} selectedFilters={this.props.selectedFilters} />
-          </Grid.Column>
-          <Grid.Column width={8}>
-            {
-              this.props.selectedFilters && this.props.selectedFilters.map(filterId => {
-                return  <Chip key={"ChipFilter" + filterId} item={{ id: filterId, name: this.props.types[filterId] }} onRemove={this.onFilterRemove.bind(this)} />
-              })
-            }
           </Grid.Column>
         </Grid.Row>
       </Grid>

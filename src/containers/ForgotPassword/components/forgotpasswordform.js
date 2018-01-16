@@ -19,13 +19,6 @@ class ForgotPasswordForm extends Component {
             <div className='form-header'>Forgot password</div>
           </Grid.Column>
         </Grid>
-        {this.props.forgotPasswordSuccess &&<Grid centered>
-        <Grid.Column width={12} style={{ backgroundColor: '#FFF', padding: 0 }}>
-            <Grid.Row>
-              <div>{this.props.forgotPasswordSuccess.data}</div>
-            </Grid.Row>
-          </Grid.Column>
-        </Grid>}
         <Grid centered>
           <Grid.Column width={12} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row>
@@ -63,7 +56,16 @@ class ForgotPasswordForm extends Component {
             </Grid.Row>
           </Grid.Column>
         </Grid>
-        {forgotPasswordError &&
+        { this.props.forgotPasswordSuccess &&
+          <Grid centered>
+            <Grid.Column width={12} style={{ backgroundColor: '#FFF', padding: 0 }}>
+              <Grid.Row centered>
+                <div>{this.props.forgotPasswordSuccess.data}</div>
+              </Grid.Row>
+            </Grid.Column>
+          </Grid>
+        }
+        { forgotPasswordError &&
           <Grid centered>
             <Grid.Column width={12} style={{ backgroundColor: '#FFF', paddingTop: 0 }}>
               <Grid.Row style={{ padding: '1em', paddingBottom: 0 }}>

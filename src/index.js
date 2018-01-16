@@ -3,18 +3,13 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import throttle from 'lodash/throttle';
 import { saveState } from './localStorage';
-import createHistory from 'history/createBrowserHistory';
+import { history } from './history';
 
 import App from './app';
 import store from './store';
 
 //import registerServiceWorker from './registerServiceWorker';
 //registerServiceWorker();
-
-/**
- * Setup Piwik Connector
- */
-const history = createHistory();
 
 /**
  * Setup Redux store

@@ -45,6 +45,7 @@ class NavBar extends Component {
                   <img
                     src={this.props.profilePhotoUrl}
                     alt={`profile of ${this.props.name}`}
+                    style={{ marginTop: '0.25em' }}
                   />
                 </div>
               </span>

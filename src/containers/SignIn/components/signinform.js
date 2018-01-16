@@ -87,7 +87,10 @@ class SignInForm extends Component {
               <Grid.Column width={16} style={{ backgroundColor: '#FFF', paddingTop: 0 }}>
                 <Grid.Row style={{ padding: '1em', paddingBottom: 0 }}>
                   <Grid>
-                    <Grid.Column width={16} style={{ textAlign: 'right', paddingTop: 0 }}>
+                    <Grid.Column width={7}>
+                      <a href={'mailto:info@ed.ac.uk'}>Please email info@ed.ac.uk if you face any issues</a>
+                    </Grid.Column>
+                    <Grid.Column width={9} style={{ textAlign: 'right', paddingTop: 0 }}>
                       <Link to='/'>
                         <Button type='button' circular className='coandco-btn-inverted'>Back to Homepage</Button>
                       </Link>

@@ -7,7 +7,7 @@ class EventItemExpanded extends Component {
   render() {
     const month = ["Jan", "Feb", "Mar", "Apr", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
     return(
-      <Grid style={{ margin: 0 }}>
+      <Grid style={{ margin: 0, width: '100%' }}>
         <Grid.Column width={16} style={{
           borderTopLeftRadius: '5px',
           borderTopRightRadius: '5px',

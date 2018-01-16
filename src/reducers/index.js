@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
+import { routerReducer } from 'react-router-redux';
 
 import notifcationsReducer from './notificationsReducer';
 import connectionsReducer from './connectionsReducer';
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   filters: filtersReducer,
   dash: dashboardReducer,
   loaders: loaderReducer,
+  router: routerReducer,
   skills: skillsReducer,
   verify: verifyReducer,
   errors: errorReducer,

@@ -32,14 +32,14 @@ const Routes = () => (
   <Switch>
       <Route exact path="/" component={withGATracker(Landing)} />
       <Route path="/verify" component={withGATracker(Verify)} />
-      <Route path="/resetpassword" component={withGATracker(ResetPassword)}/>
-      <Route path="/setup" component={withGATracker(UserSetup)} />
       <Route path="/signup" component={withGATracker(SignUp)} />
       <Route path="/signin" component={withGATracker(SignIn)} />
+      <Route path="/setup" component={withGATracker(UserSetup)} />
       <Route path="/dashboard" component={withGATracker(Dashboard)} />
       <Route path="/external/:step" component={withGATracker(External)} />
       <Route path="/profile/:type" component={withGATracker(UserProfile)} />
       <Route path="/post" component={withGATracker(PostNewItemContainer)} />
+      <Route path="/resetpassword" component={withGATracker(ResetPassword)}/>
       <Route path="/verifiedemail" component={withGATracker(VerifiedEmail)} />
       <Route path="/forgotpassword" component ={withGATracker(ForgotPassword)} />
       <Route path="/verifiedcompany" component={withGATracker(VerifiedCompany)} />

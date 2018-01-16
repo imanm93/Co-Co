@@ -46,7 +46,6 @@ class UserSetup extends Component {
     newValues['otherName'] = "";
     this.props.setupUser(this.props.token, newValues, (response) => {
       this.props.getUserInfo(this.props.token, (resp) => {
-        console.log(resp);
         this.props.history.push("/dashboard");
       })
     });
@@ -154,14 +153,14 @@ class UserSetup extends Component {
 
 function mapStateToProps(state) {
   return {
+    account: state.account,
     setupData: state.setup,
     token: state.account.token,
     skills: state.skills.skills,
     userId: state.account.userId,
     streams: state.skills.streams,
     topicTypes: state.filters.topicTypes,
-    isSettingUp: state.loaders.isSettingUp,
-    account: state.account
+    isSettingUp: state.loaders.isSettingUp
   }
 }
 

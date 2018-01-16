@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Button, Form, Label, Icon, Dimmer, Loader } from 'semantic-ui-react';
+import { Grid, Button, Form, Label, Icon, Dimmer, Loader, Modal } from 'semantic-ui-react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import inputFormField from '../../../components/InputFormField';
 import singleFileUploadFormField from '../../../components/SingleFileUploadFormField';
@@ -9,7 +9,6 @@ import styles from './editprofileform.css';
 import Chip from '../../../components/Chip';
 
 import BackgroundImage from './backgroundimage';
-import ModalContainer from '../../../components/ModalContainer';
 import SkillsForm from '../../../components/SkillsForm';
 import FiltersForm from '../../../components/FiltersForm';
 
@@ -27,7 +26,9 @@ class EditProfileForm extends Component {
     this.setState({
       workExamples: this.props.profileEditData.workExamples,
       selectedSkills: this.props.profileEditData.skills,
-      selectedTopics: this.props.profileEditData.topics
+      selectedTopics: this.props.profileEditData.topics,
+      modalSkills: false,
+      modalTopics: false
     });
   }
 
@@ -55,8 +56,38 @@ class EditProfileForm extends Component {
     });
   }
 
-  onCloseModal() {
+  onOpenModal(type) {
+    switch (type) {
+      case 'skills':
+        this.setState({
+          modalSkills: true
+        })
+        break;
+      case 'topics':
+        this.setState({
+          modalTopics: true
+        })
+        break;
+      default:
+        break;
+    }
+  }
 
+  onCloseModal(type) {
+    switch (type) {
+      case 'skills':
+        this.setState({
+          modalSkills: false
+        })
+        break;
+      case 'topics':
+        this.setState({
+          modalTopics: false
+        })
+        break;
+      default:
+        break;
+    }
   }
 
   render() {
@@ -148,15 +179,20 @@ class EditProfileForm extends Component {
                       />
                     })
               }
-              <ModalContainer buttonName="Add new skills" buttonProps={{ circular: true, secondary: true, floated: "right" }}>
+              <Button circular secondary floated="right" type='button' onClick={() => this.onOpenModal('skills')}>Add new skills</Button>
+              <Modal open={this.state.modalSkills}>
                 <SkillsForm
                   skills={this.props.skills}
                   streams={this.props.streams}
                   selectedSkills={this.state.selectedSkills}
                   updateSelectedSkills={this.updateSelectedSkills.bind(this)}
                 />
-                <Button circular secondary onClick={() => this.onCloseModal()}>Save Skills</Button>
-              </ModalContainer>
+                <Grid>
+                  <Grid.Row style={{ padding: '2em 3em 3em' }}>
+                    <Button circular secondary type='button' onClick={() => this.onCloseModal('skills')}>Update Skills</Button>
+                  </Grid.Row>
+                </Grid>
+              </Modal>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row centered>
@@ -181,17 +217,22 @@ class EditProfileForm extends Component {
                       />
                     })
               }
-              <ModalContainer buttonName="Add new topics" buttonProps={{ circular: true, secondary: true, floated: "right" }}>
+              <Button circular secondary floated="right" type='button' onClick={() => this.onOpenModal('topics')}>Add new topics</Button>
+              <Modal open={this.state.modalTopics}>
                 <FiltersForm
                   title={'Topics'}
                   type={FilterTypes.TOPICS}
                   types={this.props.topicTypes}
-                  selectedTopics={this.state.selectedTopics}
+                  selectedFilters={this.state.selectedTopics}
                   updateSelection={this.updateTopicSelection.bind(this)}
                   message={'Choose any topics from the list below to tell us what you like. Event suggestions are based on this.'}
                 />
-                <Button circular secondary onClick={() => this.onCloseModal()}>Save Topics</Button>
-              </ModalContainer>
+                <Grid>
+                  <Grid.Row style={{ padding: '2em 3em 3em' }}>
+                    <Button circular secondary type='button' onClick={() => this.onCloseModal('topics')}>Update Topics</Button>
+                  </Grid.Row>
+                </Grid>
+              </Modal>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row centered>
@@ -207,19 +248,17 @@ class EditProfileForm extends Component {
             </Grid.Column>
             <Grid.Column width={8}>
               { this.props.portfolioLinkItems && this.props.portfolioLinkItems.map((item) => {
-                  if (item.name === 'portfolioUrl') {
-                    return <div>
-                      <i className={item.iconClass ? item.iconClass : 'fa fa-link'}></i> {item.label}
-                      <Field
-                        key={item.key}
-                        name={item.name}
-                        labelPosition="left"
-                        validate={item.regex}
-                        component={inputFormField}
-                        placeholder={item.placeholder}
-                      />
-                    </div>
-                  }
+                  return <div>
+                    <i className={item.iconClass ? item.iconClass : 'fa fa-link'}></i> {item.label}
+                    <Field
+                      key={item.key}
+                      name={item.name}
+                      labelPosition="left"
+                      validate={item.regex}
+                      component={inputFormField}
+                      placeholder={item.placeholder}
+                    />
+                  </div>
                 })
               }
             </Grid.Column>

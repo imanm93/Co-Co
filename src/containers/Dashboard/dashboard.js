@@ -20,6 +20,7 @@ import DashboardItemsSelectorBar from './components/dashboarditemsselectorbar';
 class Dashboard extends Component {
 
   componentWillMount() {
+
     if (!this.props.token) {
       this.redirectToSignIn();
     }
@@ -248,7 +249,7 @@ class Dashboard extends Component {
                 <FiltersForm
                   type={FilterTypes.TOPICS}
                   title={'Topics'}
-                  selectedTopics={this.props.userTopics}
+                  selectedFilters={this.props.userTopics}
                   types={this.props.filters.topicTypes}
                   updateSelection={this.updateUserTopics.bind(this)}
                   message={'Choose any topics from the list below to tell us what you like. Event suggestions are based on this.'}

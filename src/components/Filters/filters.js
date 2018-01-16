@@ -9,7 +9,7 @@ class Filters extends Component {
       selectedCheckbox: new Set()
     }, function() {
       if (this.props.selectedFilters) this.props.selectedFilters.map(topicId => {
-        this.updateFilter(topicId);
+        this.updateFilter(String(topicId));
       });
     });
   }
@@ -24,6 +24,7 @@ class Filters extends Component {
   }
 
   updateFilter(key) {
+    console.log(key);
     const selectedCheckbox = this.state.selectedCheckbox;
     if (selectedCheckbox.has(key)) { selectedCheckbox.delete(key) }
     else if (!selectedCheckbox.has(key)) { selectedCheckbox.add(key) };
