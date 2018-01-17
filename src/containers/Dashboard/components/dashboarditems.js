@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, Dimmer, Loader } from 'semantic-ui-react';
 import Item from '../../Item';
 import Waypoint from 'react-waypoint';
+import { Grid, Dimmer, Loader } from 'semantic-ui-react';
 
 class DashboardItems extends Component {
 
@@ -17,12 +17,12 @@ class DashboardItems extends Component {
           Object.keys(this.props.items).map(key => {
             return <Item
               key={String(key)}
+              name={this.props.name}
               token={this.props.token}
               userId={this.props.userId}
-              name={this.props.name}
-              profilePhotoUrl={this.props.profilePhotoUrl}
               item={this.props.items[key]}
               history={this.props.history}
+              profilePhotoUrl={this.props.profilePhotoUrl}
             />
           })
         }
@@ -31,14 +31,7 @@ class DashboardItems extends Component {
               <Loader active inline='centered'/>
           </Grid>
         }
-        { !this.props.isMyConnections && !this.props.isLoading && !this.props.isLoadingMoreItems && this.props.tab === 'People' && this.props.items &&
-          !this.props.items && Object.keys(this.props.items).length !== 0 && Object.keys(this.props.items).length > 10 &&
-          <Grid style={{ wdith: '100%' }}>
-            <Waypoint onEnter={this.props.onLoadMoreItems} />
-          </Grid>
-        }
-        { !this.props.isMyConnections && !this.props.isLoading && !this.props.isLoadingMoreItems && this.props.tab !== 'People' && this.props.items &&
-          !this.props.items && Object.keys(this.props.items).length !== 0 && this.props.items && Object.keys(this.props.items).length > 5 &&
+        { !this.props.isMyConnections && !this.props.isLoading && !this.props.isLoadingMoreItems && this.props.canLoadMoreItems &&
           <Grid style={{ wdith: '100%' }}>
             <Waypoint onEnter={this.props.onLoadMoreItems} />
           </Grid>
@@ -48,5 +41,13 @@ class DashboardItems extends Component {
   }
 
 }
+
+// {
+//   // !this.props.isMyConnections && !this.props.isLoading && !this.props.isLoadingMoreItems && this.props.tab !== 'People' && this.props.items &&
+//   // !this.props.items && Object.keys(this.props.items).length !== 0 && this.props.items && Object.keys(this.props.items).length > 5 &&
+//   // <Grid style={{ wdith: '100%' }}>
+//   //   <Waypoint onEnter={this.props.onLoadMoreItems} />
+//   // </Grid>
+// }
 
 export default DashboardItems;

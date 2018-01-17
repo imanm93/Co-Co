@@ -164,19 +164,30 @@ class Dashboard extends Component {
   }
 
   render() {
+    console.log(this.props.connectionRequests);
     const skills = dictToArray(this.props.skills);
     const filterControls = this.getFilterControls(this.props.dash.tab);
-    const items = []; 
-    for (let key in this.props.items.items) {
-      let value = this.props.items.items[key];
+    let newItems = Object.assign({}, this.props.items.items);
+    this.props.connectionRequests.map(cr => {
+      if (newItems[cr.userId]) {
+        console.log(newItems[cr.userId]);
+        let newItemRequest = Object.assign({}, newItems[cr.userId]);
+        let newItemRequestUser = Object.assign({}, newItemRequest['user']);
+        newItemRequestUser['connectionStatus'] = 'invited';
+        newItemRequest = Object.assign({}, newItemRequest, newItemRequestUser);
+        newItems = Object.assign({}, newItems, newItemRequest);
+        console.log(newItems[cr.userId]);
+      }
+    });
+    const items = [];
+    for (let key in newItems) {
+      let value = newItems[key];
       value.id = key;
-      items[items.length] = value; 
+      items[items.length] = value;
     }
-    
     items.sort((a, b) => {
       return b.timestamp - a.timestamp;
     });
-
     return (
       <PageContainer>
         <Grid style={{ margin: 0 }}>
@@ -195,20 +206,21 @@ class Dashboard extends Component {
           </Grid.Row>
           <Grid.Row centered>
             <DashboardResults
+              items={items}
               name={this.props.name}
               token={this.props.token}
               filters={filterControls}
               userId={this.props.userId}
-              items={items}
+              history={this.props.history}
               currentTab={this.props.dash.tab}
               isLoading={this.props.isLoadingDashItems}
               profilePhotoUrl={this.props.profilePhotoUrl}
+              isMyConnections={this.props.isMyConnections}
               onLoadMoreItems={this.onLoadNextPage.bind(this)}
               onMyConnections={this.onMyConnections.bind(this)}
+              canLoadMoreItems={this.props.items.canLoadMoreItems}
               isLoadingMoreItems={this.props.isLoadingMoreDashItems}
-              isMyConnections={this.props.isMyConnections}
               setFilterQuery={this.updateItemsAndFilterQuery.bind(this)}
-              history={this.props.history}
             />
           </Grid.Row>
           <Modal open={this.state.modalOpen}>
@@ -286,6 +298,7 @@ function mapStateToProps(state) {
     userSkills: state.profiles.profileEditData.skills,
     userTopics: state.profiles.profileEditData.topics,
     profileComplete: state.account.profileComplete,
+    connectionRequests: state.connections.requests,
     profilePhotoUrl: state.account.profilePhotoUrl,
     isMyConnections: state.loaders.isMyConnections,
     isSavingSkills: state.loaders.isSavingSkills,

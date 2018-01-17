@@ -29,8 +29,8 @@ class EventItem extends Component {
                   <i className='fa fa-hashtag'></i>
                 </Grid.Column>
                 <Grid.Column width={15}>
-                  {this.props.item.topics && this.props.item.topics.map(topic =>
-                    (<span className='opp-topic-tag' key={'eventitem' + this.props.item.itemId + topic}>{topic}</span>)
+                  {this.props.item.topics && this.props.item.topics.map((topic, index) =>
+                    (<span className='opp-topic-tag' key={this.props.item.itemId + '' + topic + index}>{topic}</span>)
                   )}
                 </Grid.Column>
               </Grid>

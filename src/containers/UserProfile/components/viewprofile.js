@@ -16,16 +16,6 @@ let makeAbsoluteUrl = (url) => {
 
 class ViewProfile extends Component {
 
-  // { this.props.onConnect && !this.props.profileViewData.connectionStatus &&
-  //   <Button circular secondary onClick={() => this.props.onConnect(this.props.profileViewData.userId)}>Connect</Button>
-  // }
-  // { this.props.onConnect && this.props.profileViewData.connectionStatus === 'requested' &&
-  //   <Button circular secondary disabled>Connect</Button>
-  // }
-  // { this.props.onConnect && this.props.profileViewData.connectionStatus === 'connected' &&
-  //   <Button circular secondary disabled style={{ backgroundColor: 'green' }}>Connected</Button>
-  // }
-
   constructor(props) {
       super(props);
       this.state = {
@@ -47,6 +37,15 @@ class ViewProfile extends Component {
                           <Grid centered>
                             <Grid.Row centered>
                               <Grid.Column width={3}>
+                                { this.props.onConnect && !this.props.profileViewData.connectionStatus &&
+                                  <Button circular secondary onClick={() => this.props.onConnect(this.props.profileViewData.userId)}>Connect</Button>
+                                }
+                                { this.props.onConnect && this.props.profileViewData.connectionStatus === 'requested' &&
+                                  <Button circular secondary disabled>Connect</Button>
+                                }
+                                { this.props.onConnect && this.props.profileViewData.connectionStatus === 'connected' &&
+                                  <Button circular secondary disabled style={{ backgroundColor: 'green' }}>Connected</Button>
+                                }
                                 <a href={'mailto:' + this.props.email}>
                                   <Button circular style={{ backgroundColor: '#FFF', color: '#2A2A2A', border: '1px solid #2A2A2A' }}>Email</Button>
                                 </a>
@@ -192,6 +191,7 @@ class ViewProfile extends Component {
 
   render() {
     const isOwner = this.props.userId === this.props.profileViewData.userId;
+    console.log(this.props.profileViewData);
     return (
         <Grid.Row>
             <Grid>

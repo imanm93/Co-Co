@@ -19,7 +19,7 @@ class CommentForm extends Component {
           component={inputFormField}
           InputType={Form.TextArea}
         />
-        <Button type='submit' secondary>Add Comment</Button>
+        <Button type='submit' secondary style={{ margin: '0.5em' }}>Add Comment</Button>
       </form>
     )
   }

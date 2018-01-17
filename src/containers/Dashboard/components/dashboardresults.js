@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
-import DashboardFilters from './dashboardfilters';
 import DashboardItems from './dashboarditems';
+import DashboardFilters from './dashboardfilters';
 
 class DashboardResults extends Component {
 
@@ -23,15 +23,16 @@ class DashboardResults extends Component {
               <DashboardItems
                 name={this.props.name}
                 items={this.props.items}
-                tab={this.props.currentTab}
                 token={this.props.token}
                 userId={this.props.userId}
+                tab={this.props.currentTab}
+                history={this.props.history}
                 isLoading={this.props.isLoading}
                 profilePhotoUrl={this.props.profilePhotoUrl}
-                onLoadMoreItems={this.props.onLoadMoreItems}
-                isLoadingMoreItems={this.props.isLoadingMoreItems}
                 isMyConnections={this.props.isMyConnections}
-                history={this.props.history}
+                onLoadMoreItems={this.props.onLoadMoreItems}
+                canLoadMoreItems={this.props.canLoadMoreItems}
+                isLoadingMoreItems={this.props.isLoadingMoreItems}
               />
             </Grid.Column>
             <Grid.Column width={1}>

@@ -32,16 +32,22 @@ class PeopleItem extends Component {
           }
         </Grid.Column>
         <Grid.Column width={3} style={{ padding: 0 }}>
-          { !this.props.item.connectionState &&
+          { !this.props.item.user.connectionStatus &&
             <Button circular secondary onClick={this.props.onConnect}><i className='fa fa-link'></i></Button>
           }
-          { this.props.item.connectionState === 'initial' &&
+          { this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'invited' &&
+            <Button circular secondary onClick={this.props.onConnect} style={{ backgroundColor: 'red' }}><i className='fa fa-times'></i></Button>
+          }
+          { this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'invited' &&
+            <Button circular secondary onClick={this.props.onConnect} style={{ backgroundColor: 'green' }}><i className='fa fa-check'></i></Button>
+          }
+          { this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'initial' &&
             <Button circular secondary onClick={this.props.onConnect}><i className='fa fa-link'></i></Button>
           }
-          { this.props.item.connectionState === 'requested' &&
+          { this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'requested' &&
             <Button circular secondary disabled><i className='fa fa-link'></i></Button>
           }
-          { this.props.item.connectionState === 'connected' &&
+          { this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'connected' &&
             <Button circular secondary disabled style={{ backgroundColor: 'green' }}><i className='fa fa-link'></i></Button>
           }
           <Button circular secondary style={{ backgroundColor: '#FFF', border: '1px solid #2A2A2A' }}>

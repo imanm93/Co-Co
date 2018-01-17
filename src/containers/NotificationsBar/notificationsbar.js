@@ -33,52 +33,8 @@ class NotificationsBar extends Component {
           <Grid.Column width={14}>
           </Grid.Column>
           <Grid.Column width={1}>
-            <Popup
-              trigger={
-                <div>
-                  <Icon style={{ fontSize: '22px' }} name='user plus' />
-                  {this.props.connectionRequests && this.props.connectionRequests.length > 0 &&
-                    <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
-                      {this.props.connectionRequests.length}
-                    </Label>
-                  }
-                </div>
-              }
-              content={<ConnectionItemNotifications
-                loading={this.props.isLoadingConnections}
-                connectionRequests={this.props.connectionRequests}
-                onAcceptConnection={this.onAcceptConnection.bind(this)}
-                onRejectConnection={this.onRejectConnection.bind(this)}
-              />}
-              style={{ padding: 0 }}
-              hideOnScroll={true}
-              on='click'
-              position='bottom center'
-            />
           </Grid.Column>
           <Grid.Column width={1}>
-            <Popup
-              trigger={
-                <div>
-                  <Icon style={{ fontSize: '22px' }} name='bell' />
-                  {
-                    this.props.dashItemNotifications && this.props.dashItemNotifications.length > 0 &&
-                    <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
-                      {this.props.dashItemNotifications.length}
-                    </Label>
-                  }
-                </div>
-              }
-              content={<DashboardItemNotifications
-                loading={this.props.isLoadingNotifications}
-                notifications={this.props.dashItemNotifications}
-                redirectToNotifications={this.redirectToNotification.bind(this)}
-              />}
-              style={{ padding: 0 }}
-              hideOnScroll={true}
-              on='click'
-              position='bottom center'
-            />
           </Grid.Column>
         </Grid>
       </Grid.Row>
@@ -86,6 +42,54 @@ class NotificationsBar extends Component {
   }
 
 }
+
+// TODO:
+// <Popup
+//   trigger={
+//     <div>
+//       <Icon style={{ fontSize: '22px' }} name='user plus' />
+//       {this.props.connectionRequests && this.props.connectionRequests.length > 0 &&
+//         <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
+//           {this.props.connectionRequests.length}
+//         </Label>
+//       }
+//     </div>
+//   }
+//   content={<ConnectionItemNotifications
+//     loading={this.props.isLoadingConnections}
+//     connectionRequests={this.props.connectionRequests}
+//     onAcceptConnection={this.onAcceptConnection.bind(this)}
+//     onRejectConnection={this.onRejectConnection.bind(this)}
+//   />}
+//   style={{ padding: 0 }}
+//   hideOnScroll={true}
+//   on='click'
+//   position='bottom center'
+// />
+
+// TODO:
+// <Popup
+//   trigger={
+//     <div>
+//       <Icon style={{ fontSize: '22px' }} name='bell' />
+//       {
+//         this.props.dashItemNotifications && this.props.dashItemNotifications.length > 0 &&
+//         <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
+//           {this.props.dashItemNotifications.length}
+//         </Label>
+//       }
+//     </div>
+//   }
+//   content={<DashboardItemNotifications
+//     loading={this.props.isLoadingNotifications}
+//     notifications={this.props.dashItemNotifications}
+//     redirectToNotifications={this.redirectToNotification.bind(this)}
+//   />}
+//   style={{ padding: 0 }}
+//   hideOnScroll={true}
+//   on='click'
+//   position='bottom center'
+// />
 
 function mapStateToProps(state) {
   return {

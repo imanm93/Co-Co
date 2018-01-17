@@ -7,16 +7,20 @@ class ItemControls extends Component {
     return(
       <Grid.Row style={{ padding: '0.25em', backgroundColor: '#F1F1F1', borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px', textAlign: 'left' }}>
         <Grid.Column width={12}>
-          <Button className='item-btn-control' style={{ paddingLeft: 0 }} onClick={() => this.props.onLike()}>
-            { this.props.isLiked &&
-                <i className="fa fa-heart" aria-hidden="true"></i>
-            }
-            {
-              !this.props.isLiked &&
-                <i className="fa fa-heart-o" aria-hidden="true"></i>
-            }
-            <span>{this.props.numberOfLikes}</span> <span style={{ textDecoration: 'underline' }}>Likes</span>
-          </Button>
+          {
+            !this.props.isLiked &&
+            <Button className='item-btn-control' style={{ paddingLeft: 0 }} onClick={() => this.props.onLike()}>
+              <i className="fa fa-heart-o" aria-hidden="true"></i>
+              <span>{this.props.numberOfLikes}</span> <span style={{ textDecoration: 'underline' }}>Likes</span>
+            </Button>
+          }
+          {
+            this.props.isLiked &&
+            <Button className='item-btn-control' style={{ paddingLeft: 0 }}>
+              <i className="fa fa-heart" aria-hidden="true"></i>
+              <span>{this.props.numberOfLikes}</span> <span style={{ textDecoration: 'underline' }}>Liked</span>
+            </Button>
+          }
           <Button className='item-btn-control' onClick={() => this.props.onComments()}>
             <i className="fa fa-comment" aria-hidden="true"></i>
             <span>{this.props.numberOfComments}</span> <span style={{ textDecoration: 'underline' }}>Comments</span>

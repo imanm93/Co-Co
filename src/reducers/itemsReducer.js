@@ -1,5 +1,6 @@
 import * as ItemTypes from '../constants/items/itemTypes';
 import { SET_NEW_COMMENT_ERROR } from '../constants/items/itemErrorTypes';
+import { SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS } from '../constants/items/peopleitems/peopleitemReducerTypes';
 import { SET_REQUESTED_CONNECTION, UNSET_REQUESTED_CONNECTION } from '../constants/connections/connectionReducerTypes';
 import {
   SET_FILTERED_ITEMS, SET_EXPANDED_ITEM, SET_EXPANDING_ITEM, SET_SHRINK_ITEM,
@@ -8,9 +9,10 @@ import {
 } from '../constants/items/itemReducerTypes';
 
 const initialState = {
-  items: {},
   page: 0,
-  pageSize: 15
+  items: {},
+  pageSize: 15,
+  canLoadMoreItems: false
 }
 
 export default function (state = initialState, action) {
@@ -19,7 +21,7 @@ export default function (state = initialState, action) {
       let newItems = {};
       if (action.page === 1) newItems = Object.assign({}, action.items);
       if (action.page > 1) newItems = Object.assign({}, state.items, action.items);
-      return { ...state, ...{ items: newItems, page: action.page } };
+      return { ...state, ...{ items: newItems, page: action.page, canLoadMoreItems: action.canLoadMoreItems } };
     case SET_SHRINK_ITEM:
       let itemShrink = Object.assign({}, state.items[action.id]);
       itemShrink['expanded'] = false;
@@ -153,7 +155,7 @@ export default function (state = initialState, action) {
       };
     case SET_REQUESTED_CONNECTION:
       let itemSetConnectionRequested = Object.assign({}, state.items[action.id]);
-      itemSetConnectionRequested['connectionState'] = 'requested';
+      itemSetConnectionRequested['connectionStatus'] = 'requested';
       const newItemSetConnectionRequested = Object.assign({}, { [action.id]: itemSetConnectionRequested });
       return {
         ...state, ...{
@@ -162,11 +164,19 @@ export default function (state = initialState, action) {
       };
     case UNSET_REQUESTED_CONNECTION:
       let itemUnSetConnectionRequested = Object.assign({}, state.items[action.id]);
-      itemUnSetConnectionRequested['connectionState'] = 'initial';
+      itemUnSetConnectionRequested['connectionStatus'] = 'initial';
       const newItemUnSetConnectionRequested = Object.assign({}, { [action.id]: itemUnSetConnectionRequested });
       return {
         ...state, ...{
           items: Object.assign({}, state.items, newItemUnSetConnectionRequested)
+        }
+      };
+    case SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS:
+      let actionPeopleItemConnection = Object.assign({}, state.items[action.id]);
+      actionPeopleItemConnection['connectionStatus'] = action.status;
+      const newActionPeopleItemConnection = Object.assign({}, { [action.id]: actionPeopleItemConnection })
+      return { ...state, ...{
+          items: Object.assign({}, state.items, newActionPeopleItemConnection)
         }
       };
     default:

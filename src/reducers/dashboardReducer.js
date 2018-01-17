@@ -17,29 +17,30 @@ export default function(state=initialState, action) {
     case SET_DASH_FILTER:
       if (action.filter.myConnections) {
         return { ...state, ...{
-            filters: Object.assign({}, action.filter)
+            filters: Object.assign({}, action.filter),
+            page: 1
           }
         };
       }
       else
       {
         return { ...state, ...{
-            filters: Object.assign({}, state.filters, action.filter)
+            filters: Object.assign({}, state.filters, action.filter),
+            page: 1
           }
         };
       }
     case SET_DASH_QUERY:
       return { ...state, ...{
-          query: action.query
+          query: action.query,
+          page: 1
         }
       };
     case SET_DASH_TAB:
-      console.log(state.tab);
-      console.log(action.tab);
-      console.log(action.page);
       return { ...state, ...{
           tab: action.tab,
-          page: action.page
+          filters: {},
+          page: 1
         }
       };
     case RESET_DASH:

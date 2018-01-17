@@ -92,15 +92,19 @@ export const getFilteredItems = (action$, store) =>
             // sortedKeys.map(key => {
             //   return sortedItems[key] = Object.assign(res.items[key], { expanded: false, isExpanding: false, showComments: false, isLoadingComments: false });
             // });
+            let canLoadMoreItems = false
+            if (res.items) canLoadMoreItems = Object.keys(res.items).length > 0;
             return {
               page: res.page,
-              items: res.items
+              items: res.items,
+              canLoadMoreItems: canLoadMoreItems
             };
           })
           .map(res => ({
             type: SET_FILTERED_ITEMS,
             items: res.items,
-            page: res.page
+            page: res.page,
+            canLoadMoreItems: res.canLoadMoreItems
           }))
           .catch(err => {
             return Rx.Observable.of({

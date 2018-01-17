@@ -61,6 +61,14 @@ class Item extends Component {
     console.log("Report", itemId);
   }
 
+  onAcceptConnection(userId) {
+    this.props.postAcceptConnection(this.props.token, userId);
+  }
+
+  onRejectConnection(userId) {
+    this.props.postRejectConnection(this.props.token, userId);    
+  }
+
   onRedirectToProfile() {
     this.props.setProfileViewId(this.props.token, this.props.item.user.id, this.props.history);
   }
