@@ -41,7 +41,7 @@ class ViewProfile extends Component {
                                   <Button circular secondary onClick={() => this.props.onConnect(this.props.profileViewData.userId)}>Connect</Button>
                                 }
                                 { this.props.onConnect && this.props.profileViewData.connectionStatus === 'requested' &&
-                                  <Button circular secondary disabled>Connect</Button>
+                                  <Button circular secondary disabled>Pending</Button>
                                 }
                                 { this.props.onConnect && this.props.profileViewData.connectionStatus === 'connected' &&
                                   <Button circular secondary disabled style={{ backgroundColor: 'green' }}>Connected</Button>

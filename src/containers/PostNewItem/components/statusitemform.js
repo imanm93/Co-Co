@@ -75,7 +75,7 @@ class StatusItemForm extends Component {
               component={fileUploadFormField}
             />
           </Grid.Column> */}
-          <Grid.Column width={4} style={{ paddingBottom: '2em' }}>
+          <Grid.Column width={16} style={{ paddingBottom: '2em', textAlign: 'right' }}>
             <Button type="submit" circular secondary style={{ padding: '0.8em 4em' }}>Post</Button>
           </Grid.Column>
         </Grid>

@@ -20,6 +20,13 @@ const FixedMenu = () => (
   </Menu>
 )
 
+// <object
+//   style={{ width: '100%', height: '28em' }}
+//   data="http://www.youtube.com/embed/ekJMFj0QIFE"
+//   width="560"
+//   height="315">
+// </object>
+
 class Landing extends Component {
 
   state = {}
@@ -88,18 +95,18 @@ class Landing extends Component {
                   <Grid.Row style={{ height: '10em', paddingTop: '2em' }}>
                     <Grid.Column width={16} verticalAlign='middle'>
                       <Link to='/signin'>
-                        <Button circular secondary style={{ backgroundColor: '#2A2A2A' }}>
+                        <Button circular secondary style={{ backgroundColor: '#2A2A2A', fontSize: '18px' }}>
                           Login
                         </Button>
                       </Link>
                       <Link to='/external/register'>
-                        <Button circular secondary style={{ backgroundColor: '#FFF', color: '#000', border: '1px solid' }}>
+                        <Button circular secondary style={{ backgroundColor: '#FFF', color: '#000', border: '1px solid', fontSize: '18px' }}>
                           Post an Opportunity to the Creatives!
                         </Button>
                       </Link>
                     </Grid.Column>
                     <Grid.Column width={16} verticalAlign='middle' style={{ padding: '2em 0em', fontSize: '16px' }}>
-                      <Link to='/signup' style={{ textDecoration: 'underline', color: '#2A2A2A' }}>
+                      <Link to='/signup' style={{ textDecoration: 'underline', color: '#2A2A2A', fontSize: '18px' }}>
                         Sign Up as a student
                       </Link>
                     </Grid.Column>
@@ -124,24 +131,23 @@ class Landing extends Component {
           </Container>
         </Segment>
 
-        <Segment style={{ paddingBottom: '8em', backgroundColor: '#FFF' }} vertical>
+        <Segment style={{
+          paddingBottom: '8em',
+          backgroundColor: '#FFF',
+          paddingTop: '8em',
+          borderTop: '1px solid rgba(34,36,38,.15)'
+        }} vertical>
           <Grid container stackable verticalAlign='middle'>
             <Grid.Row centered>
               <Grid.Column width={16} style={{ textAlign: 'left' }}>
                 <h1 style={{ fontSize: '50px' }}>Our Mission</h1>
                 <p style={{ fontSize: '25px' }}>
-                Co & Co students is a digital platform to connect students who ‘create’ within educational institutions & outwith industry. A service for students to discover projects, build networks and take part in events to enhance employability.
+                  Co & Co students is a digital platform to connect students who ‘create’ within educational institutions & outwith industry. A service for students to discover projects, build networks and take part in events to enhance employability.
                   <br/><br/>
                   <b>Watch this space.</b>
                 </p>
               </Grid.Column>
               <Grid.Column width={10} style={{ paddingTop: '4em' }}>
-                <object
-                  style={{ width: '100%', height: '28em' }}
-                  data="http://www.youtube.com/embed/ekJMFj0QIFE"
-                  width="560"
-                  height="315">
-                </object>
               </Grid.Column>
             </Grid.Row>
           </Grid>

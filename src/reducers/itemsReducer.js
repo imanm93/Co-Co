@@ -172,9 +172,9 @@ export default function (state = initialState, action) {
         }
       };
     case SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS:
-      let actionPeopleItemConnection = Object.assign({}, state.items[action.id]);
+      let actionPeopleItemConnection = Object.assign({}, state.items[action.userId]);
       actionPeopleItemConnection['connectionStatus'] = action.status;
-      const newActionPeopleItemConnection = Object.assign({}, { [action.id]: actionPeopleItemConnection })
+      const newActionPeopleItemConnection = Object.assign({}, { [action.userId]: actionPeopleItemConnection })
       return { ...state, ...{
           items: Object.assign({}, state.items, newActionPeopleItemConnection)
         }

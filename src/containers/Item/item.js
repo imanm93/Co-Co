@@ -66,10 +66,11 @@ class Item extends Component {
   }
 
   onRejectConnection(userId) {
-    this.props.postRejectConnection(this.props.token, userId);    
+    this.props.postRejectConnection(this.props.token, userId);
   }
 
   onRedirectToProfile() {
+    this.props.setDashFilter({ 'myConnections': false });
     this.props.setProfileViewId(this.props.token, this.props.item.user.id, this.props.history);
   }
 
@@ -92,7 +93,7 @@ class Item extends Component {
             <StatusItem item={this.props.item} />
         }
         { this.props.item.itemType === 'user' &&
-            <PeopleItem item={this.props.item} onConnect={this.onConnect.bind(this)} redirectToProfile={this.onRedirectToProfile.bind(this)} />
+            <PeopleItem item={this.props.item} onConnect={this.onConnect.bind(this)} redirectToProfile={this.onRedirectToProfile.bind(this)} isMyConnections={this.props.isMyConnections} />
         }
         { this.props.item.itemType !== 'user' &&
           <ItemControls

@@ -21,6 +21,8 @@ class NavBar extends Component {
     this.props.signOutUser(this.props.token, this.props.userId, this.props.history);
   }
 
+  // <NotificationsBar token={this.props.token} />
+
   render() {
     return(
       <Grid.Row style={{ backgroundColor: '#FFF', padding: 0 }}>
@@ -35,7 +37,6 @@ class NavBar extends Component {
         }} onClick={this.redirectToDashboard.bind(this)}>
         </Grid.Column>
         <Grid.Column width={10}>
-          <NotificationsBar token={this.props.token} />
         </Grid.Column>
         <Grid.Column width={1} textAlign='right'>
           <Dropdown

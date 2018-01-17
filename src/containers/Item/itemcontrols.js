@@ -45,14 +45,15 @@ class ItemControls extends Component {
           }
         </Grid.Column>
         <Grid.Column width={4} style={{ textAlign: 'right' }}>
-          { this.props.userId === this.props.itemUserId &&
-              <Button className='item-btn-control' onClick={() => this.props.onDelete()}>Delete</Button>
-          }
         </Grid.Column>
       </Grid.Row>
     )
   }
 
 }
+
+// { this.props.userId === this.props.itemUserId &&
+//     <Button className='item-btn-control' onClick={() => this.props.onDelete()}>Delete</Button>
+// }
 
 export default ItemControls;

@@ -164,24 +164,12 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log(this.props.connectionRequests);
     const skills = dictToArray(this.props.skills);
     const filterControls = this.getFilterControls(this.props.dash.tab);
-    let newItems = Object.assign({}, this.props.items.items);
-    this.props.connectionRequests.map(cr => {
-      if (newItems[cr.userId]) {
-        console.log(newItems[cr.userId]);
-        let newItemRequest = Object.assign({}, newItems[cr.userId]);
-        let newItemRequestUser = Object.assign({}, newItemRequest['user']);
-        newItemRequestUser['connectionStatus'] = 'invited';
-        newItemRequest = Object.assign({}, newItemRequest, newItemRequestUser);
-        newItems = Object.assign({}, newItems, newItemRequest);
-        console.log(newItems[cr.userId]);
-      }
-    });
+    const newItems = Object.assign({}, this.props.items.items);
     const items = [];
-    for (let key in newItems) {
-      let value = newItems[key];
+    for (let key in this.props.items.items) {
+      let value = this.props.items.items[key];
       value.id = key;
       items[items.length] = value;
     }
@@ -215,8 +203,8 @@ class Dashboard extends Component {
               currentTab={this.props.dash.tab}
               isLoading={this.props.isLoadingDashItems}
               profilePhotoUrl={this.props.profilePhotoUrl}
-              isMyConnections={this.props.isMyConnections}
               onLoadMoreItems={this.onLoadNextPage.bind(this)}
+              isMyConnections={this.props.isMyConnections}
               onMyConnections={this.onMyConnections.bind(this)}
               canLoadMoreItems={this.props.items.canLoadMoreItems}
               isLoadingMoreItems={this.props.isLoadingMoreDashItems}
@@ -290,6 +278,32 @@ class Dashboard extends Component {
 
 }
 
+// let newItemsRequested = {};
+// if (this.props.dash.tab === 'People') {
+//   this.props.connectionRequests.map(cr => {
+//     if (newItems[cr.userId]) {
+//       let newItemRequest = Object.assign({}, newItems[cr.userId]);
+//       let newItemRequestUser = Object.assign({}, newItemRequest['user']);
+//       newItemRequestUser['connectionStatus'] = 'invited';
+//       const newItemRequested = Object.assign({}, newItemRequest, { 'user': newItemRequestUser });
+//       newItemsRequested = Object.assign({}, newItems, { [cr.userId]: newItemRequested });
+//       console.log(newItemsRequested);
+//     }
+//     else
+//     {
+//       newItemsRequested = Object.assign({}, newItems);
+//     }
+//   });
+//   for (let key in newItemsRequested) {
+//     let value = newItemsRequested[key];
+//     value.id = key;
+//     items[items.length] = value;
+//   }
+// }
+// else
+// {
+// }
+
 function mapStateToProps(state) {
   return {
     lastActivityTimestamp: state.account.lastActivityTimestamp,
@@ -298,9 +312,9 @@ function mapStateToProps(state) {
     userSkills: state.profiles.profileEditData.skills,
     userTopics: state.profiles.profileEditData.topics,
     profileComplete: state.account.profileComplete,
+    isMyConnections: state.loaders.isMyConnections,
     connectionRequests: state.connections.requests,
     profilePhotoUrl: state.account.profilePhotoUrl,
-    isMyConnections: state.loaders.isMyConnections,
     isSavingSkills: state.loaders.isSavingSkills,
     isSavingTopics: state.loaders.isSavingTopics,
     streams: state.skills.streams,

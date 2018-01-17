@@ -39,7 +39,7 @@ export default function(state=initialState, action) {
     case SET_DASH_TAB:
       return { ...state, ...{
           tab: action.tab,
-          filters: {},
+          filters: Object.assign({}, { myConnections: false }),
           page: 1
         }
       };

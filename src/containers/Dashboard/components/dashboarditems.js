@@ -22,6 +22,7 @@ class DashboardItems extends Component {
               userId={this.props.userId}
               item={this.props.items[key]}
               history={this.props.history}
+              isMyConnections={this.props.isMyConnections}
               profilePhotoUrl={this.props.profilePhotoUrl}
             />
           })
