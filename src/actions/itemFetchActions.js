@@ -25,6 +25,7 @@ export const fetchViewSpecificItems = (token, itemIds) => {
   action['token'] = token;
   action['endpoint'] = GET_ITEMS_BY_IDS+"/"+itemIds.join();
   action['query'] = '';
+  console.log(`Action has been queued for token: ${token}, ids = ${itemIds.join()}`)
   return (action);
 }
 

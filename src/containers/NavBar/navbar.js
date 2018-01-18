@@ -21,10 +21,9 @@ class NavBar extends Component {
     this.props.signOutUser(this.props.token, this.props.userId, this.props.history);
   }
 
-  // <NotificationsBar token={this.props.token} />
 
   render() {
-    return(
+    return (
       <Grid.Row style={{ backgroundColor: '#FFF', padding: 0 }}>
         <Grid.Column width={2} style={{
           backgroundSize: 'contain',
@@ -37,6 +36,8 @@ class NavBar extends Component {
         }} onClick={this.redirectToDashboard.bind(this)}>
         </Grid.Column>
         <Grid.Column width={10}>
+          <NotificationsBar token={this.props.token} history={this.props.history} />
+
         </Grid.Column>
         <Grid.Column width={1} textAlign='right'>
           <Dropdown
@@ -55,8 +56,8 @@ class NavBar extends Component {
             pointing='top'
             icon={null}>
             <Dropdown.Menu>
-                <Dropdown.Item text='Profile' icon="user" onClick={this.redirectToProfile.bind(this)} />
-                <Dropdown.Item text='Sign Out' icon="sign out" onClick={this.signOut.bind(this)} />
+              <Dropdown.Item text='Profile' icon="user" onClick={this.redirectToProfile.bind(this)} />
+              <Dropdown.Item text='Sign Out' icon="sign out" onClick={this.signOut.bind(this)} />
             </Dropdown.Menu>
           </Dropdown>
         </Grid.Column>

@@ -9,8 +9,8 @@ import DashboardItemNotifications from './components/dashboarditemnotifications'
 class NotificationsBar extends Component {
 
   componentWillMount() {
-    // this.props.fetchConnectionRequests(this.props.token);
-    // this.props.fetchNotifications(this.props.token);
+    this.props.fetchConnectionRequests(this.props.token);
+    this.props.fetchNotifications(this.props.token);
   }
 
   onAcceptConnection(userId) {
@@ -23,6 +23,7 @@ class NotificationsBar extends Component {
 
   redirectToNotification(notifications) {
     const ids = notifications.map(n => n.itemId).join(',');
+    console.log(this.props);
     this.props.history.push('/view/items/' + ids);
   }
 

@@ -34,7 +34,7 @@ export const getConnections = (action$, store) =>
           .map(res => {
             let items = res.response;
             const newItems = Object.keys(items).map(item => {
-              return Object.assign({}, items[item], { connectionState: 'connected' });
+              return Object.assign({}, items[item], { connectionStatus: 'connected' });
             });
             return newItems;
           })
@@ -107,6 +107,7 @@ export const getFilteredItems = (action$, store) =>
             canLoadMoreItems: res.canLoadMoreItems
           }))
           .catch(err => {
+            console.log(err);
             return Rx.Observable.of({
               type: SET_API_ERROR,
               error: err
