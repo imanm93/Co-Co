@@ -32,7 +32,7 @@ class PeopleItem extends Component {
           }
         </Grid.Column>
         <Grid.Column width={3} style={{ padding: 0 }}>
-          { this.props.isMyConnections && this.props.item.connectionState && this.props.item.connectionState === 'connected' &&
+          { this.props.isMyConnections && this.props.item.connectionStatus && this.props.item.connectionStatus === 'connected' &&
             <Button circular secondary disabled style={{ backgroundColor: 'green' }}><i className='fa fa-link'></i></Button>
           }
           { !this.props.isMyConnections && !this.props.item.user.connectionStatus &&

@@ -34,7 +34,7 @@ export const getConnections = (action$, store) =>
           .map(res => {
             let items = res.response;
             const newItems = Object.keys(items).map(item => {
-              return Object.assign({}, items[item], { connectionState: 'connected' });
+              return Object.assign({}, items[item], { connectionStatus: 'connected' });
             });
             return newItems;
           })
