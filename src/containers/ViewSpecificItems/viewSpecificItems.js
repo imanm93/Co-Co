@@ -11,7 +11,8 @@ class ViewSpecificItems extends React.Component {
   componentWillMount() {
     const query = new URLSearchParams(this.props.location.search);
     let itemsIds = this.props.match.params.itemIds.split("&");
-    if (itemsIds) {
+    if (itemsIds) { 
+      console.log("I should be calling endpoint with ids : ",itemsIds);
       this.props.fetchViewSpecificItems(this.props.token, itemsIds);
     }
 

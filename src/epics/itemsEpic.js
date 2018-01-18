@@ -107,6 +107,7 @@ export const getFilteredItems = (action$, store) =>
             canLoadMoreItems: res.canLoadMoreItems
           }))
           .catch(err => {
+            console.log(err);
             return Rx.Observable.of({
               type: SET_API_ERROR,
               error: err
