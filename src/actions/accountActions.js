@@ -163,6 +163,10 @@ export function resendVerificationEmail(userId) {
   }
 }
 
+/**
+ * Setup user's account
+ * @param token, values, callback
+ */
 export function setupUser(token, values, callback) {
   return function (dispatch) {
     dispatch({
@@ -231,6 +235,10 @@ export function forgotPassword(email) {
   }
 }
 
+/**
+ * Update lastActivityTimestamp after modal closes
+ * @param lastActivityTimestamp
+ */
 export function setLastActivityTimestamp(lastActivityTimestamp) {
   return function (dispatch) {
     dispatch({
@@ -240,10 +248,12 @@ export function setLastActivityTimestamp(lastActivityTimestamp) {
   }
 }
 
-
+/**
+ * Reset user password
+ * @param code, userId, password, callback
+ */
 export function resetPassword(code, userId, password, callback) {
   return function (dispatch) {
-    console.log(code, userId, password);
     dispatch({
       type: IS_SENDING_RESET_PASSWORD,
       data: true
@@ -258,8 +268,6 @@ export function resetPassword(code, userId, password, callback) {
         });
         dispatch({ type: RESET_PASSWORD_SUCCESSFULL })
         callback(response);
-
-
       })
       .catch(err => {
         dispatch({
@@ -273,5 +281,4 @@ export function resetPassword(code, userId, password, callback) {
         });
       });
   }
-
 }

@@ -26,6 +26,8 @@ const FixedMenu = () => (
 //   width="560"
 //   height="315">
 // </object>
+// onBottomPassed={this.showFixedMenu}
+// onBottomVisible={this.hideFixedMenu}
 
 class Landing extends Component {
 
@@ -40,15 +42,13 @@ class Landing extends Component {
       <div>
         { visible ? <FixedMenu /> : null }
         <Visibility
-          onBottomPassed={this.showFixedMenu}
-          onBottomVisible={this.hideFixedMenu}
           once={false}
         >
           <Segment
             vertical
             inverted
             textAlign='center'
-            style={{ backgroundColor: '#FFF', height: '10vh' }}
+            style={{ backgroundColor: '#FFF', height: '10%' }}
           >
             <Container>
               <Menu inverted pointing secondary size='large' style={{ color: '#000' }}>
@@ -66,7 +66,7 @@ class Landing extends Component {
           </Segment>
         </Visibility>
 
-        <Segment style={{ backgroundColor: '#FFF', height: '90vh', margin: 0, border: 'none', boxShadow: 'none' }}>
+        <Segment style={{ backgroundColor: '#FFF', height: '90%', margin: 0, border: 'none', boxShadow: 'none', paddingBottom: '14%' }}>
           <Container>
             <Label as='a' color='blue' ribbon style={{ width: '102.5%', padding: '1em', borderRadius: 0 }}>
               <Grid>
@@ -84,7 +84,7 @@ class Landing extends Component {
             </Label>
             <Grid>
               <Grid.Row centered>
-                <Grid.Column width={8} verticalAlign='middle' textAlign='left'>
+                <Grid.Column mobile={16} computer={8} verticalAlign='middle' textAlign='left'>
                   <Grid.Row style={{ height: '10em' }}>
                   </Grid.Row>
                   <Grid.Row>
@@ -164,7 +164,7 @@ class Landing extends Component {
                 }}>
                   Features
                 </Grid.Column>
-                <Grid.Column width={8}>
+                <Grid.Column mobile={16} computer={8}>
                   <Grid.Row centered>
                     <Grid.Column width={10} style={{
                       width: '33.5em',
@@ -178,7 +178,7 @@ class Landing extends Component {
                     </Grid.Column>
                   </Grid.Row>
                 </Grid.Column>
-                <Grid.Column width={8}>
+                <Grid.Column mobile={16} computer={8}>
                   <Grid.Row>
                     <Grid style={{ margin: 0 }}>
                       <LandingFeature iconClass='fa fa-dot-circle-o' title='Targeted' text='Target students based on the skills and work that you need.' />
