@@ -155,7 +155,7 @@ export default function (state = initialState, action) {
       };
     case SET_REQUESTED_CONNECTION:
       let itemSetConnectionRequested = Object.assign({}, state.items[action.id]);
-      itemSetConnectionRequested['connectionStatus'] = 'requested';
+      itemSetConnectionRequested['user']['connectionStatus'] = 'requested';
       const newItemSetConnectionRequested = Object.assign({}, { [action.id]: itemSetConnectionRequested });
       return {
         ...state, ...{
@@ -164,7 +164,7 @@ export default function (state = initialState, action) {
       };
     case UNSET_REQUESTED_CONNECTION:
       let itemUnSetConnectionRequested = Object.assign({}, state.items[action.id]);
-      itemUnSetConnectionRequested['connectionStatus'] = 'initial';
+      itemUnSetConnectionRequested['user']['connectionStatus'] = 'initial';
       const newItemUnSetConnectionRequested = Object.assign({}, { [action.id]: itemUnSetConnectionRequested });
       return {
         ...state, ...{
@@ -173,7 +173,7 @@ export default function (state = initialState, action) {
       };
     case SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS:
       let actionPeopleItemConnection = Object.assign({}, state.items[action.userId]);
-      actionPeopleItemConnection['connectionStatus'] = action.status;
+      actionPeopleItemConnection['user']['connectionStatus'] = action.status;
       const newActionPeopleItemConnection = Object.assign({}, { [action.userId]: actionPeopleItemConnection })
       return { ...state, ...{
           items: Object.assign({}, state.items, newActionPeopleItemConnection)

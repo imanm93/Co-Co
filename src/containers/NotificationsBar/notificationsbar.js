@@ -23,7 +23,6 @@ class NotificationsBar extends Component {
 
   redirectToNotification(notifications) {
     const ids = notifications.map(n => n.itemId).join(',');
-    console.log(this.props);
     this.props.history.push('/view/items/' + ids);
   }
 
@@ -34,7 +33,7 @@ class NotificationsBar extends Component {
           <Grid.Column width={14}>
           </Grid.Column>
           <Grid.Column width={1}>
-            <Popup
+            {/*<Popup
               trigger={
                 <div>
                   <Icon style={{ fontSize: '22px' }} name='user plus' />
@@ -55,10 +54,10 @@ class NotificationsBar extends Component {
               hideOnScroll={true}
               on='click'
               position='bottom center'
-            />
+            />*/}
           </Grid.Column>
           <Grid.Column width={1}>
-            <Popup
+            {/*}<Popup
               trigger={
                 <div>
                   <Icon style={{ fontSize: '22px' }} name='bell' />
@@ -79,7 +78,7 @@ class NotificationsBar extends Component {
               hideOnScroll={true}
               on='click'
               position='bottom center'
-            />
+            />*/}
           </Grid.Column>
         </Grid>
       </Grid.Row>

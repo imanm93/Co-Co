@@ -7,3 +7,5 @@ export const FETCH_LIKES_FOR_ITEM = "Fetch_Likes_For_Item";
 export const FETCH_EXPANDED_ITEM = "Fetch_Expanded_Item";
 
 export const FETCH_ITEMS_BY_ID = "Fetch_Items_By_Id";
+
+export const FETCH_NOTIFICATION_DASH_ITEMS = "Fetch_Notification_Dash_Items";

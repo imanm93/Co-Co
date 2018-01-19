@@ -168,10 +168,39 @@ class Dashboard extends Component {
     const filterControls = this.getFilterControls(this.props.dash.tab);
     const newItems = Object.assign({}, this.props.items.items);
     const items = [];
-    for (let key in this.props.items.items) {
-      let value = this.props.items.items[key];
-      value.id = key;
-      items[items.length] = value;
+    let newItemsRequested = {};
+    if (this.props.dash.tab === 'People') {
+      if (this.props.connectionRequests.length > 0) {
+        this.props.connectionRequests.map(cr => {
+          if (newItems[cr.userId]) {
+            let newItemRequest = Object.assign({}, newItems[cr.userId]);
+            let newItemRequestUser = Object.assign({}, newItemRequest['user']);
+            newItemRequestUser['connectionStatus'] = 'invited';
+            const newItemRequested = Object.assign({}, newItemRequest, { 'user': newItemRequestUser });
+            newItemsRequested = Object.assign({}, newItems, { [cr.userId]: newItemRequested });
+          }
+          else
+          {
+            newItemsRequested = Object.assign({}, newItems);
+          }
+        });
+      }
+      else {
+        newItemsRequested = Object.assign({}, newItems);
+      }
+      for (let key in newItemsRequested) {
+        let value = newItemsRequested[key];
+        value.id = key;
+        items[items.length] = value;
+      }
+    }
+    else
+    {
+      for (let key in this.props.items.items) {
+        let value = this.props.items.items[key];
+        value.id = key;
+        items[items.length] = value;
+      }
     }
     items.sort((a, b) => {
       return b.timestamp - a.timestamp;
@@ -179,7 +208,10 @@ class Dashboard extends Component {
     return (
       <PageContainer>
         <Grid style={{ margin: 0 }}>
-          <NavBar history={this.props.history} profilePhotoUrl={this.props.profilePhotoUrl} />
+          <NavBar
+            history={this.props.history}
+            profilePhotoUrl={this.props.profilePhotoUrl}
+          />
           <DashboardSearchBar
             items={skills}
             onFollowTopic={this.onFollowTopic.bind(this)}
@@ -203,8 +235,8 @@ class Dashboard extends Component {
               currentTab={this.props.dash.tab}
               isLoading={this.props.isLoadingDashItems}
               profilePhotoUrl={this.props.profilePhotoUrl}
-              onLoadMoreItems={this.onLoadNextPage.bind(this)}
               isMyConnections={this.props.isMyConnections}
+              onLoadMoreItems={this.onLoadNextPage.bind(this)}
               onMyConnections={this.onMyConnections.bind(this)}
               canLoadMoreItems={this.props.items.canLoadMoreItems}
               isLoadingMoreItems={this.props.isLoadingMoreDashItems}
@@ -212,7 +244,7 @@ class Dashboard extends Component {
             />
           </Grid.Row>
           <Modal open={this.state.modalOpen}>
-            {this.state.modalStep == 0 &&
+            { this.state.modalStep == 0 &&
               <Grid style={{ margin: 0 }}>
                 <Grid.Row>
                   <Grid.Column width={16} style={{ padding: '2em 3em 0.5em', fontSize: '25px', fontWeight: 600 }}>
@@ -232,7 +264,7 @@ class Dashboard extends Component {
                 </Grid.Row>
               </Grid>
             }
-            {this.state.modalStep == 1 && this.props.userSkills && this.props.skills &&
+            { this.state.modalStep == 1 && this.props.userSkills && this.props.skills &&
               <div>
                 {this.props.isSavingSkills &&
                   <Dimmer active inverted>
@@ -277,32 +309,6 @@ class Dashboard extends Component {
   }
 
 }
-
-// let newItemsRequested = {};
-// if (this.props.dash.tab === 'People') {
-//   this.props.connectionRequests.map(cr => {
-//     if (newItems[cr.userId]) {
-//       let newItemRequest = Object.assign({}, newItems[cr.userId]);
-//       let newItemRequestUser = Object.assign({}, newItemRequest['user']);
-//       newItemRequestUser['connectionStatus'] = 'invited';
-//       const newItemRequested = Object.assign({}, newItemRequest, { 'user': newItemRequestUser });
-//       newItemsRequested = Object.assign({}, newItems, { [cr.userId]: newItemRequested });
-//       console.log(newItemsRequested);
-//     }
-//     else
-//     {
-//       newItemsRequested = Object.assign({}, newItems);
-//     }
-//   });
-//   for (let key in newItemsRequested) {
-//     let value = newItemsRequested[key];
-//     value.id = key;
-//     items[items.length] = value;
-//   }
-// }
-// else
-// {
-// }
 
 function mapStateToProps(state) {
   return {

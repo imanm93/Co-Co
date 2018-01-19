@@ -39,10 +39,10 @@ class PeopleItem extends Component {
             <Button circular secondary onClick={this.props.onConnect}><i className='fa fa-link'></i></Button>
           }
           { !this.props.isMyConnections && this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'invited' &&
-            <Button circular secondary onClick={this.props.onConnect} style={{ backgroundColor: 'red' }}><i className='fa fa-times'></i></Button>
+            <Button circular secondary onClick={this.props.onRejectConnection} style={{ backgroundColor: 'red' }}><i className='fa fa-times'></i></Button>
           }
           { !this.props.isMyConnections && this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'invited' &&
-            <Button circular secondary onClick={this.props.onConnect} style={{ backgroundColor: 'green' }}><i className='fa fa-check'></i></Button>
+            <Button circular secondary onClick={this.props.onAcceptConnection} style={{ backgroundColor: 'green' }}><i className='fa fa-check'></i></Button>
           }
           { !this.props.isMyConnections && this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'initial' &&
             <Button circular secondary onClick={this.props.onConnect}><i className='fa fa-link'></i></Button>

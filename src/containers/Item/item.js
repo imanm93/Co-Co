@@ -61,12 +61,14 @@ class Item extends Component {
     console.log("Report", itemId);
   }
 
-  onAcceptConnection(userId) {
-    this.props.postAcceptConnection(this.props.token, userId);
+  onAcceptConnection() {
+    console.log("clicked");
+    // this.props.postFromItemAcceptConnection(this.props.token, this.props.item.user.id);
   }
 
-  onRejectConnection(userId) {
-    this.props.postRejectConnection(this.props.token, userId);
+  onRejectConnection() {
+    console.log("clicked");
+    // this.props.postFromItemRejectConnection(this.props.token, this.props.item.user.id);
   }
 
   onRedirectToProfile() {
@@ -93,7 +95,14 @@ class Item extends Component {
             <StatusItem item={this.props.item} />
         }
         { this.props.item.itemType === 'user' &&
-            <PeopleItem item={this.props.item} onConnect={this.onConnect.bind(this)} redirectToProfile={this.onRedirectToProfile.bind(this)} isMyConnections={this.props.isMyConnections} />
+            <PeopleItem
+              item={this.props.item}
+              onConnect={this.onConnect.bind(this)}
+              isMyConnections={this.props.isMyConnections}
+              onAcceptConnection={this.onAcceptConnection.bind(this)}
+              onRejectConnection={this.onRejectConnection.bind(this)}
+              redirectToProfile={this.onRedirectToProfile.bind(this)}
+            />
         }
         { this.props.item.itemType !== 'user' &&
           <ItemControls

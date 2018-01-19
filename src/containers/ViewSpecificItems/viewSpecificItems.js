@@ -11,16 +11,13 @@ class ViewSpecificItems extends React.Component {
   componentWillMount() {
     const query = new URLSearchParams(this.props.location.search);
     let itemsIds = this.props.match.params.itemIds.split("&");
-    if (itemsIds) { 
-      console.log("I should be calling endpoint with ids : ",itemsIds);
+    if (itemsIds) {
       this.props.fetchViewSpecificItems(this.props.token, itemsIds);
     }
-
   };
 
   render() {
     return (
-
       <PageContainer>
         <Grid style={{ margin: 0 }}>
           <NavBar history={this.props.history} profilePhotoUrl={this.props.profilePhotoUrl} />
@@ -44,14 +41,14 @@ class ViewSpecificItems extends React.Component {
 
 function mapStateProps(state) {
   return {
-    userInfo: state.auth,
-    isLoadingDashItems: state.loaders.isLoadingDashItems,
+    dash: state.dash,
     items: state.items,
+    userInfo: state.auth,
+    name: state.account.name,
+    token: state.account.token,
     userId: state.account.userId,
     profilePhotoUrl: state.account.profilePhotoUrl,
-    token: state.account.token,
-    dash: state.dash,
-    name: state.account.name
+    isLoadingDashItems: state.loaders.isLoadingDashItems
   }
 }
 

@@ -6,6 +6,8 @@ import { IS_POSTING_ITEM } from '../constants/items/itemLoaderTypes';
 import { SET_NEW_COMMENT_ERROR } from '../constants/items/itemErrorTypes';
 import { SET_POST_ITEM_STATUS } from '../constants/postForm/postFormReducerTypes';
 import { GET_CONNECTION_REQUESTS_URL } from '../constants/connections/connectionEndpoints';
+import { SET_CONNECTION_REQUEST_STATUS } from '../constants/connections/connectionReducerTypes';
+import { SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS } from '../constants/items/peopleitems/peopleitemReducerTypes';
 import { SET_REQUESTED_CONNECTION, UNSET_REQUESTED_CONNECTION } from '../constants/connections/connectionReducerTypes';
 import { INCREMENT_LIKES, DECREMENT_LIKES, INCREMENT_INTERESTED, DECREMENT_INTERESTED, SET_NEW_COMMENT, SET_SHRINK_ITEM } from '../constants/items/itemReducerTypes';
 import { GET_ITEM_LIKES_URL, GET_ITEM_INTERESTED_URL, GET_ITEM_NOT_INTERESTED_URL, GET_ITEM_COMMENT_URL,
@@ -342,5 +344,99 @@ export function postComment(token, userId, name, profilePhotoUrl, itemId, commen
 export function postDelete(token, type, itemId) {
   return function (dispatch) {
     console.log(type, itemId);
+  }
+}
+
+export function postFromItemAcceptConnection(token, userId) {
+  return function(dispatch) {
+    dispatch({
+      type: SET_CONNECTION_REQUEST_STATUS,
+      userId: userId,
+      status: 'accepted',
+      error: ''
+    });
+    dispatch({
+      type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
+      userId: userId,
+      status: 'accepted',
+      error: ''
+    });
+    axios({
+      method: 'PUT',
+      url: GET_CONNECTION_REQUESTS_URL + '/' + userId + '/accept',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }
+    })
+    .then(res => {
+      console.log(res.response);
+      /* Do Nothing */
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_CONNECTION_REQUEST_STATUS,
+        userId: userId,
+        status: 'default',
+        error: ''
+      });
+      dispatch({
+        type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
+        userId: userId,
+        status: 'initial',
+        error: 'There was a network issue, please try again!'
+      });
+      dispatch({
+        type: SET_API_ERROR,
+        error: err
+      });
+    })
+  }
+}
+
+export function postFromItemRejectConnection(token, userId) {
+  return function(dispatch) {
+    dispatch({
+      type: SET_CONNECTION_REQUEST_STATUS,
+      userId: userId,
+      status: 'rejected',
+      error: ''
+    });
+    dispatch({
+      type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
+      userId: userId,
+      status: 'rejected',
+      error: ''
+    });
+    axios({
+      method: 'PUT',
+      url: GET_CONNECTION_REQUESTS_URL + '/' + userId + '/decline',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }
+    })
+    .then(res => {
+      console.log(res.response);
+      /* Do nothing */
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_CONNECTION_REQUEST_STATUS,
+        userId: userId,
+        status: 'default',
+        error: ''
+      });
+      dispatch({
+        type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
+        userId: userId,
+        status: 'initial',
+        error: 'There was a network issue, please try again!'
+      });
+      dispatch({
+        type: SET_API_ERROR,
+        error: err
+      });
+    })
   }
 }

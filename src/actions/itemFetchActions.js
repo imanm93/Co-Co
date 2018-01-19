@@ -7,7 +7,7 @@ import * as ItemTypes from '../constants/items/itemTypes';
 import { RESET_COMMENTS } from '../constants/items/itemReducerTypes';
 import * as DashboardTabs from '../constants/dashboard/dashboardTypes';
 import { FETCH_CONNECTIONS } from '../constants/connections/connectionFetchTypes';
-import { FETCH_FILTERED_ITEMS, FETCH_EXPANDED_ITEM, FETCH_COMMENTS_FOR_ITEM } from '../constants/items/itemFetchTypes';
+import { FETCH_FILTERED_ITEMS, FETCH_EXPANDED_ITEM, FETCH_COMMENTS_FOR_ITEM, FETCH_NOTIFICATION_DASH_ITEMS } from '../constants/items/itemFetchTypes';
 import {
   GET_FILTERED_ITEMS_URL, GET_FILTERED_EVENT_ITEMS_URL, GET_FILTERED_OPP_ITEMS_URL, GET_FILTERED_STATUS_ITEMS_URL, GET_EXPANDED_OPP_ITEM_URL,
   GET_EXPANDED_EVENT_ITEM_URL, GET_FILTERED_PEOPLE_ITEMS_URL, GET_ITEMS_BY_IDS
@@ -23,9 +23,10 @@ export const fetchViewSpecificItems = (token, itemIds) => {
   let action = {};
   action['type'] = FETCH_FILTERED_ITEMS;
   action['token'] = token;
-  action['endpoint'] = GET_ITEMS_BY_IDS+"/"+itemIds.join();
+  action['endpoint'] = GET_ITEMS_BY_IDS + "/" + itemIds.join();
+  action['loader'] = IS_LOADING_DASH_ITEMS;
+  action['page'] = 1;
   action['query'] = '';
-  console.log(`Action has been queued for token: ${token}, ids = ${itemIds.join()}`)
   return (action);
 }
 

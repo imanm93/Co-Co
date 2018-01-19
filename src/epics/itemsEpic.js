@@ -2,14 +2,14 @@ import Rx from 'rxjs';
 import Utils from '../utils';
 
 import { push } from 'react-router-redux';
-import { GET_ITEM_COMMENT_URL, GET_ITEMS_BY_IDS } from '../constants/items/itemEndpoints';
 import { SET_API_ERROR, CLEAR_API_ERROR } from '../constants/api/apiErrorTypes';
-import { IS_LOADING_DASH_ITEMS, IS_LOADING_VIEW_SPECIFIC_ITEMS, IS_MY_CONNECTIONS } from '../constants/dashboard/dashboardLoaderTypes';
-import { FETCH_FILTERED_ITEMS, FETCH_EXPANDED_ITEM, FETCH_COMMENTS_FOR_ITEM, FETCH_ITEMS_BY_ID } from '../constants/items/itemFetchTypes';
-import { SET_FILTERED_ITEMS, SET_EXPANDED_ITEM, SET_LOADING_COMMENTS, SET_COMMENTS, SET_EXPANDING_ITEM } from '../constants/items/itemReducerTypes';
 import { FETCH_CONNECTIONS } from '../constants/connections/connectionFetchTypes';
 import { SET_CONNECTIONS } from '../constants/connections/connectionReducerTypes';
 import { GET_CONNECTIONS_URL } from '../constants/connections/connectionEndpoints';
+import { GET_ITEM_COMMENT_URL, GET_ITEMS_BY_IDS } from '../constants/items/itemEndpoints';
+import { IS_LOADING_DASH_ITEMS, IS_LOADING_VIEW_SPECIFIC_ITEMS, IS_MY_CONNECTIONS } from '../constants/dashboard/dashboardLoaderTypes';
+import { SET_FILTERED_ITEMS, SET_EXPANDED_ITEM, SET_LOADING_COMMENTS, SET_COMMENTS, SET_EXPANDING_ITEM } from '../constants/items/itemReducerTypes';
+import { FETCH_FILTERED_ITEMS, FETCH_EXPANDED_ITEM, FETCH_COMMENTS_FOR_ITEM, FETCH_ITEMS_BY_ID, FETCH_NOTIFICATION_DASH_ITEMS } from '../constants/items/itemFetchTypes';
 
 export const getConnections = (action$, store) =>
   action$.ofType(FETCH_CONNECTIONS)
@@ -31,28 +31,86 @@ export const getConnections = (action$, store) =>
             'Authorization': 'Bearer ' + action.token
           }
         })
-          .map(res => {
-            let items = res.response;
-            const newItems = Object.keys(items).map(item => {
-              return Object.assign({}, items[item], { connectionStatus: 'connected' });
-            });
-            return newItems;
+        .map(res => {
+          let newItems = res.response;
+          // const newItems = Object.keys(items).map(item => {
+          //   return Object.assign({}, items[item], { connectionStatus: 'connected' });
+          // });
+          return newItems;
+        })
+        .map(connections => ({
+          type: SET_FILTERED_ITEMS,
+          items: connections,
+          page: 1
+        }))
+        .catch(err => {
+          if (err && err.status === 401) return Rx.Observable.of(push('/signin'));
+          if (err && err.status === 403) return Rx.Observable.of(push('/signin'));
+          return ({
+            type: SET_API_ERROR,
+            error: err
           })
-          .map(connections => ({
-            type: SET_FILTERED_ITEMS,
-            items: connections,
-            page: 1
-          }))
-          .catch(err => {
-            if (err && err.status === 401) return Rx.Observable.of(push('/signin'));
-            if (err && err.status === 403) return Rx.Observable.of(push('/signin'));
-            return ({
-              type: SET_API_ERROR,
-              error: err
-            })
-          }),
+          Rx.Observable.of({
+            type: IS_LOADING_DASH_ITEMS,
+            data: false
+          })
+        }),
         Rx.Observable.of({
           type: IS_LOADING_DASH_ITEMS,
+          data: false
+        })
+      )
+    )
+
+export const getFilteredNotificationDashboardItems = (action$, store) =>
+  action$.ofType(FETCH_NOTIFICATION_DASH_ITEMS)
+    .switchMap(action =>
+      Rx.Observable.concat(
+        Rx.Observable.of({
+          type: CLEAR_API_ERROR
+        }),
+        Rx.Observable.of({
+          type: IS_MY_CONNECTIONS,
+          data: false
+        }),
+        Rx.Observable.of({
+          type: action.loader,
+          data: true
+        }),
+        Rx.Observable.ajax({
+          method: 'GET',
+          url: action.endpoint,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + action.token
+          }
+        })
+        .map(payload => {
+          return {
+            items: Object.assign({}, payload.response.dictionaryResults),
+            page: 1
+          };
+        })
+        .map(res => {
+          return {
+            items: res.items,
+            page: 1
+          };
+        })
+        .map(res => ({
+          type: SET_FILTERED_ITEMS,
+          items: res.items,
+          page: res.page,
+          canLoadMoreItems: false
+        }))
+        .catch(err => {
+          return Rx.Observable.of({
+            type: SET_API_ERROR,
+            error: err
+          })
+        }),
+        Rx.Observable.of({
+          type: action.loader,
           data: false
         })
       )
@@ -87,11 +145,6 @@ export const getFilteredItems = (action$, store) =>
             };
           })
           .map(res => {
-            // let sortedItems = {};
-            // const sortedKeys = Utils.sortDateTimeV2(res.items, 'timestamp');
-            // sortedKeys.map(key => {
-            //   return sortedItems[key] = Object.assign(res.items[key], { expanded: false, isExpanding: false, showComments: false, isLoadingComments: false });
-            // });
             let canLoadMoreItems = false
             if (res.items) canLoadMoreItems = Object.keys(res.items).length > 0;
             return {
@@ -107,7 +160,6 @@ export const getFilteredItems = (action$, store) =>
             canLoadMoreItems: res.canLoadMoreItems
           }))
           .catch(err => {
-            console.log(err);
             return Rx.Observable.of({
               type: SET_API_ERROR,
               error: err
