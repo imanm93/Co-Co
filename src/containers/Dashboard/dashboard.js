@@ -175,13 +175,12 @@ class Dashboard extends Component {
           if (newItems[cr.userId]) {
             let newItemRequest = Object.assign({}, newItems[cr.userId]);
             let newItemRequestUser = Object.assign({}, newItemRequest['user']);
-            newItemRequestUser['connectionStatus'] = 'invited';
             const newItemRequested = Object.assign({}, newItemRequest, { 'user': newItemRequestUser });
             newItemsRequested = Object.assign({}, newItems, { [cr.userId]: newItemRequested });
           }
           else
           {
-            newItemsRequested = Object.assign({}, newItems);
+            newItemsRequested = Object.assign({}, newItems); 
           }
         });
       }
