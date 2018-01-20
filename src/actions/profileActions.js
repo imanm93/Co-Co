@@ -172,7 +172,7 @@ export function postConnectFromProfile(token, userId) {
     });
     dispatch({
       type: SET_CONNECTIONS_STATUS_PRFOFILE,
-      data: 'requested'
+      data: 'requestedTo'
     });
     axios({
       method: 'POST',
@@ -192,7 +192,7 @@ export function postConnectFromProfile(token, userId) {
       });
       dispatch({
         type: UNSET_CONNECTIONS_STATUS_PRFOFILE,
-        data: 'requested'
+        data: 'requestedTo'
       });
       dispatch({
         type: SET_API_ERROR,

@@ -155,7 +155,7 @@ export default function (state = initialState, action) {
       };
     case SET_REQUESTED_CONNECTION:
       let itemSetConnectionRequested = Object.assign({}, state.items[action.id]);
-      itemSetConnectionRequested['user']['connectionStatus'] = 'requested';
+      itemSetConnectionRequested['user']['connectionStatus'] = 'requestedTo';
       const newItemSetConnectionRequested = Object.assign({}, { [action.id]: itemSetConnectionRequested });
       return {
         ...state, ...{
