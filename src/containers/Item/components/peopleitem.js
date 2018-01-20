@@ -6,6 +6,7 @@ class PeopleItem extends Component {
 
   render() {
     console.log(this.props.item.user.connectionStatus);
+    let connectionStatus = this.props.item.user.connectionStatus
     return (
       <Grid.Row style={{ backgroundColor: '#FFF', padding: '1.5em 0em', borderBottom: '0.5px solid #DEDEDE' }}>
         <Grid.Column textAlign='center' width={2}>
@@ -33,25 +34,25 @@ class PeopleItem extends Component {
           }
         </Grid.Column>
         <Grid.Column width={3} style={{ padding: 0 }}>
-          {this.props.isMyConnections && this.props.item.connectionStatus && this.props.item.connectionStatus === 'connected' &&
+          {this.props.isMyConnections && connectionStatus && connectionStatus === 'connected' &&
             <Button circular secondary disabled style={{ backgroundColor: 'green' }}><i className='fa fa-link'></i></Button>
           }
-          {!this.props.isMyConnections && !this.props.item.user.connectionStatus &&
+          {!this.props.isMyConnections && !connectionStatus &&
             <Button circular secondary onClick={this.props.onConnect}><i className='fa fa-link'></i></Button>
           }
-          {!this.props.isMyConnections && this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'requestedFrom' &&
+          {!this.props.isMyConnections && connectionStatus && connectionStatus === 'requestedFrom' &&
             <Button circular secondary onClick={this.props.onRejectConnection} style={{ backgroundColor: 'red' }}><i className='fa fa-times'></i></Button>
           }
-          {!this.props.isMyConnections && this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'requestedFrom' &&
+          {!this.props.isMyConnections && connectionStatus && connectionStatus === 'requestedFrom' &&
             <Button circular secondary onClick={this.props.onAcceptConnection} style={{ backgroundColor: 'green' }}><i className='fa fa-check'></i></Button>
           }
-          {!this.props.isMyConnections && this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'initial' &&
+          {!this.props.isMyConnections && connectionStatus && connectionStatus === 'initial' &&
             <Button circular secondary onClick={this.props.onConnect}><i className='fa fa-link'></i></Button>
           }
-          {!this.props.isMyConnections && this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'requestedTo' &&
+          {!this.props.isMyConnections && connectionStatus && connectionStatus === 'requestedTo' &&
             <Button circular secondary disabled><i className='fa fa-link'></i></Button>
           }
-          {!this.props.isMyConnections && this.props.item.user.connectionStatus && this.props.item.user.connectionStatus === 'connected' &&
+          {!this.props.isMyConnections && connectionStatus && connectionStatus === 'connected' &&
             <Button circular secondary disabled style={{ backgroundColor: 'green' }}><i className='fa fa-link'></i></Button>
           }
           <Button circular secondary style={{ backgroundColor: '#FFF', border: '1px solid #2A2A2A' }}>

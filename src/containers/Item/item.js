@@ -62,13 +62,11 @@ class Item extends Component {
   }
 
   onAcceptConnection() {
-    console.log("clicked");
-    // this.props.postFromItemAcceptConnection(this.props.token, this.props.item.user.id);
+    this.props.postFromItemAcceptConnection(this.props.token, this.props.item.user.id);
   }
 
   onRejectConnection() {
-    console.log("clicked");
-    // this.props.postFromItemRejectConnection(this.props.token, this.props.item.user.id);
+    this.props.postFromItemRejectConnection(this.props.token, this.props.item.user.id);
   }
 
   onRedirectToProfile() {

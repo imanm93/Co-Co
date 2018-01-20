@@ -352,13 +352,13 @@ export function postFromItemAcceptConnection(token, userId) {
     dispatch({
       type: SET_CONNECTION_REQUEST_STATUS,
       userId: userId,
-      status: 'accepted',
+      status: 'connected',
       error: ''
     });
     dispatch({
       type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
       userId: userId,
-      status: 'accepted',
+      status: 'connected',
       error: ''
     });
     axios({
@@ -399,13 +399,13 @@ export function postFromItemRejectConnection(token, userId) {
     dispatch({
       type: SET_CONNECTION_REQUEST_STATUS,
       userId: userId,
-      status: 'rejected',
+      status: 'initial',
       error: ''
     });
     dispatch({
       type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
       userId: userId,
-      status: 'rejected',
+      status: 'initial',
       error: ''
     });
     axios({
