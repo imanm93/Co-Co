@@ -31,7 +31,7 @@ class OppItemForm extends Component {
 
     if (values.reward) newValues['reward'] = values.reward;
     if (values.skills) newValues['skillIds'] = Object.keys(values.skills).map(key => values.skills[key].id);
-    if (values.topics) newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
+    if (this.state.topic) newValues['topicIds'] = this.state.topic;
     if (values.attachments) newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
 
     newValues['serviceNeeded'] = this.state.serviceNeeded;
@@ -63,6 +63,20 @@ class OppItemForm extends Component {
     }
   }
 
+  onSelectedTopic(value) { 
+    if (value) {
+      this.setState({
+        topic: value.id,
+        topicError: ''
+      });
+    }
+    else {
+      this.setState({
+        topicError: '*Please select an option from the dropdown'
+      });
+    }
+  }
+
   render() {
     const { handleSubmit } = this.props;
     const skillItems = dictToArray(this.props.skills);
@@ -70,7 +84,7 @@ class OppItemForm extends Component {
     const skillOptions = dictToOptionsForSelect(this.props.skills);
     const selectOptions = dictToOptionsForSelect(this.props.oppTypes);
     const radioOptions = [{ text: "Unpaid", value: "false" }, { text: "Paid", value: "true" }];
-    return(
+    return (
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
         <Grid>
           <Grid.Column width={16} style={{ padding: 0, backgroundColor: '#DEDEDE' }}>
@@ -78,9 +92,9 @@ class OppItemForm extends Component {
           </Grid.Column>
         </Grid>
         <Grid className='coandco-post-form-container'>
-          { this.props.isPostingItem &&
+          {this.props.isPostingItem &&
             <Dimmer active inverted>
-              <Loader/>
+              <Loader />
             </Dimmer>
           }
           <Grid.Column width={9}>
@@ -93,6 +107,7 @@ class OppItemForm extends Component {
                 single={true}
                 onSelectedItem={this.onSelectedServiceNeeded.bind(this)}
                 placeholder='e.g. Poster Design'
+                onNoMatchFound={this.onSelectedServiceNeeded.bind(this)}
               />
               <span style={{ color: '#E74C3C' }}>{this.state.serviceNeededError}</span>
             </div>
@@ -125,7 +140,7 @@ class OppItemForm extends Component {
               validate={required}
               options={selectOptions}
             />
-            { !this.props.externalEmail &&
+            {!this.props.externalEmail &&
               <Field
                 name='isPaid'
                 label='Is it paid?'
@@ -135,7 +150,7 @@ class OppItemForm extends Component {
                 options={radioOptions}
               />
             }
-            { this.props.externalEmail &&
+            {this.props.externalEmail &&
               <Field
                 name='reward'
                 label='Incentivise'
@@ -144,7 +159,7 @@ class OppItemForm extends Component {
                 validate={required}
               />
             }
-            { !this.props.externalEmail && this.props.isPaid && this.props.isPaid === "true" &&
+            {!this.props.externalEmail && this.props.isPaid && this.props.isPaid === "true" &&
               <Field
                 name='reward'
                 label=''
@@ -166,13 +181,18 @@ class OppItemForm extends Component {
           <Divider style={{ width: '100%', margin: 0 }} />
           <Grid.Column width={9}>
             <div className='form-section-title'>3. Add Topics</div>
-            <FieldArray
-              name='topics'
-              label='Target people with the following interests'
-              placholder='e.g. Health & Wellbeing'
-              component={searchFormField}
-              items={topicItems}
-            />
+            <div className='coandco-input-field'>
+              <div className='coandco-input-label'>Target people with the following interests</div>
+              <FilterBox
+                items={topicItems}
+                className='form-search'
+                single={true}
+                onSelectedItem={this.onSelectedTopic.bind(this)}
+                placeholder='e.g. Health & Wellbeing'
+                onNoMatchFound={this.onSelectedTopic.bind(this)}
+              />
+              <span style={{ color: '#E74C3C' }}>{this.state.topicError}</span>
+            </div>
           </Grid.Column>
           <Grid.Column width={7}>
           </Grid.Column>

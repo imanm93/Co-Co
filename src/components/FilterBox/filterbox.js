@@ -22,23 +22,24 @@ class FilterBox extends Component {
     }
   };
 
-  onChange = (event, { newValue }) => {
+  onChange = (event, { newValue }) => { 
     this.setState({
       value: newValue
     });
   };
 
-  onSuggestionsFetchRequested = ({ value }) => {
+  onSuggestionsFetchRequested = ({ value }) => { 
     this.setState({
       suggestions: this.getSuggestions(value)
     });
   };
 
   onSuggestionsClearRequested = () => {
-    if (this.state.suggestions.length > 0) {
+    let suggestions = this.getSuggestions(this.state.value);
+    if (suggestions.length > 0) {
       this.setState({
         suggestions: []
-      }, function() {
+      }, function() {  
         if (this.props.setSearchQuery && this.state.value.length > 0) this.props.setSearchQuery(this.state.value);
         if (this.props.onSelectedItem && this.state.value.length > 0) {
           this.props.onSelectedItem(this.getSelectedObject(this.state.value));
@@ -48,14 +49,17 @@ class FilterBox extends Component {
         });
       });
     }
+    else if(this.state.value && this.state.value.length > 0){
+      if(this.props.onNoMatchFound) this.props.onNoMatchFound();
+    }
   };
 
-  getSelectedObject = value => {
+  getSelectedObject = value => { 
     const selectedValue = value.trim().toLowerCase();
     return this.props.items.filter(item => item.name.toLowerCase() === selectedValue)[0];
   }
 
-  getSuggestions = value => {
+  getSuggestions = value => { 
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
     return inputLength === 0 ? this.props.items : this.props.items.filter(item =>
