@@ -16,17 +16,14 @@ class NotificationConnectionRequests extends Component {
   }
 
   onAcceptConnection(requestId) {
-    console.log("accepted");
     this.props.postFromNotifcationsAcceptConnection(this.props.token, this.props.userId, requestId);
   }
 
   onRejectConnection(requestId) {
-    console.log("rejected");
     this.props.postFromNotifcationsRejectConnection(this.props.token, this.props.userId, requestId);
   }
 
   render() {
-    console.log(this.props.connectionRequests);
     return (
       <PageContainer>
         <Grid style={{ margin: 0 }}>

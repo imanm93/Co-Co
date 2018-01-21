@@ -191,7 +191,6 @@ class ViewProfile extends Component {
 
   render() {
     const isOwner = this.props.userId === this.props.profileViewData.userId;
-    console.log(this.props.profileViewData);
     return (
         <Grid.Row>
             <Grid>
