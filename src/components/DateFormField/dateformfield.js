@@ -25,10 +25,10 @@ export default function dateFormField({
       <div className='coandco-input-label'>{label}</div>
       <div className={datePickerClass}>
         {showTimeSelect &&
-          <DatePicker {...input} dateForm={dateFormat} selected={input.value ? moment(input.value, dateFormat) : null} showTimeSelect />
+          <DatePicker {...input} dateFormat={dateFormat} selected={input.value ? moment(input.value, dateFormat) : null} showTimeSelect />
         }
         {!showTimeSelect &&
-          <DatePicker {...input} dateForm={dateFormat} selected={input.value ? moment(input.value, dateFormat) : null} />
+          <DatePicker {...input} dateFormat={dateFormat} selected={input.value ? moment(input.value, dateFormat) : null} />
         }
         {hasError && <span style={{ color: '#E74C3C' }}><i>{error}</i></span>}
       </div>

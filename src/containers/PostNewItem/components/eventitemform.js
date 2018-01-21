@@ -22,8 +22,10 @@ class EventItemForm extends Component {
     newValues['location'] = values.location;
     newValues['description'] = values.description;
     newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
-    newValues['endDateTime'] = moment(values.endTime).tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
-    newValues['startDateTime'] = moment(values.startTime).tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
+    let momentStartTime = moment(values.startTime, 'DD/MM/YYYY HH:mm:ss');
+    let momentEndTime = moment(values.endTime, 'DD/MM/YYYY HH:mm:ss');
+    newValues['endDateTime'] = moment(momentEndTime).tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
+    newValues['startDateTime'] = moment(momentStartTime).tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
     newValues['eventTypeId'] = Object.keys(this.props.eventTypes).filter(key => this.props.eventTypes[key] === values.eventTypeId)[0];
 
     if (values.cost) newValues['cost'] = values.cost;
@@ -129,7 +131,7 @@ class EventItemForm extends Component {
                     name='endTime'
                     showTimeSelect
                     datePickerClass='event'
-                    dateFormat="DD/MM/YYYY"
+                    dateFormat="DD/MM/YYYY HH:mm:ss"
                     startDateTime={this.props.startDateTime}
                     component={dateFormField}
                     validate={[required, timeBeforePresent, timeBeforeStart]}

@@ -2,7 +2,7 @@ import axios from '../utils/axios';
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { FETCH_CONNETION_REQUESTS } from '../constants/connections/connectionFetchTypes';
 import { GET_CONNECTION_REQUESTS_URL } from '../constants/connections/connectionEndpoints';
-import { SET_CONNECTION_REQUEST_STATUS } from '../constants/connections/connectionReducerTypes';
+import { SET_CONNECTION_REQUEST_STATUS, SET_CONNECTION_NOTIFICATION } from '../constants/connections/connectionReducerTypes';
 import { SET_NOTIFICATIONS_ERROR } from '../constants/connections/connectionErrorTypes';
 import { FETCH_NOTIFICATIONS, FETCH_NOTIFICATION_ITEMS } from '../constants/notifications/notificationFetchTypes';
 import { PUT_DASHBOARD_ITEMS_SEEN } from '../constants/items/itemEndpoints';
@@ -115,6 +115,74 @@ export function postRejectConnection(token, userId) {
         userId: userId,
         status: 'default',
         error: 'There was an error, please try again!'
+      });
+      dispatch({
+        type: SET_API_ERROR,
+        error: err
+      });
+    })
+  }
+}
+
+export function postFromNotifcationsAcceptConnection(token, userId, requestUserId) {
+  return function (dispatch) {
+    dispatch({
+      type: SET_CONNECTION_REQUEST_STATUS,
+      userId: requestUserId,
+      status: 'accepted',
+      error: ''
+    });
+    axios({
+      method: 'PUT',
+      url: GET_CONNECTION_REQUESTS_URL + '/' + userId + '/accept',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }
+    })
+    .then(res => {
+      console.log(res.response);
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_CONNECTION_REQUEST_STATUS,
+        userId: requestUserId,
+        status: 'default',
+        error: 'There was a network issue, please try again!'
+      });
+      dispatch({
+        type: SET_API_ERROR,
+        error: err
+      });
+    })
+  }
+}
+
+export function postFromNotifcationsRejectConnection(token, userId, requestUserId) {
+  return function (dispatch) {
+    dispatch({
+      type: SET_CONNECTION_REQUEST_STATUS,
+      userId: requestUserId,
+      status: 'rejected',
+      error: ''
+    });
+    axios({
+      method: 'PUT',
+      url: GET_CONNECTION_REQUESTS_URL + '/' + userId + '/decline',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }
+    })
+    .then(res => {
+      console.log(res.response);
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_CONNECTION_REQUEST_STATUS,
+        userId: requestUserId,
+        status: 'default',
+        error: 'There was a network issue, please try again!'
       });
       dispatch({
         type: SET_API_ERROR,

@@ -43,7 +43,7 @@ class SignInForm extends Component {
                         name='email'
                         type='text'
                         label='Email (@ed.ac.uk)'
-                        placholder='Email'
+                        placeholder='sXXXXXXX@ed.ac.uk'
                         validate={required}
                         component={inputFormField}
                       />

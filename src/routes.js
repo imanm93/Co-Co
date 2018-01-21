@@ -22,6 +22,7 @@ import ForgotPassword from './containers/ForgotPassword';
 import VerifiedCompany from './containers/VerifiedCompany';
 import ViewSpecificItems from './containers/ViewSpecificItems';
 import PostNewItemContainer from './containers/PostNewItemContainer';
+import NotificationsConnectionRequests from './containers/NotificationsConnectionRequests';
 
 /**
  * Components
@@ -44,6 +45,7 @@ const Routes = () => (
       <Route path="/forgotpassword" component ={withGATracker(ForgotPassword)} />
       <Route path="/verifiedcompany" component={withGATracker(VerifiedCompany)} />
       <Route path="/view/items/:itemIds" component={withGATracker(ViewSpecificItems)} />
+      <Route path="/notifications/connections" component={withGATracker(NotificationsConnectionRequests)} />
       <Route component={NotFoundPage} />
   </Switch>
 )

@@ -26,27 +26,30 @@ class OppItemForm extends Component {
     newValues['categoryId'] = 0;
     newValues['title'] = values.title;
     newValues['description'] = values.description;
-    newValues['endDateTime'] = moment(values.endDate).tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
+    let momentEndDate = moment(values.endDate, "DD/MM/YYYY");
+    newValues['endDateTime'] = moment(momentEndDate).tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
     newValues['opportunityTypeId'] = Object.keys(this.props.oppTypes).filter(key => this.props.oppTypes[key] === values.opportunityTypeId)[0];
 
     if (values.reward) newValues['reward'] = values.reward;
     if (values.skills) newValues['skillIds'] = Object.keys(values.skills).map(key => values.skills[key].id);
-    if (this.state.topic) newValues['topicIds'] = values.topics.map(topic => topic.id);
+    if (values.topics) newValues['topicIds'] = values.topics.map(topic => topic.id);
     if (values.attachments) newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
 
     newValues['serviceNeeded'] = this.state.serviceNeeded;
     if (newValues['skillIds'] && newValues['skillIds'].length > 0) { newValues['skillIds'] = newValues['skillIds'].concat(this.state.serviceNeeded) }
     else { newValues['skillIds'] = [].concat(this.state.serviceNeeded) }
 
-    if (this.props.externalEmail) {
+    if (this.props.externalEmail)
+    {
       newValues['companyEmail'] = this.props.externalEmail;
       this.props.post(this.props.type, newValues);
     }
-    else if (!this.props.externalEmail) {
-      newValues['startDateTime'] = moment("01/01/1990").tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
+    else if (!this.props.externalEmail)
+    {
       newValues['isPaid'] = values.isPaid;
       this.props.post(this.props.type, newValues);
     }
+    // newValues['startDateTime'] = moment("01/01/1990").tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
   }
 
   onSelectedServiceNeeded(value) {

@@ -94,11 +94,11 @@ class OppItem extends Component {
                 <Grid.Row>
                   {this.props.item.description}
                 </Grid.Row>
-                { this.props.item.reward || this.props.item.endDateTime &&
+                { (this.props.item.reward || this.props.item.endDateTime) &&
                   <div className='event-attributes' style={{ paddingBottom: '2em' }}>
                     { this.props.item.reward &&
-                      <div className='event-attribute'><i className="fa fa-hashtag" aria-hidden="true"></i> {this.props.item.type}</div> }
-                    <div className='event-attribute'><i className='fa fa-clock-o'></i> {moment(this.props.item.endDateTime).format("LLL")}</div>
+                      <div className='event-attribute'><i className="fa fa-gift" aria-hidden="true"></i> {this.props.item.reward}</div> }
+                    { <div className='event-attribute'><i className='fa fa-clock-o'></i> {moment(this.props.item.endDateTime).format("LL")}</div> }
                   </div>
                 }
                 { this.props.item.attachments &&
