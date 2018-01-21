@@ -19,18 +19,19 @@ export default function dateFormField({
   ...custom
 }) {
   const hasError = touched && error !== undefined;
-  return(
+  console.log(input.value);
+  return (
     <div className='coandco-input-field'>
-        <div className='coandco-input-label'>{label}</div>
-          <div className={datePickerClass}>
-            { showTimeSelect &&
-              <DatePicker {...input} dateForm={dateFormat} selected={input.value ? moment(input.value) : null} showTimeSelect />
-            }
-            { !showTimeSelect &&
-              <DatePicker {...input} dateForm={dateFormat} selected={input.value ? moment(input.value) : null} />
-            }
-            { hasError && <span style={{color:'#E74C3C'}}><i>{error}</i></span> }
-          </div>
+      <div className='coandco-input-label'>{label}</div>
+      <div className={datePickerClass}>
+        {showTimeSelect &&
+          <DatePicker {...input} dateForm={dateFormat} selected={input.value ? moment(input.value, dateFormat) : null} showTimeSelect />
+        }
+        {!showTimeSelect &&
+          <DatePicker {...input} dateForm={dateFormat} selected={input.value ? moment(input.value, dateFormat) : null} />
+        }
+        {hasError && <span style={{ color: '#E74C3C' }}><i>{error}</i></span>}
+      </div>
     </div>
   );
 }
