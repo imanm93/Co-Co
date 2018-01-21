@@ -31,7 +31,7 @@ class OppItemForm extends Component {
 
     if (values.reward) newValues['reward'] = values.reward;
     if (values.skills) newValues['skillIds'] = Object.keys(values.skills).map(key => values.skills[key].id);
-    if (this.state.topic) newValues['topicIds'] = this.state.topic;
+    if (this.state.topic) newValues['topicIds'] = values.topics.map(topic => topic.id);
     if (values.attachments) newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
 
     newValues['serviceNeeded'] = this.state.serviceNeeded;
@@ -63,7 +63,7 @@ class OppItemForm extends Component {
     }
   }
 
-  onSelectedTopic(value) { 
+  onSelectedTopic(value) {
     if (value) {
       this.setState({
         topic: value.id,
@@ -181,18 +181,13 @@ class OppItemForm extends Component {
           <Divider style={{ width: '100%', margin: 0 }} />
           <Grid.Column width={9}>
             <div className='form-section-title'>3. Add Topics</div>
-            <div className='coandco-input-field'>
-              <div className='coandco-input-label'>Target people with the following interests</div>
-              <FilterBox
-                items={topicItems}
-                className='form-search'
-                single={true}
-                onSelectedItem={this.onSelectedTopic.bind(this)}
-                placeholder='e.g. Health & Wellbeing'
-                onNoMatchFound={this.onSelectedTopic.bind(this)}
-              />
-              <span style={{ color: '#E74C3C' }}>{this.state.topicError}</span>
-            </div>
+            <FieldArray
+              name='topics'
+              label='Target people with the following interests'
+              placholder='e.g. Sustainability'
+              component={searchFormField}
+              items={topicItems}
+            />
           </Grid.Column>
           <Grid.Column width={7}>
           </Grid.Column>
@@ -212,6 +207,18 @@ class OppItemForm extends Component {
   }
 
 }
+
+// <div className='coandco-input-field'>
+//   <div className='coandco-input-label'>Target people with the following interests</div>
+//   <FilterBox
+//     items={topicItems}
+//     className='form-search'
+//     onSelectedItem={this.onSelectedTopic.bind(this)}
+//     onNoMatchFound={this.onSelectedTopic.bind(this)}
+//     placeholder='e.g. Health & Wellbeing'
+//   />
+//   <span style={{ color: '#E74C3C' }}>{this.state.topicError}</span>
+// </div>
 
 const selector = formValueSelector('OppItemForm')
 OppItemForm = connect(
