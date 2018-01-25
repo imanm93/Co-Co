@@ -3,7 +3,7 @@ import axios from '../utils/axios';
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { GET_PROFILE } from '../constants/profiles/profileEndpoints';
 import { POST_LOGOUT_URL } from '../constants/account/accountEndpoints';
-import { UNSET_AUTH_USER } from '../constants/account/accountReducerTypes';
+import { UNSET_AUTH_USER, SET_PROFILE_COMPLETE } from '../constants/account/accountReducerTypes';
 import { FETCH_PROFILE_DATA } from '../constants/profiles/profileFetchTypes';
 import { IS_SAVING_PROFILE, IS_SAVING_SKILLS, IS_SAVING_TOPICS } from '../constants/profiles/profileLoaderTypes';
 import { SET_PROFILE_VIEW_ID, SET_CONNECTIONS_STATUS_PRFOFILE, UNSET_CONNECTIONS_STATUS_PRFOFILE } from '../constants/profiles/profileReducerTypes';
@@ -105,6 +105,9 @@ export function putUserProfile(token, values, userId, ctx) {
         type: SET_PROFILE_VIEW_ID,
         data: userId
       });
+      dispatch({
+        type:SET_PROFILE_COMPLETE
+      })
       ctx.push('/profile/view');
     })
     .catch(err => {

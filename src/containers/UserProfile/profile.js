@@ -32,6 +32,8 @@ class Profile extends Component {
   }
 
   onSaveProfile(values) {
+    console.log(values);
+    values['profileComplete'] = true;
     this.props.putUserProfile(this.props.token, values, this.props.userId, this.props.history);
   }
 
