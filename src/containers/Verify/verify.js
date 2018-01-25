@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/accountActions';
 import { Grid, Button, Dimmer, Loader } from 'semantic-ui-react';
 
+import FormContainer from '../../components/FormContainer';
+
 class Verify extends Component {
 
   resendVerificationEmail() {
@@ -16,26 +18,35 @@ class Verify extends Component {
   render() {
     const { match, history } = this.props;
     return (
-      <Grid style={{ margin: 0 }}>
-        <div>
+      <FormContainer>
+        <Grid className='coandco-post-form-container' style={{ padding: '2rem' }}>
           {this.props.isResendingEmail &&
             <Dimmer active inverted>
               <Loader />
             </Dimmer>
           }
-          <div>Thank you</div>
-          <div>a verification email has been sent to {this.props.verifyUserEmail}</div>
-          <div>
-            <Button disabled={this.props.isResendingEmail} onClick={this.resendVerificationEmail.bind(this)} as='a'>resend email</Button>
-            <Button onClick={this.redirectToLogin}>Sign in!</Button>
-          </div>
-          <div>
+          <Grid.Row centered>Thank you</Grid.Row>
+          <Grid.Row centered>a verification email has been sent to {this.props.verifyUserEmail}</Grid.Row>
+          <Grid.Row centered>
+            <Button circular style={{
+              backgroundColor: '#FFF',
+              border: '1px solid #2A2A2A',
+              color: '#2A2A2A'
+            }}
+            disabled={this.props.isResendingEmail}
+            onClick={this.resendVerificationEmail.bind(this)}
+            as='a'>
+              resend email
+            </Button>
+            <Button circular secondary onClick={this.redirectToLogin}>Sign in!</Button>
+          </Grid.Row>
+          <Grid.Row>
             {this.props.emailSent &&
               <div>The email has been sent successfuly</div>
             }
-          </div>
-        </div>
-      </Grid>
+          </Grid.Row>
+        </Grid>
+      </FormContainer>
     )
   }
 
@@ -44,10 +55,10 @@ class Verify extends Component {
 function mapStateToProps(state) {
   return {
     isResendingEmail: state.verify.isResendingEmail,
-    verifyUserId: state.verify.userId,
     verifyUserEmail: state.verify.email,
+    emailError: state.verify.emailError,
+    verifyUserId: state.verify.userId,
     emailSent: state.verify.emailSent,
-    emailError: state.verify.emailError
   }
 }
 

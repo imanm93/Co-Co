@@ -33,7 +33,7 @@ class StudentEmail extends Component {
           <Divider style={{ margin: 0 }} />
         </Grid.Column>
         <Grid.Column width={16} style={{ paddingBottom: 0 }}>
-          <div className='form-section-title'>2. And the formalities</div>
+          <div className='form-section-title'>2. Secure your account</div>
         </Grid.Column>
         <Grid.Column width={8} style={{ paddingTop: 0 }}>
           <Field

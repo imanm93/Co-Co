@@ -14,11 +14,9 @@ class SignIn extends Component {
   }
 
   getUser = () => {
-    var history = this.props.history;
-    this.props.getUserInfo(this.props.account.token, ()=>{
-      history.push("/dashboard")
+    this.props.getUserInfo(this.props.account.token, (response) => {
+      this.props.history.push("/dashboard");
     });
-
   }
 
   render() {

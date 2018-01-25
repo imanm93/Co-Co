@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Dimmer, Loader } from 'semantic-ui-react';
-import * as actions from '../../actions/accountActions';
+import * as actions from '../../actions';
 
 import SignUpForm from './components/signupform';
 import FormContainer from '../../components/FormContainer';
@@ -12,7 +12,10 @@ class SignUp extends React.Component {
   componentWillMount() {
     this.setState({
       showTermsConditions: false
-    })
+    });
+    this.props.fetchCourses(this.props.token);
+    this.props.fetchYears(this.props.token);
+    this.props.fetchSignUpSources(this.props.token);
   }
 
   onShowTandCs = (e) => {
@@ -36,7 +39,7 @@ class SignUp extends React.Component {
               <Loader />
             </Dimmer>
         }
-        <SignUpForm onSignUp={this.onSignUp.bind(this)} onShowTandCs={this.onShowTandCs.bind(this)} submitError={this.props.signUpError} />
+        <SignUpForm onSignUp={this.onSignUp.bind(this)} onShowTandCs={this.onShowTandCs.bind(this)} submitError={this.props.signUpError} setupData={this.props.setupData} />
         <TermsAndConditionsModal open={this.state.showTermsConditions} onClose={this.onHideTandCs.bind(this)}  />
       </FormContainer>
     )
@@ -47,7 +50,8 @@ class SignUp extends React.Component {
 function mapStateToProps(state) {
   return {
     isSigningUp: state.loaders.isSigningUp,
-    signUpError: state.errors.signUpError
+    signUpError: state.errors.signUpError,
+    setupData: state.setup
   }
 }
 

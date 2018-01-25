@@ -79,7 +79,10 @@ export function getUserInfo(token, callback) {
           type: SET_AUTH_USER,
           data: response.data
         });
-        dispatch({ type: IS_AUTHENTICATING, data: false });
+        dispatch({
+          type: IS_AUTHENTICATING,
+          data: false
+        });
         callback(response);
       })
       .catch(err => {
