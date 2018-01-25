@@ -8,9 +8,9 @@ export const escapeRegexCharacters = str => str.replace(/[.*+?^${}()|[\]\\]/g, '
 
 export const required = value => (value ? undefined : '*this field is required');
 
-export const timeBeforePresent = (values) => {
-    const currentTime = new moment().format("L");
-    if (values < currentTime) { return 'End date cannot be in the past.'; }
+export const timeBeforePresent = (values) => { 
+    const valueTime = new moment(values,"DD/MM/YYYY"); 
+    if (valueTime.isBefore(new moment(),'day')) { return 'End date cannot be in the past.'; }
     return false;
 }
 
