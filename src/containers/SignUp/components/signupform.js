@@ -63,8 +63,8 @@ class SignUpForm extends Component {
     delete newValues['degree'];
     if (this.state.courseId) { newValues['courseId'] = this.state.courseId; }
     if (values.acceptedWeeklyDigest) { newValues['acceptedWeeklyDigest'] = values.acceptedWeeklyDigest }
-    console.log(newValues);
-    // this.props.onSignUp(newValues, userType);
+    //console.log(newValues);
+    this.props.onSignUp(newValues, userType);
   }
 
   render() {

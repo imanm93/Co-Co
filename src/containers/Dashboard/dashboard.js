@@ -73,7 +73,7 @@ class Dashboard extends Component {
   }
 
   redirectToSetup() {
-    this.props.history.push('/setup');
+    this.props.history.push('/profile/view');
   }
 
   redirectToSignIn() {
