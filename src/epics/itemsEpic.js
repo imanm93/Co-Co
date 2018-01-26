@@ -46,10 +46,15 @@ export const getConnections = (action$, store) =>
         .catch(err => {
           if (err && err.status === 401) return Rx.Observable.of(push('/signin'));
           if (err && err.status === 403) return Rx.Observable.of(push('/signin'));
-          return ({
+          Rx.Observable.of({
             type: SET_API_ERROR,
             error: err
-          })
+          });
+          if (err && err.status === 500) return Rx.Observable.of({
+            type: SET_FILTERED_ITEMS,
+            items: {},
+            page: 1
+          });
           Rx.Observable.of({
             type: IS_LOADING_DASH_ITEMS,
             data: false
@@ -104,6 +109,8 @@ export const getFilteredNotificationDashboardItems = (action$, store) =>
           canLoadMoreItems: false
         }))
         .catch(err => {
+          if (err && err.status === 401) return Rx.Observable.of(push('/signin'));
+          if (err && err.status === 403) return Rx.Observable.of(push('/signin'));
           return Rx.Observable.of({
             type: SET_API_ERROR,
             error: err
@@ -138,39 +145,47 @@ export const getFilteredItems = (action$, store) =>
             'Authorization': 'Bearer ' + action.token
           }
         })
-          .map(payload => {
-            return {
-              page: payload.response.page,
-              items: Object.assign({}, payload.response.dictionaryResults)
-            };
-          })
-          .map(res => {
-            let canLoadMoreItems = false
-            if (res.items) canLoadMoreItems = Object.keys(res.items).length > 0;
-            return {
-              page: res.page,
-              items: res.items,
-              canLoadMoreItems: canLoadMoreItems
-            };
-          })
-          .map(res => ({
-            type: SET_FILTERED_ITEMS,
-            items: res.items,
+        .map(payload => {
+          return {
+            page: payload.response.page,
+            items: Object.assign({}, payload.response.dictionaryResults)
+          };
+        })
+        .map(res => {
+          let canLoadMoreItems = false
+          if (res.items) canLoadMoreItems = Object.keys(res.items).length > 0;
+          return {
             page: res.page,
-            canLoadMoreItems: res.canLoadMoreItems
-          }))
-          .catch(err => {
-            return Rx.Observable.of({
-              type: SET_API_ERROR,
-              error: err
-            })
-          }),
+            items: res.items,
+            canLoadMoreItems: canLoadMoreItems
+          };
+        })
+        .map(res => ({
+          type: SET_FILTERED_ITEMS,
+          items: res.items,
+          page: res.page,
+          canLoadMoreItems: res.canLoadMoreItems
+        }))
+        .catch(err => {
+          if (err && err.status === 401) return Rx.Observable.of(push('/signin'));
+          if (err && err.status === 403) return Rx.Observable.of(push('/signin'));
+          Rx.Observable.of({ type: SET_API_ERROR, error: err });
+          if (err && err.status === 500) return Rx.Observable.of({
+            type: SET_FILTERED_ITEMS,
+            items: {},
+            page: 1
+          });
           Rx.Observable.of({
             type: action.loader,
             data: false
           })
-        )
+        }),
+        Rx.Observable.of({
+          type: action.loader,
+          data: false
+        })
       )
+    )
 
 export const getExpandedItem = (action$, store) =>
   action$.ofType(FETCH_EXPANDED_ITEM)
@@ -195,10 +210,14 @@ export const getExpandedItem = (action$, store) =>
           expanded: true,
           isExpanding: false
         }))
-        .catch(err => ({
-          type: SET_API_ERROR,
-          error: err
-        }))
+        .catch(err => {
+          if (err && err.status === 401) return Rx.Observable.of(push('/signin'));
+          if (err && err.status === 403) return Rx.Observable.of(push('/signin'));
+          return Rx.Observable.of({
+            type: SET_API_ERROR,
+            error: err
+          })
+        })
       )
     )
 
@@ -219,17 +238,21 @@ export const getCommentsItem = (action$, store) =>
             'Authorization': 'Bearer ' + action.token
           }
         })
-          .map(res => {
-            return ({
-              type: SET_COMMENTS,
-              id: action.itemId,
-              data: res.response.results
-            })
+        .map(res => {
+          return ({
+            type: SET_COMMENTS,
+            id: action.itemId,
+            data: res.response.results
           })
-          .catch(err => ({
+        })
+        .catch(err => {
+          if (err && err.status === 401) return Rx.Observable.of(push('/signin'));
+          if (err && err.status === 403) return Rx.Observable.of(push('/signin'));
+          return Rx.Observable.of({
             type: SET_API_ERROR,
             error: err
-          })),
+          })
+        }),
         Rx.Observable.of({
           type: SET_LOADING_COMMENTS,
           id: action.itemId,

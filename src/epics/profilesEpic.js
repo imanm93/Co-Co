@@ -1,11 +1,11 @@
 import Rx from 'rxjs';
 
 import { push } from 'react-router-redux';
-import { GET_PROFILE } from '../constants/profiles/profileEndpoints';
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
+import { GET_PROFILE } from '../constants/profiles/profileEndpoints';
 import { FETCH_PROFILE_DATA } from '../constants/profiles/profileFetchTypes';
-import { SET_PROFILE_VIEW_DATA, SET_MY_PROFILE_DATA } from '../constants/profiles/profileReducerTypes';
 import { IS_LOADING_PROFILE } from '../constants/profiles/profileLoaderTypes';
+import { SET_PROFILE_VIEW_DATA, SET_MY_PROFILE_DATA } from '../constants/profiles/profileReducerTypes';
 
 export const getProfileData = (action$, store) =>
   action$.ofType(FETCH_PROFILE_DATA)

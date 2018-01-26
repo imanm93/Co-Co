@@ -73,7 +73,7 @@ class Dashboard extends Component {
   }
 
   redirectToSetup() {
-    this.props.history.push('/profile/view');
+    this.props.history.push('/profile/edit');
   }
 
   redirectToSignIn() {
@@ -130,7 +130,9 @@ class Dashboard extends Component {
   }
 
   onSaveSkills() {
-    this.props.setUserSkills(this.props.token, [...this.state.newSkills], (success) => {
+    let skillsSelectedFromForm = [];
+    if (this.state.newSkills) skillsSelectedFromForm = [...this.state.newSkills];
+    this.props.setUserSkills(this.props.token, skillsSelectedFromForm, (success) => {
       if (success) this.setState({
         modalStep: 2
       });
@@ -180,7 +182,7 @@ class Dashboard extends Component {
           }
           else
           {
-            newItemsRequested = Object.assign({}, newItems); 
+            newItemsRequested = Object.assign({}, newItems);
           }
         });
       }

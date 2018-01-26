@@ -1,5 +1,6 @@
 import Rx from 'rxjs';
 
+import { push } from 'react-router-redux';
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { SET_NOTIFICATIONS } from '../constants/notifications/notificationReducerTypes';
 import { FETCH_NOTIFICATIONS } from '../constants/notifications/notificationFetchTypes';
@@ -26,10 +27,18 @@ export const getNotifications = (action$, store) =>
           type: SET_NOTIFICATIONS,
           data: res.response
         }))
-        .catch(err => ({
-          type: SET_API_ERROR,
-          data: err
-        })),
+        .catch(err => {
+          Rx.Observable.of({
+            type: SET_API_ERROR,
+            data: err
+          });
+          if (err && err.status === 401) return Rx.Observable.of(push('/signin'));
+          if (err && err.status === 403) return Rx.Observable.of(push('/signin'));
+          if (err && err.status) return Rx.Observable.of({
+            type: SET_NOTIFICATIONS,
+            data: []
+          });
+        }),
         Rx.Observable.of({
           type: IS_LOADING_NOTIFICATIONS,
           data: false

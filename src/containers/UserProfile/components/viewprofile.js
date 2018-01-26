@@ -36,11 +36,11 @@ class ViewProfile extends Component {
                         { this.props.userId !== this.props.profileViewData.userId &&
                           <Grid centered>
                             <Grid.Row centered>
-                              <Grid.Column width={3}>
+                              <Grid.Column width={16} style={{ textAlign: 'center' }}>
                                 { this.props.onConnect && !this.props.profileViewData.connectionStatus &&
                                   <Button circular secondary onClick={() => this.props.onConnect(this.props.profileViewData.userId)}>Connect</Button>
                                 }
-                                { this.props.onConnect && this.props.profileViewData.connectionStatus === 'requested' &&
+                                { this.props.onConnect && this.props.profileViewData.connectionStatus === 'requestedTo' &&
                                   <Button circular secondary disabled>Pending</Button>
                                 }
                                 { this.props.onConnect && this.props.profileViewData.connectionStatus === 'connected' &&
@@ -211,7 +211,7 @@ class ViewProfile extends Component {
                             buttonName="Edit Profile"
                             backgroundImageUrl={this.props.profileViewData.coverPhotoUrl}
                             discipline={isOwner ? this.props.profileViewData.discipline : this.props.profileViewData.discipline || ""}
-                            name={isOwner ? `Welcome, ${this.props.profileViewData.name}` : `${this.props.profileViewData.name || ""}`}
+                            name={isOwner ? `${this.props.profileViewData.name}` : `${this.props.profileViewData.name || ""}`}
                         />
                     </Grid.Column>
                 </Grid.Row>

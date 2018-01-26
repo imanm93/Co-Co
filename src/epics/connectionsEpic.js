@@ -1,5 +1,6 @@
 import Rx from 'rxjs';
 
+import { push } from 'react-router-redux';
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
 import { SET_CONNECTIONS, SET_CONNECTION_REQUESTS } from '../constants/connections/connectionReducerTypes';
 import { IS_LOADING_CONNECTION_NOTIFICATIONS } from '../constants/connections/connectionLoaderTypes';
@@ -26,10 +27,14 @@ export const getConnectionRequests = (action$, store) =>
           type: SET_CONNECTION_REQUESTS,
           data: res.response
         }))
-        .catch(err => ({
-          type: SET_API_ERROR,
-          error: err.response ? err.response.data : 'There was a network error, please try again!'
-        })),
+        .catch(err => {
+          if (err && err.status === 401) return Rx.Observable.of(push('/signin'));
+          if (err && err.status === 403) return Rx.Observable.of(push('/signin'));
+          return Rx.Observable.of({
+            type: SET_API_ERROR,
+            error: err.response ? err.response.data : 'There was a network error, please try again!'
+          });
+        }),
         Rx.Observable.of({
           type: IS_LOADING_CONNECTION_NOTIFICATIONS,
           data: false
