@@ -11,6 +11,7 @@ import { SET_SAVE_PROFILE_ERROR } from '../constants/profiles/profileErrorTypes'
 import { GET_CONNECTION_REQUESTS_URL } from '../constants/connections/connectionEndpoints';
 import { PUT_USER_SKILLS_URL, PUT_USER_TOPICS_URL } from '../constants/profiles/profileEndpoints';
 import { SET_REQUESTED_CONNECTION, UNSET_REQUESTED_CONNECTION } from '../constants/connections/connectionReducerTypes';
+import { SET_LAST_ACTIVITY_TIMESTAMP } from '../constants/account/accountReducerTypes';
 
 export const fetchProfileData = (token, userId) => ({
   type: FETCH_PROFILE_DATA,
@@ -82,6 +83,10 @@ export function putUserProfile(token, values, userId, ctx) {
     dispatch({
       type: IS_SAVING_PROFILE,
       data: true
+    });
+    dispatch({
+      type: SET_LAST_ACTIVITY_TIMESTAMP,
+      data: new Date().getTime()
     });
     axios({
       method: 'PUT',
