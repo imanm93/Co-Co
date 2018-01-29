@@ -25,8 +25,8 @@ class Verify extends Component {
               <Loader />
             </Dimmer>
           }
-          <Grid.Row centered>Thank you</Grid.Row>
-          <Grid.Row centered>a verification email has been sent to {this.props.verifyUserEmail}</Grid.Row>
+          <Grid.Row centered style={{ fontSize: '33px', fontWeight: '600' }}>Thank you</Grid.Row>
+          <Grid.Row centered>A verification email has been sent {this.props.verifyUserEmail}</Grid.Row>
           <Grid.Row centered>
             <Button circular style={{
               backgroundColor: '#FFF',

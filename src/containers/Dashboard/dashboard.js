@@ -25,7 +25,7 @@ class Dashboard extends Component {
       this.redirectToSignIn();
     }
     else if (!this.props.profileComplete) {
-      this.redirectToSetup();
+      // this.redirectToSetup();
     }
 
     this.props.fetchTopics(this.props.token);
@@ -37,7 +37,12 @@ class Dashboard extends Component {
     this.props.fetchFilteredItems(this.props.token, this.props.userId, this.props.dash.tab, this.props.dash.query, this.props.dash.filters, 1);
 
     const timeStamp = new Date('Mon Jan 15 2018 06:30:00 GMT+0000').getTime();
-    if (this.props.lastActivityTimestamp < timeStamp) {
+    if (this.props.lastActivityTimestamp === 0) {
+      this.setState({
+        modalToEditProfile: true
+      });
+    }
+    else if (this.props.lastActivityTimestamp < timeStamp) {
       this.setState({
         modalStep: 0,
         modalOpen: true,
@@ -72,12 +77,22 @@ class Dashboard extends Component {
     }
   }
 
-  redirectToSetup() {
-    this.props.history.push('/profile/edit');
+  redirectToEdit() {
+    const timestamp = new Date().getTime();
+    this.props.setLastActivityTimestamp(timestamp);
+    this.props.setProfileViewId(this.props.token, this.props.userId, this.props.history);
   }
 
   redirectToSignIn() {
     this.props.history.push('/signin');
+  }
+
+  closeToEditProfile() {
+    const timestamp = new Date().getTime();
+    this.props.setLastActivityTimestamp(timestamp);
+    this.setState({
+      modalToEditProfile: true
+    });
   }
 
   updateItemsAndFilterQuery(key, newVal) {
@@ -303,6 +318,32 @@ class Dashboard extends Component {
                 </Grid.Column>
               </div>
             }
+          </Modal>
+          <Modal open={this.state.modalToEditProfile}>
+            <Grid style={{ margin: 0 }}>
+              <Grid.Row>
+                <Grid.Column width={16} style={{ padding: '2em 3em 0.5em', fontSize: '25px', fontWeight: 600 }}>
+                  Welcome to Co & Co, {this.props.name.split(' ')[0]}!
+                </Grid.Column>
+                <Grid.Column width={16} style={{ padding: '0.5em 3.5em', fontSize: '22px' }}>
+                  Thank you for joining our community. Please help us better tailor our opportunities for you by filling out your profile!
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column width={16} style={{ padding: '0em 2em 2em', textAlign: 'center' }}>
+                  <Button circular
+                    style={{
+                      backgroundColor: 'white',
+                      color: '#2A2A2A',
+                      border: '1px solid #2A2A2A'
+                    }}
+                    onClick={this.closeToEditProfile.bind(this)}>
+                      Close
+                  </Button>
+                  <Button circular secondary onClick={this.redirectToEdit.bind(this)}>Edit Profile</Button>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
           </Modal>
         </Grid>
       </PageContainer>
