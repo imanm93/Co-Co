@@ -2,6 +2,7 @@ import axios from '../utils/axios';
 import { reset } from 'redux-form';
 import * as ItemTypes from '../constants/items/itemTypes';
 import { SET_API_ERROR } from '../constants/api/apiErrorTypes';
+import { POST_ENQUIRY } from '../constants/items/itemEndpoints';
 import { IS_POSTING_ITEM } from '../constants/items/itemLoaderTypes';
 import { SET_NEW_COMMENT_ERROR } from '../constants/items/itemErrorTypes';
 import { SET_POST_ITEM_STATUS } from '../constants/postForm/postFormReducerTypes';
@@ -10,9 +11,11 @@ import { SET_CONNECTION_REQUEST_STATUS } from '../constants/connections/connecti
 import { SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS } from '../constants/items/peopleitems/peopleitemReducerTypes';
 import { SET_REQUESTED_CONNECTION, UNSET_REQUESTED_CONNECTION } from '../constants/connections/connectionReducerTypes';
 import { INCREMENT_LIKES, DECREMENT_LIKES, INCREMENT_INTERESTED, DECREMENT_INTERESTED, SET_NEW_COMMENT, SET_SHRINK_ITEM } from '../constants/items/itemReducerTypes';
-import { GET_ITEM_LIKES_URL, GET_ITEM_INTERESTED_URL, GET_ITEM_NOT_INTERESTED_URL, GET_ITEM_COMMENT_URL,
-         GET_FILTERED_EVENT_ITEMS_URL, GET_FILTERED_OPP_ITEMS_URL, GET_FILTERED_STATUS_ITEMS_URL,
-         POST_OPPS_EXTERNAL_URL, POST_EVENTS_EXTERNAL_URL } from '../constants/items/itemEndpoints';
+import {
+  GET_ITEM_LIKES_URL, GET_ITEM_INTERESTED_URL, GET_ITEM_NOT_INTERESTED_URL, GET_ITEM_COMMENT_URL,
+  GET_FILTERED_EVENT_ITEMS_URL, GET_FILTERED_OPP_ITEMS_URL, GET_FILTERED_STATUS_ITEMS_URL,
+  POST_OPPS_EXTERNAL_URL, POST_EVENTS_EXTERNAL_URL
+} from '../constants/items/itemEndpoints';
 
 export function resetPostItemForm(formName, ctx) {
   return function (dispatch) {
@@ -22,6 +25,29 @@ export function resetPostItemForm(formName, ctx) {
       data: ''
     });
     ctx.push('/external/verify');
+  }
+}
+
+export function postEnquire(token, itemId) {
+  return function (dispatch) {
+    axios({
+      method: 'POST',
+      url: POST_ENQUIRY(itemId),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      }
+    }).then(res => {
+      console.log(res);
+      /* Do nothing */
+    })
+      .catch(err => {
+        console.log(err);
+        dispatch({
+          type: SET_API_ERROR,
+          error: err.response ? err.response.data : 'Network error, please try again!'
+        });
+      })
   }
 }
 
@@ -49,20 +75,20 @@ export function postConnect(token, userId) {
         'Authorization': 'Bearer ' + token,
       }
     })
-    .then(res => {
-      console.log(res);
-      /* Do nothing */
-    })
-    .catch(err => {
-      dispatch({
-        type: UNSET_REQUESTED_CONNECTION,
-        id: userId
-      });
-      dispatch({
-        type: SET_API_ERROR,
-        error: err.response ? err.response.data : 'Network error, please try again!'
-      });
-    })
+      .then(res => {
+        console.log(res);
+        /* Do nothing */
+      })
+      .catch(err => {
+        dispatch({
+          type: UNSET_REQUESTED_CONNECTION,
+          id: userId
+        });
+        dispatch({
+          type: SET_API_ERROR,
+          error: err.response ? err.response.data : 'Network error, please try again!'
+        });
+      })
   }
 }
 
@@ -73,7 +99,7 @@ export function postExternalItem(type, values) {
       data: true
     });
     let endpoint = '';
-    switch(type) {
+    switch (type) {
       case ItemTypes.OPP_ITEM:
         endpoint = POST_OPPS_EXTERNAL_URL;
         break;
@@ -92,26 +118,26 @@ export function postExternalItem(type, values) {
         'Content-Type': 'application/json'
       }
     })
-    .then(res => {
-      dispatch({
-        type: SET_POST_ITEM_STATUS,
-        data: 'You post was submitted successfully!'
-      });
-      dispatch({
-        type: IS_POSTING_ITEM,
-        data: false
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: SET_API_ERROR,
-        error: err
-      });
-      dispatch({
-        type: IS_POSTING_ITEM,
-        data: false
-      });
-    })
+      .then(res => {
+        dispatch({
+          type: SET_POST_ITEM_STATUS,
+          data: 'You post was submitted successfully!'
+        });
+        dispatch({
+          type: IS_POSTING_ITEM,
+          data: false
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: SET_API_ERROR,
+          error: err
+        });
+        dispatch({
+          type: IS_POSTING_ITEM,
+          data: false
+        });
+      })
   }
 }
 
@@ -122,19 +148,19 @@ export function postItem(token, type, values) {
       data: true
     });
     let endpoint = '';
-    switch(type) {
+    switch (type) {
       case ItemTypes.OPP_ITEM:
-          endpoint = GET_FILTERED_OPP_ITEMS_URL;
-          break;
+        endpoint = GET_FILTERED_OPP_ITEMS_URL;
+        break;
       case ItemTypes.EVENT_ITEM:
-          endpoint = GET_FILTERED_EVENT_ITEMS_URL;
-          break;
+        endpoint = GET_FILTERED_EVENT_ITEMS_URL;
+        break;
       case ItemTypes.STATUS_ITEM:
-          endpoint = GET_FILTERED_STATUS_ITEMS_URL;
-          break;
+        endpoint = GET_FILTERED_STATUS_ITEMS_URL;
+        break;
       default:
-          endpoint = GET_FILTERED_OPP_ITEMS_URL;
-          break;
+        endpoint = GET_FILTERED_OPP_ITEMS_URL;
+        break;
     }
     axios({
       method: 'post',
@@ -145,26 +171,26 @@ export function postItem(token, type, values) {
         'Authorization': 'Bearer ' + token
       }
     })
-    .then(res => {
-      dispatch({
-        type: SET_POST_ITEM_STATUS,
-        data: 'You post was submitted successfully!'
+      .then(res => {
+        dispatch({
+          type: SET_POST_ITEM_STATUS,
+          data: 'You post was submitted successfully!'
+        });
+        dispatch({
+          type: IS_POSTING_ITEM,
+          data: false
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: SET_API_ERROR,
+          error: err
+        });
+        dispatch({
+          type: IS_POSTING_ITEM,
+          data: false
+        });
       });
-      dispatch({
-        type: IS_POSTING_ITEM,
-        data: false
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: SET_API_ERROR,
-        error: err
-      });
-      dispatch({
-        type: IS_POSTING_ITEM,
-        data: false
-      });
-    });
   }
 }
 
@@ -185,25 +211,25 @@ export function postLike(token, itemId) {
         'Authorization': 'Bearer ' + token
       }
     })
-    .then(res => {
-      if (res.status === 200) { /*Do nothing*/ }
-      else {
+      .then(res => {
+        if (res.status === 200) { /*Do nothing*/ }
+        else {
+          dispatch({
+            type: DECREMENT_LIKES,
+            id: itemId
+          });
+        }
+      })
+      .catch(err => {
         dispatch({
           type: DECREMENT_LIKES,
           id: itemId
         });
-      }
-    })
-    .catch(err => {
-      dispatch({
-        type: DECREMENT_LIKES,
-        id: itemId
-      });
-      dispatch({
-        type: SET_API_ERROR,
-        error: err
-      });
-    })
+        dispatch({
+          type: SET_API_ERROR,
+          error: err
+        });
+      })
   }
 }
 
@@ -225,25 +251,25 @@ export function postInterested(token, userId, itemId) {
         eventId: itemId
       }
     })
-    .then(res => {
-      if (res.status === 200) { /*Do nothing*/ }
-      else {
+      .then(res => {
+        if (res.status === 200) { /*Do nothing*/ }
+        else {
+          dispatch({
+            type: DECREMENT_INTERESTED,
+            id: itemId
+          });
+        }
+      })
+      .catch(err => {
         dispatch({
           type: DECREMENT_INTERESTED,
           id: itemId
         });
-      }
-    })
-    .catch(err => {
-      dispatch({
-        type: DECREMENT_INTERESTED,
-        id: itemId
-      });
-      dispatch({
-        type: SET_API_ERROR,
-        error: err
-      });
-    })
+        dispatch({
+          type: SET_API_ERROR,
+          error: err
+        });
+      })
   }
 }
 
@@ -265,25 +291,25 @@ export function postNotInterested(token, userId, itemId) {
         eventId: itemId
       }
     })
-    .then(res => {
-      if (res.status === 200) { /*Do nothing*/ }
-      else {
+      .then(res => {
+        if (res.status === 200) { /*Do nothing*/ }
+        else {
+          dispatch({
+            type: INCREMENT_INTERESTED,
+            id: itemId
+          });
+        }
+      })
+      .catch(err => {
         dispatch({
           type: INCREMENT_INTERESTED,
           id: itemId
         });
-      }
-    })
-    .catch(err => {
-      dispatch({
-        type: INCREMENT_INTERESTED,
-        id: itemId
-      });
-      dispatch({
-        type: SET_API_ERROR,
-        error: err
-      });
-    })
+        dispatch({
+          type: SET_API_ERROR,
+          error: err
+        });
+      })
   }
 }
 
@@ -317,27 +343,27 @@ export function postComment(token, userId, name, profilePhotoUrl, itemId, commen
         'Authorization': 'Bearer ' + token
       }
     })
-    .then(res => {
-      if (res.status === 200) { /*Do nothing*/ }
-      else {
+      .then(res => {
+        if (res.status === 200) { /*Do nothing*/ }
+        else {
+          dispatch({
+            type: SET_NEW_COMMENT_ERROR,
+            id: itemId,
+            comment: newComment
+          });
+        }
+      })
+      .catch(err => {
         dispatch({
           type: SET_NEW_COMMENT_ERROR,
           id: itemId,
           comment: newComment
         });
-      }
-    })
-    .catch(err => {
-      dispatch({
-        type: SET_NEW_COMMENT_ERROR,
-        id: itemId,
-        comment: newComment
-      });
-      dispatch({
-        type: SET_API_ERROR,
-        error: err
+        dispatch({
+          type: SET_API_ERROR,
+          error: err
+        })
       })
-    })
   }
 }
 
@@ -348,7 +374,7 @@ export function postDelete(token, type, itemId) {
 }
 
 export function postFromItemAcceptConnection(token, userId) {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch({
       type: SET_CONNECTION_REQUEST_STATUS,
       userId: userId,
@@ -369,33 +395,33 @@ export function postFromItemAcceptConnection(token, userId) {
         'Authorization': 'Bearer ' + token
       }
     })
-    .then(res => {
-      console.log(res.response);
-      /* Do Nothing */
-    })
-    .catch(err => {
-      dispatch({
-        type: SET_CONNECTION_REQUEST_STATUS,
-        userId: userId,
-        status: 'default',
-        error: ''
-      });
-      dispatch({
-        type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
-        userId: userId,
-        status: 'initial',
-        error: 'There was a network issue, please try again!'
-      });
-      dispatch({
-        type: SET_API_ERROR,
-        error: err
-      });
-    })
+      .then(res => {
+        console.log(res.response);
+        /* Do Nothing */
+      })
+      .catch(err => {
+        dispatch({
+          type: SET_CONNECTION_REQUEST_STATUS,
+          userId: userId,
+          status: 'default',
+          error: ''
+        });
+        dispatch({
+          type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
+          userId: userId,
+          status: 'initial',
+          error: 'There was a network issue, please try again!'
+        });
+        dispatch({
+          type: SET_API_ERROR,
+          error: err
+        });
+      })
   }
 }
 
 export function postFromItemRejectConnection(token, userId) {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch({
       type: SET_CONNECTION_REQUEST_STATUS,
       userId: userId,
@@ -416,27 +442,27 @@ export function postFromItemRejectConnection(token, userId) {
         'Authorization': 'Bearer ' + token
       }
     })
-    .then(res => {
-      console.log(res.response);
-      /* Do nothing */
-    })
-    .catch(err => {
-      dispatch({
-        type: SET_CONNECTION_REQUEST_STATUS,
-        userId: userId,
-        status: 'default',
-        error: ''
-      });
-      dispatch({
-        type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
-        userId: userId,
-        status: 'initial',
-        error: 'There was a network issue, please try again!'
-      });
-      dispatch({
-        type: SET_API_ERROR,
-        error: err
-      });
-    })
+      .then(res => {
+        console.log(res.response);
+        /* Do nothing */
+      })
+      .catch(err => {
+        dispatch({
+          type: SET_CONNECTION_REQUEST_STATUS,
+          userId: userId,
+          status: 'default',
+          error: ''
+        });
+        dispatch({
+          type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
+          userId: userId,
+          status: 'initial',
+          error: 'There was a network issue, please try again!'
+        });
+        dispatch({
+          type: SET_API_ERROR,
+          error: err
+        });
+      })
   }
 }

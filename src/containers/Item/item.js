@@ -54,6 +54,7 @@ class Item extends Component {
   }
 
   onEnquire(itemId) {
+    this.props.postEnquire(this.props.token, this.props.item.itemId)
     console.log("Enquire", itemId);
   }
 
@@ -83,26 +84,26 @@ class Item extends Component {
     const itemOuterStyle = this.getItemOuterStyle();
     return (
       <Grid style={itemOuterStyle}>
-        { this.props.item.itemType === 'opportunity' &&
-            <OppItem skills={this.props.skills} item={this.props.item} type={ItemTypes.OPP_ITEM} onExpand={this.onExpand.bind(this)} />
+        {this.props.item.itemType === 'opportunity' &&
+          <OppItem skills={this.props.skills} item={this.props.item} type={ItemTypes.OPP_ITEM} onExpand={this.onExpand.bind(this)} />
         }
-        { this.props.item.itemType === 'event' &&
-            <EventItem item={this.props.item} type={ItemTypes.EVENT_ITEM} onExpand={this.onExpand.bind(this)} onShrink={this.onShrink.bind(this)} />
+        {this.props.item.itemType === 'event' &&
+          <EventItem item={this.props.item} type={ItemTypes.EVENT_ITEM} onExpand={this.onExpand.bind(this)} onShrink={this.onShrink.bind(this)} />
         }
-        { this.props.item.itemType === 'post' &&
-            <StatusItem item={this.props.item} />
+        {this.props.item.itemType === 'post' &&
+          <StatusItem item={this.props.item} />
         }
-        { this.props.item.itemType === 'user' &&
-            <PeopleItem
-              item={this.props.item}
-              onConnect={this.onConnect.bind(this)}
-              isMyConnections={this.props.isMyConnections}
-              onAcceptConnection={this.onAcceptConnection.bind(this)}
-              onRejectConnection={this.onRejectConnection.bind(this)}
-              redirectToProfile={this.onRedirectToProfile.bind(this)}
-            />
+        {this.props.item.itemType === 'user' &&
+          <PeopleItem
+            item={this.props.item}
+            onConnect={this.onConnect.bind(this)}
+            isMyConnections={this.props.isMyConnections}
+            onAcceptConnection={this.onAcceptConnection.bind(this)}
+            onRejectConnection={this.onRejectConnection.bind(this)}
+            redirectToProfile={this.onRedirectToProfile.bind(this)}
+          />
         }
-        { this.props.item.itemType !== 'user' &&
+        {this.props.item.itemType !== 'user' &&
           <ItemControls
             userId={this.props.userId}
             email={this.props.item.companyDetails && this.props.item.companyDetails.contactEmail ? this.props.item.companyDetails.contactEmail : this.props.item.user.email}
@@ -117,10 +118,10 @@ class Item extends Component {
             onComments={this.onComments.bind(this)}
             onInterested={this.onInterested.bind(this)}
             onDelete={this.onDelete.bind(this)}
-            onEnquire={this.onEnquire}
+            onEnquire={this.onEnquire.bind(this)}
           />
         }
-        { this.props.item.showComments &&
+        {this.props.item.showComments &&
           <Grid.Row>
             <ItemComments
               comments={this.props.item.comments}

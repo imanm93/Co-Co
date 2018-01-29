@@ -14,6 +14,8 @@ export const PUT_DASHBOARD_ITEMS_SEEN = `${ROOT_URL}/Dashboard/Seen`;
 
 export const GET_ITEMS_BY_IDS = `${ROOT_URL}/Dashboard/details`;
 
+export const POST_ENQUIRY = (item) => `${ROOT_URL}/Dashboard/${item}/enquire`;
+
 export * from './statusitems/statusitemEndpoints';
 export * from './eventitems/eventitemEndpoints';
 export * from './oppitems/oppitemEndpoints';

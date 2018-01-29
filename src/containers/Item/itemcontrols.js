@@ -38,7 +38,7 @@ class ItemControls extends Component {
               </Button>
           }
           { this.props.type === "opportunity" &&
-              <a className='item-btn-control' href={'mailto:' + this.props.email}>
+              <a className='item-btn-control' href={'mailto:' + this.props.email} onClick={this.props.onEnquire}>
                 <i className="fa fa-envelope" aria-hidden="true"></i>
                 <span style={{ textDecoration: 'underline', fontWeight: 600 }}>Enquire</span>
               </a>
