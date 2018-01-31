@@ -13,15 +13,17 @@ class StatusItemForm extends Component {
   submit(values) {
     let newValues = {};
     newValues['text'] = values.text;
-    newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
-    newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
+    if (values.topics)
+      newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
+    if (values.attachments)
+      newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
     this.props.post(this.props.type, newValues);
   }
 
   render() {
     const { handleSubmit } = this.props;
     const topicItems = dictToArray(this.props.topicTypes);
-    return(
+    return (
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
         <Grid>
           <Grid.Column width={16} style={{ padding: 0, backgroundColor: '#DEDEDE' }}>
@@ -29,9 +31,9 @@ class StatusItemForm extends Component {
           </Grid.Column>
         </Grid>
         <Grid className='coandco-post-form-container'>
-          { this.props.isPostingItem &&
+          {this.props.isPostingItem &&
             <Dimmer active inverted>
-              <Loader/>
+              <Loader />
             </Dimmer>
           }
           <Grid.Column width={16}>
