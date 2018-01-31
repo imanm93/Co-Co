@@ -15,10 +15,10 @@ import OtherEmail from './otheremail';
 class SignUpForm extends Component {
 
   componentWillMount() {
-      this.setState({
-        courseId: 0,
-        courseError: ''
-      });
+    this.setState({
+      courseId: 0,
+      courseError: ''
+    });
   }
 
   onSelectedServiceNeeded(value) {
@@ -37,7 +37,7 @@ class SignUpForm extends Component {
   }
 
   genUserTypeFields(usertype) {
-    switch(usertype) {
+    switch (usertype) {
       case 'Staff':
         return <StaffEmail />
       case 'Other':
@@ -98,14 +98,14 @@ class SignUpForm extends Component {
     return (
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
         <Grid>
-          <Grid.Column width ={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
+          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <div className='form-header'>Sign Up to Co & Co</div>
           </Grid.Column>
         </Grid>
         <Grid>
           <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row>
-              <Divider/>
+              <Divider />
             </Grid.Row>
           </Grid.Column>
         </Grid>
@@ -113,25 +113,25 @@ class SignUpForm extends Component {
           <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
             <div className='form-section-title'>1. General information</div>
             <Field
-            name="userType"
-            label='What type of user are you?'
-            placeholder='What type of user are you?'
-            component={inputFormField}
-            options={[
-              {text:'Student', value:"Student"},
-              {text:'Staff', value:"Staff"},
-              {text:'Other', value:"Other"},
-            ]}
-            InputType={Form.Select}
-            validate={[required]}
+              name="userType"
+              label='What type of user are you?'
+              placeholder='What type of user are you?'
+              component={inputFormField}
+              options={[
+                { text: 'Student', value: "Student" },
+                { text: 'Staff', value: "Staff" },
+                { text: 'Other', value: "Other" },
+              ]}
+              InputType={Form.Select}
+              validate={[required]}
             />
-            { this.genUserTypeFields(usertype) }
+            {this.genUserTypeFields(usertype)}
           </Grid.Column>
         </Grid>
         <Grid>
           <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row>
-              <Divider/>
+              <Divider />
             </Grid.Row>
           </Grid.Column>
         </Grid>
@@ -165,7 +165,7 @@ class SignUpForm extends Component {
         <Grid>
           <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row>
-              <Divider/>
+              <Divider />
             </Grid.Row>
           </Grid.Column>
         </Grid>
@@ -186,23 +186,18 @@ class SignUpForm extends Component {
                   />
                 </Grid.Column>
                 <Grid.Column width={12}>
-                  { this.props.degree &&
+                  {this.props.degree &&
                     <div className='coandco-input-field'>
                       <div className='coandco-input-label'>Course</div>
                       <FilterBox
-                        items={
-                          courses.filter(c => c.degree === this.props.degree).map(item => {
-                            return {
-                              id: item.id,
-                              name: item.name
-                            }
-                          })
-                        }
+                        items={courses}
+                        className='form-search'
                         single={true}
-                        placeholder='Please choose'
                         onSelectedItem={this.onSelectedServiceNeeded.bind(this)}
-                      />
-                      { this.state.courseId === 0 &&
+                        placeholder='Please choose'
+                        onNoMatchFound={this.onSelectedServiceNeeded.bind(this)} />
+                      {
+                        this.state.courseId === 0 &&
                         <span style={{ color: '#E74C3C' }}>*this field is required</span>
                       }
                     </div>
@@ -248,7 +243,7 @@ class SignUpForm extends Component {
         <Grid>
           <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row>
-              <Divider/>
+              <Divider />
             </Grid.Row>
           </Grid.Column>
         </Grid>
@@ -256,16 +251,16 @@ class SignUpForm extends Component {
           <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
             <Field
               toggle
-              name = "acceptedWeeklyDigest"
+              name="acceptedWeeklyDigest"
               label="I want to receive weekly digest of whats going on around ECA."
-              component ={checkboxFormField}
+              component={checkboxFormField}
               InputType={Form.Checkbox}
             />
             <Field
               toggle
-              name = "acceptterms"
+              name="acceptterms"
               label="I accept the"
-              component ={checkboxFormField}
+              component={checkboxFormField}
               InputType={Form.Checkbox}
               validate={[mandatoryCheckbox]}
             />
@@ -275,14 +270,14 @@ class SignUpForm extends Component {
         <Grid>
           <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row>
-              <Divider/>
+              <Divider />
             </Grid.Row>
           </Grid.Column>
         </Grid>
         <Grid>
           <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row>
-              {this.props.submitError && <p className="errorMessage"> <br/>{this.props.submitError}</p>}
+              {this.props.submitError && <p className="errorMessage"> <br />{this.props.submitError}</p>}
             </Grid.Row>
           </Grid.Column>
         </Grid>
