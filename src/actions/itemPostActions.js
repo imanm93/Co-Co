@@ -141,7 +141,7 @@ export function postExternalItem(type, values) {
   }
 }
 
-export function postItem(token, type, values) {
+export function postItem(token, type, values, callback) {
   return function (dispatch) {
     dispatch({
       type: IS_POSTING_ITEM,
@@ -180,6 +180,8 @@ export function postItem(token, type, values) {
           type: IS_POSTING_ITEM,
           data: false
         });
+        if (callback)
+          callback();
       })
       .catch(err => {
         dispatch({

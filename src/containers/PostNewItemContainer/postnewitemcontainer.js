@@ -42,7 +42,7 @@ class PostNewItemContainer extends Component {
             </Grid.Row>
           </Grid.Column>
           <Grid.Column width={10}>
-            <PostNewItem locationExternal={false} />
+            <PostNewItem locationExternal={false} history={this.props.history}/>
           </Grid.Column>
         </Grid>
       </PageContainer>

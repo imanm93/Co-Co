@@ -13,41 +13,47 @@ class PostNewItem extends Component {
 
   post(type, values) {
     if (this.props.locationExternal) { this.props.postExternalItem(type, values); }
-    else if (!this.props.locationExternal) { this.props.postItem(this.props.token, type, values); }
+    else if (!this.props.locationExternal) {
+      this.props.postItem(this.props.token, type, values, () => {
+        console.log('woreeeeeeed');
+        console.log(this.props.history)
+        this.props.history.push("/dashboard")
+      });
+    }
   }
 
   render() {
-    return(
+    return (
       <div>
-        { this.props.posts.tab === ItemTypes.OPP_ITEM &&
-            <OppItemForm
-                type={ItemTypes.OPP_ITEM}
-                skills={this.props.skills}
-                post={this.post.bind(this)}
-                oppTypes={this.props.filters.oppTypes}
-                topicTypes={this.props.filters.topicTypes}
-                externalEmail={this.props.externalEmail}
-                isPostingItem={this.props.isPostingItem}
-            />
+        {this.props.posts.tab === ItemTypes.OPP_ITEM &&
+          <OppItemForm
+            type={ItemTypes.OPP_ITEM}
+            skills={this.props.skills}
+            post={this.post.bind(this)}
+            oppTypes={this.props.filters.oppTypes}
+            topicTypes={this.props.filters.topicTypes}
+            externalEmail={this.props.externalEmail}
+            isPostingItem={this.props.isPostingItem}
+          />
         }
-        { this.props.posts.tab === ItemTypes.EVENT_ITEM &&
-            <EventItemForm
-                type={ItemTypes.EVENT_ITEM}
-                eventTypes={this.props.filters.eventTypes}
-                topicTypes={this.props.filters.topicTypes}
-                post={this.post.bind(this)}
-                externalEmail={this.props.externalEmail}
-                isPostingItem={this.props.isPostingItem}
-            />
+        {this.props.posts.tab === ItemTypes.EVENT_ITEM &&
+          <EventItemForm
+            type={ItemTypes.EVENT_ITEM}
+            eventTypes={this.props.filters.eventTypes}
+            topicTypes={this.props.filters.topicTypes}
+            post={this.post.bind(this)}
+            externalEmail={this.props.externalEmail}
+            isPostingItem={this.props.isPostingItem}
+          />
         }
-        { this.props.posts.tab === ItemTypes.STATUS_ITEM &&
-            <StatusItemForm
-                type={ItemTypes.STATUS_ITEM}
-                topicTypes={this.props.filters.topicTypes}
-                post={this.post.bind(this)}
-                isPostingItem={this.props.isPostingItem}
-                user={this.props.user}
-            />
+        {this.props.posts.tab === ItemTypes.STATUS_ITEM &&
+          <StatusItemForm
+            type={ItemTypes.STATUS_ITEM}
+            topicTypes={this.props.filters.topicTypes}
+            post={this.post.bind(this)}
+            isPostingItem={this.props.isPostingItem}
+            user={this.props.user}
+          />
         }
       </div>
     )
