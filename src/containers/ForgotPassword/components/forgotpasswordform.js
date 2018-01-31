@@ -26,7 +26,7 @@ class ForgotPasswordForm extends Component {
             </Grid.Row>
           </Grid.Column>
         </Grid>
-       <Grid centered>
+        <Grid centered>
           {isSendingForgotPassword &&
             <Dimmer active inverted>
               <Loader />
@@ -56,19 +56,19 @@ class ForgotPasswordForm extends Component {
             </Grid.Row>
           </Grid.Column>
         </Grid>
-        { this.props.forgotPasswordSuccess &&
+        {this.props.forgotPasswordSuccess &&
           <Grid centered>
             <Grid.Column width={12} style={{ backgroundColor: '#FFF', padding: 0 }}>
-              <Grid.Row centered>
-                <div>{this.props.forgotPasswordSuccess.data}</div>
+            <Grid.Row style={{ paddingBottom: '1em', textAlign: 'center' }}>
+                <span style={{ color: '#E74C3C' }}>{this.props.forgotPasswordSuccess.data}</span>
               </Grid.Row>
             </Grid.Column>
           </Grid>
         }
-        { forgotPasswordError &&
+        {forgotPasswordError &&
           <Grid centered>
             <Grid.Column width={12} style={{ backgroundColor: '#FFF', paddingTop: 0 }}>
-              <Grid.Row style={{ padding: '1em', paddingBottom: 0 }}>
+              <Grid.Row style={{ paddingBottom: '1em', textAlign: 'center' }}>
                 <span style={{ color: '#E74C3C' }}>*{forgotPasswordError.message}</span>
               </Grid.Row>
             </Grid.Column>
