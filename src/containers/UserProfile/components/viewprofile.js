@@ -47,7 +47,7 @@ class ViewProfile extends Component {
                                   <Button circular secondary disabled style={{ backgroundColor: 'green' }}>Connected</Button>
                                 }
                                 <a href={'mailto:' + this.props.email}>
-                                  <Button circular style={{ backgroundColor: '#FFF', color: '#2A2A2A', border: '1px solid #2A2A2A' }}>Email</Button>
+                                  <Button circular style={{ backgroundColor: '#FFF', color: '#2A2A2A', border: '1px solid #2A2A2A' }}>Email ({this.props.email})</Button>
                                 </a>
                               </Grid.Column>
                             </Grid.Row>
