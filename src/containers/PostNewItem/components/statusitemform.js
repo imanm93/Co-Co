@@ -20,11 +20,15 @@ class StatusItemForm extends Component {
     this.props.post(this.props.type, newValues);
   }
 
+  ignoreDefault(e){ 
+      if (e.key === 'Enter') e.preventDefault(); 
+  }  
+
   render() {
     const { handleSubmit } = this.props;
     const topicItems = dictToArray(this.props.topicTypes);
     return (
-      <form onSubmit={handleSubmit(this.submit.bind(this))}>
+      <form onSubmit={handleSubmit(this.submit.bind(this))} onKeyPress={this.ignoreDefault} >
         <Grid>
           <Grid.Column width={16} style={{ padding: 0, backgroundColor: '#DEDEDE' }}>
             <div className='coandco-post-form-header'>Share your status</div>
