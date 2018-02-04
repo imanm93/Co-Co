@@ -50,6 +50,7 @@ class OppItemForm extends Component {
       this.props.post(this.props.type, newValues);
     }
     // newValues['startDateTime'] = moment("01/01/1990").tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
+    return false;
   }
 
   onSelectedServiceNeeded(value) {
@@ -79,6 +80,10 @@ class OppItemForm extends Component {
       });
     }
   }
+  
+  ignoreDefault(e){ 
+      if (e.key === 'Enter') e.preventDefault(); 
+  }
 
   render() {
     const { handleSubmit } = this.props;
@@ -88,7 +93,7 @@ class OppItemForm extends Component {
     const selectOptions = dictToOptionsForSelect(this.props.oppTypes);
     const radioOptions = [{ text: "Unpaid", value: "false" }, { text: "Paid", value: "true" }];
     return (
-      <form onSubmit={handleSubmit(this.submit.bind(this))}>
+      <form onSubmit={handleSubmit(this.submit.bind(this))} onKeyPress={this.ignoreDefault} >
         <Grid>
           <Grid.Column width={16} style={{ padding: 0, backgroundColor: '#DEDEDE' }}>
             <div className='coandco-post-form-header'>Post an opportunity</div>
