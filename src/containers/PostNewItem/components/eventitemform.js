@@ -21,7 +21,7 @@ class EventItemForm extends Component {
     newValues['photoUrl'] = values.photoUrl;
     newValues['location'] = values.location;
     newValues['description'] = values.description;
-    if (values.topicIds) newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
+    if (values.topics) newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
     let momentStartTime = moment(values.startTime, 'DD/MM/YYYY HH:mm:ss');
     let momentEndTime = moment(values.endTime, 'DD/MM/YYYY HH:mm:ss');
     newValues['endDateTime'] = moment(momentEndTime).tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');

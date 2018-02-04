@@ -217,7 +217,7 @@ class EditProfileForm extends Component {
                       />
                     })
               }
-              <Button circular secondary floated="right" type='button' onClick={() => this.onOpenModal('topics')}>Add new topics</Button>
+              <Button circular secondary floated="right" type='button' onClick={() => this.onOpenModal('topics')}>Add new interests</Button>
               <Modal open={this.state.modalTopics}>
                 <FiltersForm
                   title={'Topics'}

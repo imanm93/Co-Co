@@ -14,8 +14,8 @@ class PostNewItem extends Component {
   post(type, values) {
     if (this.props.locationExternal) { this.props.postExternalItem(type, values); }
     else if (!this.props.locationExternal) {
-      this.props.postItem(this.props.token, type, values, () => { 
-        this.props.history.push("/dashboard")
+      this.props.postItem(this.props.token, type, values, () => {
+        this.props.history.push("/dashboard");
       });
     }
   }
