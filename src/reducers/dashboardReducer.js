@@ -44,7 +44,8 @@ export default function(state=initialState, action) {
         }
       };
     case RESET_DASH:
-      return { ...state, ...{ initialState } };
+      const initial = Object.assign({}, initialState);
+      return { ...state, ...initial };
     case SET_PAGE:
       return { ...state, ...{ page: action.page } };
     default:

@@ -175,10 +175,6 @@ export function setUserSkills(token, skills, callback) {
 export function postConnectFromProfile(token, userId) {
   return function (dispatch) {
     dispatch({
-      type: SET_REQUESTED_CONNECTION,
-      id: userId
-    });
-    dispatch({
       type: SET_CONNECTIONS_STATUS_PRFOFILE,
       data: 'requestedTo'
     });

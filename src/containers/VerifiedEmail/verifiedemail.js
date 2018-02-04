@@ -15,7 +15,7 @@ class VerifiedEmail extends Component {
       <FormContainer>
         <Grid className='coandco-post-form-container' style={{ padding: '2rem' }}>
           <Grid.Row centered>
-            <div style={{ fontSize: '25px', fontWeight: 600 }}>
+            <div style={{ fontSize: '25px', fontWeight: 600, color: '#2A2A2A' }}>
               Your email has been verified!<br/><br/>
             </div>
           </Grid.Row>

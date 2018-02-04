@@ -60,7 +60,7 @@ class ForgotPasswordForm extends Component {
           <Grid centered>
             <Grid.Column width={12} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row style={{ paddingBottom: '1em', textAlign: 'center' }}>
-                <span style={{ color: '#E74C3C' }}>{this.props.forgotPasswordSuccess.data}</span>
+                <span style={{ color: '#2A2A2A' }}>{this.props.forgotPasswordSuccess.data}</span>
               </Grid.Row>
             </Grid.Column>
           </Grid>

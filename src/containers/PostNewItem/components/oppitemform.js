@@ -126,7 +126,9 @@ class OppItemForm extends Component {
               label='Description'
               placeholder='e.g. The project involves painitng five walls'
               component={inputFormField}
+              InputType={Form.TextArea}
               validate={required}
+              rows={4}
             />
           </Grid.Column>
           <Grid.Column width={7}>

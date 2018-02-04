@@ -16,7 +16,7 @@ export default function(state=initialState, action) {
       return { ...state, ...{ profileEditData: action.data } };
     case SET_CONNECTIONS_STATUS_PRFOFILE:
       let profileSetConnectionStatus = Object.assign({}, state.profileViewData);
-      profileSetConnectionStatus['connectionStatus'] = 'requested';
+      profileSetConnectionStatus['connectionStatus'] = 'requestedTo';
       return { ...state, ...{ profileViewData: profileSetConnectionStatus } };
     case UNSET_CONNECTIONS_STATUS_PRFOFILE:
       let profileUnsetConnectionStatus = Object.assign({}, state.profileViewData);

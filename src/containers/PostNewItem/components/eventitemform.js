@@ -79,6 +79,8 @@ class EventItemForm extends Component {
               placeholder='e.g. About the event'
               validate={required}
               component={inputFormField}
+              InputType={Form.TextArea}
+              rows={4}
             />
           </Grid.Column>
           <Grid.Column width={7} style={{ paddingTop: '3em' }}>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styles from './navbar.css';
 import { connect } from 'react-redux';
+import * as actions from '../../actions';
 import { Grid, Dropdown, Button } from 'semantic-ui-react';
-import * as actions from '../../actions/profileActions';
 
 import NewPostButton from '../../components/NewPostButton';
 import NotificationsBar from '../NotificationsBar';
@@ -10,6 +10,7 @@ import NotificationsBar from '../NotificationsBar';
 class NavBar extends Component {
 
   redirectToDashboard() {
+    this.props.resetDash();
     this.props.history.push('/dashboard');
   }
 

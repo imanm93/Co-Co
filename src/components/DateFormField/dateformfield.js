@@ -19,7 +19,6 @@ export default function dateFormField({
   ...custom
 }) {
   const hasError = touched && error !== undefined;
-  console.log(input.value);
   return (
     <div className='coandco-input-field'>
       <div className='coandco-input-label'>{label}</div>
