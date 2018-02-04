@@ -16,7 +16,7 @@ class EventItemNotExpanded extends Component {
           <div className='event-date-and-cost'>
             <div className='event-date'>
               <div className='event-date-number'>{ moment(this.props.item.startDateTime).date() }</div>
-              <div className='event-date-month'>{ month[moment(this.props.item.startDateTime).month()-1] }</div>
+              <div className='event-date-month'>{ month[moment(this.props.item.startDateTime).month()] }</div>
             </div>
             <div className='event-cost'>{ this.props.item.cost ? 'Paid' : 'Free' }</div>
           </div>

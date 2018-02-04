@@ -29,7 +29,7 @@ export default function dateFormField({
         {!showTimeSelect &&
           <DatePicker {...input} dateFormat={dateFormat} selected={input.value ? moment(input.value, dateFormat) : null} />
         }
-        {hasError && <span style={{ color: '#E74C3C' }}><i>{error}</i></span>}
+        {hasError && <span style={{ color: '#E74C3C', fontSize: '1.3em' }}><i>{error}</i></span>}
       </div>
     </div>
   );

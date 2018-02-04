@@ -80,9 +80,9 @@ class OppItemForm extends Component {
       });
     }
   }
-  
-  ignoreDefault(e){ 
-      if (e.key === 'Enter') e.preventDefault(); 
+
+  ignoreDefault(e){
+      if (e.key === 'Enter') e.preventDefault();
   }
 
   render() {

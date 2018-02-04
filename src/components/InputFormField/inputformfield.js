@@ -29,7 +29,7 @@ export default function inputFormField({
         }}
         {...custom}
       />
-      { hasError && <span style={{color:'#E74C3C', fontSize: '1.3em'}}><i>{error}</i></span> }
+      { hasError && <span style={{color:'#E74C3C', fontSize: '1.3em' }}><i>{error}</i></span> }
       { warning && <span><i>{warning}</i></span> }
     </div>
   );

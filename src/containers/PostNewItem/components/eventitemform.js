@@ -21,7 +21,7 @@ class EventItemForm extends Component {
     newValues['photoUrl'] = values.photoUrl;
     newValues['location'] = values.location;
     newValues['description'] = values.description;
-    newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
+    if (values.topicIds) newValues['topicIds'] = Object.keys(values.topics).map(key => values.topics[key].id);
     let momentStartTime = moment(values.startTime, 'DD/MM/YYYY HH:mm:ss');
     let momentEndTime = moment(values.endTime, 'DD/MM/YYYY HH:mm:ss');
     newValues['endDateTime'] = moment(momentEndTime).tz("Europe/London").format('YYYY-MM-DDTHH:mm:ssZ');
@@ -39,9 +39,9 @@ class EventItemForm extends Component {
     }
   }
 
-  ignoreDefault(e){ 
-      if (e.key === 'Enter') e.preventDefault(); 
-  }  
+  ignoreDefault(e){
+      if (e.key === 'Enter') e.preventDefault();
+  }
 
   render() {
     const { handleSubmit } = this.props;
