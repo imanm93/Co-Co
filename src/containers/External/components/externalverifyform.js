@@ -46,6 +46,7 @@ class ExternalVerifyForm extends Component {
                   placeholder='Please put your email here'
                   component={inputFormField}
                   validate={[required]}
+                  dontPreventDefault={true}
                 />
               </Grid.Row>
               { this.props.verifyError &&

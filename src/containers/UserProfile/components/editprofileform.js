@@ -15,8 +15,7 @@ import FiltersForm from '../../../components/FiltersForm';
 class EditProfileForm extends Component {
 
   submit(values) {
-    let newValues = {};
-    newValues = values;
+    let newValues = Object.assign({}, values);
     if (this.state.selectedSkills) newValues['skillIds'] = this.state.selectedSkills;
     if (this.state.selectedTopics) newValues['topicIds'] = this.state.selectedTopics;
     this.props.onSaveProfile(newValues);

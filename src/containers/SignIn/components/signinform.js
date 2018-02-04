@@ -46,6 +46,7 @@ class SignInForm extends Component {
                         placeholder='sXXXXXXX@ed.ac.uk'
                         validate={required}
                         component={inputFormField}
+                        dontPreventDefault={true}
                       />
                     </Grid.Column>
                     <Grid.Column width={8} style={{ paddingLeft: 0 }}>
@@ -56,6 +57,7 @@ class SignInForm extends Component {
                         placholder='Password'
                         validate={required}
                         component={inputFormField}
+                        dontPreventDefault={true}
                       />
                     </Grid.Column>
                   </Grid>

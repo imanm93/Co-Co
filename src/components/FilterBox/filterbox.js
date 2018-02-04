@@ -18,12 +18,15 @@ class FilterBox extends Component {
 
   onKeyPress = (event) => {
     if (this.props.setSearchQuery && event.key === 'Enter') {
+      event.preventDefault();
       this.props.setSearchQuery(this.state.value);
+    }
+    else if (!this.props.setSearchQuery && event.key === 'Enter') {
+      event.preventDefault();
     }
   };
 
   onClick = (event) => {
-    console.log(event);
     this.shouldRenderSuggestions();
   }
 
@@ -71,6 +74,7 @@ class FilterBox extends Component {
       item.name.toLowerCase().slice(0, inputLength) === inputValue
     );
   }
+
   getSuggestionValue = suggestion => suggestion.name;
 
   shouldRenderSuggestions = () => true;
@@ -89,12 +93,12 @@ class FilterBox extends Component {
         <Autosuggest
           inputProps={inputProps}
           suggestions={suggestions}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           renderSuggestion={renderSuggestion}
           getSuggestionValue={this.getSuggestionValue}
           onSuggestionSelected={this.onSuggestionSelected}
           shouldRenderSuggestions ={this.shouldRenderSuggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
         />
       </div>
     );

@@ -81,9 +81,9 @@ class OppItemForm extends Component {
     }
   }
 
-  ignoreDefault(e){
-      if (e.key === 'Enter') e.preventDefault();
-  }
+  // ignoreDefault(e){
+  //     if (e.key === 'Enter') e.preventDefault();
+  // }
 
   render() {
     const { handleSubmit } = this.props;
@@ -93,7 +93,7 @@ class OppItemForm extends Component {
     const selectOptions = dictToOptionsForSelect(this.props.oppTypes);
     const radioOptions = [{ text: "Unpaid", value: "false" }, { text: "Paid", value: "true" }];
     return (
-      <form onSubmit={handleSubmit(this.submit.bind(this))} onKeyPress={this.ignoreDefault} >
+      <form onSubmit={handleSubmit(this.submit.bind(this))} >
         <Grid>
           <Grid.Column width={16} style={{ padding: 0, backgroundColor: '#DEDEDE' }}>
             <div className='coandco-post-form-header'>Post an opportunity</div>
@@ -110,11 +110,11 @@ class OppItemForm extends Component {
             <div className='coandco-input-field'>
               <div className='coandco-input-label'>What service do you need?</div>
               <FilterBox
+                single={true}
                 items={skillItems}
                 className='form-search'
-                single={true}
-                onSelectedItem={this.onSelectedServiceNeeded.bind(this)}
                 placeholder='e.g. Poster Design'
+                onSelectedItem={this.onSelectedServiceNeeded.bind(this)}
                 onNoMatchFound={this.onSelectedServiceNeeded.bind(this)}
               />
               <span style={{ color: '#E74C3C' }}>{this.state.serviceNeededError}</span>
@@ -122,18 +122,18 @@ class OppItemForm extends Component {
             <Field
               name='title'
               label='Title'
-              placeholder='e.g. Mural Painting for Local Shop'
               component={inputFormField}
+              placeholder='e.g. Mural Painting for Local Shop'
               validate={required}
             />
             <Field
+              rows={4}
               name='description'
               label='Description'
-              placeholder='e.g. The project involves painitng five walls'
-              component={inputFormField}
-              InputType={Form.TextArea}
               validate={required}
-              rows={4}
+              InputType={Form.TextArea}
+              component={inputFormField}
+              placeholder='e.g. The project involves painitng five walls'
             />
           </Grid.Column>
           <Grid.Column width={7}>
@@ -142,13 +142,13 @@ class OppItemForm extends Component {
           <Grid.Column width={9}>
             <div className='form-section-title'>2. More Info</div>
             <Field
+              validate={required}
+              InputType={Form.Select}
+              options={selectOptions}
               name='opportunityTypeId'
-              label='What type of opportunity is this?'
               placeholder='e.g. Project'
               component={inputFormField}
-              InputType={Form.Select}
-              validate={required}
-              options={selectOptions}
+              label='What type of opportunity is this?'
             />
             {!this.props.externalEmail &&
               <Field

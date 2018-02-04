@@ -39,17 +39,13 @@ class EventItemForm extends Component {
     }
   }
 
-  ignoreDefault(e){
-      if (e.key === 'Enter') e.preventDefault();
-  }
-
   render() {
     const { handleSubmit } = this.props;
     const topicItems = dictToArray(this.props.topicTypes);
     const selectOptions = dictToOptionsForSelect(this.props.eventTypes);
     const radioOptions = [{ text: 'Free', value: 'false' }, { text: 'Paid', value: 'true' }];
     return(
-      <form onSubmit={handleSubmit(this.submit.bind(this))} onKeyPress={this.ignoreDefault} >
+      <form onSubmit={handleSubmit(this.submit.bind(this))}>
         <Grid>
           <Grid.Column width={16} style={{ padding: 0, backgroundColor: '#DEDEDE' }}>
             <div className='coandco-post-form-header'>Post an event</div>
@@ -74,16 +70,16 @@ class EventItemForm extends Component {
               name='title'
               label='Title'
               placeholder='e.g. Opening Night at the Wee Red Bar'
-              validate={required}
               component={inputFormField}
+              validate={required}
             />
             <Field
               name='description'
               label='Description'
               placeholder='e.g. About the event'
-              validate={required}
               component={inputFormField}
               InputType={Form.TextArea}
+              validate={required}
               rows={4}
             />
           </Grid.Column>
@@ -98,20 +94,20 @@ class EventItemForm extends Component {
             <div className='form-section-title'>2. More Info</div>
             <Field
               name='eventTypeId'
-              label='What type of event is this?'
               placeholder='Please choose'
+              label='What type of event is this?'
               component={inputFormField}
               InputType={Form.Select}
-              validate={required}
               options={selectOptions}
+              validate={required}
             />
             <Field
-              name='location'
               type='text'
+              name='location'
               label='Location'
               placeholder='e.g. Hunters buidling'
-              validate={required}
               component={inputFormField}
+              validate={required}
             />
           </Grid.Column>
           <Grid.Column width={7}>
