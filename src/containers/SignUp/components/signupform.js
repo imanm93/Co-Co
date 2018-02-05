@@ -63,7 +63,6 @@ class SignUpForm extends Component {
     delete newValues['degree'];
     if (this.state.courseId) { newValues['courseId'] = this.state.courseId; }
     if (values.acceptedWeeklyDigest) { newValues['acceptedWeeklyDigest'] = values.acceptedWeeklyDigest }
-    //console.log(newValues);
     this.props.onSignUp(newValues, userType);
   }
 
@@ -97,20 +96,20 @@ class SignUpForm extends Component {
     });
     return (
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
-        <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
+        <Grid centered>
+          <Grid.Column width={14} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <div className='form-header'>Sign Up to Co & Co</div>
           </Grid.Column>
         </Grid>
-        <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
+        <Grid centered>
+          <Grid.Column width={14} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row>
               <Divider />
             </Grid.Row>
           </Grid.Column>
         </Grid>
-        <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
+        <Grid centered>
+          <Grid.Column width={14} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
             <div className='form-section-title'>1. General information</div>
             <Field
               name="userType"
@@ -128,15 +127,15 @@ class SignUpForm extends Component {
             {this.genUserTypeFields(usertype)}
           </Grid.Column>
         </Grid>
-        <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
+        <Grid centered>
+          <Grid.Column width={14} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row>
               <Divider />
             </Grid.Row>
           </Grid.Column>
         </Grid>
-        <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
+        <Grid centered>
+          <Grid.Column width={14} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
             <div className='form-section-title'>3. The basics</div>
             <Grid.Row>
               <Grid>
@@ -162,15 +161,15 @@ class SignUpForm extends Component {
             </Grid.Row>
           </Grid.Column>
         </Grid>
-        <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
+        <Grid centered>
+          <Grid.Column width={14} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row>
               <Divider />
             </Grid.Row>
           </Grid.Column>
         </Grid>
-        <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
+        <Grid centered>
+          <Grid.Column width={14} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
             <div className='form-section-title'>4. A bit about you</div>
             <Grid.Row>
               <Grid>
@@ -190,7 +189,8 @@ class SignUpForm extends Component {
                     <div className='coandco-input-field'>
                       <div className='coandco-input-label'>Course</div>
                       <FilterBox
-                        items={courses}
+                        degree={this.props.degree}
+                        items={courses.filter(course => course.degree === this.props.degree)}
                         className='form-search'
                         single={true}
                         onSelectedItem={this.onSelectedServiceNeeded.bind(this)}
@@ -207,11 +207,11 @@ class SignUpForm extends Component {
             </Grid.Row>
           </Grid.Column>
         </Grid>
-        <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
+        <Grid centered>
+          <Grid.Column width={14} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
             <Grid.Row>
               <Grid>
-                <Grid.Column width={6}>
+                <Grid.Column width={6} style={{ textAlign: 'left' }}>
                   <Field
                     name='graduationYear'
                     label='When do you graduate?'
@@ -225,7 +225,7 @@ class SignUpForm extends Component {
                 </Grid.Column>
                 <Grid.Column width={2}>
                 </Grid.Column>
-                <Grid.Column width={8}>
+                <Grid.Column width={8} style={{ textAlign: 'left' }}>
                   <Field
                     name='sourceId'
                     label='How did you hear about us?'
@@ -240,15 +240,15 @@ class SignUpForm extends Component {
             </Grid.Row>
           </Grid.Column>
         </Grid>
-        <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
+        <Grid centered>
+          <Grid.Column width={14} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row>
               <Divider />
             </Grid.Row>
           </Grid.Column>
         </Grid>
-        <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
+        <Grid centered>
+          <Grid.Column width={14} style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
             <Field
               toggle
               name="acceptedWeeklyDigest"
@@ -267,25 +267,25 @@ class SignUpForm extends Component {
             <a href="" onClick={this.props.onShowTandCs} style={{ position: 'absolute', left: '150px', top: '22px' }}>Terms & Conditions.</a>
           </Grid.Column>
         </Grid>
-        <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
+        <Grid centered>
+          <Grid.Column width={14} style={{ backgroundColor: '#FFF', padding: 0 }}>
             <Grid.Row>
               <Divider />
             </Grid.Row>
           </Grid.Column>
         </Grid>
-        <Grid>
-          <Grid.Column width={16} style={{ backgroundColor: '#FFF', padding: 0 }}>
-            <Grid.Row>
-              {this.props.submitError && <p className="errorMessage"> <br />{this.props.submitError}</p>}
+        <Grid centered>
+          <Grid.Column width={14} style={{ backgroundColor: '#FFF', padding: 0 }}>
+            <Grid.Row centered style={{ color: 'red', marginBottom: '1em' }}>
+              {this.props.submitError && <p className="errorMessage" style={{ textAlign: 'center' }}> <br />{this.props.submitError}</p>}
             </Grid.Row>
           </Grid.Column>
         </Grid>
-        <Grid>
-          <Grid.Column width={7} style={{ backgroundColor: '#FFF', paddingLeft: '1em' }}>
+        <Grid centered>
+          <Grid.Column width={6} style={{ backgroundColor: '#FFF', paddingLeft: '1em', textAlign: 'left' }}>
             <a href={'mailto:info@ed.ac.uk'}>Please email info@ed.ac.uk if you face any issues</a>
           </Grid.Column>
-          <Grid.Column width={9} style={{ backgroundColor: '#FFF', padding: '1em', textAlign: 'right' }}>
+          <Grid.Column width={8} style={{ backgroundColor: '#FFF', padding: '1em', textAlign: 'right' }}>
             <Link to='/'>
               <Button type='button' circular className='coandco-btn-inverted'>Back to Homepage</Button>
             </Link>
