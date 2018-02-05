@@ -26,9 +26,9 @@ class Verify extends Component {
             </Dimmer>
           }
           <Grid.Row centered style={{ fontSize: '33px', fontWeight: '600' }}>Thank you</Grid.Row>
-          <Grid.Row centered>A verification email has been sent {this.props.verifyUserEmail}</Grid.Row>
+          <Grid.Row centered>You're now signed up.</Grid.Row>
           <Grid.Row centered>
-            <Button circular style={{
+            {/* <Button circular style={{
               backgroundColor: '#FFF',
               border: '1px solid #2A2A2A',
               color: '#2A2A2A'
@@ -37,7 +37,7 @@ class Verify extends Component {
             onClick={this.resendVerificationEmail.bind(this)}
             as='a'>
               resend email
-            </Button>
+            </Button> */}
             <Button circular secondary onClick={this.redirectToLogin}>Sign in!</Button>
           </Grid.Row>
           <Grid.Row>
