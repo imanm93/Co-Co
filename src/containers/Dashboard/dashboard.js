@@ -91,7 +91,7 @@ class Dashboard extends Component {
     const timestamp = new Date().getTime();
     this.props.setLastActivityTimestamp(timestamp);
     this.setState({
-      modalToEditProfile: true
+      modalToEditProfile: false
     });
   }
 
