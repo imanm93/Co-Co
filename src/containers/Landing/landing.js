@@ -206,7 +206,7 @@ class Landing extends Component {
                 <Grid.Column width={8} style={{ paddingLeft: '2em' }}>
                   <Header as='h4' inverted>Co & Co</Header>
                   <p>Coandco.io (Scotland) Ltd (SC574306) is an independent body not formally associated with an educational institution.</p>
-                  <div>2.0.0</div>
+                  <div>2.0.1</div>
                 </Grid.Column>
                 <Grid.Column width={6} style={{
                   textAlign: 'right',
