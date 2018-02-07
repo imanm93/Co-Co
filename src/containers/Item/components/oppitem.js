@@ -43,10 +43,10 @@ class OppItem extends Component {
               }
               <Grid.Column width={12}>
                 <Grid.Row style={{ padding: '0.5em 1rem' }}>
-                  <div className='opp-service-needed'>{this.props.skills[this.props.item.serviceNeeded]}</div>
+                  <div className='opp-service-needed' onClick={() => this.props.onExpand(this.props.type, this.props.item.itemId)}>{this.props.skills[this.props.item.serviceNeeded]}</div>
                 </Grid.Row>
                 <Grid.Row style={{ padding: '0.5em 1rem' }}>
-                  <div className='opp-title'>{this.props.item.title}</div>
+                  <div className='opp-title' onClick={() => this.props.onExpand(this.props.type, this.props.item.itemId)}>{this.props.item.title}</div>
                 </Grid.Row>
                 <Grid.Row style={{ padding: '0.5em 1em 1em', paddingTop: '0em' }}>
                   <Grid style={{ margin: 0 }}>
