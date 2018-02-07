@@ -33,15 +33,17 @@ class SignUp extends React.Component {
 
   render() {
     return(
-      <FormContainer>
+      <Grid>
         { this.props.isSigningUp &&
             <Dimmer active inverted>
               <Loader />
             </Dimmer>
         }
-        <SignUpForm onSignUp={this.onSignUp.bind(this)} onShowTandCs={this.onShowTandCs.bind(this)} submitError={this.props.signUpError} setupData={this.props.setupData} />
+        <Grid.Row centered style={{ marginTop: '2em' }}>
+          <SignUpForm onSignUp={this.onSignUp.bind(this)} onShowTandCs={this.onShowTandCs.bind(this)} submitError={this.props.signUpError} setupData={this.props.setupData} />
+        </Grid.Row>
         <TermsAndConditionsModal open={this.state.showTermsConditions} onClose={this.onHideTandCs.bind(this)}  />
-      </FormContainer>
+      </Grid>
     )
   }
 
