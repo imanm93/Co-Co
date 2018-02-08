@@ -38,11 +38,17 @@ class EventItemExpanded extends Component {
           <div className='event-description'>{this.props.item.description}</div>
           {this.props.item.attachments &&
             <Grid.Row>
-              {this.props.item.attachments.map((attachment, index) => {
-                return <Label as='a' href={attachment}>
-                  {'Attachment ' + index}
-                </Label>
-              })}
+               {this.props.item.attachments.map((attachment, index) => {
+                       console.log(attachment);
+                      let name = "Attachment "+ index;
+                      if (attachment.name) {
+                        name = attachment.name;
+                      }
+                      console.log(name);
+                      return <Label key={'opp' + this.props.item.itemId + 'attachement' + index} as='a' href={attachment.url}>
+                        {name}
+                      </Label>
+                    })}
             </Grid.Row>
           }
         </Grid.Column>

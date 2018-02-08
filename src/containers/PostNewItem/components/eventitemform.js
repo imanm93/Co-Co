@@ -29,7 +29,15 @@ class EventItemForm extends Component {
     newValues['eventTypeId'] = Object.keys(this.props.eventTypes).filter(key => this.props.eventTypes[key] === values.eventTypeId)[0];
 
     if (values.cost) newValues['cost'] = values.cost;
-    if (values.attachments) newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
+    if (values.attachments) {
+      newValues['attachments'] = Object.keys(values.attachments).map(key => {
+        return {
+          'url': values.attachments[key].image,
+          'name': values.attachments[key].name
+        };
+      }
+      );
+    }
     if (this.props.externalEmail) {
       newValues['companyEmail'] = this.props.externalEmail;
       this.props.post(this.props.type, newValues);
@@ -44,7 +52,7 @@ class EventItemForm extends Component {
     const topicItems = dictToArray(this.props.topicTypes);
     const selectOptions = dictToOptionsForSelect(this.props.eventTypes);
     const radioOptions = [{ text: 'Free', value: 'false' }, { text: 'Paid', value: 'true' }];
-    return(
+    return (
       <form onSubmit={handleSubmit(this.submit.bind(this))}>
         <Grid>
           <Grid.Column width={16} style={{ padding: 0, backgroundColor: '#DEDEDE' }}>
@@ -52,9 +60,9 @@ class EventItemForm extends Component {
           </Grid.Column>
         </Grid>
         <Grid className='coandco-post-form-container'>
-          { this.props.isPostingItem &&
+          {this.props.isPostingItem &&
             <Dimmer active inverted>
-              <Loader/>
+              <Loader />
             </Dimmer>
           }
           <Grid.Column width={9}>
@@ -153,7 +161,7 @@ class EventItemForm extends Component {
               validate={required}
               options={radioOptions}
             />
-            { this.props.fee && this.props.fee === "true" &&
+            {this.props.fee && this.props.fee === "true" &&
               <Field
                 name='cost'
                 label=''

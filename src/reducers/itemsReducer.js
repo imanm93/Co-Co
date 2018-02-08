@@ -52,7 +52,7 @@ export default function (state = initialState, action) {
           break;
         case ItemTypes.EVENT_ITEM:
           itemExpand["description"] = action.data.description;
-          itemExpand["attachments"] = action.data.attachmentsUrls;
+          itemExpand["attachments"] = action.data.attachments;
           break;
         default:
           break;
