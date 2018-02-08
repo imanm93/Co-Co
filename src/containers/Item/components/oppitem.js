@@ -110,7 +110,7 @@ class OppItem extends Component {
                       }
                       console.log(name);
                       return <Label key={'opp' + this.props.item.itemId + 'attachement' + index} as='a' href={attachment.url}>
-                        {name}
+                        {name} <Icon name='download' key={'opp' + this.props.item.itemId + 'attachementIcon' + index} onClick={()=>{this.onIconClick(attachment.url)}}/>
                       </Label>
                     })}
                   </Grid.Row>
