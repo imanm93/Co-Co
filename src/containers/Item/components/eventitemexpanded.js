@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Grid, Button, Label } from 'semantic-ui-react';
 import moment from 'moment';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
 
 class EventItemExpanded extends Component {
-
+  onIconClick = () => {
+    console.log('click')
+  }
   render() {
     const month = ["Jan", "Feb", "Mar", "Apr", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
     return (
@@ -39,9 +42,14 @@ class EventItemExpanded extends Component {
           {this.props.item.attachments &&
             <Grid.Row>
               {this.props.item.attachments.map((attachment, index) => {
-                return <Label as='a' href={attachment}>
-                  {'Attachment ' + index}
-                </Label>
+                let name = "Attachment " + index;
+                if (attachment.name) {
+                  name = attachment.name;
+                }
+                return <div><Label key={'opp' + this.props.item.itemId + 'attachement' + index} as='a' href={attachment.url}>
+                  {name} <Icon name='download' key={'opp' + this.props.item.itemId + 'attachementIcon' + index} onClick={()=>{this.onIconClick(attachment.url)}}/>
+                </Label> 
+                </div>
               })}
             </Grid.Row>
           }

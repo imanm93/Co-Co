@@ -45,14 +45,14 @@ export default function (state = initialState, action) {
       switch (itemExpand.itemType) {
         case ItemTypes.OPP_ITEM:
           itemExpand["description"] = action.data.description;
-          itemExpand["attachments"] = action.data.attachmentsUrls;
+          itemExpand["attachments"] = action.data.attachments;
           itemExpand["skills"] = action.data.skills;
           itemExpand["reward"] = action.data.reward;
           itemExpand["endDateTime"] = action.data.endDateTime;
           break;
         case ItemTypes.EVENT_ITEM:
           itemExpand["description"] = action.data.description;
-          itemExpand["attachments"] = action.data.attachmentsUrls;
+          itemExpand["attachments"] = action.data.attachments;
           break;
         default:
           break;
