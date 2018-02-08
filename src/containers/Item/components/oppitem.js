@@ -16,8 +16,8 @@ class OppItem extends Component {
     return (
       <Grid.Row style={{ padding: 0 }}>
         <Grid.Column width={16} style={{ padding: 0 }}>
-          { this.props.item.companyDetails && this.props.item.companyDetails.contactEmail &&
-              <Grid.Row className="opp-external-header"><b>External</b></Grid.Row>
+          {this.props.item.companyDetails && this.props.item.companyDetails.contactEmail &&
+            <Grid.Row className="opp-external-header"><b>External</b></Grid.Row>
           }
           <Grid.Row style={oppHeaderStyle}>
             <Grid>
@@ -36,7 +36,7 @@ class OppItem extends Component {
           </Grid.Row>
           <Grid.Row style={{ backgroundColor: '#FFF', padding: '0em 1em' }}>
             <Grid>
-              { this.props.item.isExpanding &&
+              {this.props.item.isExpanding &&
                 <Dimmer active inverted>
                   <Loader />
                 </Dimmer>
@@ -51,27 +51,27 @@ class OppItem extends Component {
                 <Grid.Row style={{ padding: '0.5em 1em 1em', paddingTop: '0em' }}>
                   <Grid style={{ margin: 0 }}>
                     <Grid.Column width={2} style={{ padding: 0, paddingTop: '0.5em' }}>
-                      { !this.props.item.companyDetails &&
-                        <img className='opp-owner-picture' src={this.props.item.user.profilePhotoUrl} alt={'profile'} /> }
-                      { this.props.item.companyDetails && !this.props.item.companyDetails.contactEmail &&
-                        <img className='opp-owner-picture' src={this.props.item.user.profilePhotoUrl} alt={'profile'} /> }
-                      { this.props.item.companyDetails && this.props.item.companyDetails.contactEmail &&
-                        <img className='opp-owner-picture' src={this.props.item.companyDetails.logo} alt={'profile'} /> }
+                      {!this.props.item.companyDetails &&
+                        <img className='opp-owner-picture' src={this.props.item.user.profilePhotoUrl} alt={'profile'} />}
+                      {this.props.item.companyDetails && !this.props.item.companyDetails.contactEmail &&
+                        <img className='opp-owner-picture' src={this.props.item.user.profilePhotoUrl} alt={'profile'} />}
+                      {this.props.item.companyDetails && this.props.item.companyDetails.contactEmail &&
+                        <img className='opp-owner-picture' src={this.props.item.companyDetails.logo} alt={'profile'} />}
                     </Grid.Column>
                     <Grid.Column width={7} style={{ padding: 0, paddingTop: '0.75em' }}>
-                      { !this.props.item.companyDetails &&
+                      {!this.props.item.companyDetails &&
                         <div>
                           <div className='opp-owner-name'>{this.props.item.user.name}</div>
                           <div className='opp-owner-course-name'>{this.props.item.user.courseName}</div>
                         </div>
                       }
-                      { this.props.item.companyDetails && !this.props.item.companyDetails.contactEmail &&
+                      {this.props.item.companyDetails && !this.props.item.companyDetails.contactEmail &&
                         <div>
                           <div className='opp-owner-name'>{this.props.item.user.name}</div>
                           <div className='opp-owner-course-name'>{this.props.item.user.courseName}</div>
                         </div>
                       }
-                      { this.props.item.companyDetails && this.props.item.companyDetails.contactEmail &&
+                      {this.props.item.companyDetails && this.props.item.companyDetails.contactEmail &&
                         <div className='opp-owner-name'>{this.props.item.companyDetails.name}</div>
                       }
                     </Grid.Column>
@@ -82,30 +82,35 @@ class OppItem extends Component {
                 </Grid.Row>
               </Grid.Column>
               <Grid.Column width={4}>
-                { !this.props.item.expanded &&
-                    <Button className='item-btn-see-more' onClick={() => this.props.onExpand(this.props.type, this.props.item.itemId)}>See More <i className="fa fa-chevron-down" aria-hidden="true"></i></Button>
+                {!this.props.item.expanded &&
+                  <Button className='item-btn-see-more' onClick={() => this.props.onExpand(this.props.type, this.props.item.itemId)}>See More <i className="fa fa-chevron-down" aria-hidden="true"></i></Button>
                 }
               </Grid.Column>
             </Grid>
           </Grid.Row>
           <Grid.Row style={{ backgroundColor: '#FFF', padding: '0em 2em' }}>
-            { this.props.item.expanded &&
+            {this.props.item.expanded &&
               <Grid style={{ margin: 0 }}>
                 <Grid.Row>
                   {this.props.item.description}
                 </Grid.Row>
-                { (this.props.item.reward || this.props.item.endDateTime) &&
+                {(this.props.item.reward || this.props.item.endDateTime) &&
                   <div className='event-attributes' style={{ paddingBottom: '2em' }}>
-                    { this.props.item.reward &&
-                      <div className='event-attribute'><i className="fa fa-gift" aria-hidden="true"></i> {this.props.item.reward}</div> }
-                    { <div className='event-attribute'><i className='fa fa-clock-o'></i> {moment(this.props.item.endDateTime).format("LL")}</div> }
+                    {this.props.item.reward &&
+                      <div className='event-attribute'><i className="fa fa-gift" aria-hidden="true"></i> {this.props.item.reward}</div>}
+                    {<div className='event-attribute'><i className='fa fa-clock-o'></i> {moment(this.props.item.endDateTime).format("LL")}</div>}
                   </div>
                 }
-                { this.props.item.attachments &&
+                {this.props.item.attachments &&
                   <Grid.Row>
-                    { this.props.item.attachments.map((attachment, index) => {
-                      return <Label key={'opp' + this.props.item.itemId + 'attachement' + index} as='a' href={attachment}>
-                        {'Attachment ' + index}
+                    {this.props.item.attachments.map((attachment, index) => {
+                      let name = "Attachment "+ index;
+                      if (attachment.name) {
+                        name = attachment.name;
+                      }
+                      console.log(name);
+                      return <Label key={'opp' + this.props.item.itemId + 'attachement' + index} as='a' href={attachment.url}>
+                        {name}
                       </Label>
                     })}
                   </Grid.Row>

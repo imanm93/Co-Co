@@ -33,7 +33,16 @@ class OppItemForm extends Component {
     if (values.reward) newValues['reward'] = values.reward;
     if (values.skills) newValues['skillIds'] = Object.keys(values.skills).map(key => values.skills[key].id);
     if (values.topics) newValues['topicIds'] = values.topics.map(topic => topic.id);
-    if (values.attachments) newValues['attachments'] = Object.keys(values.attachments).map(key => values.attachments[key].image);
+    if (values.attachments) { 
+      newValues['attachments'] = Object.keys(values.attachments).map(key =>
+        {
+          return {
+            'url': values.attachments[key].image,
+            'name': values.attachments[key].name
+          };
+        }
+    );
+    }
 
     newValues['serviceNeeded'] = this.state.serviceNeeded;
     if (newValues['skillIds'] && newValues['skillIds'].length > 0) { newValues['skillIds'] = newValues['skillIds'].concat(this.state.serviceNeeded) }
