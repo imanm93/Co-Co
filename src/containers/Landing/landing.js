@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 import LandingFeature from './landingfeature';
 import { Container, Grid, Segment, Button, Divider, Header, Icon, Image, List, Menu, Visibility, Label } from 'semantic-ui-react';
 
+// <Label as='a' color='blue' ribbon style={{ width: '102.5%', padding: '1em', borderRadius: 0 }}>
+//   <Grid>
+//   </Grid>
+// </Label>
+
 const FixedMenu = () => (
   <Menu fixed='top' size='large' inverted>
     <Container>
@@ -19,26 +24,6 @@ const FixedMenu = () => (
     </Container>
   </Menu>
 )
-
-// <object
-//   style={{ width: '100%', height: '28em' }}
-//   data="http://www.youtube.com/embed/ekJMFj0QIFE"
-//   width="560"
-//   height="315">
-// </object>
-// onBottomPassed={this.showFixedMenu}
-// onBottomVisible={this.hideFixedMenu}
-
-// <Grid.Column width={13}>
-//   <div style={{ fontSize: '18px', marginTop: '0.5em' }}>
-//     ‘Connect & Create’ at Edinburgh College of Art // Tuesday February 6th 2017
-//   </div>
-// </Grid.Column>
-// <Grid.Column width={3}>
-//   <a href='https://www.eventbrite.co.uk/e/connect-create-tickets-42032780177?aff=eac2'>
-//     <Button inverted>Book your ticket!</Button>
-//   </a>
-// </Grid.Column>
 
 class Landing extends Component {
 
@@ -79,10 +64,6 @@ class Landing extends Component {
 
         <Segment style={{ backgroundColor: '#FFF', height: '90%', margin: 0, border: 'none', boxShadow: 'none', paddingBottom: '14%' }}>
           <Container>
-            <Label as='a' color='blue' ribbon style={{ width: '102.5%', padding: '1em', borderRadius: 0 }}>
-              <Grid>
-              </Grid>
-            </Label>
             <Grid>
               <Grid.Row centered>
                 <Grid.Column mobile={16} computer={8} verticalAlign='middle' textAlign='left'>
@@ -143,7 +124,7 @@ class Landing extends Component {
               <Grid.Column width={16} style={{ textAlign: 'left' }}>
                 <h1 style={{ fontSize: '50px' }}>Our Mission</h1>
                 <p style={{ fontSize: '25px' }}>
-                  Co & Co students is a digital platform to connect students who ‘create’ within educational institutions & outwith industry. A service for students to discover projects, build networks and take part in events to enhance employability.
+                  Co & Co is a digital platform to connect students who ‘create’ within educational institutions & outwith industry. A service for students to discover projects, build networks and take part in events to enhance employability.
                   <br/><br/>
                   <b>Watch this space.</b>
                 </p>
@@ -227,71 +208,5 @@ class Landing extends Component {
     )
   }
 }
-
-// <Segment style={{ padding: '0em', backgroundColor: '#2A2A2A' }} vertical>
-//   <Grid celled='internally' columns='equal' stackable>
-//     <Grid.Row textAlign='center'>
-//       <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em', color: '#FFF' }}>
-//         <Grid>
-//           <Grid.Column width={1}>
-//           </Grid.Column>
-//           <Grid.Column width={14} style={{ textAlign: 'left' }}>
-//             <Header as='h3' style={{ fontSize: '2em', color: '#FFF' }}>
-//               "It seems that Co & Co intends to create a national community of creative graduates in a way that hasn't been achieved before."
-//             </Header>
-//             <Image avatar style={{ width: '4em', height: '4em', marginTop: '-2em', marginRight: '0.75em' }} src='https://coandco.blob.core.windows.net/systemimagescoandco/files/johnrushworth.png' />
-//             <p style={{ fontSize: '1.33em', display: 'inline-block' }}>
-//                <b>John Rushworth</b><br/>
-//                Partner at Pentagram
-//              </p>
-//           </Grid.Column>
-//           <Grid.Column width={1}>
-//           </Grid.Column>
-//         </Grid>
-//       </Grid.Column>
-//       <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em', color: '#FFF' }}>
-//         <Grid>
-//           <Grid.Column width={1}>
-//           </Grid.Column>
-//           <Grid.Column width={14} style={{ textAlign: 'left' }}>
-//             <Header as='h3' style={{ fontSize: '2em', color: '#FFF' }}>
-//               "If we were to have this service, I think it would be a big help to Academic members of staff"
-//             </Header>
-//             <Image avatar style={{ width: '4em', height: '4em', marginTop: '-2em', marginRight: '0.75em' }} src='https://coandco.blob.core.windows.net/systemimagescoandco/files/jared-taylor.png' />
-//             <p style={{ fontSize: '1.33em', display: 'inline-block' }}>
-//               <b>Jared Taylor</b><br/>
-//               Director of UG Studies, School of Design
-//             </p>
-//           </Grid.Column>
-//           <Grid.Column width={1}>
-//           </Grid.Column>
-//         </Grid>
-//       </Grid.Column>
-//     </Grid.Row>
-//   </Grid>
-// </Segment>
-// <Header as='h3' style={{ fontSize: '2em' }}>Launch Event</Header>
-// <p style={{ fontSize: '1.33em' }}>
-//   We are holding a launch event at the firestation on the 6th of February. Invites will be sent out soon!
-// </p>
-// <Divider
-//   as='h4'
-//   className='header'
-//   horizontal
-//   style={{ margin: '3em 0em', textTransform: 'uppercase' }}
-// >
-//   <a href='#'>Case Studies</a>
-// </Divider>
-// <Header as='h3' style={{ fontSize: '2em' }}>Hannah & Savannah</Header>
-// <p style={{ fontSize: '1.33em' }}>
-//   Hannah found Savannah on Co & Co. Within 10 minutes they were collaborating in the same studio on Hannahs final year project.
-// </p>
-// <Header style={{ fontSize: '1.5em' }}>
-//   "Co & Co gives you the opportunity to work with people that you wouldn't neccesarily meet without it"
-// </Header>
-// <p style={{ fontSize: '1em' }}>
-//   <b>Savannah Storm</b><br/>
-//   Illustration
-// </p>
 
 export default Landing;
