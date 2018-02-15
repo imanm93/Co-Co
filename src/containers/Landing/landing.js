@@ -29,6 +29,17 @@ const FixedMenu = () => (
 // onBottomPassed={this.showFixedMenu}
 // onBottomVisible={this.hideFixedMenu}
 
+// <Grid.Column width={13}>
+//   <div style={{ fontSize: '18px', marginTop: '0.5em' }}>
+//     ‘Connect & Create’ at Edinburgh College of Art // Tuesday February 6th 2017
+//   </div>
+// </Grid.Column>
+// <Grid.Column width={3}>
+//   <a href='https://www.eventbrite.co.uk/e/connect-create-tickets-42032780177?aff=eac2'>
+//     <Button inverted>Book your ticket!</Button>
+//   </a>
+// </Grid.Column>
+
 class Landing extends Component {
 
   state = {}
@@ -70,16 +81,6 @@ class Landing extends Component {
           <Container>
             <Label as='a' color='blue' ribbon style={{ width: '102.5%', padding: '1em', borderRadius: 0 }}>
               <Grid>
-                <Grid.Column width={13}>
-                  <div style={{ fontSize: '18px', marginTop: '0.5em' }}>
-                    ‘Connect & Create’ at Edinburgh College of Art // Tuesday February 6th 2017
-                  </div>
-                </Grid.Column>
-                <Grid.Column width={3}>
-                  <a href='https://www.eventbrite.co.uk/e/connect-create-tickets-42032780177?aff=eac2'>
-                    <Button inverted>Book your ticket!</Button>
-                  </a>
-                </Grid.Column>
               </Grid>
             </Label>
             <Grid>
@@ -206,7 +207,7 @@ class Landing extends Component {
                 <Grid.Column width={8} style={{ paddingLeft: '2em' }}>
                   <Header as='h4' inverted>Co & Co</Header>
                   <p>Coandco.io (Scotland) Ltd (SC574306) is an independent body not formally associated with an educational institution.</p>
-                  <div>2.0.1</div>
+                  <div>2.0.2</div>
                 </Grid.Column>
                 <Grid.Column width={6} style={{
                   textAlign: 'right',

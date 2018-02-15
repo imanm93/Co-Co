@@ -105,12 +105,9 @@ class OppItem extends Component {
                   <Grid.Row>
                     {this.props.item.attachments.map((attachment, index) => {
                       let name = "Attachment "+ index;
-                      if (attachment.name) {
-                        name = attachment.name;
-                      }
-                      console.log(name);
+                      if (attachment.name) { name = attachment.name; }
                       return <Label key={'opp' + this.props.item.itemId + 'attachement' + index} as='a' href={attachment.url}>
-                        {name} <Icon name='download' key={'opp' + this.props.item.itemId + 'attachementIcon' + index} onClick={()=>{this.onIconClick(attachment.url)}}/>
+                        {attachment.url.split('/')[-1]} <Icon name='download' key={'opp' + this.props.item.itemId + 'attachementIcon' + index} onClick={()=>{this.onIconClick(attachment.url)}}/>
                       </Label>
                     })}
                   </Grid.Row>

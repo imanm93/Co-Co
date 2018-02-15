@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
 import styles from './dashboard.css';
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import { dictToArray } from '../../utils/dictTransforms';
 import { Grid, Button, Modal, Dimmer, Loader } from 'semantic-ui-react';
 
-import * as FilterTypes from '../../constants/filters/filterTypes';
 import * as DashboardTabs from '../../constants/dashboard/dashboardTypes';
+import * as FilterTypes from '../../constants/filters/filterTypes';
 import * as actions from '../../actions';
 
 import NavBar from '../NavBar';
@@ -354,8 +354,8 @@ class Dashboard extends Component {
 
 function mapStateToProps(state) {
   return {
-    lastActivityTimestamp: state.account.lastActivityTimestamp,
     isLoadingMoreDashItems: state.loaders.isLoadingMoreDashItems,
+    lastActivityTimestamp: state.account.lastActivityTimestamp,
     isLoadingDashItems: state.loaders.isLoadingDashItems,
     userSkills: state.profiles.profileEditData.skills,
     userTopics: state.profiles.profileEditData.topics,
@@ -377,6 +377,7 @@ function mapStateToProps(state) {
     dash: state.dash,
     api: state.api
   };
+
 }
 
 export default connect(mapStateToProps, actions)(Dashboard);
