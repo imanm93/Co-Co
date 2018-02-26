@@ -1,4 +1,7 @@
-import { SET_CONNECTIONS, SET_CONNECTION_REQUESTS, SET_CONNECTION_REQUEST_STATUS, SET_CONNECTION_NOTIFICATION  } from '../constants/connections/connectionReducerTypes';
+import {
+  SET_CONNECTIONS, SET_CONNECTION_REQUESTS,
+  SET_CONNECTION_REQUEST_STATUS, SET_CONNECTION_NOTIFICATION
+} from '../constants/connections/connectionReducerTypes';
 
 const initialState = {
   connections: {},

@@ -28,14 +28,12 @@ import NotificationsConnectionRequests from './containers/NotificationsConnectio
  * Components
  */
 import NotFoundPage from './components/NotFoundPage';
-//  <Route path="/setup" component={withGATracker(UserSetup)} />
 const Routes = () => (
   <Switch>
       <Route exact path="/" component={withGATracker(Landing)} />
       <Route path="/verify" component={withGATracker(Verify)} />
       <Route path="/signup" component={withGATracker(SignUp)} />
       <Route path="/signin" component={withGATracker(SignIn)} />
-    
       <Route path="/dashboard" component={withGATracker(Dashboard)} />
       <Route path="/external/:step" component={withGATracker(External)} />
       <Route path="/profile/:type" component={withGATracker(UserProfile)} />

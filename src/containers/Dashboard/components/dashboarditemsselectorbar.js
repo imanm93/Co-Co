@@ -5,7 +5,7 @@ class DashboardItemsSelectorBar extends Component {
 
   render() {
     return(
-      <Grid columns={5} divided style={{ padding: 0 }}>
+      <Grid columns={3} divided style={{ padding: 0 }}>
         { this.props.tabs && Object.keys(this.props.tabs).map(key => {
             return <Grid.Column key={key} style={{ padding: 0, boxShadow: 'none' }}>
               { this.props.currentTab === this.props.tabs[key] &&

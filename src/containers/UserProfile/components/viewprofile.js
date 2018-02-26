@@ -37,7 +37,7 @@ class ViewProfile extends Component {
                           <Grid centered>
                             <Grid.Row centered>
                               <Grid.Column width={16} style={{ textAlign: 'center' }}>
-                                { this.props.onConnect && !this.props.profileViewData.connectionStatus &&
+                                { this.props.onConnect && (!this.props.profileViewData.connectionStatus || this.props.profileViewData.connectionStatus === 'initial') &&
                                   <Button circular secondary onClick={() => this.props.onConnect(this.props.profileViewData.userId)}>Connect</Button>
                                 }
                                 { this.props.onConnect && this.props.profileViewData.connectionStatus === 'requestedTo' &&
@@ -45,6 +45,12 @@ class ViewProfile extends Component {
                                 }
                                 { this.props.onConnect && this.props.profileViewData.connectionStatus === 'connected' &&
                                   <Button circular secondary disabled style={{ backgroundColor: 'green' }}>Connected</Button>
+                                }
+                                { this.props.onConnect && this.props.profileViewData.connectionStatus === 'requestedFrom' &&
+                                  <Button secondary circular onClick={() => this.props.onAcceptConnectionFromProfile(this.props.profileViewData.userId)}><i className='fa fa-check'></i> Accept Connection</Button>
+                                }
+                                { this.props.onConnect && this.props.profileViewData.connectionStatus === 'requestedFrom' &&
+                                  <Button secondary circular onClick={() => this.props.onRejectConnectionFromProfile(this.props.profileViewData.userId)}><i className='fa fa-times'></i> Reject Connection</Button>
                                 }
                                 <a href={'mailto:' + this.props.profileViewData.email}>
                                   <Button circular style={{ backgroundColor: '#FFF', color: '#2A2A2A', border: '1px solid #2A2A2A' }}>Email ({this.props.profileViewData.email})</Button>
@@ -190,6 +196,7 @@ class ViewProfile extends Component {
   }
 
   render() {
+    console.log(this.props.profileViewData);
     const isOwner = this.props.userId === this.props.profileViewData.userId;
     return (
         <Grid.Row>

@@ -1,7 +1,27 @@
+
 div.ui.bottom.center.popup.transition.visible {
   border-radius: 8px;
 }
 
 div.ui.bottom.center.popup.transition.visible::before {
-  background-color: #2A2A;
+  background-color: #2A2A2A;
+}
+
+.dashboard-notifications-primary>div {
+  background-color: rgb(243,139,61);
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  cursor: pointer;
+  padding: 0.7em;
+  color: #FFF;
+}
+
+.dashboard-notifications-primary-empty>div {
+  background-color: #ECECEC;
+  padding: 0.7em;
+  color: #000;
+}
+
+.connection-notifications-primary {
+  cursor: pointer;
 }

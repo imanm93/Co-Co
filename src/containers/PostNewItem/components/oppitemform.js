@@ -33,15 +33,15 @@ class OppItemForm extends Component {
     if (values.reward) newValues['reward'] = values.reward;
     if (values.skills) newValues['skillIds'] = Object.keys(values.skills).map(key => values.skills[key].id);
     if (values.topics) newValues['topicIds'] = values.topics.map(topic => topic.id);
-    if (values.attachments) { 
+    if (values.attachments) {
       newValues['attachments'] = Object.keys(values.attachments).map(key =>
-        {
-          return {
-            'url': values.attachments[key].image,
-            'name': values.attachments[key].name
-          };
-        }
-    );
+          {
+            return {
+              'url': values.attachments[key].image,
+              'name': values.attachments[key].name
+            };
+          }
+      );
     }
 
     newValues['serviceNeeded'] = this.state.serviceNeeded;
@@ -89,10 +89,6 @@ class OppItemForm extends Component {
       });
     }
   }
-
-  // ignoreDefault(e){
-  //     if (e.key === 'Enter') e.preventDefault();
-  // }
 
   render() {
     const { handleSubmit } = this.props;

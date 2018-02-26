@@ -1,4 +1,8 @@
-import { SET_PROFILE_VIEW_ID, SET_PROFILE_VIEW_DATA, SET_MY_PROFILE_DATA, SET_CONNECTIONS_STATUS_PRFOFILE, UNSET_CONNECTIONS_STATUS_PRFOFILE } from '../constants/profiles/profileReducerTypes';
+import {
+  SET_PROFILE_VIEW_ID, SET_PROFILE_VIEW_DATA, SET_MY_PROFILE_DATA,
+  SET_CONNECTIONS_STATUS_PRFOFILE, UNSET_CONNECTIONS_STATUS_PRFOFILE,
+  SET_PROFILE_CONNECTION_REQUEST_STATUS
+} from '../constants/profiles/profileReducerTypes';
 
 const initialState = {
   profileViewId: '',
@@ -22,6 +26,10 @@ export default function(state=initialState, action) {
       let profileUnsetConnectionStatus = Object.assign({}, state.profileViewData);
       profileUnsetConnectionStatus['connectionStatus'] = '';
       return { ...state, ...{ profileViewData: profileUnsetConnectionStatus } };
+    case SET_PROFILE_CONNECTION_REQUEST_STATUS:
+      let profileConnectionStatus = Object.assign({}, state.profileViewData);
+      if (profileConnectionStatus.userId === action.userId) profileConnectionStatus['connectionStatus'] = action.status;
+      return { ...state, ...{ profileViewData: profileConnectionStatus } };
     default:
       return state;
   }

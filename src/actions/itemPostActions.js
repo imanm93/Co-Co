@@ -8,14 +8,41 @@ import { SET_NEW_COMMENT_ERROR } from '../constants/items/itemErrorTypes';
 import { SET_POST_ITEM_STATUS } from '../constants/postForm/postFormReducerTypes';
 import { GET_CONNECTION_REQUESTS_URL } from '../constants/connections/connectionEndpoints';
 import { SET_CONNECTION_REQUEST_STATUS } from '../constants/connections/connectionReducerTypes';
+import { SET_PROFILE_CONNECTION_REQUEST_STATUS } from '../constants/profiles/profileReducerTypes';
 import { SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS } from '../constants/items/peopleitems/peopleitemReducerTypes';
 import { SET_REQUESTED_CONNECTION, UNSET_REQUESTED_CONNECTION } from '../constants/connections/connectionReducerTypes';
 import { INCREMENT_LIKES, DECREMENT_LIKES, INCREMENT_INTERESTED, DECREMENT_INTERESTED, SET_NEW_COMMENT, SET_SHRINK_ITEM } from '../constants/items/itemReducerTypes';
 import {
   GET_ITEM_LIKES_URL, GET_ITEM_INTERESTED_URL, GET_ITEM_NOT_INTERESTED_URL, GET_ITEM_COMMENT_URL,
   GET_FILTERED_EVENT_ITEMS_URL, GET_FILTERED_OPP_ITEMS_URL, GET_FILTERED_STATUS_ITEMS_URL,
-  POST_OPPS_EXTERNAL_URL, POST_EVENTS_EXTERNAL_URL
+  POST_OPPS_EXTERNAL_URL, POST_EVENTS_EXTERNAL_URL, PUT_DASHBOARD_ITEMS_SEEN
 } from '../constants/items/itemEndpoints';
+
+
+export function postSeenSpecificItems(token, itemIds) {
+  return function(dispatch) {
+    axios({
+      method: 'PUT',
+      url: PUT_DASHBOARD_ITEMS_SEEN,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      data: {
+        itemIds: itemIds[0].split(',')
+      }
+    })
+    .then(res => {
+      console.log('update notifications');
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_API_ERROR,
+        err: err.response ? err.response : 'There was an error making the call'
+      })
+    })
+  }
+}
 
 export function resetPostItemForm(formName, ctx) {
   return function (dispatch) {
@@ -375,16 +402,16 @@ export function postDelete(token, type, itemId) {
   }
 }
 
-export function postFromItemAcceptConnection(token, userId) {
+export function acceptConnection(token, dispatchType, userId) {
   return function (dispatch) {
+    let action = {};
+    action['type'] = dispatchType;
+    action['userId'] = userId;
+    action['status'] = 'connected';
+    action['error'] = '';
+    dispatch(action);
     dispatch({
       type: SET_CONNECTION_REQUEST_STATUS,
-      userId: userId,
-      status: 'connected',
-      error: ''
-    });
-    dispatch({
-      type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
       userId: userId,
       status: 'connected',
       error: ''
@@ -408,12 +435,9 @@ export function postFromItemAcceptConnection(token, userId) {
           status: 'default',
           error: ''
         });
-        dispatch({
-          type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
-          userId: userId,
-          status: 'initial',
-          error: 'There was a network issue, please try again!'
-        });
+        action['status'] = 'initial';
+        action['error'] = 'There was a network issue, please try again!';
+        dispatch(action);
         dispatch({
           type: SET_API_ERROR,
           error: err
@@ -422,16 +446,16 @@ export function postFromItemAcceptConnection(token, userId) {
   }
 }
 
-export function postFromItemRejectConnection(token, userId) {
+export function rejectConnection(token, dispatchType, userId) {
   return function (dispatch) {
+    let action = {};
+    action['type'] = dispatchType;
+    action['userId'] = userId;
+    action['status'] = 'initial';
+    action['error'] = '';
+    dispatch(action);
     dispatch({
       type: SET_CONNECTION_REQUEST_STATUS,
-      userId: userId,
-      status: 'initial',
-      error: ''
-    });
-    dispatch({
-      type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
       userId: userId,
       status: 'initial',
       error: ''
@@ -455,12 +479,9 @@ export function postFromItemRejectConnection(token, userId) {
           status: 'default',
           error: ''
         });
-        dispatch({
-          type: SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS,
-          userId: userId,
-          status: 'initial',
-          error: 'There was a network issue, please try again!'
-        });
+        action['status'] = 'initial';
+        action['error'] = 'There was a network issue, please try again!';
+        dispatch(action);
         dispatch({
           type: SET_API_ERROR,
           error: err

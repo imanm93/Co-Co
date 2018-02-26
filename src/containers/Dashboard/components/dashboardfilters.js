@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from './dashboardfilters.css';
 import Filters from '../../../components/Filters';
 import * as types from '../../../constants/filters/filterTypes';
-import { Grid, Accordion, Menu, Checkbox } from 'semantic-ui-react';
+import { Grid, Accordion, Menu, Checkbox, Sticky } from 'semantic-ui-react';
 
 class DashboardFilters extends Component {
 

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { Grid, Dropdown, Button } from 'semantic-ui-react';
 
-import NewPostButton from '../../components/NewPostButton';
 import NotificationsBar from '../NotificationsBar';
+import NewPostButton from '../../components/NewPostButton';
 
 class NavBar extends Component {
 
@@ -16,6 +16,10 @@ class NavBar extends Component {
 
   redirectToProfile() {
     this.props.setProfileViewId(this.props.token, this.props.userId, this.props);
+  }
+
+  redirectToOtherProfile(userId) {
+    this.props.setProfileViewId(this.props.token, userId, this.props);
   }
 
   signOut() {
@@ -36,11 +40,15 @@ class NavBar extends Component {
         }} onClick={this.redirectToDashboard.bind(this)}>
         </Grid.Column>
         <Grid.Column width={10}>
-          <NotificationsBar token={this.props.token} history={this.props.history} />
+          <NotificationsBar
+            token={this.props.token}
+            history={this.props.history}
+            onRedirectToOtherProfile={this.redirectToOtherProfile.bind(this)}
+          />
         </Grid.Column>
         <Grid.Column width={1} textAlign='right'>
           <Dropdown
-            className="navbar-btn-my-profile"
+            className="link item navbar-btn-my-profile"
             trigger={
               <span>
                 <div className="profilePic">
@@ -52,7 +60,7 @@ class NavBar extends Component {
                 </div>
               </span>
             }
-            pointing='top'
+            pointing
             icon={null}>
             <Dropdown.Menu>
               <Dropdown.Item text='Profile' icon="user" onClick={this.redirectToProfile.bind(this)} />

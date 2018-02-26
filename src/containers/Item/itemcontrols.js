@@ -5,8 +5,15 @@ class ItemControls extends Component {
 
   render() {
     return(
-      <Grid.Row style={{ padding: '0.25em', backgroundColor: '#F1F1F1', borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px', textAlign: 'left' }}>
-        <Grid.Column width={12}>
+      <Grid.Row style={{
+        padding: '0.25em',
+        textAlign: 'left',
+        backgroundColor: '#F1F1F1',
+        borderBottomLeftRadius: '5px',
+        borderBottomRightRadius: '5px',
+        borderTop: '1px solid #979797'
+      }}>
+        <Grid.Column width={16}>
           {
             !this.props.isLiked &&
             <Button className='item-btn-control' style={{ paddingLeft: 0 }} onClick={() => this.props.onLike()}>
@@ -43,8 +50,6 @@ class ItemControls extends Component {
                 <span style={{ textDecoration: 'underline', fontWeight: 600 }}>Enquire ({this.props.email})</span>
               </a>
           }
-        </Grid.Column>
-        <Grid.Column width={4} style={{ textAlign: 'right' }}>
         </Grid.Column>
       </Grid.Row>
     )

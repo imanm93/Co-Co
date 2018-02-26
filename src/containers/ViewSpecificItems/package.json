@@ -2,5 +2,5 @@
   "name": "ViewSpecificItems",
   "version": "0.0.0",
   "private": true,
-  "main": "./viewSpecificItems.js"
+  "main": "./viewspecificitems.js"
 }

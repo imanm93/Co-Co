@@ -87,3 +87,9 @@
   border-bottom: none !important;
   color: #000000;
 }
+
+.dashboard-filter-controls>div {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 2em;
+}

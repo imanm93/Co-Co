@@ -32,16 +32,23 @@ class NotificationsBar extends Component {
         <Grid style={{ margin: 0 }}>
           <Grid.Column width={14}>
           </Grid.Column>
-          <Grid.Column width={1}>
-            {/*<Popup
+          <Grid.Column>
+            {<Popup
               trigger={
                 <div>
                   <Icon style={{ fontSize: '22px' }} name='user plus' />
-                  {this.props.connectionRequests && this.props.connectionRequests.length > 0 &&
+                  { this.props.connectionRequests && this.props.connectionRequests.filter(cr => !cr.status).length > 0 &&
                     <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
-                      {this.props.connectionRequests.length}
+                      {this.props.connectionRequests.filter(cr => !cr.status).length}
                     </Label>
                   }
+                </div>
+              }
+              header={
+                <div style={{ color: '#FFF', backgroundColor: '#2A2A2A', textAlign: 'center', borderTopRightRadius: '5px', borderTopLeftRadius: '5px', padding: '0.5em' }}>
+                  <span style={{ fontWeight: 'bold' }}>
+                    You have {this.props.connectionRequests.length} new {this.props.connectionRequests.length > 0 ? 'requests!' : 'requests'}
+                  </span>
                 </div>
               }
               content={<ConnectionItemNotifications
@@ -49,36 +56,44 @@ class NotificationsBar extends Component {
                 connectionRequests={this.props.connectionRequests}
                 onAcceptConnection={this.onAcceptConnection.bind(this)}
                 onRejectConnection={this.onRejectConnection.bind(this)}
+                onRedirectToOtherProfile={this.props.onRedirectToOtherProfile}
               />}
+              position='bottom center'
               style={{ padding: 0 }}
               hideOnScroll={true}
               on='click'
-              position='bottom center'
-            />*/}
+            />}
           </Grid.Column>
-          <Grid.Column width={1}>
-            {/*}<Popup
-              trigger={
-                <div>
-                  <Icon style={{ fontSize: '22px' }} name='bell' />
-                  {
-                    this.props.dashItemNotifications && this.props.dashItemNotifications.length > 0 &&
-                    <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
-                      {this.props.dashItemNotifications.length}
-                    </Label>
-                  }
-                </div>
-              }
-              content={<DashboardItemNotifications
+          <Grid.Column>
+            {<Popup
+                trigger={
+                  <div>
+                    <Icon style={{ fontSize: '22px' }} name='bell' />
+                    {
+                      this.props.dashItemNotifications && this.props.dashItemNotifications.length > 0 &&
+                      <Label color='red' circular floating style={{ top: '0.2em', fontSize: '10px', textAlign: 'center' }}>
+                        {this.props.dashItemNotifications.length}
+                      </Label>
+                    }
+                  </div>
+                }
+                header={
+                  <div style={{ color: '#FFF', backgroundColor: '#2A2A2A', textAlign: 'center', borderTopRightRadius: '5px', borderTopLeftRadius: '5px', padding: '0.5em' }}>
+                    <span style={{ fontWeight: 'bold' }}>
+                      Notification Center
+                    </span>
+                  </div>
+                }
+                content={<DashboardItemNotifications
                 loading={this.props.isLoadingNotifications}
                 notifications={this.props.dashItemNotifications}
                 redirectToNotifications={this.redirectToNotification.bind(this)}
               />}
+              position='bottom center'
               style={{ padding: 0 }}
               hideOnScroll={true}
               on='click'
-              position='bottom center'
-            />*/}
+            />}
           </Grid.Column>
         </Grid>
       </Grid.Row>

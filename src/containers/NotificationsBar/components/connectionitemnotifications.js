@@ -14,27 +14,24 @@ class ConnectionItemNotifications extends Component {
               <Loader/>
             </Dimmer>
         }
-        <div style={{
-          color: '#FFF',
-          fontWeight: 600,
-          textAlign: 'center',
-          padding: '0.5em 0em',
-          backgroundColor: '#2A2A',
-          borderTopLeftRadius: '8px',
-          borderTopRightRadius: '8px',
-          borderBottom: '1px solid darkgray'
-        }}>
-          {this.props.connectionRequests.length + ' new people want to connect!'}
-        </div>
-        {
-          this.props.connectionRequests && this.props.connectionRequests.map(request => {
+        { this.props.connectionRequests && this.props.connectionRequests.length > 0 && this.props.connectionRequests.map(request => {
             return <ConnectionItemNotification
-              key={'connectionitem' + request.userId}
               request={request}
+              key={'connectionitem' + request.userId}
               onRejectConnection={this.props.onRejectConnection}
               onAcceptConnection={this.props.onAcceptConnection}
+              onRedirectToOtherProfile={this.props.onRedirectToOtherProfile}
             />
           })
+        }
+        { (!this.props.connectionRequests || this.props.connectionRequests.length === 0) &&
+          <div className='dashboard-notifications-primary-empty'>
+            <div>
+              <div>
+                Refine your profile to attract new connections!
+              </div>
+            </div>
+          </div>
         }
       </div>
     )

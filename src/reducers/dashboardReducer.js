@@ -9,7 +9,7 @@ const initialState = {
   page: 1,
   query: '',
   filters: {},
-  tab: DashboardTabs.ALL_RESULTS
+  tab: DashboardTabs.OPPORTUNITIES
 }
 
 export default function(state=initialState, action) {

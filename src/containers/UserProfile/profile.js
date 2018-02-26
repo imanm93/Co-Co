@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
-import * as actions from '../../actions/profileActions';
+import * as actions from '../../actions';
 import Utils from '../../utils';
 
 import PageContainer from '../../components/PageContainer';
@@ -9,6 +9,8 @@ import NavBar from '../NavBar';
 import ViewProfile from './components/viewprofile';
 import EditProfileForm from './components/editprofileform';
 import portfolioLinkItems from '../../constants/portfolioLinkItems/portfolioLinkItems';
+
+import { SET_PROFILE_CONNECTION_REQUEST_STATUS } from '../../constants/profiles/profileReducerTypes';
 
 class Profile extends Component {
 
@@ -31,6 +33,14 @@ class Profile extends Component {
     this.props.postConnectFromProfile(this.props.token, userId);
   }
 
+  onAcceptConnectionFromProfile(userId) {
+    this.props.acceptConnection(this.props.token, SET_PROFILE_CONNECTION_REQUEST_STATUS, userId);
+  }
+
+  onRejectConnectionFromProfile(userId) {
+    this.props.rejectConnection(this.props.token, SET_PROFILE_CONNECTION_REQUEST_STATUS, userId);
+  }
+
   onSaveProfile(values) {
     values['profileComplete'] = true;
     this.props.putUserProfile(this.props.token, values, this.props.userId, this.props.history);
@@ -51,6 +61,8 @@ class Profile extends Component {
             onConnect={this.onConnect.bind(this)}
             isLoadingProfile={this.props.isLoadingProfile}
             profileViewData={this.props.profile.profileViewData}
+            onAcceptConnectionFromProfile={this.onAcceptConnectionFromProfile.bind(this)}
+            onRejectConnectionFromProfile={this.onRejectConnectionFromProfile.bind(this)}
           />
         }
         { type === 'view' && this.props.userId === this.props.profile.profileViewId &&

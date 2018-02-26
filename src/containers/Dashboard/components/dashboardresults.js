@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Sticky } from 'semantic-ui-react';
 import DashboardItems from './dashboarditems';
 import DashboardFilters from './dashboardfilters';
 
@@ -10,7 +10,7 @@ class DashboardResults extends Component {
       <Grid.Column width={14}>
         <Grid.Row centered>
           <Grid>
-            <Grid.Column width={4}>
+            <Grid.Column width={4} className='dashboard-filter-controls'>
               <DashboardFilters
                 filters={this.props.filters}
                 currentTab={this.props.currentTab}

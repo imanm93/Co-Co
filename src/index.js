@@ -8,8 +8,8 @@ import { history } from './history';
 import App from './app';
 import store from './store';
 
-//import registerServiceWorker from './registerServiceWorker';
-//registerServiceWorker();
+// import registerServiceWorker from './registerServiceWorker';
+// registerServiceWorker();
 
 /**
  * Setup Redux store

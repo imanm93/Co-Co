@@ -24,9 +24,6 @@ class Dashboard extends Component {
     if (!this.props.token) {
       this.redirectToSignIn();
     }
-    else if (!this.props.profileComplete) {
-      // this.redirectToSetup();
-    }
 
     this.props.fetchTopics(this.props.token);
     this.props.fetchSkills(this.props.token);
@@ -168,10 +165,10 @@ class Dashboard extends Component {
       case DashboardTabs.EVENTS:
         filterControls.push({ type: FilterTypes.EVENT_TYPES, filters: this.props.filters.eventTypes });
         break;
-      case DashboardTabs.STATUS:
-        break;
       case DashboardTabs.PEOPLE:
         break;
+      // case DashboardTabs.STATUS:
+      //   break;
       default:
         filterControls.push({ type: FilterTypes.OPP_TYPES, filters: this.props.filters.oppTypes });
         filterControls.push({ type: FilterTypes.EVENT_TYPES, filters: this.props.filters.eventTypes });

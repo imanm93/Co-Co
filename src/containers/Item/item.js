@@ -13,6 +13,8 @@ import PeopleItem from './components/peopleitem';
 import ItemControls from './itemcontrols';
 import ItemComments from './itemcomments';
 
+import { SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS } from '../../constants/items/peopleitems/peopleitemReducerTypes';
+
 class Item extends Component {
 
   onExpand() {
@@ -49,13 +51,8 @@ class Item extends Component {
     this.props.postConnect(this.props.token, this.props.item.user.id);
   }
 
-  onEmail(itemId) {
-    console.log("Email", itemId);
-  }
-
   onEnquire(itemId) {
-    this.props.postEnquire(this.props.token, this.props.item.itemId)
-    console.log("Enquire", itemId);
+    this.props.postEnquire(this.props.token, this.props.item.itemId);
   }
 
   onReport(itemId) {
@@ -63,11 +60,11 @@ class Item extends Component {
   }
 
   onAcceptConnection() {
-    this.props.postFromItemAcceptConnection(this.props.token, this.props.item.user.id);
+    this.props.acceptConnection(this.props.token, SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS, this.props.item.user.id);
   }
 
   onRejectConnection() {
-    this.props.postFromItemRejectConnection(this.props.token, this.props.item.user.id);
+    this.props.rejectConnection(this.props.token, SET_PEOPLE_ITEM_CONNECTION_REQUEST_STATUS, this.props.item.user.id);
   }
 
   onRedirectToProfile() {
@@ -85,13 +82,26 @@ class Item extends Component {
     return (
       <Grid style={itemOuterStyle}>
         {this.props.item.itemType === 'opportunity' &&
-          <OppItem skills={this.props.skills} item={this.props.item} type={ItemTypes.OPP_ITEM} onExpand={this.onExpand.bind(this)} />
+          <OppItem
+            skills={this.props.skills}
+            item={this.props.item}
+            type={ItemTypes.OPP_ITEM}
+            onExpand={this.onExpand.bind(this)}
+            onShrink={this.onShrink.bind(this)}
+          />
         }
         {this.props.item.itemType === 'event' &&
-          <EventItem item={this.props.item} type={ItemTypes.EVENT_ITEM} onExpand={this.onExpand.bind(this)} onShrink={this.onShrink.bind(this)} />
+          <EventItem
+            item={this.props.item}
+            type={ItemTypes.EVENT_ITEM}
+            onExpand={this.onExpand.bind(this)}
+            onShrink={this.onShrink.bind(this)}
+          />
         }
         {this.props.item.itemType === 'post' &&
-          <StatusItem item={this.props.item} />
+          <StatusItem
+            item={this.props.item}
+          />
         }
         {this.props.item.itemType === 'user' &&
           <PeopleItem

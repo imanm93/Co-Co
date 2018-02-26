@@ -1,9 +1,10 @@
-export const ALL_RESULTS = "All Results";
 
-export const PEOPLE = "People";
+// export const ALL_RESULTS = "All Results";
+
+// export const STATUS = "Posts";
 
 export const OPPORTUNITIES = "Opportunities";
 
-export const EVENTS = "Events";
+export const PEOPLE = "People";
 
-export const STATUS = "Posts";
+export const EVENTS = "Events";
